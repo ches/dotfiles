@@ -1,0 +1,19 @@
+[user]
+	name = Ches Martin
+	email = ches.martin@gmail.com
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	interactive = auto
+[alias]
+	ci = commit
+	co = checkout
+	st = status
+	stat = status
+	br = branch
+[merge]
+	summary = true
+[core]
+	excludesfile = /Users/ches/.gitignore
+	editor = mate -w

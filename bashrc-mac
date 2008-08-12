@@ -1,0 +1,96 @@
+export LC_CTYPE=en_US.UTF-8
+
+#
+# Bash history stuff
+#
+export HISTCONTROL=erasedups
+export HISTSIZE=5000
+shopt -s histappend  # make sure hist is kept across sessions
+bind Space:magic-space  # auto-expand history magic
+
+#
+# Path settings
+#
+# $HOME/bin is added in .bash_profile
+#
+# Not used for now with Leopard's stupid path_helper thing...
+#export PATH="/Library/Frameworks/Python.framework/Versions/Current/bin:/usr/local/bin:/usr/local/mysql/bin:$PATH"
+
+#
+# Prompt: green working dir on it's own line
+# without color: PS1="\n\w\n[\u@\h]\$ "
+#
+export PS1="\n\[\033[0;32m\]\w\[\033[0m\]\n[\u@\h]\$ "
+
+#
+# Geez, a GUI editor. You don't even deserve to be editing a bash config
+#
+export EDITOR='mate -w'
+
+#
+# Directory listings in Technicolor
+#
+export CLICOLOR='true'
+export LSCOLORS="gxfxcxdxbxegedabagacad"
+
+#
+# I like to protect myself from myself...
+#
+alias mv="mv -i"
+alias cp="cp -i"
+alias rm="rm -i"
+
+#
+# Other handy aliases
+#
+alias ll="ls -laF"
+alias la='ls -A'
+alias l='ls -CF'
+#alias top="top -X"  # the stupidly named 'compatibility mode' --
+                     # DON'T mimic Jaguar, because Jaguar's top was stupid
+# OS X Leopard's Quick Look feature:
+alias ql='qlmanage -p "$@" >& /dev/null'
+
+alias github="open \`git config -l | grep 'remote.origin.url' | sed -En \
+  's/remote.origin.url=git(@|:\/\/)github.com(:|\/)(.+)\/(.+).git/https:\/\/github.com\/\3\/\4/p'\`"
+
+#
+# 'less' is more
+#
+export LESS="-R"
+export LESSOPEN="|lesspipe.sh %s"
+
+#
+# Man pages seem to end up in stupid places sometimes on OS X
+#
+#export MANPATH=/usr/local/man:$MANPATH
+
+#
+# Startup file for Python's interactive interpreter sets up history and completion
+#
+export PYTHONSTARTUP=$HOME/.pythonrc
+
+#
+# Memcached
+#
+export EVENT_NOKQUEUE=1
+
+#
+# Custom Shake path
+#
+# export NR_SHAKE_LOCATION="/Applications/Digital Media/Video/Shake"
+
+# iTerm Tab and Title Customization and prompt customization
+
+# Put the string " [bash]   hostname::/full/directory/path"
+# in the title bar using the command sequence
+# \[\e]2;[bash]   \h::\]$PWD\[\a\]
+
+# Put the penultimate and current directory 
+# in the iterm tab
+# \[\e]1;\]$(basename $(dirname $PWD))/\W\[\a\]
+
+# Make a simple command-line prompt:  bash-$
+
+# PS1=$'\[\e]2;[bash]   \h::\]$PWD\[\a\]\[\e]1;\]$(basename "$(dirname "$PWD")")/\W\[\a\]\u-\$ '
+ 

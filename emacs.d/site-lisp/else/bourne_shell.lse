@@ -1,0 +1,4198 @@
+!
+! This file was converted from DEC LSE format to ELSE format
+! by Douglas Harter (djharter@aol.com)
+! Send an email to that address with any problems, concerns,
+! or comments.
+!
+! Template Definition for the Bourne Shell
+!
+! V 0.1  Command Line Only 
+!
+! Author: John Ellenberger
+ 
+!
+! Language Definition Section
+!
+
+DELETE LANGUAGE "bourne_shell"
+DEFINE LANGUAGE "bourne_shell" -
+    /VALID_IDENTIFIER_CHARACTERS="0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvxyz" -
+    /INITIAL_STRING="[bourne shell script]" -
+    /PUNCTUATION_CHARACTERS=";,<>&%()|" -
+    /INDENT_SIZE=4 -
+    /VERSION="0.1" -
+
+END DEFINE
+DELETE PLACEHOLDER "AHEAD/BEHIND" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "AHEAD/BEHIND" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Specify either from beginning of file or from end of file." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "+"
+    "-"
+
+END DEFINE
+
+DELETE PLACEHOLDER "AM I" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "AM I" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Who am I logged in as?" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "am I"
+
+END DEFINE
+
+DELETE PLACEHOLDER "AR SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "AR SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options for ar command" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "d"
+    "r"
+    "ru"
+    "t"
+    "p"
+    "x"
+    "v"
+    "c"
+
+END DEFINE
+
+DELETE PLACEHOLDER ARCHIVE -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER ARCHIVE -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Files condensed to be stored as records." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR=" " -
+    /TYPE=TERMINAL -
+
+    "The name of a bundle of files or just one file that has been stored"
+    "in condensed form as an archive."
+
+END DEFINE
+
+DELETE PLACEHOLDER "ARCHIVE FILE" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "ARCHIVE FILE" - 
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=filename
+
+END DEFINE
+DELETE PLACEHOLDER ARGUMENT -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER ARGUMENT -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="any non-white string" -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR=" " -
+    /TYPE=MENU -
+
+    "string"/PLACEHOLDER
+    "shell parameter"/PLACEHOLDER
+
+END DEFINE
+
+DELETE PLACEHOLDER "ASSEMBLER-LOADER OUTPUT" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "ASSEMBLER-LOADER OUTPUT" - 
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=filename
+
+END DEFINE
+DELETE PLACEHOLDER BACKSPACE -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER BACKSPACE -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Select style of delay for backspaces." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "bs0"
+    "bs1"
+
+END DEFINE
+
+DELETE PLACEHOLDER "BAUD RATE" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "BAUD RATE" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Baud rate" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "50"
+    "75"
+    "110"
+    "134"
+    "150"
+    "200"
+    "300"
+    "600"
+    "1200"
+    "1800"
+    "2400"
+    "4800"
+    "9600"
+
+END DEFINE
+
+DELETE PLACEHOLDER "BIBLIO FILE" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "BIBLIO FILE" - 
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=filename
+
+END DEFINE
+DELETE PLACEHOLDER "BOURNE SHELL SCRIPT" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "BOURNE SHELL SCRIPT" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Bourne Shell Script" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "#! /bin/sh -[shell options]"
+    "[what description line]"
+    "#"
+    "{command line}..."
+
+END DEFINE
+
+DELETE PLACEHOLDER "C PROGRAM" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "C PROGRAM" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="filename where C program exists" -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR=" " -
+    /TYPE=TERMINAL -
+
+    "Filename ending in '.c' where C program to be compiled exists."
+
+END DEFINE
+
+DELETE PLACEHOLDER CARRIAGE-RETURN -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER CARRIAGE-RETURN -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Select style of delay for carriage return." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "cr0"
+    "cr1"
+    "cr2"
+    "cr3"
+
+END DEFINE
+
+DELETE PLACEHOLDER "CASE ARM" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "CASE ARM" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="For multiple statements in for loop, case arm is used of the form pattern) command-list" -" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "{pattern}) [command line]... ;;"
+
+END DEFINE
+
+DELETE PLACEHOLDER "CAT SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "CAT SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="options for cat command" -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "u"
+
+END DEFINE
+
+DELETE PLACEHOLDER "CC SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "CC SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options included when compiling C program(s)." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "c"
+    "g"
+    "w"
+    "p"
+    "O"
+    "R"
+    "S"
+    "E"
+    "C"
+    "o{output filename}"
+    "D{constant name}={constant value}"
+    "U{constant name}"
+    "I{dirname}"
+
+END DEFINE
+
+DELETE PLACEHOLDER CHARACTER -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER CHARACTER -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Any non-white character on the keyboard." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=TERMINAL -
+
+    "Any key corressponding to characters in ASCII that are non-white"
+    "on the keyboard."
+
+END DEFINE
+
+DELETE PLACEHOLDER "CHARACTERS IGNORED" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "CHARACTERS IGNORED" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="First specified number of characters is ignored." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "+{number}"
+
+END DEFINE
+
+DELETE PLACEHOLDER "COL SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "COL SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options that suppress line feed features." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "b"
+    "f"
+    "x"
+
+END DEFINE
+
+DELETE PLACEHOLDER COLUMN -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER COLUMN -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Choose columns suppressed." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "1"
+    "2"
+    "3"
+
+END DEFINE
+
+DELETE PLACEHOLDER "COLUMN-PAGE OUTPUT" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "COLUMN-PAGE OUTPUT" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Column output at certain number or start at certain page." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR=" " -
+    /TYPE=MENU -
+
+    "-{number}"
+    "+{number}"
+
+END DEFINE
+
+DELETE PLACEHOLDER "COMMAND GROUP" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "COMMAND GROUP" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Ways to group a set of commands." -
+    /DUPLICATION=VERTICAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "within braces"/PLACEHOLDER
+    "within parentheses"/PLACEHOLDER
+
+END DEFINE
+
+DELETE PLACEHOLDER "COMMAND LINE" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "COMMAND LINE" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Shell Commands" -
+    /DUPLICATION=VERTICAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "command group"/PLACEHOLDER
+    "shell command"/PLACEHOLDER
+    "variable assignment"/PLACEHOLDER
+    "commonly-used UNIX command"/PLACEHOLDER
+    "UNIX command for document prep"/PLACEHOLDER
+    "Misc UNIX command"/PLACEHOLDER
+
+END DEFINE
+
+DELETE PLACEHOLDER "COMMAND LIST" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "COMMAND LIST" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="List of Pipelines separated by ';' or a new line" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    ";{command line}"
+
+END DEFINE
+
+DELETE PLACEHOLDER "COMMAND SUBSTITUTION" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "COMMAND SUBSTITUTION" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Substitute value for command's result" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "`{command}`"
+
+END DEFINE
+
+DELETE PLACEHOLDER "COMMONLY-USED UNIX COMMAND" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "COMMONLY-USED UNIX COMMAND" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Choose from the most commonly-used UNIX commands." -
+    /DUPLICATION=VERTICAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "at" /TOKEN
+    "cat" /TOKEN
+    "cc" /TOKEN
+    "chmod" /TOKEN
+    "cp" /TOKEN
+    "date" /TOKEN
+    "echo" /TOKEN
+    "expr" /TOKEN
+    "f77" /TOKEN
+    "find" /TOKEN
+    "grep" /TOKEN
+    "fgrep" /TOKEN
+    "egrep" /TOKEN
+    "kill" /TOKEN
+    "lex" /TOKEN
+    "ln" /TOKEN
+    "lpr" /TOKEN
+    "ls" /TOKEN
+    "mail" /TOKEN
+    "make" /TOKEN
+    "man" /TOKEN
+    "mesg" /TOKEN
+    "mkdir" /TOKEN
+    "mv" /TOKEN
+    "nohup" /TOKEN
+    "od" /TOKEN
+    "passwd" /TOKEN
+    "pr" /TOKEN
+    "ps" /TOKEN
+    "pwd" /TOKEN
+    "rm" /TOKEN
+    "rmdir" /TOKEN
+    "sh" /TOKEN
+    "sleep" /TOKEN
+    "stty" /TOKEN
+    "tar" /TOKEN
+    "test" /TOKEN
+    "time" /TOKEN
+    "wc" /TOKEN
+    "who" /TOKEN
+    "write" /TOKEN
+    "yacc" /TOKEN
+
+END DEFINE
+
+DELETE PLACEHOLDER "CONSTANT NAME" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "CONSTANT NAME" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Constant's name being defined/initial value revoked" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=TERMINAL -
+
+    "Name of the constant being defined or revised."
+
+END DEFINE
+
+DELETE PLACEHOLDER "CONSTANT VALUE" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "CONSTANT VALUE" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Value being given to constant" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=TERMINAL -
+
+    "Value assigned to the constant"
+
+END DEFINE
+
+DELETE PLACEHOLDER "CONVERSION TYPE" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "CONVERSION TYPE" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Type of conversion used by dd" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "ascii"
+    "ebcdic"
+    "block"
+    "unblock"
+    "lcase"
+    "ucase"
+    "swab"
+    "noerror"
+    "sync"
+    "...,..."
+
+END DEFINE
+
+DELETE PLACEHOLDER DAY -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER DAY -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Optional day of the week or month specification" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=TERMINAL -
+
+    "Month name followed by day number or a day of the week."
+
+END DEFINE
+
+DELETE PLACEHOLDER "DESTINATION FILE" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "DESTINATION FILE" - 
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=filename
+
+END DEFINE
+DELETE PLACEHOLDER "DIFF SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "DIFF SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options for diff" -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "e"
+    "h"
+    "b"
+
+END DEFINE
+
+DELETE PLACEHOLDER DIRNAME -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER DIRNAME -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="input or output for command" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=TERMINAL -
+
+    "Name of directory used for command"
+
+END DEFINE
+
+DELETE PLACEHOLDER "DOCUMENT FILE" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "DOCUMENT FILE" - 
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=filename
+
+END DEFINE
+DELETE PLACEHOLDER "DRIVE NUMBER" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "DRIVE NUMBER" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Any number between 0 and 8 inclusive." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=TERMINAL -
+
+    "Any number between 0 and 8 inclusive. Each number is associated"
+    "with corressponding drive."
+
+END DEFINE
+
+DELETE PLACEHOLDER "EGREP SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "EGREP SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options for egrep command" -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "c"
+    "e {regular expression}"
+    "f {filename}"
+    "h"
+    "l"
+    "n"
+    "s"
+    "v"
+
+END DEFINE
+
+DELETE PLACEHOLDER ELIF -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER ELIF -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Else and next if-statement combined" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "elif {command line}"
+    "   then {command line}..."
+    "   [else predicates]"
+
+END DEFINE
+
+DELETE PLACEHOLDER "ELSE PREDICATES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "ELSE PREDICATES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Statements done if command-condition is false" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "else {command line}..." /TOKEN
+    "elif"/PLACEHOLDER
+
+END DEFINE
+
+DELETE PLACEHOLDER ENTRY-FOR-EACH-FILE -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER ENTRY-FOR-EACH-FILE -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Separate entry for each file." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "-a"
+
+END DEFINE
+
+DELETE PLACEHOLDER "EQUALITY OPERATOR" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "EQUALITY OPERATOR" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Any of the equality, inequality operators." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "<"
+    ">"
+    "<="
+    ">="
+    "="
+    "!="
+
+END DEFINE
+
+DELETE PLACEHOLDER "EXECUTE FILE" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "EXECUTE FILE" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="a script file is executed." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    ". {file-to-be-executed}"
+
+END DEFINE
+
+DELETE PLACEHOLDER EXIT-MESSAGE -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER EXIT-MESSAGE -
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=string
+
+END DEFINE
+DELETE PLACEHOLDER EXPRESSION -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER EXPRESSION -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Arithmetic expression" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "{expression} | {expression}"
+    "{expression} & {expression}"
+    "{expression} {equality operator} {expression}"
+    "{expression} + {expression}"
+    "{expression} - {expression}"
+    "{expression} * {expression}"
+    "{expression} / {expression}"
+    "{expression} % {expression}"
+    "{expression} : {expression}"
+    "({expression})"
+    "{variable name}"
+    "{number}"
+
+END DEFINE
+
+DELETE PLACEHOLDER "F77 SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "F77 SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options when compiling Fortran program(s)." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "c"
+    "g"
+    "w"
+    "p"
+    "O"
+    "S"
+    "o{output file}"
+    "onetrip"
+    "u"
+    "C"
+    "F"
+    "E {string}"
+    "R {string}"
+
+END DEFINE
+
+DELETE PLACEHOLDER "FGREP SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "FGREP SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options for fgrep command" -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "c"
+    "e {string}"
+    "f {filename}"
+    "h"
+    "i"
+    "l"
+    "n"
+    "s"
+    "v"
+    "x"
+
+END DEFINE
+
+DELETE PLACEHOLDER "FIELDS IGNORED" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "FIELDS IGNORED" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Number of fields (string of non-blank characters) from the beginning are ignored." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "-{number}"
+
+END DEFINE
+
+DELETE PLACEHOLDER "FILE SYSTEM" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "FILE SYSTEM" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="file system" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=TERMINAL -
+
+    "Specified system of files."
+
+END DEFINE
+
+DELETE PLACEHOLDER "FILE TYPE" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "FILE TYPE" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="File types." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "b"
+    "c"
+    "d"
+    "f"
+
+END DEFINE
+
+DELETE PLACEHOLDER FILE-ACCESS-MODE -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER FILE-ACCESS-MODE -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="File Protection" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "[who permitted]{op-perm}..."
+
+END DEFINE
+
+DELETE PLACEHOLDER FILE-TO-BE-EXECUTED -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER FILE-TO-BE-EXECUTED -
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=filename
+
+END DEFINE
+DELETE PLACEHOLDER FILE-TO-BE-PRINTED -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER FILE-TO-BE-PRINTED -
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=filename
+
+END DEFINE
+DELETE PLACEHOLDER FILE-TO-COPY-FROM -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER FILE-TO-COPY-FROM -
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=filename
+
+END DEFINE
+DELETE PLACEHOLDER FILE-TO-COPY-TO -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER FILE-TO-COPY-TO -
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=filename
+
+END DEFINE
+DELETE PLACEHOLDER FILENAME -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER FILENAME -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="input or output file for command" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR=" " -
+    /TYPE=TERMINAL -
+
+    "Name of file used for command.  The file pattern characters '*',"
+    "'?', and '[...]' may be used to represent regular-expression"
+    "symbols that allow easier character substitution."
+
+END DEFINE
+
+DELETE PLACEHOLDER "FILES OR DIRECTORIES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "FILES OR DIRECTORIES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="filename or directory name" -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR=" " -
+    /TYPE=TERMINAL -
+
+    "Filename or Directory name."
+
+END DEFINE
+
+DELETE PLACEHOLDER "FIND SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "FIND SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options for find command" -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "name {filename}"
+    "perm {octal number}"
+    "type {file type}"
+    "links {number}"
+    "user {username}"
+    "group {group name}"
+    "size {number}"
+    "inum {number}"
+    "atime {number}"
+    "mtime {number}"
+    "exec {command line}"
+    "ok {command line}"
+    "print"
+    "newer {filename}"
+
+END DEFINE
+
+DELETE PLACEHOLDER FIRST-IN-FIRST-OUT -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER FIRST-IN-FIRST-OUT -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="-r option causes first in/first out order for messages." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "-r "
+
+END DEFINE
+
+DELETE PLACEHOLDER "FIRST-OR-SECOND FILE" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "FIRST-OR-SECOND FILE" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Either number 1 or number 2." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "1"
+    "2"
+
+END DEFINE
+
+DELETE PLACEHOLDER FORM-FEED -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER FORM-FEED -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Select style of delay for form-feeds." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "ff0"
+    "ff1"
+
+END DEFINE
+
+DELETE PLACEHOLDER "FORTRAN PROGRAM" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "FORTRAN PROGRAM" - 
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=filename
+
+END DEFINE
+DELETE PLACEHOLDER FR -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER FR -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Either forward or reverse printing." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "f"
+    "r"
+
+END DEFINE
+
+DELETE PLACEHOLDER "FUNCTION KEY" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "FUNCTION KEY" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Command used to allow file(s) to be archived." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "r"
+    "x"
+    "t"
+    "u"
+    "c"
+    "o"
+    "p"
+
+END DEFINE
+
+DELETE PLACEHOLDER "FUNCTION MODIFIER" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "FUNCTION MODIFIER" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Additional options as functions for archiver." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "{drive number}"
+    "v"
+    "w"
+    "f {archive}"
+    "b {number}"
+    "l"
+    "m"
+
+END DEFINE
+
+DELETE PLACEHOLDER GRAMMAR -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER GRAMMAR -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Definition of grammar used by Yacc." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=TERMINAL -
+
+    "A context-free grammar that may be ambiguous. Precedence rules"
+    "must be included in order to break ambiguities."
+
+END DEFINE
+
+DELETE PLACEHOLDER "GREP SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "GREP SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options for grep command" -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "c"
+    "e {regular expression}"
+    "f {filename}"
+    "h"
+    "i"
+    "l"
+    "n"
+    "s"
+    "v"
+
+END DEFINE
+
+DELETE PLACEHOLDER "GROUP NAME" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "GROUP NAME" - 
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=string
+
+END DEFINE
+DELETE PLACEHOLDER "INPUT FILE" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "INPUT FILE" - 
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=filename
+
+END DEFINE
+DELETE PLACEHOLDER "INPUT STRING" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "INPUT STRING" - 
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=string
+
+END DEFINE
+DELETE PLACEHOLDER INPUT-OUTPUT -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER INPUT-OUTPUT -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Required input file followed by an optional output file." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "{input file} [output file]"
+
+END DEFINE
+
+DELETE PLACEHOLDER INPUT-TO-SH -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER INPUT-TO-SH -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="File containing commands to be run. Offsets default." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=TERMINAL -
+
+    "File containing commands to be run. If this option is used,"
+    "the default set of commands (cd to current directory) is offset."
+
+END DEFINE
+
+DELETE PLACEHOLDER INTEGER -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER INTEGER -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Any negative or positive whole number." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR=" " -
+    /TYPE=TERMINAL -
+
+    "Any negative or positive whole number."
+
+END DEFINE
+
+DELETE PLACEHOLDER "JOIN LIST ELEMENT" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "JOIN LIST ELEMENT" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="list specifying fields to be written out in output lines." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR=" " -
+    /TYPE=NONTERMINAL -
+
+    "{first-or-second file} {number-of-fields-skipped}"
+
+END DEFINE
+
+DELETE PLACEHOLDER "JOIN SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "JOIN SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options for join command" -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "a {first-or-second file}"
+    "e {string}"
+    "j {first-or-second file} {number-of-fields-skipped}"
+    "o {join list element}..."
+    "t {character}"
+
+END DEFINE
+
+DELETE PLACEHOLDER LBC -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER LBC -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Units ahead/behind specified by lines,blocks,or characterrs." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "l"
+    "b"
+    "c"
+
+END DEFINE
+
+DELETE PLACEHOLDER LEFT-MAR-NOT-INDENTED -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER LEFT-MAR-NOT-INDENTED -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="-n option allows left margin not to be indented as normal." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "-n"
+
+END DEFINE
+
+DELETE PLACEHOLDER "LESSON NUMBER" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "LESSON NUMBER" - 
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=number
+
+END DEFINE
+DELETE PLACEHOLDER "LEX PROGRAM" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "LEX PROGRAM" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="File containing a set of patterns and actions to be done when they are encountered." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=TERMINAL -
+
+    "File containing set of regular expressions with set of actions"
+    "written in C associated with them."
+
+END DEFINE
+
+DELETE PLACEHOLDER "LEX SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "LEX SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options for lex command" -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "t"
+    "v"
+    "n"
+    "f"
+
+END DEFINE
+
+DELETE PLACEHOLDER LINKNAME -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER LINKNAME -
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=string
+
+END DEFINE
+DELETE PLACEHOLDER "LINT SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "LINT SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options for lint command" -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "a"
+    "b"
+    "c"
+    "h"
+    "n"
+    "p"
+    "u"
+    "v"
+    "x"
+
+END DEFINE
+
+DELETE PLACEHOLDER "LOOK SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "LOOK SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options for look command." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "d"
+    "f"
+
+END DEFINE
+
+DELETE PLACEHOLDER "LPR SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "LPR SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options for lpr command." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=TERMINAL -
+
+    "Options for lpr depend upon the type of line printer being used."
+
+END DEFINE
+
+DELETE PLACEHOLDER "LS SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "LS SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="options for ls command" -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "l"
+    "t"
+    "a"
+    "s"
+    "d"
+    "r"
+    "u"
+    "c"
+    "i"
+    "f"
+    "g"
+
+END DEFINE
+
+DELETE PLACEHOLDER "MAIL-FILE OPTION" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "MAIL-FILE OPTION" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="-f option causes named file to be printed as if it were a mail file." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "-f {filename}"
+
+END DEFINE
+
+DELETE PLACEHOLDER "MAKE SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "MAKE SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options for make utility." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "i"
+    "k"
+    "n"
+    "t"
+    "s"
+
+END DEFINE
+
+DELETE PLACEHOLDER MAKE-FILE -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER MAKE-FILE -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="File(s) containing script program that maintains program groups. " -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR=" " -
+    /TYPE=NONTERMINAL -
+
+    "-f {filename}"
+
+END DEFINE
+
+DELETE PLACEHOLDER "MAN SECTION" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "MAN SECTION" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Section number specific to title in manual." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "{number}"
+
+END DEFINE
+
+DELETE PLACEHOLDER "MAN TITLE" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "MAN TITLE" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Set of manual pages to be printed." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR=" " -
+    /TYPE=NONTERMINAL -
+
+    "{string}"
+
+END DEFINE
+
+DELETE PLACEHOLDER "MESG DENY" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "MESG DENY" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Forbids messages by revoking non-user write permission on user's terminal." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "n"
+
+END DEFINE
+
+DELETE PLACEHOLDER "MESG REINSTATE" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "MESG REINSTATE" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Reinstates write permission to non-users on terminal." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "y"
+
+END DEFINE
+
+DELETE PLACEHOLDER "MISC UNIX COMMAND" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "MISC UNIX COMMAND" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="One of the less commonly-used UNIX commands." -
+    /DUPLICATION=VERTICAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "ar" /TOKEN
+    "awk" /TOKEN
+    "basename" /TOKEN
+    "cal" /TOKEN
+    "calender" /TOKEN
+    "cb" /TOKEN
+    "cmp" /TOKEN
+    "comm" /TOKEN
+    "crypt" /TOKEN
+    "dd" /TOKEN
+    "df" /TOKEN
+    "diff" /TOKEN
+    "du" /TOKEN
+    "join" /TOKEN
+    "learn" /TOKEN
+    "lint" /TOKEN
+    "look" /TOKEN
+    "lorder" /TOKEN
+    "nice" /TOKEN
+    "nm" /TOKEN
+    "prof" /TOKEN
+    "ranlib" /TOKEN
+    "size" /TOKEN
+    "sort" /TOKEN
+    "strip" /TOKEN
+    "tabs" /TOKEN
+    "tail" /TOKEN
+    "touch" /TOKEN
+    "tr" /TOKEN
+    "tsort" /TOKEN
+    "uniq" /TOKEN
+    "units" /TOKEN
+    "uucp" /TOKEN
+
+END DEFINE
+
+DELETE PLACEHOLDER MONTH -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER MONTH -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Calender will be printed on the specified month of the year" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=TERMINAL -
+
+    "Month of the year on which the calender will be printed."
+
+END DEFINE
+
+DELETE PLACEHOLDER "MORE INFO" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "MORE INFO" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Specific information needed about a subject" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "{subject} [subject specific]"
+
+END DEFINE
+
+DELETE PLACEHOLDER MULTIPLE-SORT-KEY-OPTIONS -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER MULTIPLE-SORT-KEY-OPTIONS -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="When earlier keys are equal, must specify how to compare later keys." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR=" " -
+    /TYPE=MENU -
+
+    "-c"
+    "-m"
+    "-o"
+    "-T"
+    "-u"
+
+END DEFINE
+
+DELETE PLACEHOLDER NEWLINE -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER NEWLINE -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Select style of delay for newline." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "nl0"
+    "nl1"
+    "nl2"
+    "nl3"
+
+END DEFINE
+
+DELETE PLACEHOLDER "NM SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "NM SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options for nm command." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "a"
+    "g"
+    "n"
+    "o"
+    "p"
+    "r"
+    "u"
+
+END DEFINE
+
+DELETE PLACEHOLDER NO-EFFECT -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER NO-EFFECT -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="The command does nothing and returns zero exit status." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    ":"
+
+END DEFINE
+
+DELETE PLACEHOLDER NO-NEW-FILE -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER NO-NEW-FILE -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="-c option : Do not create a file if file does not exist." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "-c"
+
+END DEFINE
+
+DELETE PLACEHOLDER NO-NEWLINE -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER NO-NEWLINE -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="-n option : No new line is added to the output." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "-n"
+
+END DEFINE
+
+DELETE PLACEHOLDER "NROFF SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "NROFF SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options for nroff command." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "T {terminal}"
+    "e"
+    "h"
+    "n {number}"
+    "s {number}"
+    "i"
+    "o {page list}"
+    "r {character}{number}"
+
+END DEFINE
+
+DELETE PLACEHOLDER NUMBER -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER NUMBER -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Any whole number" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=TERMINAL -
+
+    "Any whole number."
+
+END DEFINE
+
+DELETE PLACEHOLDER "NUMBER BYTES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "NUMBER BYTES" - 
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=number
+
+END DEFINE
+DELETE PLACEHOLDER "NUMBER FILES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "NUMBER FILES" - 
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=number
+
+END DEFINE
+DELETE PLACEHOLDER "NUMBER RECORDS" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "NUMBER RECORDS" - 
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=number
+
+END DEFINE
+DELETE PLACEHOLDER "NUMBER SECONDS" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "NUMBER SECONDS" - 
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=number
+
+END DEFINE
+DELETE PLACEHOLDER NUMBER-OF-CHARACTERS-SKIPPED -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER NUMBER-OF-CHARACTERS-SKIPPED -
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=number
+
+END DEFINE
+DELETE PLACEHOLDER NUMBER-OF-FIELDS-SKIPPED -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER NUMBER-OF-FIELDS-SKIPPED -
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=number
+
+END DEFINE
+DELETE PLACEHOLDER NUMBER-OF-LEVELS -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER NUMBER-OF-LEVELS -
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=number
+
+END DEFINE
+DELETE PLACEHOLDER "OBJECT FILE" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "OBJECT FILE" - 
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=filename
+
+END DEFINE
+DELETE PLACEHOLDER "OBJECT-PROFILE FILES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "OBJECT-PROFILE FILES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Named profile file is correlated to specified object files." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "{object file} [profile file]..."
+
+END DEFINE
+
+DELETE PLACEHOLDER "OCTAL NUMBER" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "OCTAL NUMBER" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Octal number" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=TERMINAL -
+
+    "Whole number in base 8."
+
+END DEFINE
+
+DELETE PLACEHOLDER "OD SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "OD SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Formatting options for od command" -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "b"
+    "c"
+    "d"
+    "o"
+    "x"
+    "D"
+    "O"
+    "X"
+
+END DEFINE
+
+DELETE PLACEHOLDER ONE-WORD-PER-LINE -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER ONE-WORD-PER-LINE -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="-w option : output is a list of words, one word per line." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "-w "
+
+END DEFINE
+
+DELETE PLACEHOLDER OP-PERM -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER OP-PERM -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="The combination of an operator and the type of file access." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR=" " -
+    /TYPE=NONTERMINAL -
+
+    "{operator}{permission}"
+
+END DEFINE
+
+DELETE PLACEHOLDER OPERATOR -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER OPERATOR -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="To add/subtract/assign permission to file(s)" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "+"
+    "-"
+    "="
+
+END DEFINE
+
+DELETE PLACEHOLDER OPTION-VALUE -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER OPTION-VALUE -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options that incorporate different conversions." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR=" " -
+    /TYPE=MENU -
+
+    "if={filename}"
+    "of={filename}"
+    "ibs={number bytes}"
+    "obs={number bytes}"
+    "bs={number bytes}"
+    "cbs={number bytes}"
+    "skip={number records}"
+    "files={number files}"
+    "seek={number records}"
+    "count={number records}"
+    "conv={conversion type}"
+
+END DEFINE
+
+DELETE PLACEHOLDER "OUTPUT FILE" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "OUTPUT FILE" - 
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=filename
+
+END DEFINE
+DELETE PLACEHOLDER "OUTPUT FILENAME" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "OUTPUT FILENAME" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Executable file that allows program to run." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=TERMINAL -
+
+    "Executable file that allows the C program to run."
+
+END DEFINE
+
+DELETE PLACEHOLDER OVERRIDE-MS -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER OVERRIDE-MS -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="-mm option : deroff formatting header files are excluded." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "-mm"
+
+END DEFINE
+
+DELETE PLACEHOLDER "PAGE LIST" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "PAGE LIST" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Range of page numbers to be printed." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "{number}-{number}"
+
+END DEFINE
+
+DELETE PLACEHOLDER PASSWORD -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER PASSWORD -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Key to allow encryption or decryption." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=TERMINAL -
+
+    "Password serves as a key to particular encryption/decryption method."
+
+END DEFINE
+
+DELETE PLACEHOLDER PATHNAME -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER PATHNAME -
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=string
+
+END DEFINE
+DELETE PLACEHOLDER PATTERN -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER PATTERN -
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER="regular expression"
+
+END DEFINE
+DELETE PLACEHOLDER "PATTERN OUTPUT" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "PATTERN OUTPUT" - 
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=string
+
+END DEFINE
+DELETE PLACEHOLDER "PATTERN SOURCE" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "PATTERN SOURCE" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Input file containing patterns to be matched." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "-f [input file]"
+
+END DEFINE
+
+DELETE PLACEHOLDER PERMISSION -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER PERMISSION -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Allow read/write/execute/saving text/user identification." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=TERMINAL -
+
+    "Any combination of 'r' (for read), 'w' (for write), 'x' (for execute),"
+    "'s' (for set user/group-id), and 't' (for saving text)."
+
+END DEFINE
+
+DELETE PLACEHOLDER "PIPES LISTS" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "PIPES LISTS" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="create a pipe or a command list" -
+    /DUPLICATION=VERTICAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "| [command line]"
+    "&& [command line]"
+    "|| [command line]"
+
+END DEFINE
+
+DELETE PLACEHOLDER POSNAME -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER POSNAME -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Used when key r is used to replace files before or after posname" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=TERMINAL -
+
+    "Location specified when key r is used to replace files before"
+    "or after this position in the archive."
+
+END DEFINE
+
+DELETE PLACEHOLDER "PR SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "PR SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options for pr command." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "h"
+    "w {number}"
+    "f"
+    "l {number}"
+    "t"
+    "s [character]"
+    "m"
+
+END DEFINE
+
+DELETE PLACEHOLDER "PRINT BYTE" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "PRINT BYTE" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="-l option to print byte number of differing place between files." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "-l"
+
+END DEFINE
+
+DELETE PLACEHOLDER "PRINT NOTHING" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "PRINT NOTHING" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="-s option : If files are different then nothing is printed." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "-s"
+
+END DEFINE
+
+DELETE PLACEHOLDER "PRIORITY NUMBER" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "PRIORITY NUMBER" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Amount of priority given to command." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "-{number}"
+
+END DEFINE
+
+DELETE PLACEHOLDER "PROCESS ID" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "PROCESS ID" - 
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=number
+
+END DEFINE
+DELETE PLACEHOLDER "PROF SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "PROF SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options for prof command." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "a"
+    "l"
+    "n"
+    "s"
+    "z"
+
+END DEFINE
+
+DELETE PLACEHOLDER "PROFILE FILE" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "PROFILE FILE" - 
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=filename
+
+END DEFINE
+DELETE PLACEHOLDER "PS OPTIONS" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "PS OPTIONS" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options for ps command." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "a"
+    "g"
+    "l"
+    "x"
+
+END DEFINE
+
+DELETE PLACEHOLDER "PTX SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "PTX SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options for ptx command." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "f"
+    "t"
+    "w {number}"
+    "g {number}"
+    "o only"
+    "i ignore"
+    "b break"
+    "r"
+
+END DEFINE
+
+DELETE PLACEHOLDER REDIRECT -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER REDIRECT -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="i/o redirection operators" -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR=" " -
+    /TYPE=MENU -
+
+    " [stream-num]> {filename}"
+    " [stream-num]< {filename}"
+    " [stream-num]>> {filename}"
+    " [stream-num]<< {string}"
+    " [stream-num]>& {req-stream-num}"
+    " [stream-num]<& {req-stream-num}"
+
+END DEFINE
+
+DELETE PLACEHOLDER "REFER SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "REFER SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options for refer command." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "a [number]"
+    "b"
+    "c {string}"
+    "e"
+    "k {reference data label}"
+    "l {number},{number}"
+    "p"
+    "n"
+    "s {string}"
+
+END DEFINE
+
+DELETE PLACEHOLDER "REFERENCE DATA LABEL" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "REFERENCE DATA LABEL" - 
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=string
+
+END DEFINE
+DELETE PLACEHOLDER "REGULAR EXPRESSION" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "REGULAR EXPRESSION" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="regular expression" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=TERMINAL -
+
+    "Regular Expression is a pattern that denotes a set of strings"
+    "by using the following notation:"
+    "\c    A \ followed by a single character matches that character"
+    "^$    The character ^($) matches the begining (end) of a line"
+    ".     A . matches any character"
+    "c     A single character (matches that character"
+    "[...] A string enclosed in [] matches any character from that string."
+    "      Ranges may be abbreviated: a-z0-9."
+    "e*    An expression followed by * (+,?) matches 0 or more"
+    "       (1 or more, 0 or 1) occurances of the expression"
+    "e1 e2 Two regular expressions concatenated match e1 followed by e2"
+
+END DEFINE
+
+DELETE PLACEHOLDER "RENAME OR MOVE" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "RENAME OR MOVE" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Choice of either renaming a file or moving some into a directory." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "{filename} {filename}"
+    "{filename}... {dirname}"
+
+END DEFINE
+
+DELETE PLACEHOLDER REQ-STREAM-NUM -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER REQ-STREAM-NUM -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="stream number to duplicate" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=TERMINAL -
+
+    "This required stream number indicates which i-o stream to duplicate"
+    "and send to standard in or standard out."
+
+END DEFINE
+
+DELETE PLACEHOLDER "RM SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "RM SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options for rm command." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "f"
+    "r"
+    "i"
+
+END DEFINE
+
+DELETE PLACEHOLDER "SCRIPT DESCRIPTION" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "SCRIPT DESCRIPTION" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="What shell script actually does" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=TERMINAL -
+
+    "Tell what hat shell script actually does"
+
+END DEFINE
+
+DELETE PLACEHOLDER "SCRIPT NAME" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "SCRIPT NAME" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Name of shell script" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=TERMINAL -
+
+    "Give the shell script a name"
+
+END DEFINE
+
+DELETE PLACEHOLDER "SET SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "SET SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options for set command." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "e"
+    "k [variable name]..."
+    "n"
+    "t"
+    "u"
+    "v"
+    "x"
+    " "
+
+END DEFINE
+
+DELETE PLACEHOLDER "SH SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "SH SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options for sh command." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "c {filename}"
+    "s"
+    "i"
+
+END DEFINE
+
+DELETE PLACEHOLDER "SHELL COMMAND" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "SHELL COMMAND" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Built-in shell command" -
+    /DUPLICATION=VERTICAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "break" /TOKEN
+    "case" /TOKEN
+    "continue" /TOKEN
+    "cd" /TOKEN
+    "eval" /TOKEN
+    "exec" /TOKEN
+    "execute file"/PLACEHOLDER
+    "exit" /TOKEN
+    "export" /TOKEN
+    "for" /TOKEN
+    "if" /TOKEN
+    "login" /TOKEN
+    "newgrp" /TOKEN
+    "no-effect"/PLACEHOLDER
+    "read" /TOKEN
+    "readonly" /TOKEN
+    "set" /TOKEN
+    "shift" /TOKEN
+    "times" /TOKEN
+    "trap" /TOKEN
+    "umask" /TOKEN
+    "until" /TOKEN
+    "wait" /TOKEN
+    "while" /TOKEN
+
+END DEFINE
+
+DELETE PLACEHOLDER "SHELL OPTIONS" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "SHELL OPTIONS" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options for running the shell" -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "s"
+    "i"
+
+END DEFINE
+
+DELETE PLACEHOLDER "SHELL PARAMETER" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "SHELL PARAMETER" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Predefined Shell Parameters" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "$?"
+    "$0"
+    "$#"
+    "$$"
+    "$!"
+    "$-"
+    "$*"
+    "$MAIL"
+    "$HOME"
+    "$CDPATH"
+    "$PATH"
+    "$PS1"
+    "$PS2"
+    "$IFS"
+    "${{variable-default-values}}"
+    "${variable name}"
+
+END DEFINE
+
+DELETE PLACEHOLDER SIGNAL -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER SIGNAL -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="value signalling system error" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "-{signal-number}"
+
+END DEFINE
+
+DELETE PLACEHOLDER SIGNAL-FOR-NO-INIT -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER SIGNAL-FOR-NO-INIT -
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=value
+
+END DEFINE
+DELETE PLACEHOLDER SIGNAL-NUMBER -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER SIGNAL-NUMBER -
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=number
+
+END DEFINE
+DELETE PLACEHOLDER SKIP-LISTS -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER SKIP-LISTS -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="-ml option : causes deroff to skip lists." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "-ml"
+
+END DEFINE
+
+DELETE PLACEHOLDER "SORT SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "SORT SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options for sort command." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "b"
+    "d"
+    "f"
+    "i"
+    "n"
+    "r"
+    "t {character}"
+
+END DEFINE
+
+DELETE PLACEHOLDER SORT-FIELDS -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER SORT-FIELDS -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Specify field columns to be sorted. Field is specified by m.n where m is number of fields to skip and n is number of columns to skip." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR=" " -
+    /TYPE=NONTERMINAL -
+
+    "{ahead/behind}{number-of-fields-skipped}.{number-of-characters-skipped}"
+
+END DEFINE
+
+DELETE PLACEHOLDER "SORTED FILE" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "SORTED FILE" - 
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=filename
+
+END DEFINE
+DELETE PLACEHOLDER "SOURCE FILE" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "SOURCE FILE" - 
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=filename
+
+END DEFINE
+DELETE PLACEHOLDER "SPEED NUMBER" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "SPEED NUMBER" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="speed number setting pace for lesson to be taught." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "{number}"
+
+END DEFINE
+
+DELETE PLACEHOLDER "SPELL SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "SPELL SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options for spell command." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "v"
+    "b"
+    "x"
+
+END DEFINE
+
+DELETE PLACEHOLDER STREAM-NUM -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER STREAM-NUM -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="stream number to control" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=TERMINAL -
+
+    "This optional stream number allows you to select which of the"
+    "i-o streams to redirect.  System stream numbers are:"
+    "0 - standard input"
+    "1 - standard output"
+    "2 - standard error"
+
+END DEFINE
+
+DELETE PLACEHOLDER STRING -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER STRING -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="character string" -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR=" " -
+    /TYPE=TERMINAL -
+
+    "character string"
+
+END DEFINE
+
+DELETE PLACEHOLDER STRING-MAPPING -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER STRING-MAPPING -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Characters in input string are mapped into the pattern output." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "{input string} [pattern output]"
+
+END DEFINE
+
+DELETE PLACEHOLDER STRING-SEARCHED -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER STRING-SEARCHED -
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=string
+
+END DEFINE
+DELETE PLACEHOLDER "STTY SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "STTY SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options for stty command." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR=" " -
+    /TYPE=MENU -
+
+    "even"
+    "-even"
+    "odd"
+    "-odd"
+    "raw"
+    "-raw"
+    "cooked"
+    "cbreak"
+    "-cbreak"
+    "-nl"
+    "nl"
+    "echo"
+    "-echo"
+    "lcase"
+    "-lcase"
+    "tandem"
+    "-tandem"
+    "-tabs"
+    "tabs"
+    "ek"
+    "erase [character]"
+    "kill [character]"
+    "intr [character]"
+    "quit [character]"
+    "start [character]"
+    "stop [character]"
+    "eof [character]"
+    "brk [character]"
+    "carriage-return"/PLACEHOLDER
+    "newline"/PLACEHOLDER
+    "tab"/PLACEHOLDER
+    "form-feed"/PLACEHOLDER
+    "backspace"/PLACEHOLDER
+    "tty33"
+    "tty37"
+    "vt05"
+    "dec"
+    "tn300"
+    "ti700"
+    "tek"
+    "0"
+    "{baud rate} {extension}"
+
+END DEFINE
+
+DELETE PLACEHOLDER "STYLE SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "STYLE SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options for style command." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "a"
+    "e"
+    "p"
+    "l {number}"
+    "r {number}"
+    "P"
+
+END DEFINE
+
+DELETE PLACEHOLDER "SUBJECT SPECIFIC" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "SUBJECT SPECIFIC" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Specific lesson number to be taught." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "{lesson number} [speed number]"
+
+END DEFINE
+
+DELETE PLACEHOLDER SUFFIX -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER SUFFIX -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Optional suffix removable from string" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=TERMINAL -
+
+    "Optional suffix that may be removed from string"
+
+END DEFINE
+
+DELETE PLACEHOLDER "SUPPRESS COLUMN" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "SUPPRESS COLUMN" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Selects or rejects lines common to two sorted files." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "-{column}..."
+
+END DEFINE
+
+DELETE PLACEHOLDER SUPPRESS-DEFAULT -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER SUPPRESS-DEFAULT -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Suppress the file containing default patterns is suppressed." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "-n"
+
+END DEFINE
+
+DELETE PLACEHOLDER TAB -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER TAB -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Select style of delay for tabs." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "tab0"
+    "tab1"
+    "tab2"
+    "tab3"
+
+END DEFINE
+
+DELETE PLACEHOLDER "TAIL LOCATION" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "TAIL LOCATION" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Specify which part of the file is to be delivered." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "{ahead/behind}{number}[lbc][fr]"
+
+END DEFINE
+
+DELETE PLACEHOLDER "TAR KEY" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "TAR KEY" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Function letter possibly followed by a function modifier." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "-{function key}[function modifier]"
+
+END DEFINE
+
+DELETE PLACEHOLDER TERMINAL -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER TERMINAL -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Name of terminal type." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=TERMINAL -
+
+    "Name of terminal type."
+
+END DEFINE
+
+DELETE PLACEHOLDER "TEST EXPRESSION" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "TEST EXPRESSION" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Types of conditions tested by test command." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "-r {filename}"
+    "-w {filename}"
+    "-f {filename}"
+    "-d {filename}"
+    "-s {filename}"
+    "-t [number]"
+    "-z {string}"
+    "-n {string}"
+    "{value}={value}"
+    "{value}!={value}"
+    "{value}"
+    "{integer} -eq {integer}"
+    "{integer} -ne {integer}"
+    "{integer} -gt {integer}"
+    "{integer} -ge {integer}"
+    "{integer} -lt {integer}"
+    "{integer} -le {integer}"
+    "!{test expression}"
+    "{test expression} -a {test expression}"
+    "{test expression} -o {test expression}"
+    "({test expression})"
+
+END DEFINE
+
+DELETE PLACEHOLDER TIME -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER TIME -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Hour and minute of the day" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=TERMINAL -
+
+    "Time when commands are to be executed. 1-4 digits indicate time."
+    "   1-2 digits are hours"
+    "   3-4 digits are minutes"
+    "Optional trailing A,P,N,or M indicate AM,PM,noon,or midnight."
+
+END DEFINE
+
+DELETE PLACEHOLDER TOTAL-ONLY -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER TOTAL-ONLY -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Grand total of number of bytes only given" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "-s"
+
+END DEFINE
+
+DELETE PLACEHOLDER "TR SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "TR SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options for tr command." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "c"
+    "d"
+    "s"
+
+END DEFINE
+
+DELETE PLACEHOLDER "TROFF SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "TROFF SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options for troff command." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "n {number}"
+    "s {number}"
+    "i"
+    "o {page list}"
+    "r {character}{number}"
+    "t"
+    "f"
+    "w"
+    "b"
+    "a"
+    "p {number}"
+
+END DEFINE
+
+DELETE PLACEHOLDER TTYNAME -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER TTYNAME -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Terminal type name of user message being send to." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=TERMINAL -
+
+    "Name of type of terminal of user to whom message is being sent."
+
+END DEFINE
+
+DELETE PLACEHOLDER "UNIQ PARAM" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "UNIQ PARAM" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options allowed with uniq command." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "-{uniq switches}... [characters ignored] [fields ignored]"
+
+END DEFINE
+
+DELETE PLACEHOLDER "UNIQ SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "UNIQ SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options with uniq command." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "u"
+    "d"
+    "c"
+
+END DEFINE
+
+DELETE PLACEHOLDER "UNIX COMMAND FOR DOCUMENT PREP" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "UNIX COMMAND FOR DOCUMENT PREP" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Choose a command that modifies a document." -
+    /DUPLICATION=VERTICAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "col" /TOKEN
+    "deroff" /TOKEN
+    "diction" /TOKEN
+    "eqn" /TOKEN
+    "lookbib" /TOKEN
+    "nroff" /TOKEN
+    "ptx" /TOKEN
+    "pubindex" /TOKEN
+    "refer" /TOKEN
+    "spell" /TOKEN
+    "style" /TOKEN
+    "tbl" /TOKEN
+    "troff" /TOKEN
+
+END DEFINE
+
+DELETE PLACEHOLDER USERNAME -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER USERNAME -
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=string
+
+END DEFINE
+DELETE PLACEHOLDER "UUCP SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "UUCP SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options for uucp command." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "d"
+    "c"
+    "m"
+
+END DEFINE
+
+DELETE PLACEHOLDER VALUE -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER VALUE -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options for a variable to be assigned to" -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR=" " -
+    /TYPE=MENU -
+
+    "number"/PLACEHOLDER
+    "'{command substitution}'"
+    "'{string}'"
+    "variable name"/PLACEHOLDER
+    "shell parameter"/PLACEHOLDER
+    "command substitution"/PLACEHOLDER
+
+END DEFINE
+
+DELETE PLACEHOLDER "VARIABLE ASSIGNMENT" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "VARIABLE ASSIGNMENT" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Assigning to a variable name." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "{variable name}={value} [command line]..."
+
+END DEFINE
+
+DELETE PLACEHOLDER "VARIABLE NAME" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "VARIABLE NAME" - 
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=string
+
+END DEFINE
+DELETE PLACEHOLDER VARIABLE-DEFAULT-VALUES -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER VARIABLE-DEFAULT-VALUES -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="There are several ways to handle variables that are not initialized." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "variable name"/PLACEHOLDER
+    "{variable name}-[signal-for-no-init]"
+    "{variable name}={value}"
+    "{variable name}?[exit-message]"
+
+END DEFINE
+
+DELETE PLACEHOLDER "WC SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "WC SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options for wc command." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "l"
+    "w"
+    "c"
+
+END DEFINE
+
+DELETE PLACEHOLDER "WHAT DESCRIPTION LINE" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "WHAT DESCRIPTION LINE" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Description of shell script read by 'what' command" -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "# @(#) {script name} V1.0 [script description]"
+
+END DEFINE
+
+DELETE PLACEHOLDER "WHO PERMITTED" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "WHO PERMITTED" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="To whom permission of the file(s) is granted." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=TERMINAL -
+
+    "This is a combination of the letters u (for user), g (for group),"
+    "and o (for other).  The default value is 'a' for 'ugo'."
+
+END DEFINE
+
+DELETE PLACEHOLDER WHO-FILE -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER WHO-FILE -
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER=filename
+
+END DEFINE
+DELETE PLACEHOLDER "WITHIN BRACES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "WITHIN BRACES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Command list within '{}'" -
+    /DUPLICATION=VERTICAL -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "{{command line}[command list]...}"
+
+END DEFINE
+
+DELETE PLACEHOLDER "WITHIN PARENTHESES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "WITHIN PARENTHESES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Command list within parentheses" -
+    /DUPLICATION=VERTICAL -
+    /SEPARATOR="" -
+    /TYPE=NONTERMINAL -
+
+    "({command line}[command list]...)"
+
+END DEFINE
+
+DELETE PLACEHOLDER WORD_LIST -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER WORD_LIST -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="List of Values/Strings allowed for name" -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR=" " -
+    /TYPE=NONTERMINAL -
+
+    "in {value}..."
+
+END DEFINE
+
+DELETE PLACEHOLDER "YACC SWITCHES" - 
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER "YACC SWITCHES" - 
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="Options for yacc command." -
+    /DUPLICATION=HORIZONTAL -
+    /SEPARATOR="" -
+    /TYPE=MENU -
+
+    "v"
+    "d"
+
+END DEFINE
+
+DELETE PLACEHOLDER YEAR -
+    /LANGUAGE="bourne_shell"
+DEFINE PLACEHOLDER YEAR -
+    /LANGUAGE="bourne_shell" -
+    /NOAUTO_SUBSTITUTE -
+    /DESCRIPTION="The calender will be printed on the specified year." -
+    /DUPLICATION=CONTEXT_DEPENDENT -
+    /SEPARATOR="" -
+    /TYPE=TERMINAL -
+
+    "Year on which the calender will be printed."
+
+END DEFINE
+
+DELETE TOKEN $ -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN $ -
+    /LANGUAGE="bourne_shell" -
+    /PLACEHOLDER="shell parameter"
+
+END DEFINE
+DELETE TOKEN AR -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN AR -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Archive and library maintainer" -
+
+    "ar -{ar switches}... [posname] {archive} {archive file}... [redirect] [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN AT -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN AT -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Executes commands at a later time. The default set of commands is a ncd to current dirctory" -
+
+    "at {time} [day] [input-to-sh]"
+
+END DEFINE
+
+DELETE TOKEN AWK -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN AWK -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Pattern scanning and processing language." -
+
+    "awk [pattern source] [filename]... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN BASENAME -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN BASENAME -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Deletes any prefix ending in / and specified suffix from a string" -
+
+    "basename {string} [suffix] [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN BREAK -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN BREAK -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Exit from enclosing for or while loop specified number of levels." -
+
+    "break [number-of-levels]"
+
+END DEFINE
+
+DELETE TOKEN CAL -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN CAL -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Prints a calender for the specified year." -
+
+    "cal [month] {year} [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN CALENDER -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN CALENDER -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Prints out today's and tomorrow's date using existing calender file in current directory." -
+
+    "calender [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN CASE -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN CASE -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="case statement" -
+
+    "case {shell parameter} in"
+    "  {case arm}..."
+    "esac"
+
+END DEFINE
+
+DELETE TOKEN CAT -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN CAT -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="catenate and print" -
+
+    "cat -[cat switches]... [filename]... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN CB -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN CB -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="C program beautifier" -
+
+    "cb [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN CC -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN CC -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="C compiler" -
+
+    "cc -[cc switches]... {C program}... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN CD -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN CD -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Change current directory" -
+
+    "cd [dirname]"
+
+END DEFINE
+
+DELETE TOKEN CHMOD -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN CHMOD -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Change file protection mode of a file or directory." -
+
+    "chmod {file-access-mode} {filename}..."
+
+END DEFINE
+
+DELETE TOKEN CMP -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN CMP -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Comparing two files" -
+
+    "cmp [print byte] [print nothing] {input file} {input file}"
+
+END DEFINE
+
+DELETE TOKEN COL -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN COL -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Filters reverse line feeds." -
+
+    "col -[col switches]... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN COMM -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN COMM -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Selects or rejects lines common to two sorted files." -
+
+    "comm [suppress column] {sorted file} {sorted file} [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN CONTINUE -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN CONTINUE -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Resume next iteration of enclosing for or while loop. If number is specified, resume nth enclosing loop." -
+
+    "continue [numlevels]"
+
+END DEFINE
+
+DELETE TOKEN CP -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN CP -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="copy first file to second file." -
+
+    "cp {file-to-copy-from} {file-to-copy-to}"
+
+END DEFINE
+
+DELETE TOKEN CRYPT -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN CRYPT -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Encodes or Decodes given a particular password as a key." -
+
+    "crypt [password] [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN DATE -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN DATE -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Today's date." -
+
+    "date [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN DD -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN DD -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Copies input file to output file and converts it depending upon option." -
+
+    "dd [option-value]... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN DEROFF -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN DEROFF -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Removes all nroff, troff, eqn, and tbl constructs." -
+
+    "deroff [one-word-per-line] {document file}... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN DF -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN DF -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Prints number of free blocks in specified file system, else current file system." -
+
+    "df [file system] [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN DICTION -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN DICTION -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Print wordy sentences." -
+
+    "diction [skip-lists] [override-ms] [suppress-default] [pattern source] {document file}..."
+
+END DEFINE
+
+DELETE TOKEN DIFF -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN DIFF -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Prints lines needed to be changed to bring files into agreement." -
+
+    "diff -[diff switches]... {filename} {filename} [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN DU -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN DU -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Numbers of blocks in all files and directories are given." -
+
+    "du [total-only] [entry-for-each-file] [files or directories] [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN ECHO -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN ECHO -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="arguments are echoed." -
+
+    "echo [no-newline] [argument]..."
+
+END DEFINE
+
+DELETE TOKEN EGREP -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN EGREP -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="grep for regular expressions only." -
+
+    "egrep -[egrep switches]... {regular expression} [filename]... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN EQN -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN EQN -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Typset mathematics." -
+
+    "eqn {document file}... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN EVAL -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN EVAL -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Execute arguments that are written as a commands." -
+
+    "eval {command line}..."
+
+END DEFINE
+
+DELETE TOKEN EXEC -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN EXEC -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Execute arguments written as a command." -
+
+    "exec [command line]"
+
+END DEFINE
+
+DELETE TOKEN EXIT -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN EXIT -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Causes a non-interactive shell to exit with specified exit status." -
+
+    "exit [number-of-levels]"
+
+END DEFINE
+
+DELETE TOKEN EXPLAIN -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN EXPLAIN -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Interactive form of diction." -
+
+    "explain [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN EXPORT -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN EXPORT -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="If names given, they are marked for automatic export, else the list of exportable names is written." -
+
+    "export [variable name]..."
+
+END DEFINE
+
+DELETE TOKEN EXPR -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN EXPR -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Expression evaluator." -
+
+    "expr {expression}"
+
+END DEFINE
+
+DELETE TOKEN F77 -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN F77 -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Fortran 77 compiler" -
+
+    "f77 -[f77 switches]... {Fortran program}... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN FGREP -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN FGREP -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="grep for string lists" -
+
+    "fgrep -[fgrep switches] [string]... [filename]... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN FIND -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN FIND -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Find files recursively in directory heirarchy for each pathname given" -
+
+    "find {pathname}... -[find switches]... {string-searched} [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN FOR -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN FOR -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="When a loop variable holds certain values, do set of commands" -
+
+    "for {variable name} [word_list]"
+    "   do {command line}..."
+    "done"
+
+END DEFINE
+
+DELETE TOKEN GREP -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN GREP -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Search a file for a pattern." -
+
+    "grep -[grep switches] {regular expression} [filename]... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN IF -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN IF -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="If-then-else conditional branch" -
+
+    "if {command line}"
+    "then {command line}..."
+    "[else predicates]"
+    "fi"
+
+END DEFINE
+
+DELETE TOKEN JOIN -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN JOIN -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="joins two relations specified by lines of two files" -
+
+    "join -[join switches]... {filename} {filename} [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN KILL -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN KILL -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="kill a process" -
+
+    "kill [signal] {process id}..."
+
+END DEFINE
+
+DELETE TOKEN LEARN -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN LEARN -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="computer aided instruction about UNIX" -
+
+    "learn [more info] [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN LEX -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN LEX -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="generator of lexical analysis programs" -
+
+    "lex -[lex switches]... [lex program]... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN LINT -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN LINT -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="a C program verifier" -
+
+    "lint -[lint switches]... {C Program}... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN LN -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN LN -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Create a link to a file (first name) with optional name." -
+
+    "ln {filename} [linkname]"
+
+END DEFINE
+
+DELETE TOKEN LOGIN -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN LOGIN -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Sign on to a login session with an optional username." -
+
+    "login [username]"
+
+END DEFINE
+
+DELETE TOKEN LOOK -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN LOOK -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Find lines beginning with a string in sorted files (default file is /usr/dict/words)." -
+
+    "look -[look switches]... {string-searched} [sorted file] [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN LOOKBIB -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN LOOKBIB -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Searches bibliographic data for keywords from standard input." -
+
+    "lookbib [biblio file]..."
+
+END DEFINE
+
+DELETE TOKEN LORDER -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN LORDER -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Find ordering relation for an object library." -
+
+    "lorder {archive}... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN LPR -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN LPR -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Line printer spooler" -
+
+    "lpr -[lpr switches]... [file-to-be-printed]... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN LS -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN LS -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="list contents of directory" -
+
+    "ls -[ls switches]... [dirname] [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN MAIL -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN MAIL -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Send/recieve mail among users." -
+
+    "mail [first-in-first-out] [mail-file option] [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN MAKE -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN MAKE -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Maintain program groups." -
+
+    "make [make-file]... -[make switches]... {filename}... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN MAN -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN MAN -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Help utility that prints out manual pages." -
+
+    "man [man section] {man title}... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN MESG -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN MESG -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Permit or deny messages" -
+
+    "mesg [mesg deny] [mesg reinstate]"
+
+END DEFINE
+
+DELETE TOKEN MKDIR -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN MKDIR -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Create a directory or directories." -
+
+    "mkdir {dirname}..."
+
+END DEFINE
+
+DELETE TOKEN MV -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN MV -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Rename a file or move files into a directory." -
+
+    "mv {Rename or move}"
+
+END DEFINE
+
+DELETE TOKEN NEQN -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN NEQN -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Typset mathematics." -
+
+    "neqn {document file}... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN NEWGRP -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN NEWGRP -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="log in to a new group" -
+
+    "newgrp {group name}"
+
+END DEFINE
+
+DELETE TOKEN NICE -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN NICE -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Run a command at low priority." -
+
+    "nice [priority number] {command line}"
+
+END DEFINE
+
+DELETE TOKEN NM -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN NM -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Prints symbol table of each object file." -
+
+    "nm -[nm switches]... [object file]... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN NOHUP -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN NOHUP -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Run a command immune to interrupts." -
+
+    "nohup {command line}"
+
+END DEFINE
+
+DELETE TOKEN NROFF -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN NROFF -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Text formatting for typewriter-like devices." -
+
+    "nroff -[nroff switches]... [document file]... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN OD -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN OD -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Octal dump in specified format. Default is -o option." -
+
+    "od -[od switches]... [filename] [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN PASSWD -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN PASSWD -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Change login password." -
+
+    "passwd [username]"
+
+END DEFINE
+
+DELETE TOKEN PR -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN PR -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Print file(s)" -
+
+    "pr [column-page output]... -[pr switches]... [file-to-be-printed]... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN PROF -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN PROF -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Display profile data." -
+
+    "prof -[prof switches]... [object-profile files] [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN PS -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN PS -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Process status" -
+
+    "ps -[ps options]... [process id] [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN PTX -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN PTX -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Permuted index printed to optional input-file then optional output-file." -
+
+    "ptx -[ptx switches]... [input-output] [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN PUBINDEX -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN PUBINDEX -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Make inverted bibliographic index" -
+
+    "pubindex [biblio file]... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN PWD -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN PWD -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="working directory name" -
+
+    "pwd [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN RANLIB -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN RANLIB -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Convert archives to random libraries." -
+
+    "ranlib {archive}... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN READ -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN READ -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="One line read from standard input. Successive words are assigned to arguments." -
+
+    "read [variable name]..."
+
+END DEFINE
+
+DELETE TOKEN READONLY -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN READONLY -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="List of names are marked readonly. If no names are given, then the list of readonly names is printed." -
+
+    "readonly [variable name]..."
+
+END DEFINE
+
+DELETE TOKEN REFER -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN REFER -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Preprocessor for nroff and troff that finds and formats references." -
+
+    "refer -[refer switches]... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN RM -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN RM -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Remove a file or files." -
+
+    "rm -[rm switches]... {filename}..."
+
+END DEFINE
+
+DELETE TOKEN RMDIR -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN RMDIR -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Remove a directory." -
+
+    "rmdir {dirname}..."
+
+END DEFINE
+
+DELETE TOKEN SET -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN SET -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Assignment of certain flags." -
+
+    "set -[set switches]... {variable assignment}"
+
+END DEFINE
+
+DELETE TOKEN SH -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN SH -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Executes commands in a file of the Shell command language or from standard input." -
+
+    "sh -[sh switches]... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN SHIFT -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN SHIFT -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Positional parameters from $2 ... are renamed $1 ..." -
+
+    "shift"
+
+END DEFINE
+
+DELETE TOKEN SIZE -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN SIZE -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Size of an object file." -
+
+    "size [object file]... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN SLEEP -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN SLEEP -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Suspends execution for an interval." -
+
+    "sleep {number seconds}"
+
+END DEFINE
+
+DELETE TOKEN SORT -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN SORT -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="sort or merge files" -
+
+    "sort -[sort switches]... [sort-fields]... [multiple-sort-key-options]... [filename]... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN SPELL -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN SPELL -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Find spelling errors." -
+
+    "spell -[spell switches]... [document file]... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN STRIP -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN STRIP -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Remove symbols and relocation bits." -
+
+    "strip {assembler-loader output}... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN STTY -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN STTY -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Set terminal options." -
+
+    "stty [stty switches]..."
+
+END DEFINE
+
+DELETE TOKEN STYLE -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN STYLE -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Analyze surface characteristics of a document." -
+
+    "style [skip-lists] [override-ms] -[style switches]... [document file]... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN TABS -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN TABS -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Set terminal tabs" -
+
+    "tabs [left-mar-not-indented] [terminal]"
+
+END DEFINE
+
+DELETE TOKEN TAIL -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN TAIL -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Deliver the last part of a file." -
+
+    "tail [tail location] [filename] [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN TAR -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN TAR -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Tape archiver" -
+
+    "tar [tar key] [files or directories]... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN TBL -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN TBL -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Format tables for nroff or troff." -
+
+    "tbl [document file]... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN TEST -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN TEST -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Condition command. Tests command and returns TRUE/FALSE." -
+
+    "test {test expression}"
+
+END DEFINE
+
+DELETE TOKEN TIME -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN TIME -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Given command is executed and system records elapsed time." -
+
+    "time {command line}"
+
+END DEFINE
+
+DELETE TOKEN TIMES -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN TIMES -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Print accumulated user and system times for processes run from the shell." -
+
+    "times"
+
+END DEFINE
+
+DELETE TOKEN TOUCH -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN TOUCH -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Update date last modified of a file." -
+
+    "touch [No-new-file] {filename}... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN TR -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN TR -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Translate characters using options. When two strings are given, map first string into characters of second string." -
+
+    "tr -[tr switches]... [string-mapping] [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN TRAP -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN TRAP -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Trap a signal and execute the given command." -
+
+    "trap [command line][command list]... [signal-number]..."
+
+END DEFINE
+
+DELETE TOKEN TROFF -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN TROFF -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Text formatting for phototypesetter." -
+
+    "troff -[troff switches]... [document file]... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN TSORT -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN TSORT -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Topological sort" -
+
+    "tsort [filename]... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN UMASK -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN UMASK -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="User file creation mask is set to the octal number." -
+
+    "umask {octal number}"
+
+END DEFINE
+
+DELETE TOKEN UNIQ -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN UNIQ -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Report repeated lines in a file from optionally given input file to an optionally given output file." -
+
+    "uniq [uniq param] [input-output] [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN UNITS -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN UNITS -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Conversion from one unit to another." -
+
+    "units [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN UNTIL -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN UNTIL -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="until a condition is false do a set of commands" -
+
+    "until {command line}"
+    "do {command line}..."
+    "done"
+
+END DEFINE
+
+DELETE TOKEN UUCP -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN UUCP -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Unix to unix copy" -
+
+    "uucp -[uucp switches]... [source file]... [destination file] [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN WAIT -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN WAIT -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Wait for specified process and report its termination status. If no process number is given, all current child processes are waited for." -
+
+    "wait [process id]"
+
+END DEFINE
+
+DELETE TOKEN WC -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN WC -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Word count." -
+
+    "wc -[wc switches]... [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN WHILE -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN WHILE -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="while a condition holds do a set of commands" -
+
+    "while {command line}"
+    "do {command line}..."
+    "done"
+
+END DEFINE
+
+DELETE TOKEN WHO -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN WHO -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="who is on the system." -
+
+    "who [who-file] [am I] [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN WRITE -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN WRITE -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Write to another user." -
+
+    "write user [ttyname] [redirect]... [pipes lists]"
+
+END DEFINE
+
+DELETE TOKEN YACC -
+    /LANGUAGE="bourne_shell"
+DEFINE TOKEN YACC -
+    /LANGUAGE="bourne_shell" -
+    /DESCRIPTION="Yet another compiler-compiler" -
+
+    "yacc -[yacc switches]... [grammar] [redirect]... [pipes lists]"
+
+END DEFINE

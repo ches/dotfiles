@@ -1,0 +1,10 @@
+[plugin]
+plugin = python_debugger
+name = Python Debugger
+author = Ali Afshar <aafshar@gmail.com>
+version = 0.1
+require_pida = 0.5.1
+depends = ""
+category = code
+description = "Python Debugger based on RPDB2 the WinPDB Back End"
+

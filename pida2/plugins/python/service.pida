@@ -1,0 +1,9 @@
+[plugin]
+plugin = python
+name = Python
+author = Ali Aafshar <aafshar@gmail.com>
+version = 0.2.3
+require_pida = 0.5
+depends = ""
+category = code
+description = "Show class/function from python file, and show compilation errors"

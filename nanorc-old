@@ -1,0 +1,138 @@
+## Allow nano to be suspended with ^Z
+set suspend
+
+## Use auto-indentation
+set autoindent
+
+## Use this tab size instead of the default; it must be greater than 0
+set tabsize 4
+
+## Use meta+] to switch between matching brackets
+set matchbrackets "(]}"
+
+## Ctrl+r reads files into new buffers. Cycle with meta+< and >
+set multibuffer
+
+## Color setup
+## Format:
+## syntax "short description" ["filename regex" ...]
+## color foreground,background "regex" ["regex"...]
+##
+## Legal colors: white, black, red, blue, green, yellow, magenta, cyan.
+## You may use the prefix "bright" to mean a stronger color highlight.
+##
+## To use multi-line regexes use the start="regex" end="regex" format.
+##
+## If your system supports transparency, not specifying a background
+## color will use a transparent color.  If you don't want this, be sure
+## to set the background color to black or white.
+##
+syntax "c-file" "\.(c|h|m)$"
+color red "\<[A-Z_]{2,}\>" 
+color green "\<(float|char|int|void|static|const|struct)\>" 
+color brightyellow "\<(if|while|do|else|case|switch)\>"
+color brightcyan "^#( 	)*(define|include|ifn?def|endif|elif|else|if)" 
+##
+## You will in general want your comments and strings to come last,
+## because syntax highlighting rules will be applied in the order they
+## are read in.
+##
+color brightyellow "<[^= 	]*>" ""(\\.|[^\"])*""
+##
+## This string is VERY resource intensive!!!
+# color brightyellow start=""(\\.|[^\"])*\\( |	)*$" end="^(\\.|[^\"])*""
+##
+## And we want to have some nice comment highlighting too
+color brightblue "//.*"
+color brightblue start="/\*" end="\*/"
+
+##--------------------------------------------------------------------------------- html
+## Here is a short example for HTML
+syntax "HTML" "\.html$"
+color magenta start="<" end=">"
+color red "<a href=[^>]*>"
+
+## Here is a short example for TeX files
+syntax "TeX" "\.tex$"
+color green "\\.|\\[A-Za-z]*"
+color magenta "[{}]"
+color blue "%.*"
+
+## Here is an example for perl
+##
+syntax "perl" "\.p[lm]$"
+color red "\<(accept|alarm|atan2|bin(d|mode)|c(aller|h(dir|mod|op|own|root)|lose(dir)?|onnect|os|rypt)|d(bm(close|open)|efined|elete|ie|o|ump)|e(ach|of|val|x(ec|ists|it|p))|f(cntl|ileno|lock|ork)|get(c|login|peername|pgrp|ppid|priority|pwnam|(host|net|proto|serv)byname|pwuid|grgid|(host|net)byaddr|protobynumber|servbyport)|([gs]et|end)(pw|gr|host|net|proto|serv)ent|getsock(name|opt)|gmtime|goto|grep|hex|index|int|ioctl|join|keys|kill|last|length|link|listen|local(time)?|log|lstat|m|mkdir|msg(ctl|get|snd|rcv)|next|oct|open(dir)?|ord|pack|pipe|pop|printf?|push|q|qq|qx|rand|re(ad(dir|link)?|cv|do|name|quire|set|turn|verse|winddir)|rindex|rmdir|s|scalar|seek|seekdir|se(lect|mctl|mget|mop|nd|tpgrp|tpriority|tsockopt)|shift|shm(ctl|get|read|write)|shutdown|sin|sleep|socket(pair)?|sort|spli(ce|t)|sprintf|sqrt|srand|stat|study|substr|symlink|sys(call|read|tem|write)|tell(dir)?|time|tr|y|truncate|umask|un(def|link|pack|shift)|utime|values|vec|wait(pid)?|wantarray|warn|write)\>"
+color magenta "\<(continue|else|elsif|do|for|foreach|if|unless|until|while|eq|ne|lt|gt|le|ge|cmp|x|my|sub|use|package|can|isa)\>"
+color cyan start="[$@%]" end="( |\\W|-)"
+color yellow "".*"|qq\|.*\|"
+color white "[sm]/.*/"
+color white start="(^use| = new)" end=";"
+color green "#.*"
+color yellow start="<< 'STOP'" end="STOP"
+
+## Here is an example for Java source
+##
+syntax "Java source" "\.java$"
+color green "\<(boolean|byte|char|double|float|int|long|new|short|this|transient|void)\>"
+color red "\<(break|case|catch|continue|default|do|else|finally|for|if|return|switch|throw|try|while)\>"
+color cyan "\<(abstract|class|extends|final|implements|import|instanceof|interface|native|package|private|protected|public|static|strictfp|super|synchronized|throws|volatile)\>"
+color red ""[^\"]*""
+color yellow "\<(true|false|null)\>"
+color blue "//.*"
+color blue start="/\*" end="\*/"
+color brightblue start="/\*\*" end="\*/"
+color brightgreen "[ 	]+$"
+
+## Here is an example for your .nanorc
+##
+syntax "nanorc" "[\.]*nanorc$"
+color white "^ *(set|unset).*$"
+color cyan "^ *(set|unset) (autoindent|backup|const|cut|fill|keypad|multibuffer|noconvert|nofollow|nohelp|nowrap|operatingdir|preserve|quotestr|regexp|smooth|speller|suspend|tabsize|tempfile|historylog|view)"
+color brightwhite "^ *syntax [^ ]*"
+color brightblue "^ *set\>" "^ *unset\>" "^ *syntax\>"
+color white "^ *color\>.*"
+color yellow "^ *color (bright)?(white|black|red|blue|green|yellow|magenta|cyan)\>"
+color magenta "^ *color\>"
+color green "^#.*$"
+
+## Found this on the net for PHP (http://forums.gentoo.org/viewtopic.php?t=86562)
+##
+syntax "php" ".*/*.php$"
+color brightwhite "\{|\}|\."
+color red "('[^']*')"
+color red "\"[^\"]*\""
+color cyan "(\$([[:alpha:]_]|->)*)"
+color brightgreen "((\$(([[:alpha:]_0-9])+\->)+)[[:alpha:]_0-9]+\()"
+color yellow " (if|else if|else|return|case|break)"
+color yellow "\|\||\?|!|\||&&|=|;|\(|\)"
+color red "false|true"
+color brightwhite "[[:space:]]+debug|[[:space:]]+echo|\$this\->debug"
+color magenta "//.*"
+color magenta start="/\*" end="\*/"
+
+## Another Python config (http://www.tenacious.us/projects/sysadmin/nanorc.txt)
+##
+#syntax "python" "\.py$"
+#color red "[\[\](){}:]" 
+#color brightblue "\<__dict__\>" 
+#color blue start="/\*" end="\*/"
+#color cyan "([\"']).+[^\\]\1"
+#
+#color magenta "[[:<:]](def|except|catch|continue|default|do|else|finally|for|if|return|switch|throw|try|while)[[:>:]]"
+#color magenta " in "
+#
+#color brightblue "[[:<:]](true|false|null)[[:>:]]"
+#
+#color yellow "[[:<:]](from|print|import)[[:>:]]"
+#
+#color cyan "'[^\"]*'"
+#color cyan ""[^\"]*""
+#color cyan """[^\"]*"""
+#color cyan """".*""""
+
+#color white ":"
+#color blue "#.*"
+
+
+## External syntax definitions:
+include "~/.nano_syntax"

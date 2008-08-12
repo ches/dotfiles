@@ -1,0 +1,32 @@
+desc 'Sends STDIN or FILE=file to Pastie; USAGE: cat some_tasks.rake | sake pastie:send OR sake pastie:send FILE=some_tasks.rake'
+task 'pastie:send' do
+  require("tempfile")
+  PASTE_URL = (ENV["SAKE_PASTIE_URL"] or (ENV["PASTIE_URL"] or "http://pastie.caboo.se/pastes/create"))
+  if ENV["FILE"] then
+    text = File.open(File.expand_path(ENV["FILE"]), "r") { |f| f.read }
+  end
+  text ||= STDIN.read
+  text_file = Tempfile.open("w+")
+  (text_file << text)
+  text_file.flush
+  cmd = "    curl #{PASTE_URL}     -s -L -o /dev/null -w \"%{url_effective}\"     -H \"Expect:\"     -F \"paste[parser]=ruby\"     -F \"paste[restricted]=0\"     -F \"paste[authorization]=burger\"     -F \"paste[body]=<#{text_file.path}\"     -F \"key=\"     -F \"x=27\"     -F \"y=27\"\n"
+  out = `\n      #{cmd}\n    `
+  text_file.close(true)
+  print(out)
+end
+
+desc 'Apply a patch directly from Pastie (or absolute url)'
+task 'pastie:patch' do
+  require("open-uri")
+  pastie_url = "http://pastie.caboo.se/%s.txt"
+  patch_id = ENV["PASTE"].to_i
+  url = if (patch_id > 0) then
+    (pastie_url % patch_id)
+  else
+    (ENV["PASTE"] or ENV["PATCH"])
+  end
+  patch = open(url).read
+  File.open("patch.diff", "w+") { |f| f.puts(patch) }
+  `patch -p0 < patch.diff && rm patch.diff`
+  puts("Patched with #{url}.")
+end

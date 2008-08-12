@@ -1,0 +1,16 @@
+<ui>
+<popup>
+<placeholder name="1"/>
+<menuitem action="bookmark-for-file" name="bookmark-for-file"/>
+<separator/>
+<placeholder name="2">
+</placeholder>
+<separator/>
+<placeholder name="3"/>
+<separator/>
+<placeholder name="4"/>
+<separator/>
+</popup>
+</ui>
+
+

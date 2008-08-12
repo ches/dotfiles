@@ -1,0 +1,298 @@
+syntax "php" "\.php[2345s~]?$"
+color brightcyan "(.*)\("
+color brightwhite "\$[a-zA-Z_0-9$]*|[=!<>]"
+color brightblue "(var|class|function|echo|case|break|default|exit|switch|if|else|elseif|@|while)\s"
+color brightyellow "(\|\|)|(\&\&)|[.,{}();]"
+color green "(\|\|)|(\&\&)"
+## strings
+color yellow ""(\\.|[^\"])*""
+color yellow "'(\\.|[^\'])*'"
+## comments
+color magenta "(#.*|//.*)$"
+color magenta start="/\*" end="\*/"
+## special & default
+color brightred "(<\?(php)?|\?>)"
+color white start="\?>" end="<\?(php)?"
+
+
+# Sam's supa-betta-python syntax highlighting
+syntax "python" "\.py$"
+color brightcyan "def [a-zA-Z_0-9]+"
+color brightyellow "\<([0-9]+)\>"
+color red "\<([0-9]+\.[0-9]+)\>"
+# Operators and junk
+color brightmagenta "\(|\)|:|\]|\[|\{|\}|\-|\+|\=|\/|\*|<|>|\&"
+# Syntax
+color brightwhite "\<(and|assert|break|class|continue|def|del|elif|else|except|exec|finally|for|global|if|in|is|lambda|map|not|or|pass|print|raise|return|try|while)\>"
+color red "\<(exit|len)\>"
+color brightgreen "\<(self|import|True|False|as|from|None)\>"
+# Various quotes
+color cyan ""[^"]*"|qq\|.*\|"
+color cyan "'[^']*'"
+# % substitutions
+color brightmagenta "\%[a-zA-Z]+"
+# comments and docstrings
+color yellow "#.*$" 
+color green start="\"\"\"" end="\"\"\""
+
+syntax "c-file" "\.(c|h)$"
+color red "\<[A-Z_]{2,}\>"
+color green "\<(float|double|char|int|short|long|enum|void|static|const|struct|union|typedef|extern|signed|unsigned|inline)\>"
+color brightyellow "\<(for|if|while|do|else|case|switch|goto|continue|break|return)\>"
+color brightcyan "^ *# *(define|undef|include|ifn?def|endif|elif|else|if)"
+color brightmagenta "'([^\]|(\\['abfnrtv\\]))'" "'\\(([0-7][0-7]?)|([0-3][0-7][0-7]))'" "'\\x[0-9A-Fa-f][0-9A-Fa-f]?'"
+color brightyellow "<[^= ]*>" ""(\\.|[^\"])*""
+color brightyellow start=""(\\.|[^\"])*\\ *$" end="^(\\.|[^\"])*""
+color brightblue "//.*"
+color brightblue start="/\*" end="\*/"
+
+
+##############################################################################
+#
+# Syntax highlighting for XML files
+#
+# Author:  Josef 'Jupp' Schugt, jupp(a)rubyforge.org
+# Secondary author: Barry Burns, bburnsatsynsetdotnet
+# License: GPL 2  or later
+#
+# Version: 2007-09-28
+#
+##############################################################################
+
+syntax "ml" "\.([jrs]?html?|xml|xul|rdf|rss|xbl|sgml?)$"
+color white "^.+$"
+# Attribute names
+color green start="<" end=">"
+# Attribute text
+color brightgreen ""[^"]+""
+# Tag names
+color brightcyan "<[^> ]+"
+# Alligators
+color cyan "<"
+color cyan ">"
+# DTDs
+color brightyellow start="<!DOCTYPE" end="[/]?>"
+# Comments
+color white start="<!--" end="-->"
+# Entities
+color red "&[^;]*;"
+# Preprocessing instructions
+color brightred "<\?.+?>"
+color red "<\?"
+color red "\?>"
+# CDATA
+color white start="<!\[CDATA\[" end="\]\]>"
+color brightwhite "<!\[CDATA\["
+color brightwhite "\]\]>"
+
+
+syntax "TeX" "\.tex$"
+color green "\\.|\\[A-Za-z]*"
+color magenta "[{}]"
+color blue "%.*"
+
+syntax "groff" "\.ms$" "\.mm$" "\.me$" "\.tmac$" "^tmac." ".rof"
+color cyan "^\.ds [^ ]*"
+color cyan "^\.nr [^ ]*"
+color brightmagenta "\\."
+color brightmagenta "\\f."
+color brightmagenta "\\f\(.."
+color brightmagenta "\\s(\+|\-)?[0-9]"
+color cyan "(\\|\\\\)n."
+color cyan "(\\|\\\\)n\(.."
+color cyan start="(\\|\\\\)n\[" end="]"
+color brightgreen "^\. *[^ ]*"
+color yellow "^\.\\\".*$"
+color green "(\\|\\\\)\*."
+color green "(\\|\\\\)\*\(.."
+color green start="(\\|\\\\)\*\[" end="]"
+color brightred "\\\(.."
+color brightred start="\\\[" end="]"
+color brightcyan "\\\\\$[1-9]"
+
+syntax "perl" "\.p[lm]$"
+color red "\<(accept|alarm|atan2|bin(d|mode)|c(aller|h(dir|mod|op|own|root)|lose(dir)?|onnect|os|rypt)|d(bm(close|open)|efined|elete|ie|o|ump)|e(ach|of|val|x(ec|ists|it|p))|f(cntl|ileno|lock|ork)|get(c|login|peername|pgrp|ppid|priority|pwnam|(host|net|proto|serv)byname|pwuid|grgid|(host|net)byaddr|protobynumber|servbyport)|([gs]et|end)(pw|gr|host|net|proto|serv)ent|getsock(name|opt)|gmtime|goto|grep|hex|index|int|ioctl|join|keys|kill|last|length|link|listen|local(time)?|log|lstat|m|mkdir|msg(ctl|get|snd|rcv)|next|oct|open(dir)?|ord|pack|pipe|pop|printf?|push|q|qq|qx|rand|re(ad(dir|link)?|cv|do|name|quire|set|turn|verse|winddir)|rindex|rmdir|s|scalar|seek|seekdir|se(lect|mctl|mget|mop|nd|tpgrp|tpriority|tsockopt)|shift|shm(ctl|get|read|write)|shutdown|sin|sleep|socket(pair)?|sort|spli(ce|t)|sprintf|sqrt|srand|stat|study|substr|symlink|sys(call|read|tem|write)|tell(dir)?|time|tr|y|truncate|umask|un(def|link|pack|shift)|utime|values|vec|wait(pid)?|wantarray|warn|write)\>"
+color magenta "\<(continue|else|elsif|do|for|foreach|if|unless|until|while|eq|ne|lt|gt|le|ge|cmp|x|my|our|sub|use|package|can|isa)\>"
+color cyan start="[$@%]" end="( |\\W|-)"
+color yellow ""[^"]*"|qq\|.*\|"
+color yellow "'[^']*'"
+color white "[sm]/.*/"
+color white start="(^use| = new)" end=";"
+color green "#.*"
+color yellow start="<< 'STOP'" end="STOP"
+
+syntax "Java source" "\.java$"
+color green "\<(boolean|byte|char|double|float|int|long|new|short|this|transient|void)\>"
+color red "\<(break|case|catch|continue|default|do|else|finally|for|if|return|switch|throw|try|while)\>"
+color cyan "\<(abstract|class|extends|final|implements|import|instanceof|interface|native|package|private|protected|public|static|strictfp|super|synchronized|throws|volatile)\>"
+color red ""[^\"]*""
+color yellow "\<(true|false|null)\>"
+color blue "//.*"
+color blue start="/\*" end="\*/"
+color brightblue start="/\*\*" end="\*/"
+## Trailing space, interesting
+color brightgreen,green "[^ ]\s+$"
+
+syntax "patch" "\.(patch|diff)$"
+color brightgreen "^\+.*"
+color green "^\+\+\+.*"
+color brightblue "^ .*"
+color brightred "^-.*"
+color red "^---.*"
+color brightyellow "^@@.*"
+color magenta "^diff.*"
+
+syntax "ebuild" "\.ebuild$"
+color brightcyan "^ *eclass\>" "^ *inherit\>"
+color brightwhite "^ *src [^ ]*"
+color brightblue "src_compile\>" "src_unpack\>" "src_install\>" "^ *einfo\>" "$ color yellow "^ *export\>"
+color magenta "\<(if|then|fi)\>"
+color green "#.*$"
+
+syntax "nanorc" "[\.]*nanorc$" "[\.]*nano_syntax$"
+color white "^ *(set|unset).*$"
+color cyan "^ *(set|unset) (autoindent|backup|const|cut|fill|keypad|multibuffer|noconvert|nofollow|nohelp|nowrap|operatingdir|preserve|quotestr|regexp|smooth|speller|suspend|tabsize|tempfile|historylog|view)"
+color brightwhite "^ *syntax [^ ]*"
+color brightblue "^ *set\>" "^ *unset\>" "^ *syntax\>"
+color white "^ *color\>.*"
+color yellow "^ *color (bright)?(white|black|red|blue|green|yellow|magenta|cyan)\>"
+color magenta "^ *color\>"
+color green "^#.*$"
+
+syntax "bash" "\.sh$" 
+color brightmagenta "\(|\)|:|\]|\[|\{|\}|\-|\+|\=|\*|<|>|\&"
+color brightyellow "\(" "\)" "\{" "\}" 
+# These are copied from python
+# TODO: Make them use actual bash commands :-P
+color brightwhite "\<(and|break|def|del|elif|else|except|exec|finally|for|global|if|in|is|lambda|map|not|or|pass|print|raise|return|try|while)\>"
+color red "\<(exit|len)\>"
+color brightgreen "\<(self|import|True|False|as|from|None)\>"
+color red "\<[A-Z_]{2,}\>" 
+color red "[\$\*\'\`\|\=]" 
+color brightblue "\[.*\]" 
+color green "\<-e\>" "\<-d\>" "\<-f\>" "\<-r\>" "\<-g\>" "\<-u\>" "\<-u\>" "\<-w\>" "\<-x\>" "\<-L\>" 
+color green "\<-eq\>" "\<-ne\>" "\<-gt\>" "\<-lt\>" "\<-ge\>" "\<-le\>" "\<-s\>" "\<-n\>" "\<-z\>" 
+color brightwhite "\.*"
+color cyan ""[^"]*"|qq\|.*\|"
+color cyan "'[^']*'"
+color brightred "`[^`]*`|qq\|.*\|"
+color brightred "`[^`]*`"
+color brightred "\<([0-9]+)\>"
+color red "\<([0-9]+\.[0-9]+)\>"
+color green "#.*" 
+
+syntax "JavaScript" "\.(js)$"
+# Default
+color white "^.+$"
+# Decimal, octal and hexadecimal numbers
+color brightyellow "\<[-+]?([1-9][0-9]*|0[0-7]*|0x[0-9a-fA-F]+)([uU][lL]?|[lL][uU]?)?\>"
+# Floating point number with at least one digit before decimal point
+color brightyellow "\<[-+]?([0-9]+\.[0-9]*|[0-9]*\.[0-9]+)([EePp][+-]?[0-9]+)?[fFlL]?"
+color brightyellow "\<[-+]?([0-9]+[EePp][+-]?[0-9]+)[fFlL]?"
+# Keywords
+color cyan "\<(break|case|catch|continue|default|delete|do|else|finally)\>"
+color cyan "\<(for|function|if|in|instanceof|new|null|return|switch)\>"
+color cyan "\<(switch|this|throw|try|typeof|undefined|var|void|while|with)\>"
+# Type specifiers
+color red "\<(Array|Boolean|Date|Enumerator|Error|Function|Math)\>"
+color red "\<(Number|Object|RegExp|String)\>"
+color red "\<(true|false)\>"
+# Braces and stuff
+color brightwhite "[.,{}();]"
+# Regular expressions
+color yellow "\/.*\/[igmy]*"
+# String
+color green "L?\"(\\"|[^"])*\""
+color green "L?'(\'|[^'])*'"
+# Escapes
+color red "\\[0-7][0-7]?[0-7]?|\\x[0-9a-fA-F]+|\\[bfnrt'"\?\\]"
+# Comments
+color magenta start="/\*" end="\*/"
+color magenta "//.*$"
+
+syntax "css" "\.css$"
+color brightwhite   "^.+$"
+color cyan          start="\{" end="\}"
+color white         start=":" end="[;^\{]"
+color brightblue    ":active|:focus|:hover|:link|:visited|:link|:after|:before|$"
+color brightyellow  "\d+px\b"
+color brightgreen   "[.,;:]"
+color brightyellow  "[(){}]"
+color magenta       start="/\*" end="\*/"
+
+
+##############################################################################
+#
+# Ruby syntax highlighting for Nano.
+#
+# Author:  Josef 'Jupp' Schugt, jupp(a)rubyforge.org
+# License: GPL 2  or later
+#
+# Version: 2004-02-27
+#
+##############################################################################
+
+
+# Automatically use for '.rb' files
+syntax "ruby" ".*\.*rb$"
+
+# General
+color white ".+"
+
+# Operators
+color brightwhite "::|\*\*|!|~|\*|/|%|\+|-|&|<<|>>|\|\^|>|>=|<|<=|<=>|\|\||!=|=~|!~|&&|\+=|-=|=|\.\.|\.\.\.|\<(not|and|or)\>"
+
+# Keywords
+color brightcyan "\<(BEGIN|END|alias|and|begin|break|case|class|def|defined|do|else|elsif|end|ensure|for|if|in|module)\>"
+color brightcyan "\<(next|not|or|redo|rescue|retry|return|self|super|then|undef|unless|until|when|while|yield)\>"
+
+# false, nil, true
+color brightred "\<(false|nil|true)\>"
+
+# Above must not match 'nil?'
+color white "\<nil\?"
+
+# external stuff
+color brightgreen "(\<(load|require|include)|%q|%!|%Q|%r|%x)\>"
+
+# Iterators
+color brightgreen "\|\w+(,[ \t]*\w+)*\|"
+
+# Constants
+color yellow  "\<[A-Z]\w*\>"
+
+# Variables starting with '$', '@' or '@@'
+color white "(\$|@@?)\w+\>"
+
+# Function names ending in '!' or '?'
+color white "\w+(!|\?)"
+
+# Symbols
+color brightyellow "([(\[ \t]|^):(@|@@|\$)?\w+\>"
+
+# Strings
+color green "\"(\\.|[^\\\"])*\"|'(\\.|[^\\'])*'"
+
+# Backticks
+color green "`(\\.|[^\\\"])*`"
+
+# Regular expressions
+color brightgreen "/(\\.|[^\\/])*/[imox]*"
+
+# Escapes
+color red "\\[0-7][0-7][0-7]|\\x[0-9a-fA-F][0-9a-fA-F]|\\[abefnrs]|(\\c|\\C-|\\M-|\\M-\\C-)."
+
+# Expression substitution
+color red "#\{[^}]*\}|#[@$]\w+"
+
+# Braces and stuff
+color brightwhite     "(\[|\])|[(){}]"
+
+# Simple comments
+color magenta         "#([^{$@].*)?$"
+
+# Shebang
+color brightmagenta   "^#!.*"
+
+# Multiline comments
+color magenta         start="^=begin" end="^=end"

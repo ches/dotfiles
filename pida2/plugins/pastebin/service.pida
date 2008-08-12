@@ -1,0 +1,9 @@
+[plugin]
+plugin = pastebin
+name = Pastebin
+author = Ali Afshar <aafshar@gmail.com>
+version = 0.2.2
+require_pida = 0.5
+depends = "gtk, gobject"
+category = code
+description = Send code to a pastebin service

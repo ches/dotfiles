@@ -1,0 +1,9 @@
+[plugin]
+plugin = man
+name = Man
+author = Mathieu Virbel <tito@bankiz.org>
+version = 0.2
+require_pida = 0.5
+depends = "os,gtk,commands,re,cgi"
+category = documentation
+description = Search and browse man page

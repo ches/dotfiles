@@ -1,0 +1,2892 @@
+;; Copyright (C) 2001,2002,2003 Peter Milliken
+;;
+;; Author: Peter Milliken <peterm@resmed.com.au>,
+;;                        <peter.millken@exemail.com.au>
+;;
+;; Keywords: language sensitive abbreviation template placeholder token
+;;
+;; GNU Emacs is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation; either version 2, or (at your option)
+;; any later version.
+
+;; GNU Emacs is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with GNU Emacs; see the file COPYING.  If not, write to the
+;; Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+;; Boston, MA 02111-1307, USA.
+
+DELETE LANGUAGE Java - 
+DEFINE LANGUAGE Java - 
+    /INITIAL_STRING="{compilation_unit}" -
+    /PUNCTUATION_CHARACTERS="();.*," -
+    /SELF_INSERT_CHARACTERS=" `~!@#$%^&*(),.<>/?;:'[]{}=\-+|"
+    /VALID_IDENTIFIER_CHARACTERS="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789"
+    /INDENT_SIZE=2 -
+    /VERSION=0.91
+
+END DEFINE
+
+DELETE PLACEHOLDER BREAK; - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER BREAK; - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "break;"
+
+END DEFINE
+
+DELETE PLACEHOLDER PACKAGE_NAME - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER PACKAGE_NAME - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    ""Enter the fully qualified name of a package""
+
+END DEFINE
+
+DELETE PLACEHOLDER POSTDECREMENTEXPRESSION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER POSTDECREMENTEXPRESSION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "{variable}--"
+
+END DEFINE
+
+DELETE PLACEHOLDER TEXT - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER TEXT - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid text"
+
+END DEFINE
+
+DELETE PLACEHOLDER EXPRESSIONSTATEMENT - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER EXPRESSIONSTATEMENT - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "{StatementExpression};"
+
+END DEFINE
+
+DELETE PLACEHOLDER PREINCREMENTEXPRESSION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER PREINCREMENTEXPRESSION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "++{variable}"
+
+END DEFINE
+
+DELETE PLACEHOLDER IMPORT_DECLARATION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER IMPORT_DECLARATION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=VERTICAL - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "single_type_import_declaration"/PLACEHOLDER
+    "type_import_on_demand_declaration"/PLACEHOLDER
+
+END DEFINE
+
+DELETE PLACEHOLDER INTERFACEDECLARATION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER INTERFACEDECLARATION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "[InterfaceModifier]... interface {Identifier} [extends {InterfaceType}...]"
+    "{"
+    "  [InterfaceMemberDeclaration]..."
+    "}"
+
+END DEFINE
+
+DELETE PLACEHOLDER STATEMENT - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER STATEMENT - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=VERTICAL - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "Block_Statment"/PLACEHOLDER
+    "EmptyStatement"/PLACEHOLDER
+    "ExpressionStatement"/PLACEHOLDER
+    "SwitchStatement"/PLACEHOLDER
+    "DoStatement"/PLACEHOLDER
+    "BreakStatement"/PLACEHOLDER
+    "ContinueStatement"/PLACEHOLDER
+    "ReturnStatement"/PLACEHOLDER
+    "SynchronizedStatement"/PLACEHOLDER
+    "ThrowStatement"/PLACEHOLDER
+    "TryStatement"/PLACEHOLDER
+    "LabeledStatement"/PLACEHOLDER
+    "IfStatement"/PLACEHOLDER
+    "WhileStatement"/PLACEHOLDER
+    "ForStatement"/PLACEHOLDER
+
+END DEFINE
+
+DELETE PLACEHOLDER PACKAGE_OR_TYPENAME - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER PACKAGE_OR_TYPENAME - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid package_or_typename"
+
+END DEFINE
+
+DELETE PLACEHOLDER CONSTRUCTORBODY - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER CONSTRUCTORBODY - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "{"
+    "   [ExplicitConstructorInvocation]"
+    "   [LocalVariableDeclarationStatement]..."
+    "[ClassDeclaration]..."
+    "[Statement]..."
+    "}"
+
+END DEFINE
+
+DELETE PLACEHOLDER ARGUMENTLIST - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER ARGUMENTLIST - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "{Expression}..."
+
+END DEFINE
+
+DELETE PLACEHOLDER METHODNAME - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER METHODNAME - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid MethodName"
+
+END DEFINE
+
+DELETE PLACEHOLDER EXPESSION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER EXPESSION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid Expession"
+
+END DEFINE
+
+DELETE PLACEHOLDER CLASSMEMBERDECLARATION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER CLASSMEMBERDECLARATION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "FieldDeclaration"/PLACEHOLDER
+    "MethodDeclaration"/PLACEHOLDER
+    "ClassDeclaration"/PLACEHOLDER
+    "InterfaceDeclaration"/PLACEHOLDER
+    ";"/PLACEHOLDER
+
+END DEFINE
+
+DELETE PLACEHOLDER ASSIGNMENT - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER ASSIGNMENT - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid Assignment"
+
+END DEFINE
+
+DELETE PLACEHOLDER CATCHCLAUSE - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER CATCHCLAUSE - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=VERTICAL - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "catch ({FormalParameter}) {"
+    "   [LocalVariableDeclarationStatement]..."
+    "  [ClassDeclaration]..."
+    "  [Statement]..."
+    "}"
+
+END DEFINE
+
+DELETE PLACEHOLDER POSTINCREMENTEXPRESSION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER POSTINCREMENTEXPRESSION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "{variable}++"
+
+END DEFINE
+
+DELETE PLACEHOLDER INPUTELEMENTS - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER INPUTELEMENTS - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "{InputElement}..."
+
+END DEFINE
+
+DELETE PLACEHOLDER CLASSBODYDECLARATION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER CLASSBODYDECLARATION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=VERTICAL - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "ClassMemberDeclaration"/PLACEHOLDER
+    "InstanceInitializer"/PLACEHOLDER
+    "StaticInitializer"/PLACEHOLDER
+    "ConstructorDeclaration"/PLACEHOLDER
+
+END DEFINE
+
+DELETE PLACEHOLDER STATEMENTEXPRESSIONLIST - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER STATEMENTEXPRESSIONLIST - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "{StatementExpression}..."
+
+END DEFINE
+
+DELETE PLACEHOLDER EXCLUSIVE_OR_EXPRESSION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER EXCLUSIVE_OR_EXPRESSION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "and_expression"/PLACEHOLDER
+    "{exclusive_or_expression} ^ {and_expression}"
+
+END DEFINE
+
+DELETE PLACEHOLDER KEYWORD - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER KEYWORD - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid Keyword"
+
+END DEFINE
+
+DELETE PLACEHOLDER COMPILATION_UNIT - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER COMPILATION_UNIT - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "[package_declaration]"
+    "[import_declaration]..."
+    "[type_declaration]..."
+
+END DEFINE
+
+DELETE PLACEHOLDER TOKEN - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER TOKEN - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "Identifier"/PLACEHOLDER
+    "Keyword"/PLACEHOLDER
+    "Literal"/PLACEHOLDER
+    "Separator"/PLACEHOLDER
+    "Operator"/PLACEHOLDER
+
+END DEFINE
+
+DELETE PLACEHOLDER EXPLICITCONSTRUCTORINVOCATION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER EXPLICITCONSTRUCTORINVOCATION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "this ([ArgumentList]);"
+    "super ([ArgumentList]);"
+    "{PrimarySuper} ([ArgumentList]);"
+
+END DEFINE
+
+DELETE PLACEHOLDER "EXTENDS {TYPE_NAME}" - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER EXTENDS {TYPE_NAME} - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "extends {type_name}"
+
+END DEFINE
+
+DELETE PLACEHOLDER "EXTENDS {INTERFACETYPE}..." - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER EXTENDS {INTERFACETYPE}... - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "extends {InterfaceType}..."
+
+END DEFINE
+
+DELETE PLACEHOLDER VARIABLEINITIALIZERS - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER VARIABLEINITIALIZERS - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "{VariableInitializer}..."
+
+END DEFINE
+
+DELETE PLACEHOLDER CONSTANTDECLARATION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER CONSTANTDECLARATION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "[ConstantModifier]... {Type} {VariableDeclaratorId} [= {VariableInitializer}], [VariableDeclarator]...;"
+
+END DEFINE
+
+DELETE PLACEHOLDER ELSIFPART - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER ELSIFPART - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=VERTICAL - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "else if ({Expression}) {"
+    "  {Statement}..."
+    "}"
+
+END DEFINE
+
+DELETE PLACEHOLDER FINALLY - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER FINALLY - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "finally {"
+    "   [LocalVariableDeclarationStatement]..."
+    "  [ClassDeclaration]..."
+    "  [Statement]..."
+    "}"
+
+END DEFINE
+
+DELETE PLACEHOLDER P - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER P - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid p"
+
+END DEFINE
+
+DELETE PLACEHOLDER EMPTYSTATEMENT - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER EMPTYSTATEMENT - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    ";"
+
+END DEFINE
+
+DELETE PLACEHOLDER RETURNSTATEMENT - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER RETURNSTATEMENT - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "return [Expression];"
+
+END DEFINE
+
+DELETE PLACEHOLDER IDENTIFIER - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER IDENTIFIER - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid identifier"
+
+END DEFINE
+
+DELETE PLACEHOLDER VARIABLEDECLARATOR - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER VARIABLEDECLARATOR - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR=", " - 
+    /TYPE=NONTERMINAL - 
+
+    "{VariableDeclaratorId} [= {VariableInitializer}]"
+
+END DEFINE
+
+DELETE PLACEHOLDER CONSTANTEXPRESSION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER CONSTANTEXPRESSION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid ConstantExpression"
+
+END DEFINE
+
+DELETE PLACEHOLDER SWITCHLABEL - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER SWITCHLABEL - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "case {ConstantExpression} :"
+    "default :"
+
+END DEFINE
+
+DELETE PLACEHOLDER EXPR_OR_TYPE - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER EXPR_OR_TYPE - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "Expr"/PLACEHOLDER
+    "Type"/PLACEHOLDER
+
+END DEFINE
+
+DELETE PLACEHOLDER CONSTANTMODIFIER - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER CONSTANTMODIFIER - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR=" " - 
+    /TYPE=MENU - 
+
+    "public"
+    "static"
+    "final"
+
+END DEFINE
+
+DELETE PLACEHOLDER FORMALPARAMETER - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER FORMALPARAMETER - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR=", " - 
+    /TYPE=NONTERMINAL - 
+
+    "[final] {Type}[Array] {Identifier}[Array]"
+
+END DEFINE
+
+DELETE PLACEHOLDER PACKAGENAME - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER PACKAGENAME - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "{Identifier}..."
+
+END DEFINE
+
+DELETE PLACEHOLDER SIZEOF - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER SIZEOF - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid sizeof"
+
+END DEFINE
+
+DELETE PLACEHOLDER ARRAYCREATORREST - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER ARRAYCREATORREST - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "[(]{BracketOpts} {ArrayInitializer}"
+    "{Expression}... {BracketOpts})"
+    "{p}468"
+
+END DEFINE
+
+DELETE PLACEHOLDER TYPE - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER TYPE - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "primitive_type"/PLACEHOLDER
+    "reference_type"/PLACEHOLDER
+
+END DEFINE
+
+DELETE PLACEHOLDER IDENTFIIER - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER IDENTFIIER - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid Identfiier"
+
+END DEFINE
+
+DELETE PLACEHOLDER INTERFACEMEMBERDECLARATION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER INTERFACEMEMBERDECLARATION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=VERTICAL - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "ConstantDeclaration"/PLACEHOLDER
+    "AbstractMethodDeclaration"/PLACEHOLDER
+    "ClassDeclaration"/PLACEHOLDER
+    "InterfaceDeclaration"/PLACEHOLDER
+    ";"/PLACEHOLDER
+
+END DEFINE
+
+DELETE PLACEHOLDER PACKAGE_DECLARATION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER PACKAGE_DECLARATION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "package {package_name};"
+
+END DEFINE
+
+DELETE PLACEHOLDER INTERFACEMODIFIER - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER INTERFACEMODIFIER - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR=" " - 
+    /TYPE=MENU - 
+
+    "public"
+    "protected"
+    "private"
+    "abstract"
+    "static"
+    "strictfp"
+
+END DEFINE
+
+DELETE PLACEHOLDER REFERENCE_TYPE - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER REFERENCE_TYPE - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid reference_type"
+
+END DEFINE
+
+DELETE PLACEHOLDER ARRAY_OR_CLASS_CREATORREST - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER ARRAY_OR_CLASS_CREATORREST - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "ArrayCreatorRest"/PLACEHOLDER
+    "ClassCreatorRest"/PLACEHOLDER
+
+END DEFINE
+
+DELETE PLACEHOLDER SELECTOR - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER SELECTOR - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    ".{Ident}[Arguments]"
+    ".this"
+    ".super {SuperSuffix}"
+    ".new {InnerCreator}"
+    "[{Expression}]"
+
+END DEFINE
+
+DELETE PLACEHOLDER INPUTELEMENT - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER INPUTELEMENT - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "WhiteSpace"/PLACEHOLDER
+    "Comment"/PLACEHOLDER
+    "Token"/PLACEHOLDER
+
+END DEFINE
+
+DELETE PLACEHOLDER BREAKSTATEMENT - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER BREAKSTATEMENT - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "break [Identifier];"
+
+END DEFINE
+
+DELETE PLACEHOLDER CONSTRUCTORMODIFIER - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER CONSTRUCTORMODIFIER - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "public"
+    "protected"
+    "private"
+
+END DEFINE
+
+DELETE PLACEHOLDER SYNCHRONIZEDSTATEMENT - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER SYNCHRONIZEDSTATEMENT - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "synchronized ({Expression})"
+    "{"
+    "[LocalVariableDeclarationStatement]..."
+    "[ClassDeclaration]..."
+    "[Statement]..."
+    "}"
+
+END DEFINE
+
+DELETE PLACEHOLDER ARRAYINITIALIZER - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER ARRAYINITIALIZER - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "{[VariableInitializer]...}"
+
+END DEFINE
+
+DELETE PLACEHOLDER STRING_LITERAL - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER STRING_LITERAL - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid string_literal"
+
+END DEFINE
+
+DELETE PLACEHOLDER CLASSMODIFIER - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER CLASSMODIFIER - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR=" " - 
+    /TYPE=MENU - 
+
+    "public"
+    "protected"
+    "private"
+    "abstract"
+    "static"
+    "final"
+    "strictfp"
+
+END DEFINE
+
+DELETE PLACEHOLDER PREFIXOP - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER PREFIXOP - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "++"
+    "--"
+    "!"/PLACEHOLDER
+    "~"/PLACEHOLDER
+    "+"/PLACEHOLDER
+    "-"/PLACEHOLDER
+
+END DEFINE
+
+DELETE PLACEHOLDER MULTIPLICATIVE_EXPRESSION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER MULTIPLICATIVE_EXPRESSION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "cast_expression"/PLACEHOLDER
+    "{multiplicative_expression} * {cast_expression}"
+    "{multiplicative_expression} / {cast_expression}"
+    "{multiplicative_expression} % {cast_expression}"
+
+END DEFINE
+
+DELETE PLACEHOLDER ARGUMENT_EXPRESSION_LIST - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER ARGUMENT_EXPRESSION_LIST - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "{assignment_expression}..."
+
+END DEFINE
+
+DELETE PLACEHOLDER OPERATOR - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER OPERATOR - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid Operator"
+
+END DEFINE
+
+DELETE PLACEHOLDER SEPARATOR - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER SEPARATOR - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid Separator"
+
+END DEFINE
+
+DELETE PLACEHOLDER METHODINVOCATION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER METHODINVOCATION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "{MethodName} ([ArgumentList])"
+
+END DEFINE
+
+DELETE PLACEHOLDER ABSTRACTMETHODDECLARATION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER ABSTRACTMETHODDECLARATION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "[AbstractMethodModifier]... {ResultType} {Identifier} ([FormalParameter]...) [throws_clause];"
+
+END DEFINE
+
+DELETE PLACEHOLDER SINGLE_TYPE_IMPORT_DECLARATION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER SINGLE_TYPE_IMPORT_DECLARATION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "import {type_name};"
+
+END DEFINE
+
+DELETE PLACEHOLDER IDENTIFIER - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER IDENTIFIER - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR=". " - 
+    /TYPE=TERMINAL - 
+
+    ""Pls enter a valid identifier but not a keyword, or a boolean literal or a null literal""
+
+END DEFINE
+
+DELETE PLACEHOLDER STATEMENTWITHOUTTRAILINGSUBSTATEMENT - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER STATEMENTWITHOUTTRAILINGSUBSTATEMENT - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid StatementWithoutTrailingSubStatement"
+
+END DEFINE
+
+DELETE PLACEHOLDER SHIFT_EXPRESSION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER SHIFT_EXPRESSION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "additive_expression"/PLACEHOLDER
+    "{shift_expression} << {additive_expression}"
+    "{shift_expression} >> {additive_expression}"
+    "{shift_expression} >>> {additive_expression}"
+
+END DEFINE
+
+DELETE PLACEHOLDER POSTFIXOP - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER POSTFIXOP - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "++"
+    "--"
+
+END DEFINE
+
+DELETE PLACEHOLDER COMMENT - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER COMMENT - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "/* {text} */"
+    "// {text}"
+    "/** {documentation} */"
+
+END DEFINE
+
+DELETE PLACEHOLDER BLOCK_STATMENT - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER BLOCK_STATMENT - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "{"
+    "   [LocalVariableDeclarationStatement]..."
+    "  [ClassDeclaration]..."
+    "  [Statement]..."
+    "}"
+
+END DEFINE
+
+DELETE PLACEHOLDER FORUPDATE - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER FORUPDATE - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "{StatementExpressionList}"
+
+END DEFINE
+
+DELETE PLACEHOLDER FORINIT - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER FORINIT - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "[StatementExpression]..."
+    "LocalVariableDeclaration"/PLACEHOLDER
+
+END DEFINE
+
+DELETE PLACEHOLDER WHITESPACE - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER WHITESPACE - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid WhiteSpace"
+
+END DEFINE
+
+DELETE PLACEHOLDER RESULTTYPE - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER RESULTTYPE - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "Type"/PLACEHOLDER
+    "void"
+
+END DEFINE
+
+DELETE PLACEHOLDER THROWSTATEMENT - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER THROWSTATEMENT - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "throw {Expression};"
+
+END DEFINE
+
+DELETE PLACEHOLDER PRIMARY - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER PRIMARY - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "({Expression})"
+    "this [Arguments]"
+    "super {SuperSuffix}"
+    "Literal"/PLACEHOLDER
+    "new {Creator}"
+    "{BasicType} {BracketOpts}.class"
+    "void.class"
+
+END DEFINE
+
+DELETE PLACEHOLDER INTERFACETYPE - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER INTERFACETYPE - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR=", " - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid InterfaceType"
+
+END DEFINE
+
+DELETE PLACEHOLDER INCLUSIVE_OR_EXPRESSION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER INCLUSIVE_OR_EXPRESSION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "exclusive_or_expression"/PLACEHOLDER
+    "{inclusive_or_expression} | {exclusive_or_expression}"
+
+END DEFINE
+
+DELETE PLACEHOLDER BSTRACT - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER BSTRACT - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid bstract"
+
+END DEFINE
+
+DELETE PLACEHOLDER WHILESTATEMENTNOSHORTIF - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER WHILESTATEMENTNOSHORTIF - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid WhileStatementNoShortIf"
+
+END DEFINE
+
+DELETE PLACEHOLDER ABSTRACTMETHODMODIFIER - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER ABSTRACTMETHODMODIFIER - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR=" " - 
+    /TYPE=MENU - 
+
+    "public"
+    "bstract"/PLACEHOLDER
+
+END DEFINE
+
+DELETE PLACEHOLDER DEFAULT_PART - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER DEFAULT_PART - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "default :"
+    "  {Statement}..."
+
+END DEFINE
+
+DELETE PLACEHOLDER PRIMARYSUPER - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER PRIMARYSUPER - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid PrimarySuper"
+
+END DEFINE
+
+DELETE PLACEHOLDER THROWS - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER THROWS - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "throws"
+
+END DEFINE
+
+DELETE PLACEHOLDER "{
+                       [CLASSBODYDECLARATION]...
+                     }" - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER {
+                       [CLASSBODYDECLARATION]...
+                     } - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "{
+                       [ClassBodyDeclaration]...
+                     }"
+
+END DEFINE
+
+DELETE PLACEHOLDER THROWS_CLAUSE - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER THROWS_CLAUSE - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "throws {ClassType}..."
+
+END DEFINE
+
+DELETE PLACEHOLDER TYPE_NAME - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER TYPE_NAME - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    ""canonical name of a class or interface type""
+
+END DEFINE
+
+DELETE PLACEHOLDER VARIABLEINITIALIZER - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER VARIABLEINITIALIZER - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR=", " - 
+    /TYPE=MENU - 
+
+    "Expression"/PLACEHOLDER
+    "ArrayInitializer"/PLACEHOLDER
+
+END DEFINE
+
+DELETE PLACEHOLDER "CASE {CONSTANT_EXPRESSION}:" - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER CASE {CONSTANT_EXPRESSION}: - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "case {constant_expression}:"
+
+END DEFINE
+
+DELETE PLACEHOLDER STATICINITIALIZER - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER STATICINITIALIZER - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "static {"
+    "   [LocalVariableDeclarationStatement]..."
+    "  [ClassDeclaration]..."
+    "  [Statement]..."
+    "}"
+
+END DEFINE
+
+DELETE PLACEHOLDER LITERAL - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER LITERAL - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    ""Enter a primitive type, a String or the null type.""
+
+END DEFINE
+
+DELETE PLACEHOLDER CONSTRUCTORDECLARATION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER CONSTRUCTORDECLARATION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "[ConstructorModifiers] {ConstructorDeclarator} [throws] {ConstructorBody}"
+
+END DEFINE
+
+DELETE PLACEHOLDER "= {VARIABLEINITIALIZER}" - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER = {VARIABLEINITIALIZER} - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "= {VariableInitializer}"
+
+END DEFINE
+
+DELETE PLACEHOLDER INPUT - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER INPUT - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "[InputElements]"
+
+END DEFINE
+
+DELETE PLACEHOLDER LOGICAL_AND_EXPRESSION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER LOGICAL_AND_EXPRESSION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "inclusive_or_expression"/PLACEHOLDER
+    "{logical_and_expression} && {inclusive_or_expression}"
+
+END DEFINE
+
+DELETE PLACEHOLDER ADDITIVE_EXPRESSION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER ADDITIVE_EXPRESSION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "multiplicative_expression"/PLACEHOLDER
+    "{additive_expression} + {multiplicative_expression}"
+    "{additive_expression} - {multiplicative_expression}"
+
+END DEFINE
+
+DELETE PLACEHOLDER CLASSINSTANCECREATIONEXPRESSION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER CLASSINSTANCECREATIONEXPRESSION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "new {ClassOrInterfaceType} ([ArgumentList])"
+    "[{"
+    "[ClassBodyDeclaration]..."
+    "}]"
+
+END DEFINE
+
+DELETE PLACEHOLDER FORSTATEMENT - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER FORSTATEMENT - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "for ([ForInit]; [Expression]; [StatementExpression]...) {"
+    "  {Statement}..."
+    "}"
+
+END DEFINE
+
+DELETE PLACEHOLDER UNARY_EXPRESSION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER UNARY_EXPRESSION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "postfix_expression"/PLACEHOLDER
+    "++{unary_expression}"
+    "--{unary_expression}"
+    "{unary_operator} {cast_expression}"
+    "{sizeof} {unary_expression}"
+    "{sizeof} ({type_name})"
+
+END DEFINE
+
+DELETE PLACEHOLDER CONTINUESTATEMENT - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER CONTINUESTATEMENT - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "continue [Identifier];"
+
+END DEFINE
+
+DELETE PLACEHOLDER BASICTYPE - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER BASICTYPE - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "byte"
+    "short"
+    "char"
+    "int"
+    "long"
+    "float"
+    "double"
+    "boolean"
+
+END DEFINE
+
+DELETE PLACEHOLDER SWITCHSTATEMENT - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER SWITCHSTATEMENT - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "switch ({Expression}) {"
+    "  [case_part]..."
+    "  [default_part]"
+    "}"
+
+END DEFINE
+
+DELETE PLACEHOLDER CLASSCREATORREST - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER CLASSCREATORREST - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid ClassCreatorRest"
+
+END DEFINE
+
+DELETE PLACEHOLDER PRIMITIVE_TYPE - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER PRIMITIVE_TYPE - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "boolean"
+    "byte"
+    "short"
+    "int"
+    "long"
+    "char"
+    "float"
+    "double"
+
+END DEFINE
+
+DELETE PLACEHOLDER CAST_EXPRESSION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER CAST_EXPRESSION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "unary_expression"/PLACEHOLDER
+    "({type_name}) {cast_expression}"
+
+END DEFINE
+
+DELETE PLACEHOLDER METHODDECLARATION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER METHODDECLARATION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "[MethodModifier]... {ResultType} {Identifier} ([FormalParameter]...) [throws_clause]"
+    "{"
+    "   [LocalVariableDeclarationStatement]..."
+    "  [ClassDeclaration]..."
+    "  [Statement]..."
+    "}"
+
+END DEFINE
+
+DELETE PLACEHOLDER FINAL - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER FINAL - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "final"
+
+END DEFINE
+
+DELETE PLACEHOLDER CONSTANT_EXPRESSION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER CONSTANT_EXPRESSION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid constant_expression"
+
+END DEFINE
+
+DELETE PLACEHOLDER RELATIONAL_EXPRESSION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER RELATIONAL_EXPRESSION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "shift_expression"/PLACEHOLDER
+    "{relational_expression} < {shift_expression}"
+    "{relational_expression} > {shift_expression}"
+    "{relational_expression} <= {shift_expression}"
+    "{relational_expression} >= {shift_expression}"
+
+END DEFINE
+
+DELETE PLACEHOLDER METHODMODIFIER - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER METHODMODIFIER - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR=" " - 
+    /TYPE=MENU - 
+
+    "public"
+    "protected"
+    "private"
+    "abstract"
+    "static"
+    "final"
+    "synchronized"
+    "native"
+    "strictfp"
+
+END DEFINE
+
+DELETE PLACEHOLDER IDENT - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER IDENT - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid Ident"
+
+END DEFINE
+
+DELETE PLACEHOLDER DOSTATEMENT - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER DOSTATEMENT - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "do {"
+    "  {Statement}..."
+    "} while ({Expression});"
+
+END DEFINE
+
+DELETE PLACEHOLDER CASE_PART - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER CASE_PART - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=VERTICAL - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "case {constant_expression}:"
+    "[case {constant_expression}:]..."
+    "  [statement]..."
+    "  [break;]"
+
+END DEFINE
+
+DELETE PLACEHOLDER CLASSORINTERFACETYPE - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER CLASSORINTERFACETYPE - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid ClassOrInterfaceType"
+
+END DEFINE
+
+DELETE PLACEHOLDER INSTANCEINITIALIZER - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER INSTANCEINITIALIZER - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "{"
+    "   [LocalVariableDeclarationStatement]..."
+    "  [ClassDeclaration]..."
+    "  [Statement]..."
+    "}"
+
+END DEFINE
+
+DELETE PLACEHOLDER TRYSTATEMENT - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER TRYSTATEMENT - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "try {"
+    "   [LocalVariableDeclarationStatement]..."
+    "  [ClassDeclaration]..."
+    "  [Statement]..."
+    "}"
+    "[CatchClause]..."
+    "[Finally]"
+
+END DEFINE
+
+DELETE PLACEHOLDER PRIMARY_EXPRESSION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER PRIMARY_EXPRESSION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "identifier"/PLACEHOLDER
+    "constant"/PLACEHOLDER
+    "string_literal"/PLACEHOLDER
+    "({Expression})"
+
+END DEFINE
+
+DELETE PLACEHOLDER FORMALPARAMETERLIST - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER FORMALPARAMETERLIST - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "{FormalParameter}..."
+
+END DEFINE
+
+DELETE PLACEHOLDER EXPRESSION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER EXPRESSION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="\[" - 
+    /TYPE=MENU - 
+
+    "conditional_expression"/PLACEHOLDER
+    "{unary_expression} {assignment_operator} {assignment_expression}"
+
+END DEFINE
+
+DELETE PLACEHOLDER EQUALITY_EXPRESSION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER EQUALITY_EXPRESSION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "relational_expression"/PLACEHOLDER
+    "{equality_expression} == {relational_expression}"
+    "{equality_expression} != {relational_expression}"
+
+END DEFINE
+
+DELETE PLACEHOLDER TYPE_IMPORT_ON_DEMAND_DECLARATION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER TYPE_IMPORT_ON_DEMAND_DECLARATION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "import {package_or_typename}.*;"
+
+END DEFINE
+
+DELETE PLACEHOLDER LOCALVARIABLEDECLARATION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER LOCALVARIABLEDECLARATION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "[final] {Type} {VariableDeclaratorId} [= {VariableInitializer}], [VariableDeclarator]..."
+
+END DEFINE
+
+DELETE PLACEHOLDER CONSTRUCTORDECLARATOR - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER CONSTRUCTORDECLARATOR - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "{SimpleTypeName} ([FormalParameter]...)"
+
+END DEFINE
+
+DELETE PLACEHOLDER CREATOR - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER CREATOR - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "{Qualident}({Array_or_Class_CreatorRest})"
+
+END DEFINE
+
+DELETE PLACEHOLDER CLASSTYPE - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER CLASSTYPE - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR=", " - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid ClassType"
+
+END DEFINE
+
+DELETE PLACEHOLDER WHILESTATEMENT - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER WHILESTATEMENT - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "while ({Expression}) {"
+    "  {Statement}..."
+    "}"
+
+END DEFINE
+
+DELETE PLACEHOLDER "IMPLEMENTS {INTERFACE_TYPE}..." - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER IMPLEMENTS {INTERFACE_TYPE}... - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "implements {interface_type}..."
+
+END DEFINE
+
+DELETE PLACEHOLDER STATEMENTNOSHORTIF - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER STATEMENTNOSHORTIF - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "StatementWithoutTrailingSubStatement"/PLACEHOLDER
+    "LabeledStatementNoShortIf"/PLACEHOLDER
+    "IfThenElseStatementNoShortIf"/PLACEHOLDER
+    "WhileStatementNoShortIf"/PLACEHOLDER
+    "{ForStatementNoShortIf}"
+    "{StatementWithoutTrailingSubStatement} &::"
+
+END DEFINE
+
+DELETE PLACEHOLDER CLASSDECLARATION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER CLASSDECLARATION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=VERTICAL - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "[classmodifier]... class {Identifier} [extends {type_name}] [implements {interface_type}...]"
+    "{"
+    "  [ClassBodyDeclaration]..."
+    "}"
+
+END DEFINE
+
+DELETE PLACEHOLDER INTERFACE_TYPE - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER INTERFACE_TYPE - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR=", " - 
+    /TYPE=NONTERMINAL - 
+
+    "{type_name}"
+
+END DEFINE
+
+DELETE PLACEHOLDER INNERCREATOR - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER INNERCREATOR - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "{Ident} {ClassCreatorRest}"
+
+END DEFINE
+
+DELETE PLACEHOLDER ARGUMENTS - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER ARGUMENTS - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "([Expression]...)"
+
+END DEFINE
+
+DELETE PLACEHOLDER CONSTANT - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER CONSTANT - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid constant"
+
+END DEFINE
+
+DELETE PLACEHOLDER LABELEDSTATEMENT - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER LABELEDSTATEMENT - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "{Identifier} : {Statement}"
+
+END DEFINE
+
+DELETE PLACEHOLDER TYPE_DECLARATION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER TYPE_DECLARATION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "ClassDeclaration"/PLACEHOLDER
+    "InterfaceDeclaration"/PLACEHOLDER
+
+END DEFINE
+
+DELETE PLACEHOLDER STATEMENTEXPRESSION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER STATEMENTEXPRESSION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=VERTICAL - 
+    /SEPARATOR=", " - 
+    /TYPE=MENU - 
+
+    "Assignment"/PLACEHOLDER
+    "PreIncrementExpression"/PLACEHOLDER
+    "PreDecrementExpression"/PLACEHOLDER
+    "PostIncrementExpression"/PLACEHOLDER
+    "PostDecrementExpression"/PLACEHOLDER
+    "MethodInvocation"/PLACEHOLDER
+    "ClassInstanceCreationExpression"/PLACEHOLDER
+
+END DEFINE
+
+DELETE PLACEHOLDER SIMPLETYPENAME - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER SIMPLETYPENAME - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid SimpleTypeName"
+
+END DEFINE
+
+DELETE PLACEHOLDER VARIABLEDECLARATORID - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER VARIABLEDECLARATORID - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "{Identifier} []"
+    "Identifier"/PLACEHOLDER
+
+END DEFINE
+
+DELETE PLACEHOLDER QUALIDENT - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER QUALIDENT - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid Qualident"
+
+END DEFINE
+
+DELETE PLACEHOLDER AND_EXPRESSION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER AND_EXPRESSION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "equality_expression"/PLACEHOLDER
+    "{and_expression} & {equality_expression}"
+
+END DEFINE
+
+DELETE PLACEHOLDER FIELDDECLARATION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER FIELDDECLARATION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "[FieldModifier]... {Type} {VariableDeclaratorId} [= {VariableInitializer}], [VariableDeclarator]...;"
+
+END DEFINE
+
+DELETE PLACEHOLDER POSTFIX_EXPRESSION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER POSTFIX_EXPRESSION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "primary_expression"/PLACEHOLDER
+    "{postfix_expression} [{Expression}]"
+    "{postfix_expression} ()"
+    "{postfix_expression} ({argument_expression_list})"
+    "{postfix_expression}.{identifier}"
+    "{postfix_expression}->{identifier}"
+    "{postfix_expression}++"
+    "{postfix_expression}--"
+
+END DEFINE
+
+DELETE PLACEHOLDER ELSEPART - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER ELSEPART - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "else {"
+    "  {Statement}..."
+    "}"
+
+END DEFINE
+
+DELETE PLACEHOLDER IFTHENELSESTATEMENTNOSHORTIF - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER IFTHENELSESTATEMENTNOSHORTIF - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid IfThenElseStatementNoShortIf"
+
+END DEFINE
+
+DELETE PLACEHOLDER LOCALVARIABLEDECLARATIONSTATEMENT - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER LOCALVARIABLEDECLARATIONSTATEMENT - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=VERTICAL - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "{LocalVariableDeclaration};"
+
+END DEFINE
+
+DELETE PLACEHOLDER LOGICAL_OR_EXPRESSION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER LOGICAL_OR_EXPRESSION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "logical_and_expression"/PLACEHOLDER
+    "{logical_or_expression} || {logical_and_expression}"
+
+END DEFINE
+
+DELETE PLACEHOLDER UNARY_OPERATOR - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER UNARY_OPERATOR - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "&"/PLACEHOLDER
+    "*"/PLACEHOLDER
+    "+"/PLACEHOLDER
+    "-"/PLACEHOLDER
+    "~"/PLACEHOLDER
+    "!"/PLACEHOLDER
+
+END DEFINE
+
+DELETE PLACEHOLDER ASSIGNMENT_OPERATOR - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER ASSIGNMENT_OPERATOR - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "="/PLACEHOLDER
+    "*="
+    "/="
+    "%="
+    "+="
+    "-="
+    "&="
+    "^="
+    "="/PLACEHOLDER
+    "<<="
+    ">>="
+    ">>>="
+
+END DEFINE
+
+DELETE PLACEHOLDER FIELDMODIFIERS - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER FIELDMODIFIERS - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "{FieldModifier}..."
+
+END DEFINE
+
+DELETE PLACEHOLDER ASSIGNMENT_EXPRESSION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER ASSIGNMENT_EXPRESSION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR=", " - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid assignment_expression"
+
+END DEFINE
+
+DELETE PLACEHOLDER ARGUMENTOPS - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER ARGUMENTOPS - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "[Arguments]"
+
+END DEFINE
+
+DELETE PLACEHOLDER EXPR - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER EXPR - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid Expr"
+
+END DEFINE
+
+DELETE PLACEHOLDER EXPRESSIONC - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER EXPRESSIONC - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "{Prefixop}{ExpressionC}"
+    "({Expr_or_Type}) {ExpressionC}"
+    "{Primary}[Selector]...[PostfixOp]..."
+
+END DEFINE
+
+DELETE PLACEHOLDER SUPERSUFFIX - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER SUPERSUFFIX - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "Arguments"/PLACEHOLDER
+    ".{Ident}[Arguments]"
+
+END DEFINE
+
+DELETE PLACEHOLDER CONSTRUCTORMODIFIERS - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER CONSTRUCTORMODIFIERS - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "{ConstructorModifier}..."
+
+END DEFINE
+
+DELETE PLACEHOLDER VARIABLE - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER VARIABLE - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid variable"
+
+END DEFINE
+
+DELETE PLACEHOLDER PREDECREMENTEXPRESSION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER PREDECREMENTEXPRESSION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "--{variable}"
+
+END DEFINE
+
+DELETE PLACEHOLDER FORSTATEMENTNOSHORTIF - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER FORSTATEMENTNOSHORTIF - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid ForStatementNoShortIf"
+
+END DEFINE
+
+DELETE PLACEHOLDER LABELEDSTATEMENTNOSHORTIF - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER LABELEDSTATEMENTNOSHORTIF - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "{Identfiier} : {StatementNoShortif}"
+
+END DEFINE
+
+DELETE PLACEHOLDER INFIXOPERATOR - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER INFIXOPERATOR - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "||"
+    "&&"
+    "|"/PLACEHOLDER
+    "^"/PLACEHOLDER
+    "&"/PLACEHOLDER
+    "=="
+    "!="
+    "<"/PLACEHOLDER
+    ">"/PLACEHOLDER
+    "<="
+    ">="
+    "<<"
+    ">>"
+    ">>>"
+    "+"/PLACEHOLDER
+    "-"/PLACEHOLDER
+    "*"/PLACEHOLDER
+    "/"/PLACEHOLDER
+    "%"/PLACEHOLDER
+
+END DEFINE
+
+DELETE PLACEHOLDER DOCUMENTATION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER DOCUMENTATION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=TERMINAL - 
+
+    "Please enter a valid documentation"
+
+END DEFINE
+
+DELETE PLACEHOLDER FIELDMODIFIER - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER FIELDMODIFIER - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR=" " - 
+    /TYPE=MENU - 
+
+    "public"
+    "protected"
+    "private"
+    "static"
+    "final"
+    "transient"
+    "volatile"
+
+END DEFINE
+
+DELETE PLACEHOLDER CONDITIONAL_EXPRESSION - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER CONDITIONAL_EXPRESSION - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=MENU - 
+
+    "logical_or_expression"/PLACEHOLDER
+    "{logical_or_expression} ? {Expression} : {conditional_expression}"
+
+END DEFINE
+
+DELETE PLACEHOLDER ARRAY - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER ARRAY - 
+    /LANGUAGE="Java" - 
+    /AUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "[]"
+
+END DEFINE
+
+DELETE PLACEHOLDER IFSTATEMENT - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER IFSTATEMENT - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE=NONTERMINAL - 
+
+    "if ({Expession}) {"
+    "  {Statement}..."
+    "}"
+    "[ElsIfPart]..."
+    "[ElsePart]"
+
+END DEFINE
+
+DELETE PLACEHOLDER BRACKETOPTS - 
+    /LANGUAGE="Java" - 
+DEFINE PLACEHOLDER BRACKETOPTS - 
+    /LANGUAGE="Java" - 
+    /NOAUTO_SUBSTITUTE - 
+    /DESCRIPTION="" -
+    /DUPLICATION=CONTEXT_DEPENDENT - 
+    /SEPARATOR="" - 
+    /TYPE= - 
+
+
+END DEFINE
+
+The following tokens are generated automatically:
+DELETE TOKEN DO - 
+    /LANGUAGE="Java" - 
+DEFINE TOKEN DO - 
+    /LANGUAGE="Java" - 
+    /PLACEHOLDER=DOSTATEMENT - 
+
+END DEFINE
+
+DELETE TOKEN RETURN - 
+    /LANGUAGE="Java" - 
+DEFINE TOKEN RETURN - 
+    /LANGUAGE="Java" - 
+    /PLACEHOLDER=RETURNSTATEMENT - 
+
+END DEFINE
+
+DELETE TOKEN SYNCHRONIZED - 
+    /LANGUAGE="Java" - 
+DEFINE TOKEN SYNCHRONIZED - 
+    /LANGUAGE="Java" - 
+    /PLACEHOLDER=SYNCHRONIZEDSTATEMENT - 
+
+END DEFINE
+
+DELETE TOKEN PUBLIC - 
+    /LANGUAGE="Java" - 
+DEFINE TOKEN PUBLIC - 
+    /LANGUAGE="Java" - 
+    /PLACEHOLDER=ABSTRACTMETHODMODIFIER - 
+
+END DEFINE
+
+DELETE TOKEN ELSE - 
+    /LANGUAGE="Java" - 
+DEFINE TOKEN ELSE - 
+    /LANGUAGE="Java" - 
+    /PLACEHOLDER=ELSEPART - 
+
+END DEFINE
+
+DELETE TOKEN BREAK - 
+    /LANGUAGE="Java" - 
+DEFINE TOKEN BREAK - 
+    /LANGUAGE="Java" - 
+    /PLACEHOLDER=BREAKSTATEMENT - 
+
+END DEFINE
+
+DELETE TOKEN DEFAULT - 
+    /LANGUAGE="Java" - 
+DEFINE TOKEN DEFAULT - 
+    /LANGUAGE="Java" - 
+    /PLACEHOLDER=DEFAULT_PART - 
+
+END DEFINE
+
+DELETE TOKEN BOOLEAN - 
+    /LANGUAGE="Java" - 
+DEFINE TOKEN BOOLEAN - 
+    /LANGUAGE="Java" - 
+    /PLACEHOLDER=PRIMITIVE_TYPE - 
+
+END DEFINE
+
+DELETE TOKEN STATIC - 
+    /LANGUAGE="Java" - 
+DEFINE TOKEN STATIC - 
+    /LANGUAGE="Java" - 
+    /PLACEHOLDER=STATICINITIALIZER - 
+
+END DEFINE
+
+DELETE TOKEN IMPORT - 
+    /LANGUAGE="Java" - 
+DEFINE TOKEN IMPORT - 
+    /LANGUAGE="Java" - 
+    /PLACEHOLDER=TYPE_IMPORT_ON_DEMAND_DECLARATION - 
+
+END DEFINE
+
+DELETE TOKEN CATCH - 
+    /LANGUAGE="Java" - 
+DEFINE TOKEN CATCH - 
+    /LANGUAGE="Java" - 
+    /PLACEHOLDER=CATCHCLAUSE - 
+
+END DEFINE
+
+DELETE TOKEN BYTE - 
+    /LANGUAGE="Java" - 
+DEFINE TOKEN BYTE - 
+    /LANGUAGE="Java" - 
+    /PLACEHOLDER=BASICTYPE - 
+
+END DEFINE
+
+DELETE TOKEN THROW - 
+    /LANGUAGE="Java" - 
+DEFINE TOKEN THROW - 
+    /LANGUAGE="Java" - 
+    /PLACEHOLDER=THROWSTATEMENT - 
+
+END DEFINE
+
+DELETE TOKEN IF - 
+    /LANGUAGE="Java" - 
+DEFINE TOKEN IF - 
+    /LANGUAGE="Java" - 
+    /PLACEHOLDER=IFSTATEMENT - 
+
+END DEFINE
+
+DELETE TOKEN CASE - 
+    /LANGUAGE="Java" - 
+DEFINE TOKEN CASE - 
+    /LANGUAGE="Java" - 
+    /PLACEHOLDER=SWITCHLABEL - 
+
+END DEFINE
+
+DELETE TOKEN FOR - 
+    /LANGUAGE="Java" - 
+DEFINE TOKEN FOR - 
+    /LANGUAGE="Java" - 
+    /PLACEHOLDER=FORSTATEMENT - 
+
+END DEFINE
+
+DELETE TOKEN PACKAGE - 
+    /LANGUAGE="Java" - 
+DEFINE TOKEN PACKAGE - 
+    /LANGUAGE="Java" - 
+    /PLACEHOLDER=PACKAGE_DECLARATION - 
+
+END DEFINE
+
+DELETE TOKEN THIS - 
+    /LANGUAGE="Java" - 
+DEFINE TOKEN THIS - 
+    /LANGUAGE="Java" - 
+    /PLACEHOLDER=EXPLICITCONSTRUCTORINVOCATION - 
+
+END DEFINE
+
+DELETE TOKEN WHILE - 
+    /LANGUAGE="Java" - 
+DEFINE TOKEN WHILE - 
+    /LANGUAGE="Java" - 
+    /PLACEHOLDER=WHILESTATEMENT - 
+
+END DEFINE
+
+DELETE TOKEN FINAL - 
+    /LANGUAGE="Java" - 
+DEFINE TOKEN FINAL - 
+    /LANGUAGE="Java" - 
+    /PLACEHOLDER=FORMALPARAMETER - 
+
+END DEFINE
+
+DELETE TOKEN TRY - 
+    /LANGUAGE="Java" - 
+DEFINE TOKEN TRY - 
+    /LANGUAGE="Java" - 
+    /PLACEHOLDER=TRYSTATEMENT - 
+
+END DEFINE
+
+DELETE TOKEN SWITCH - 
+    /LANGUAGE="Java" - 
+DEFINE TOKEN SWITCH - 
+    /LANGUAGE="Java" - 
+    /PLACEHOLDER=SWITCHSTATEMENT - 
+
+END DEFINE
+
+DELETE TOKEN FINALLY - 
+    /LANGUAGE="Java" - 
+DEFINE TOKEN FINALLY - 
+    /LANGUAGE="Java" - 
+    /PLACEHOLDER=FINALLY - 
+
+END DEFINE
+
+DELETE TOKEN CONTINUE - 
+    /LANGUAGE="Java" - 
+DEFINE TOKEN CONTINUE - 
+    /LANGUAGE="Java" - 
+    /PLACEHOLDER=CONTINUESTATEMENT - 
+
+END DEFINE
+
+DELETE TOKEN NEW - 
+    /LANGUAGE="Java" - 
+DEFINE TOKEN NEW - 
+    /LANGUAGE="Java" - 
+    /PLACEHOLDER=CLASSINSTANCECREATIONEXPRESSION - 
+
+END DEFINE
+
+DELETE TOKEN THROWS - 
+    /LANGUAGE="Java" - 
+DEFINE TOKEN THROWS - 
+    /LANGUAGE="Java" - 
+    /PLACEHOLDER=THROWS_CLAUSE - 
+
+END DEFINE
+

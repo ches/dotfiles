@@ -1,0 +1,69 @@
+# There are 3 different types of shells in bash: the login shell, normal shell
+# and interactive shell. Login shells read ~/.profile and interactive shells
+# read ~/.bashrc; in our setup, /etc/profile sources ~/.bashrc - thus all
+# settings made here will also take effect in a login shell.
+#
+# NOTE: It is recommended to make language settings in ~/.profile rather than
+# here, since multilingual X sessions would not work properly if LANG is over-
+# ridden in every subshell.
+
+# Some applications read the EDITOR variable to determine your favourite text
+# editor. So uncomment the line below and enter the editor of your choice :-)
+#export EDITOR=/usr/bin/vim
+#export EDITOR=/usr/bin/mcedit
+#export EDITOR=/usr/bin/emacs
+
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# enable color support of ls and also add handy aliases
+if [ "$TERM" != "dumb" ]; then
+    eval "`dircolors -b`"
+    alias ls='ls --color=auto'
+    #alias dir='ls --color=auto --format=vertical'
+    #alias vdir='ls --color=auto --format=long'
+fi
+
+#
+# I like to protect myself from myself...
+#
+alias mv="mv -i"
+alias cp="cp -i"
+alias rm="rm -i"
+
+# some more ls aliases
+alias ll='ls -l'
+alias la='ls -A'
+#alias l='ls -CF'
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+fi
+
+#
+# 'less' is more
+#
+export LESS="-R"
+eval $('lesspipe')
+
+#
+# Startup file for Python's interactive interpreter, to set up completion & stuff
+#
+export PYTHONSTARTUP=$HOME/.pythonrc
+
+#
+# Environment variables for Apple Shake
+#
+export NR_INCLUDE_PATH=~/nreal/plugins/Furnace3.0v1_shake4.00-linux-x86-release-32/include:~/nreal/plugins/Tinder2.1v1_Shake-v4.00_Linux/include
+export NR_ICON_PATH=~/nreal/plugins/Furnace3.0v1_shake4.00-linux-x86-release-32/icons:~/nreal/plugins/Tinder2.1v1_Shake-v4.00_Linux/icons
+export FOUNDRY_LICENSE_FILE=~/nreal/FLEXlm/foundry.lic
+export FOUNDRY_LICENSE_LOG=~/nreal/FLEXlm/license.log

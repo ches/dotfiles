@@ -1,0 +1,10 @@
+[plugin]
+plugin = trac
+name = Trac
+version = 0.1.1
+author = Ali Afshar <aafshar@gmail.com>
+require_pida = 0.5
+depends = urlparse
+description = View bugs from Trac project inside PIDA
+website = ""
+category = code

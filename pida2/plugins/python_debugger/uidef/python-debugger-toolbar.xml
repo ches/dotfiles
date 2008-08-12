@@ -1,0 +1,11 @@
+<ui>
+    <toolbar>
+        <placeholder name="DebugToolbar">
+        <toolitem action="debug_start" name="debug_start" />
+        <toolitem action="debug_break" name="debug_break" />
+        <toolitem action="debug_next" name="debug_next" />
+        <toolitem action="debug_step" name="debug_step" />
+        <toolitem action="debug_return" name="debug_return" />
+        </placeholder>
+    </toolbar>
+</ui>
