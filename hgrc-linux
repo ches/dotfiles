@@ -6,6 +6,10 @@ ssh = ssh -C
 style = gitweb
 allow_archive = bz2, gz, zip
 
+[diff]
+# so mq can handle add/remove/move
+git = 1
+
 [extensions]
 hgext.alias =
 hgext.mq =

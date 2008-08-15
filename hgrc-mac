@@ -8,6 +8,10 @@ style = gitweb
 allow_archive = bz2, gz, zip
 pygments_style = manni
 
+[diff]
+# so mq can handle add/remove/move
+git = 1
+
 [extensions]
 hgext.alias =
 hgext.mq =
