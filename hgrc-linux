@@ -30,7 +30,7 @@ cmd.vdiff = meld
 cmd.kdiff = kdiff3
 
 #[merge-tools]
-#kdiff3.args=--auto -L1 base --L2 local --L3 other $base $local $other -o $output
+#kdiff3.args = $base $local $other -o $output
 #kdiff3.fixeol=True
 #kdiff3.gui=True
 
