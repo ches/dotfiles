@@ -1,7 +1,7 @@
 "pythoncomplete.vim - Omni Completion for python
 " Maintainer: Aaron Griffin <aaronmgriffin@gmail.com>
-" Version: 0.7
-" Last Updated: 19 Oct 2006
+" Version: 0.8
+" Last Updated: 8 Oct 2007
 "
 " Changes
 " TODO:
@@ -11,6 +11,12 @@
 " Complete basic syntax along with import statements
 "   i.e. "import url<c-x,c-o>"
 " Continue parsing on invalid line??
+"
+" v 0.8
+"   * Fixed an issue where the FIRST assignment was always used instead of
+"   using a subsequent assignment for a variable
+"   * Fixed a scoping issue when working inside a parameterless function
+"
 "
 " v 0.7
 "   * Fixed function list sorting (_ and __ at the bottom)
@@ -284,21 +290,20 @@ class Scope(object):
         self.docstr = d
 
     def local(self,loc):
-        if not self._hasvaralready(loc):
-            self.locals.append(loc)
+        self._checkexisting(loc)
+        self.locals.append(loc)
 
     def copy_decl(self,indent=0):
         """ Copy a scope's declaration only, at the specified indent level - not local variables """
         return Scope(self.name,indent)
 
-    def _hasvaralready(self,test):
+    def _checkexisting(self,test):
         "Convienance function... keep out duplicates"
         if test.find('=') > -1:
             var = test.split('=')[0].strip()
             for l in self.locals:
                 if l.find('=') > -1 and var == l.split('=')[0].strip():
-                    return True
-        return False
+                    self.locals.remove(l)
 
     def get_code(self):
         # we need to start with this, to fix up broken completions
@@ -501,6 +506,7 @@ class PyParser:
                     newscope.local('%s = %s' % (scp.params[0],scp.parent.name))
                 for p in scp.params[slice:]:
                     i = p.find('=')
+                    if len(p) == 0: continue
                     if i == -1:
                         newscope.local('%s = _PyCmplNoType()' % p)
                     else:
@@ -569,6 +575,7 @@ class PyParser:
                     name,token = self._parsedotname(token) 
                     if token == '=':
                         stmt = self._parseassignment()
+                        dbg("parseassignment: %s = %s" % (name, stmt))
                         if stmt != None:
                             self.scope.local("%s = %s" % (name,stmt))
                     freshscope = False
