@@ -49,6 +49,10 @@ set autowrite
 " threshold for reporting number of lines changed
 set report=0
 
+" For modern standards in :TOhtml output
+let html_use_css=1
+let use_html=1
+
 " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
 " let &guioptions = substitute(&guioptions, "t", "", "g")
 
@@ -64,6 +68,7 @@ map Q gq
 if &t_Co > 2 || has("gui_running")
   syntax on
   set hlsearch
+  set cursorline
   colorscheme oceanblack
 endif
 
@@ -138,6 +143,7 @@ set cinkeys+=;
 " Colors {{{
 
 highlight LineNr  term=underline    ctermfg=grey    guifg=grey
+highlight CursorLine    guibg=Grey10
 "}}}
 
 " Autocommands {{{
