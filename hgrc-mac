@@ -1,28 +1,35 @@
 [ui]
 username = Ches Martin <ches.martin@gmail.com>
 ssh = ssh -C
-#merge = hgmerge.py
 
 [web]
-style = gitweb
+style = monoblue
 allow_archive = bz2, gz, zip
 pygments_style = manni
 
 [diff]
-# so mq can handle add/remove/move
+# so mq can handle add/remove/move, symlinks, lots of other stuff
 git = 1
 
 [extensions]
 hgext.alias =
-hgext.mq =
+hgext.color =
 hgext.extdiff =
-hgext.hgk =
 hgext.fetch =
+hgext.graphlog =
+hgext.hgk =
+hgext.highlight =
+hgext.mq =
+hgext.pager =
+hgext.rebase =
 hgext.record =
-color =
-highlight =
+# I'm having this issue with zeroconf on OS X:
+# http://www.selenic.com/mercurial/bts/issue1421
+#hgext.zeroconf =
+hgshelve = /usr/local/lib/hg/hgshelve.py
 
 [alias]
+alias mq='hg -R $(hg root)/.hg/patches'
 # Thanks: http://wikis.sun.com/display/SunOnMac/MercurialTips
 qstatus = status --rev -2:-1  # prints files changed (only) in the current patch
 qclear = qrefresh -X re:.     # empty current patch, but leave the diffs in the working copy
@@ -42,10 +49,9 @@ merge.priority=-10
 filemerge.args=-left $other -right $local -ancestor $base -merge $output
 filemerge.gui=True
 
-# Mercurial finds FileMerge just fine. Woot!
-#[hgmerge]
-#interactive = filemerge
-#noninteractive = diff3
+[pager]
+pager = LESS='FRX' less
+ignore = serve, update, fetch, push, shelve, unshelve
 
 [hgk]
 path=/Users/ches/bin/hgk
