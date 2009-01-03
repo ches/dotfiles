@@ -50,7 +50,7 @@ filemerge.gui=True
 
 [pager]
 pager = LESS='FRX' less
-ignore = serve, update, fetch, push, shelve, unshelve, record, qrecord, clone, qclone
+attend = help, log, status, qstatus, incoming, outgoing, diff, qdiff, cat, annotate
 
 [hgk]
 path=/Users/ches/bin/hgk
