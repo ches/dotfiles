@@ -29,7 +29,6 @@ hgext.record =
 hgshelve = /usr/local/lib/hg/hgshelve.py
 
 [alias]
-alias mq='hg -R $(hg root)/.hg/patches'
 # Thanks: http://wikis.sun.com/display/SunOnMac/MercurialTips
 qstatus = status --rev -2:-1  # prints files changed (only) in the current patch
 qclear = qrefresh -X re:.     # empty current patch, but leave the diffs in the working copy
@@ -51,7 +50,7 @@ filemerge.gui=True
 
 [pager]
 pager = LESS='FRX' less
-ignore = serve, update, fetch, push, shelve, unshelve, record, qrecord
+ignore = serve, update, fetch, push, shelve, unshelve, record, qrecord, clone, qclone
 
 [hgk]
 path=/Users/ches/bin/hgk
