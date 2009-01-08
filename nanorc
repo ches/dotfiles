@@ -6,16 +6,12 @@ set autoindent
 
 ## Use this tab size instead of the default; it must be greater than 0
 set tabsize 4
-set tabstospaces
 
 ## Ctrl+r reads files into new buffers. Cycle with meta+< and >
 set multibuffer
 
 ## Home key first time moves to beginning of indented text
 set smarthome
-
-## Make sure nano doesn't wrap text and insert linebreaks -- idiotic
-set nowrap
 
 ## External syntax definitions:
 include "~/.nano_syntax"
