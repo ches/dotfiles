@@ -30,3 +30,34 @@ task 'pastie:patch' do
   `patch -p0 < patch.diff && rm patch.diff`
   puts("Patched with #{url}.")
 end
+
+# lifted from the DataMapper project's sake tasks
+desc 'Strip trailing whitespace from source files; aimed at Ruby/Rails projects'
+task :strip do
+  require 'pathname'
+  require 'zlib'
+
+  # files and extensions to process
+  files = %w[ capfile CHANGELOG MIT-LICENSE README README_FOR_APP RUNNING_UNIT_TESTS Rakefile TODO USAGE .autotest .gitignore .hgignore ].freeze
+  extensions = %w[ builder cgi conf css deploy erb example fcgi haml htc htm html js key opts php rake ratom rb rcsv rdf rhtml rjs rpdf rxml sake sass sh sql txt vcf xml yml ].freeze
+
+  Pathname.getwd.find do |path|
+    # skip unreadable, unwritable, and version control directories
+    Find.prune if (path.directory? && (!path.readable? || !path.writable?)) || %w[ .git .svn .hg ].include?(path.basename.to_s)
+
+    # skip non-files, zero-sized files, files not matching specific names, or files without the matching extensions
+    next unless path.file? && path.size? && (files.include?(path.basename.to_s) || extensions.include?(path.extname[1..-1]))
+
+    # replace leading whitespace (including tabs) with spaces
+    # replace trailing whitespace with a newline
+    document = path.open('r') do |f|
+      f.collect { |line| line.gsub(/\G\s/, ' ').rstrip + "\n" }.join.rstrip
+    end + "\n"
+
+    # skip the file if it was not modified
+    next if Zlib.crc32(document) == Zlib.crc32(path.read)
+
+    puts "Stripping whitepsace from #{path}"
+    path.open('w') { |f| f.write document }
+  end
+end
