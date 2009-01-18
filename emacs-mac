@@ -20,19 +20,23 @@
 (setenv "INFOPATH" "/usr/local/info:/usr/local/share/info:/usr/share/info")
 
 ;; Just a few miscellaneous bits
-;;(setq-default indent-tabs-mode nil)
 (pc-selection-mode t)
 (delete-selection-mode t)
 (show-paren-mode t)
 (transient-mark-mode t)
+(line-number-mode t)
 (column-number-mode t)
 (setq-default default-truncate-lines t)
+
 ; smart pairs for quotes and brackets
 (require 'pair-mode)
 (pair-mode t)
 
 ;; Syntax highlighting
 (global-font-lock-mode 1)
+
+;; Spaces instead of tabs
+(setq-default indent-tabs-mode nil)
 
 ;; Nice quick buffer switching
 (global-set-key "\C-x\C-b" 'electric-buffer-list)
@@ -42,31 +46,45 @@
 ;; Look at the pretty colors!
 (require 'color-theme)
 (color-theme-initialize)
+;; I used this theme as a starting point but it should be largely unneeded now.
+;; TODO: finish using Custom to define colors, and make a color theme with results
 (color-theme-clarity)
 
 ;; default to better frame titles
 (setq frame-title-format
 (concat "%b - emacs@" (system-name)))
 
-;; remove toolbar
+;; hide toolbar
 (tool-bar-mode -1)
+
+;; Fullscreen with meta-return. This may be Carbon Emacs-specific
+(defun toggle-fullscreen ()
+  (interactive)
+  (set-frame-parameter nil 'fullscreen (if (frame-parameter nil 'fullscreen)
+                                           nil
+                                           'fullboth)))
+
+(global-set-key [(meta return)] 'toggle-fullscreen)
 
 ;; make #! scripts executable after saving them
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 
 ;; Multiple Major Modes
+(add-to-list 'load-path "~/.emacs.d/site-lisp/mmm-mode")
 (require 'mmm-mode)
 (require 'mmm-auto)
 (setq mmm-global-mode 'maybe)
 (global-set-key [f8] 'mmm-parse-buffer)
 (setq mmm-submode-decoration-level 2)
+;; These are terrible, I just need obvious examples to start customizing...
 (set-face-background 'mmm-output-submode-face  "royalblue")
 (set-face-background 'mmm-code-submode-face    "royalblue")
 (set-face-background 'mmm-comment-submode-face "darkgrey")
 (set-face-background 'mmm-default-submode-face "DimGrey")
 
 ;; nxml mode
-(load "/Applications/Development/Emacs.app/Contents/Resources/site-lisp/nxml/autostart.el")
+;; It's big and slow to load, but we might be able to byte-compile new versions
+(load "/Applications/Development/Emacs.app/Contents/Resources/site-lisp/nxhtml/autostart.el")
 
 ;; Setting up icicles. Lots of completion and shortcut-teaching.
 ;; (require 'icicles)
@@ -85,29 +103,32 @@
 ;; Python mode
 ;; This first commented out stuff is for the old python-mode --
 ;; hanging on to it for awhile.
-(add-to-list 'load-path "~/.emacs.d/site-lisp/python-mode-1.0")
+;(add-to-list 'load-path "~/.emacs.d/site-lisp/python-mode-1.0")
 ;(setq auto-mode-alist (cons '("\\.py$" . python-mode) auto-mode-alist))
 ;(setq interpreter-mode-alist (cons '("python" . python-mode) interpreter-mode-alist))
 ;(autoload 'python-mode "python-mode" "Python editing mode." t)
 ;(require 'pycomplete)
 (defun my-python-hook ()
-  (define-key python-mode-map "\C-m" 'newline-and-indent)
+  ;; ipython breaks this... why?
+  ;(define-key python-mode-map "\C-m" 'newline-and-indent)
   (eldoc-mode 1))
 
 (add-hook 'python-mode-hook 'my-python-hook)
 
 ;; Python Doctest mode and MMM
+;; TODO: try to adjust background color of docstrings in MMM
 (add-to-list 'auto-mode-alist '("\\.doctest$" . doctest-mode))
 (autoload 'doctest-mode "doctest-mode" "doctest mode" t)
 (autoload 'doctest-register-mmm-classes "doctest-mode")
 (doctest-register-mmm-classes t t)
 
-;; ipython
-;(setq ipython-command "/Library/Frameworks/Python.framework/Versions/Current/bin/ipython")
-;(require 'ipython)
-(autoload 'ipython "ipython" "IPython interactive shell." t)
+;; Use the ipython shell
+(setq ipython-command "/usr/local/bin/ipython")
+(require 'ipython)
+;(autoload 'ipython "ipython" "IPython interactive shell." t)
 
 ;; Mako mode
+;; TODO: nxhtml how has MuMaMo for multi major modes; figure out set up for Mako & ERB?
 (require 'mmm-mako)
 (add-to-list 'auto-mode-alist '("\\.mako\\'" . html-mode))
 (mmm-add-mode-ext-class 'html-mode "\\.mako\\'" 'mako)
@@ -132,8 +153,8 @@
 (defun make-backup-file-name (file-name)
   "Create the non-numeric backup file name for `file-name'."
   (require 'dired)
-  (if (file-exists-p "~/.backup")
-      (concat (expand-file-name "~/.backup/")
+  (if (file-exists-p "~/.backup/emacs/")
+      (concat (expand-file-name "~/.backup/emacs/")
               (replace-regexp-in-string "/" "!" file-name))
     (concat file-name "~")))
 
@@ -144,8 +165,8 @@
 (defun make-auto-save-file-name ()
   "Return file name to use for auto-saves of current buffer.."
   (if buffer-file-name
-      (if (file-exists-p "~/.autosave/")
-          (concat (expand-file-name "~/.autosave/") "#"
+      (if (file-exists-p "~/.autosave/emacs/")
+          (concat (expand-file-name "~/.autosave/emacs/") "#"
                   (replace-regexp-in-string "/" "!" buffer-file-name)
                   "#")
          (concat
@@ -160,6 +181,7 @@
 ;; -----------------------------------------------------------------
 ;; Ruby and Rails stuff
 ;; -----------------------------------------------------------------
+;; TODO: handle .html.erb, rspec tests
 (autoload 'ruby-mode "ruby-mode" "Ruby editing mode." t)
 (setq auto-mode-alist  (cons '("\\.rb$" . ruby-mode) auto-mode-alist))
 (setq auto-mode-alist  (cons '("\\.rhtml$" . html-mode) auto-mode-alist))
@@ -196,6 +218,7 @@
 ;; -----------------------------------------------------------------
 ;; Now for Erb
 ;; -----------------------------------------------------------------
+;; TODO: as for Mako, figure out MuMaMo for nxhtml, maybe
 (mmm-add-classes
  '((erb-code
     :submode ruby-mode
@@ -215,36 +238,6 @@
 (add-to-list 'auto-mode-alist '(".rhtml$" . html-mode))
 
 
-;; -----------------------------------------------------------------
-;; Use the 'customize' command for these
-;; -----------------------------------------------------------------
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(default-frame-alist (quote ((background-color . "#1633163329BF") (tool-bar-lines . 0) (menu-bar-lines . 1) (right-fringe) (left-fringe) (background-mode . dark) (border-color . "white") (cursor-color . "yellow") (foreground-color . "white") (mouse-color . "white"))))
- '(icicle-reminder-prompt-flag 6)
- '(nxhtml-skip-welcome t))
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(font-lock-builtin-face ((t (:foreground "#DEDEB0B0CC84"))))
- '(font-lock-comment-face ((t (:foreground "#B49AB49AB49A" :italic t))))
- '(font-lock-constant-face ((t (:foreground "#DA60FFFF34A7"))))
- '(font-lock-doc-face ((t (:foreground "#902DFFFF31A4"))))
- '(font-lock-function-name-face ((t (:foreground "#FAFA592F0E0E"))))
- '(font-lock-keyword-face ((t (:foreground "#F7F7E3B92120"))))
- '(font-lock-negation-char-face ((t (:foreground "white"))))
- '(font-lock-preprocessor-face ((t (:foreground "#6AA29ED7DEDE"))))
- '(font-lock-regexp-grouping-construct ((t (:foreground "white"))))
- '(font-lock-string-face ((t (:foreground "#757AE8E83130"))))
- '(font-lock-type-face ((t (:foreground "#FBFB54211295"))))
- '(font-lock-variable-name-face ((t (:foreground "#EEEE4E391413"))))
- '(font-lock-warning-face ((t (:foreground "Pink"))))
- '(highlight ((t (:background "#1A193BC08686"))))
- '(italic ((t (:foreground "white"))))
- '(region ((t (:background "#1A193BC08686"))))
- '(secondary-selection ((t (:background "#484812CB4451")))))
+;; Finally, put 'custom' stuff in its own file
+(setq custom-file "~/.emacs-custom.el")
+(load custom-file 'noerror)
