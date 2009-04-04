@@ -7,3 +7,4 @@
 :backtrace: false
 :bulk_threshold: 1000
 :benchmark: false
+rdoc: --inline-source --line-numbers --format=html --template=hanna

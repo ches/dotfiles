@@ -1,6 +1,5 @@
 # Require RubyGems by default.
 require 'rubygems'
-
 require 'irb/completion'
 
 IRB.conf[:AUTO_INDENT] = true
@@ -12,7 +11,7 @@ IRB.conf[:AUTO_INDENT] = true
 # end
 
 # Lifted from Leopard's default in /etc/irbrc:
-# Setup permanent history.
+# Set up permanent history.
 HISTFILE = "~/.irb_history"
 MAXHISTSIZE = 100
 begin
@@ -43,4 +42,17 @@ begin
   Wirble.init(:skip_prompt => true, :skip_history => true, :skip_libraries => true)
   Wirble.colorize
 rescue
+end
+
+# Easily see all the methods local to an object's class
+class Object
+  def local_methods
+    (methods - Object.instance_methods).sort
+  end
+end
+
+# Log SQL to STDOUT if in Rails console
+if ENV.include?('RAILS_ENV') && !Object.const_defined?('RAILS_DEFAULT_LOGGER')
+  require 'logger'
+  RAILS_DEFAULT_LOGGER = Logger.new(STDOUT)
 end
