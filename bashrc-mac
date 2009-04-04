@@ -1,7 +1,7 @@
 export LC_CTYPE=en_US.UTF-8
 
 #
-# Bash history stuff
+# Bash history
 #
 export HISTCONTROL=erasedups
 export HISTSIZE=5000
@@ -13,8 +13,13 @@ bind Space:magic-space  # auto-expand history magic
 #
 # $HOME/bin is added in .bash_profile
 #
-# Not used for now with Leopard's stupid path_helper thing...
+# Not used for now with Leopard's path_helper thing...
 #export PATH="/Library/Frameworks/Python.framework/Versions/Current/bin:/usr/local/bin:/usr/local/mysql/bin:$PATH"
+
+#
+# Man pages seem to end up in stupid places sometimes on OS X
+#
+#export MANPATH=/usr/local/man:$MANPATH
 
 #
 # Prompt: green working dir on it's own line
@@ -34,25 +39,10 @@ export CLICOLOR='true'
 export LSCOLORS="gxfxcxdxbxegedabagacad"
 
 #
-# I like to protect myself from myself...
+# Completion
 #
-alias mv="mv -i"
-alias cp="cp -i"
-alias rm="rm -i"
-
-#
-# Other handy aliases
-#
-alias ll="ls -laF"
-alias la='ls -A'
-alias l='ls -CF'
-#alias top="top -X"  # the stupidly named 'compatibility mode' --
-                     # DON'T mimic Jaguar, because Jaguar's top was stupid
-# OS X Leopard's Quick Look feature:
-alias ql='qlmanage -p "$@" >& /dev/null'
-
-alias github="open \`git config -l | grep 'remote.origin.url' | sed -En \
-  's/remote.origin.url=git(@|:\/\/)github.com(:|\/)(.+)\/(.+).git/https:\/\/github.com\/\3\/\4/p'\`"
+source ~/.git-completion.sh
+complete -C "/usr/bin/gemedit --complete" gemedit
 
 #
 # 'less' is more
@@ -61,14 +51,24 @@ export LESS="-R"
 export LESSOPEN="|lesspipe.sh %s"
 
 #
-# Man pages seem to end up in stupid places sometimes on OS X
+# Aliases for great justice
 #
-#export MANPATH=/usr/local/man:$MANPATH
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# ====================================================
+# =         App- and Platform-specific Bits          =
+# ====================================================
 
 #
-# Startup file for Python's interactive interpreter sets up history and completion
+# Startup file for Python's interactive interpreter.
+# Sets up history and completion
 #
 export PYTHONSTARTUP=$HOME/.pythonrc
+# virtualenvwrapper
+export WORKON_HOME=$HOME/.virtualenvs
+source /usr/local/bin/virtualenvwrapper_bashrc
 
 #
 # Memcached
