@@ -23,6 +23,7 @@ alias ...='cd ../..'
 # Version Control
 #
 alias mq='hg -R $(hg root)/.hg/patches'
+alias bb='open $(hg paths | sed -En "s%^(.+) = (.+)bitbucket.org/(.+)/(.+)%https://bitbucket.org/\3/\4%p")'
 
 # Open Github page for the project and branch of the CWD
 # I use 'ghub' so avoid conflict with the handy github gem
