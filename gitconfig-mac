@@ -2,18 +2,24 @@
 	name = Ches Martin
 	email = ches.martin@gmail.com
 [color]
-	diff = auto
-	status = auto
-	branch = auto
-	interactive = auto
+	ui = auto
 [alias]
 	ci = commit
 	co = checkout
 	st = status
 	stat = status
 	br = branch
+	sh = !git-sh
 [merge]
 	summary = true
 [core]
 	excludesfile = /Users/ches/.gitignore
 	editor = mate -w
+[git-tmbundle]
+	gitx-path = /Applications/Development/GitX.app/Contents/Resources/gitx
+[github]
+	user = ches
+	token = 233e3e2bfd41621c81064641e783aec3
+[color "sh"]
+	workdir = green bold
+	branch = cyan reverse
