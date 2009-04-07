@@ -2,6 +2,9 @@
 username = Ches Martin <ches.martin@gmail.com>
 ssh = ssh -C
 
+[defaults]
+log = --limit 20
+
 [web]
 style = monoblue
 allow_archive = bz2, gz, zip
@@ -13,7 +16,9 @@ git = 1
 
 [extensions]
 hgext.alias =
+hgext.bookmarks =
 hgext.color =
+hgext.convert =
 hgext.extdiff =
 hgext.fetch =
 hgext.graphlog =
@@ -21,12 +26,13 @@ hgext.hgk =
 hgext.highlight =
 hgext.mq =
 hgext.pager =
+# git-style ancestor references, e.g. foo^, foo~3:
+hgext.parentrevspec =
 hgext.rebase =
 hgext.record =
-# I'm having this issue with zeroconf on OS X:
-# http://www.selenic.com/mercurial/bts/issue1421
-#hgext.zeroconf =
-hgshelve = /usr/local/lib/hg/hgshelve.py
+hgext.zeroconf =
+hgshelve = /usr/local/lib/hg/hgshelve/hgshelve.py
+qct=/usr/local/lib/hg/qct.py
 
 [alias]
 # Thanks: http://wikis.sun.com/display/SunOnMac/MercurialTips
@@ -35,6 +41,7 @@ qclear = qrefresh -X re:.     # empty current patch, but leave the diffs in the 
 
 [extdiff]
 cmd.vdiff = fmdiff
+# cmd.vdiff = meld
 cmd.kdiff = kdiff3
 
 [merge-tools]
@@ -50,7 +57,7 @@ filemerge.gui=True
 
 [pager]
 pager = LESS='FRX' less
-attend = help, log, status, qstatus, incoming, outgoing, diff, qdiff, cat, annotate
+attend = help, log, status, qstatus, incoming, outgoing, diff, qdiff, cat, annotate, unshelve
 
 [hgk]
-path=/Users/ches/bin/hgk
+path=~/bin/hgk
