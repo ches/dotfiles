@@ -77,7 +77,7 @@ color white start="<!--" end="-->"
 # Entities
 color red "&[^;]*;"
 # Preprocessing instructions
-color brightred "<\?.+?>"
+color brightred "<\?.+\?>"
 color red "<\?"
 color red "\?>"
 # CDATA
