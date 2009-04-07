@@ -61,3 +61,204 @@ task :strip do
     path.open('w') { |f| f.write document }
   end
 end
+
+task 'git:helpers' do
+  def git_branch
+    `git-branch | grep \"*\"`.strip[(2..-1)]
+  end
+  def git?
+    `git-status`
+    (not ($?.exitstatus == 128))
+  end
+  def git_stash
+    `git-diff-files --quiet`
+    if ($?.exitstatus == 1) then
+      stash = true
+      clear = (`git-stash list`.scan("\n").size == 0)
+      puts("* Saving changes...")
+      `git-stash save`
+    else
+      stash = false
+    end
+    begin
+      yield
+    rescue
+      puts("* Encountered an error, backing out...")
+    ensure
+      if stash then
+        puts("* Applying changes...")
+        sh("git-stash apply")
+        `git-stash clear` if clear
+      end
+    end
+  end
+  def git_fetch
+    sh("git#{"-svn" if git_svn?} fetch")
+  end
+  def git_rebase
+    git_svn? ? (sh("git-rebase git-svn")) : (sh("git-rebase origin/master"))
+  end
+  def git_push
+    git_svn? ? (sh("git-svn dcommit")) : (sh("git-push"))
+  end
+  def git_svn?
+    `git-branch -a` =~ /^\s*git-svn/
+  end
+end
+
+desc 'Pull new commits from the repository'
+task 'git:update', :needs => [ 'git:helpers' ] do
+  git_stash do
+    branch = git_branch
+    if (branch == "master") then
+      switch = false
+    else
+      switch = true
+      `git-checkout master`
+      puts("* Switching back to master...")
+    end
+    puts("* Pulling in new commits...")
+    git_fetch
+    git_rebase
+    if switch then
+      puts("* Porting changes into #{branch}...")
+      `git-checkout #{branch}`
+      sh("git-rebase master")
+    end
+  end
+end
+
+desc 'Push local commits into the Wesabe repository'
+task 'git:push', :needs => [ 'git:update' ] do
+  git_stash do
+    puts("* Pushing changes...")
+    git_push
+    branch = git_branch
+    unless (branch == "master") then
+      `git-checkout master`
+      puts("* Porting changes into master")
+      git_rebase
+      `git-checkout #{branch}`
+    end
+  end
+end
+
+desc 'Delete the current branch and switch back to master'
+task 'git:close', :needs => [ 'git:helpers' ] do
+  branch = git_branch
+  if (branch == "master") then
+    $stderr.puts("* Cannot delete master branch")
+    exit(1)
+  end
+  puts("* Switching to master")
+  `git-checkout master 2>/dev/null`
+  puts("* Deleting branch #{branch}")
+  `git-branch -d #{branch} 2>/dev/null`
+  if ($?.exitstatus == 1) then
+    $stderr.puts("* Branch #{branch} isn't a strict subset of master, quitting")
+    `git-checkout #{branch} 2>/dev/null`
+    exit(1)
+  end
+end
+
+desc 'Create a new branch off master'
+task 'git:open', :needs => [ 'git:helpers' ] do
+  print("* Name your branch: ")
+  newbranch = $stdin.gets.chomp
+  branch = git_branch
+  unless (branch == "master") then
+    puts("* Switching to master")
+    `git-checkout master`
+  end
+  `git-checkout -b #{newbranch}`
+  unless $?.exitstatus.zero? then
+    puts("* Couldn't create branch #{newbranch}, switchin back to #{branch}")
+    `git-checkout #{branch}`
+    exit(1)
+  end
+end
+
+desc 'Install your public key on a remote server.'
+task 'ssh:install_public_key' do
+  begin
+    (require("rubygems")
+    require("net/ssh")
+    require("net/scp")
+    require("highline"))
+  rescue LoadError
+    abort("There was a problem loading net-ssh, net-scp, or highline.  Please make sure you have them installed via RubyGems.")
+  end
+  public_key = if ENV["public_key_path"] then
+    if File.exists?(ENV["public_key_path"]) then
+      ENV["public_key_path"]
+    else
+      abort("The key you provided via the command line does not exist!")
+    end
+  else
+    discovered_key = ["id_rsa", "id_dsa", "identity"].map { |f| "#{ENV["HOME"]}/.ssh/#{f}.pub" }.detect do |f|
+      File.exists?(f)
+    end
+    if discovered_key then
+      discovered_key
+    else
+      abort("I wasn't able to discover your public key.  I tried to find id_rsa.pub, id_dsa.pub,\nor identity.pub in \"#{ENV["HOME"]}/.ssh\".  You can hard code the path to the file by \npassing public_key_path via the command line.\n")
+    end
+  end
+  h = HighLine.new
+  not_blank = Proc.new { |s| (not s.empty?) }
+  def not_blank.to_s
+    "not blank"
+  end
+  h.say("I need some information to SSH into the server.")
+  hostname = h.ask("Remote Hostname: ") { |q| q.validate = not_blank }
+  port = h.ask("Remote port: ") { |q| q.default = 22 }
+  username = h.ask("Username, enter for default: ") { |q| q.default = ENV["USER"] }
+  password = h.ask("Password: ") { |q| q.echo = "*" }
+  begin
+    Net::SSH.start(hostname, username, :password => password, :port => port) do |ssh|
+      puts("Uploading your public key... ")
+      ssh.scp.upload!(public_key, "my_public_key")
+      puts("Creating '.ssh' directory in your home directory")
+      ssh.exec!("mkdir .ssh")
+      puts("Concatenating your public key into the authorized_keys file")
+      ssh.exec!("cat my_public_key >> .ssh/authorized_keys")
+      puts("Removing your public key")
+      ssh.exec!("rm my_public_key")
+      puts("Setting permissions on .ssh")
+      ssh.exec!("chmod 700 .ssh")
+      puts("Setting permissions on your authorized_keys file")
+      ssh.exec!("chmod 600 .ssh/authorized_keys")
+      puts("\nAll done!  Enjoy your new, potentially password-free login.")
+    end
+  rescue Net::SSH::AuthenticationFailed
+    puts("\nWhat we've got here... is a failure to communicate.  There was a problem authenticating you.")
+  end
+end
+
+desc 'Configure a new Rails app for Git. cd rails_app first.'
+task 'git:rails:new_app', :needs => [ 'rails:rm_tmp_dirs', 'git:hold_empty_dirs' ] do
+  system("git init")
+  system("touch .gitignore")
+  ["log/\\*.log", "log/\\*.pid", "db/\\*.db", "db/\\*.sqlite3", "db/schema.rb", "tmp/\\*\\*/\\*", ".DS_Store", "doc/api", "doc/app", "config/database.yml"].each do |entry|
+    system("echo #{entry} >> .gitignore")
+  end
+  system("cp config/database.yml config/database.example.yml")
+  system("git add .")
+  system("git commit -m 'Setting up a new rails app. Copy config/database.example.yml to config/database.yml and customize.'")
+end
+
+desc 'Clone Rails into vendor/rails from github'
+task 'git:rails:clone' do
+  system("git clone git://github.com/rails/rails.git vendor/rails")
+end
+
+desc 'Export Rails into vendor/rails from github'
+task 'git:rails:export', :needs => [ 'git:rails:clone' ] do
+  system("rm -rf ./vendor/rails/.git")
+end
+
+desc 'Add Rails as a git submodule'
+task 'git:rails:submodule' do
+  system("git submodule add git://github.com/rails/rails.git vendor/rails")
+  system("git commit -m 'Adding Rails as a submodule.' .gitmodules vendor/rails")
+end
