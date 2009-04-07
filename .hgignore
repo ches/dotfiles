@@ -1,6 +1,8 @@
-syntax:glob
-*.DS_Store
-*~
+# NOTE:
+# This ignore file is for managing my dotfiles -- it is not
+# a user-global ignore file to be used in [ui] in ~/.hgrc  :-)
 
-syntax: regexp
-.*\#.*\#$
+
+# Ignore everything -- it's easiest to just manually add what I want to track
+syntax:glob
+*
