@@ -79,8 +79,10 @@ source /usr/local/bin/virtualenvwrapper_bashrc
 export EVENT_NOKQUEUE=1
 
 #
-# OS X
+# Choose your flava
 #
 if [ "$(uname -s)" == "Darwin" ] && [ -f ~/.bash.d/platform-osx.sh ]; then
     . ~/.bash.d/platform-osx.sh
+elif [ -f ~/.bash.d/platform-linux.sh ]; then
+    . ~/.bash.d/platform-linux.sh
 fi
