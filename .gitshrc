@@ -1,0 +1,27 @@
+#!/bin/bash
+# Sourced by the git shell, git-sh. So, mostly aliases.
+
+# git commit
+gitalias commit='git commit --verbose'
+gitalias amend='git commit --verbose --amend'
+gitalias ci='git commit --verbose'
+gitalias ca='git commit --verbose --all'
+
+# git branch
+gitalias br='git branch'
+
+# git add
+gitalias a='git add'
+gitalias aa='git add --update'
+gitalias ap='git add --patch'
+
+# git checkout
+gitalias co='git checkout'
+
+# git status
+gitalias st='git status'
+gitalias stat='git status'
+
+# git log
+gitalias l='git log'
+gitalias ll='git log --pretty=oneline --abbrev-commit'
