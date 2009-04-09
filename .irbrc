@@ -1,53 +1,47 @@
-# Require RubyGems by default.
+# You want RubyGems available by default.
 require 'rubygems'
-require 'irb/completion'
 
 IRB.conf[:AUTO_INDENT] = true
 
-# Gimme some documentation
-# Wirble's implementation is a little nicer...
-# def ri(*names)
-#   system(%{ri #{names.map {|name| name.to_s}.join(" ")}})
-# end
-
-# Lifted from Leopard's default in /etc/irbrc:
-# Set up permanent history.
-HISTFILE = "~/.irb_history"
-MAXHISTSIZE = 100
+# For crazy syntax coloring and stuff, gem install wirble
 begin
-  histfile = File::expand_path(HISTFILE)
-  if File::exists?(histfile)
-    lines = IO::readlines(histfile).collect { |line| line.chomp }
-    puts "Read #{lines.nitems} saved history commands from '#{histfile}'." if $VERBOSE
-    Readline::HISTORY.push(*lines)
-  else
-    puts "History file '#{histfile}' was empty or non-existant." if $VERBOSE
-  end
-  Kernel::at_exit do
-    lines = Readline::HISTORY.to_a.reverse.uniq.reverse
-    lines = lines[-MAXHISTSIZE, MAXHISTSIZE] if lines.nitems > MAXHISTSIZE
-    puts "Saving #{lines.length} history lines to '#{histfile}'." if $VERBOSE
-    File::open(histfile, File::WRONLY|File::CREAT|File::TRUNC) { |io| io.puts lines.join("\n") }
-  end
-rescue => e
-  puts "Error when configuring permanent history: #{e}" if $VERBOSE
-end
-
-# For crazy syntax coloring and stuff, gem install wirble and uncomment below.
-# Note that wirble does lots of the things above for you -- history, completion,
-# ri shortcut, etc., so remove that or customize the init options below.
-begin
-  require 'pp'    # for :skip_libraries; otherwise loads pp, rubygems & irb/completion
   require 'wirble'
-  Wirble.init(:skip_prompt => true, :skip_history => true, :skip_libraries => true)
+  Wirble.init(:skip_prompt => true)
   Wirble.colorize
 rescue
-end
+  # But if not, we'll do the good stuff anyway
+  require 'irb/completion'
 
-# Easily see all the methods local to an object's class
-class Object
-  def local_methods
-    (methods - Object.instance_methods).sort
+  # Lifted from Leopard's default in /etc/irbrc
+  # Set up permanent history. Wirble does this for you, with the same opts
+  HISTFILE = "~/.irb_history"
+  MAXHISTSIZE = 1000
+  begin
+    histfile = File::expand_path(HISTFILE)
+    if File::exists?(histfile)
+      lines = IO::readlines(histfile).collect { |line| line.chomp }
+      puts "Read #{lines.nitems} saved history commands from '#{histfile}'." if $VERBOSE
+      Readline::HISTORY.push(*lines)
+    else
+      puts "History file '#{histfile}' was empty or non-existent." if $VERBOSE
+    end
+    Kernel::at_exit do
+      lines = Readline::HISTORY.to_a.reverse.uniq.reverse
+      lines = lines[-MAXHISTSIZE, MAXHISTSIZE] if lines.nitems > MAXHISTSIZE
+      puts "Saving #{lines.length} history lines to '#{histfile}'." if $VERBOSE
+      File::open(histfile, File::WRONLY|File::CREAT|File::TRUNC) { |io| io.puts lines.join("\n") }
+    end
+  rescue => e
+    puts "Error when configuring permanent history: #{e}" if $VERBOSE
+  end
+
+  # Easily see all the methods local to an object's class
+  # Wirble's `po` method does this
+  class Object
+    def local_methods
+      (methods - Object.instance_methods).sort
+    end
+    private :local_methods
   end
 end
 
