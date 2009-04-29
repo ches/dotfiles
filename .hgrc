@@ -30,6 +30,7 @@ hgext.pager =
 hgext.parentrevspec =
 hgext.rebase =
 hgext.record =
+hgext.transplant =
 hgext.zeroconf =
 hgshelve = /usr/local/lib/hg/hgshelve/hgshelve.py
 qct=/usr/local/lib/hg/qct.py
@@ -57,7 +58,7 @@ filemerge.gui=True
 
 [pager]
 pager = LESS='FRX' less
-attend = help, log, status, qstatus, incoming, outgoing, diff, qdiff, cat, annotate, unshelve
+attend = help, log, glog, status, qstatus, incoming, outgoing, diff, qdiff, cat, annotate, unshelve
 
 [hgk]
 path=~/bin/hgk
