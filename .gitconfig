@@ -17,6 +17,8 @@
 	editor = mate -w
 [git-tmbundle]
 	gitx-path = /Applications/Development/GitX.app/Contents/Resources/gitx
+[git-tmbundle "log"]
+	limit = 100
 [github]
 	user = ches
 	token = 233e3e2bfd41621c81064641e783aec3
