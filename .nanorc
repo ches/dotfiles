@@ -7,11 +7,17 @@ set autoindent
 ## Use this tab size instead of the default; it must be greater than 0
 set tabsize 4
 
+## Because tabs are a PITA
+set tabstospaces
+
 ## Ctrl+r reads files into new buffers. Cycle with meta+< and >
 set multibuffer
 
 ## Home key first time moves to beginning of indented text
 set smarthome
+
+## Smooth scrolling plz
+set smooth
 
 ## External syntax definitions:
 include "~/.nano_syntax"
