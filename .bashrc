@@ -60,6 +60,13 @@ if [ -f ~/.bash.d/aliases.sh ]; then
     . ~/.bash.d/aliases.sh
 fi
 
+#
+# And functions for all mankind
+#
+if [ -f ~/.bash.d/functions.sh ]; then
+	. ~/.bash.d/functions.sh
+fi
+
 # ====================================================
 # =         App- and Platform-specific Bits          =
 # ====================================================

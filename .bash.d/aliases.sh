@@ -36,6 +36,7 @@ alias mq='hg -R $(hg root)/.hg/patches'
 # OS X
 #
 if [ "$(uname -s)" == "Darwin" ]; then
+    # Open Bitbucket page for the Mercurial repository the current working directory resides in
     alias bb='open $(hg paths | sed -En "s%^(.+) = (.+)bitbucket.org/(.+)/(.+)%https://bitbucket.org/\3/\4%p")'
 
     # Open Github page for the project and branch of the CWD
