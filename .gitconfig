@@ -29,3 +29,6 @@
 	fontdiff = -family Monaco -size 11 -weight normal -slant roman -underline 0 -overstrike 0
 [branch]
 	autosetupmerge = true
+[instaweb]
+	httpd = webrick
+	port = 8000
