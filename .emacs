@@ -28,7 +28,7 @@
 (column-number-mode t)
 (setq-default default-truncate-lines t)
 
-; smart pairs for quotes and brackets
+;; smart pairs for quotes and brackets
 (require 'pair-mode)
 (pair-mode t)
 
@@ -43,6 +43,10 @@
 (require 'ido)
 (ido-mode t)
 
+;; 'Open Recent...'
+(require 'recentf)
+(recentf-mode 1)
+
 ;; Look at the pretty colors!
 (require 'color-theme)
 (color-theme-initialize)
@@ -56,6 +60,9 @@
 
 ;; hide toolbar
 (tool-bar-mode -1)
+
+;; Smooth scrolling
+(require 'smooth-scrolling)
 
 ;; Fullscreen with meta-return. This may be Carbon Emacs-specific
 (defun toggle-fullscreen ()
