@@ -15,7 +15,6 @@ pygments_style = manni
 git = 1
 
 [extensions]
-hgext.alias =
 hgext.bookmarks =
 hgext.color =
 hgext.convert =
