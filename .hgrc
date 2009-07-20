@@ -31,7 +31,8 @@ hgext.rebase =
 hgext.record =
 hgext.transplant =
 hgext.zeroconf =
-hgshelve = /usr/local/lib/hg/hgshelve/hgshelve.py
+#hgshelve = /usr/local/lib/hg/hgshelve/hgshelve.py
+hgattic = /usr/local/lib/hg/attic.py
 qct=/usr/local/lib/hg/qct.py
 
 [alias]
