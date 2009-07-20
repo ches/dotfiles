@@ -1,0 +1,2 @@
+# Case-insensitive filesystems be damned
+set completion-ignore-case on
