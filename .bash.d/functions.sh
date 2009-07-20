@@ -52,7 +52,7 @@ if [ "$(uname -s)" == "Darwin" ]; then
 
         # Time to actually move the newly downloaded statement
         if [ -f "$new_statement" ]; then
-            mv "$new_statement" "$STMT_PATH/$acct/`date "+%Y%m"`-$suffix.pdf"
+            mv "$new_statement" "$STMT_PATH/$acct/`date '+%Y%m'`-$suffix.pdf"
         else
             echo "Could not find newly downloaded statement at the expected location ($new_statement)."
             echo "I'm gonna shred the unencrypted statements directory now."
