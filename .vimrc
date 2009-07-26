@@ -41,7 +41,6 @@ set smartcase       " Do smart case matching
 
 " line numbers
 set nu
-set nocp
 
 " automatically flush to disk when using :make, etc.
 set autowrite
