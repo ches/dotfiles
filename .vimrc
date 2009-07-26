@@ -143,6 +143,8 @@ set cinkeys+=;
 
 highlight LineNr  term=underline    ctermfg=grey    guifg=grey
 highlight CursorLine    guibg=Grey10
+" No hideous pink default autocomplete menu
+highlight PMenu gui=bold guibg=#CECECE guifg=#444444
 "}}}
 
 " Autocommands {{{
