@@ -173,9 +173,9 @@ if has("autocmd")
   "}}}
 
   " Automatically distribute my vimrc to the servers I use {{{
-  autocmd BufWritePost ~/.vimrc !scp ~/.vimrc valleyofwind.dyndns.org:.
+  "autocmd BufWritePost ~/.vimrc !scp ~/.vimrc valleyofwind.dyndns.org:.
   "autocmd BufWritePost ~/.vimrc !scp ~/.vimrc eidolos@crawl.akrasiac.org:.eidovimrc
-  autocmd BufWritePost ~/.vim/skeletons/* !scp % valleyofwind.dyndns.org:.vim/skeletons/
+  "autocmd BufWritePost ~/.vim/skeletons/* !scp % valleyofwind.dyndns.org:.vim/skeletons/
   "autocmd BufWritePost ~/.vim/skeletons/* !scp % eidolos@crawl.akrasiac.org:.vim/skeletons/
   "}}}
 
