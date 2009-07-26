@@ -29,6 +29,11 @@ export VISUAL=vim
 [ -z "$PS1" ] && return
 
 #
+# 'cd' to children of a host of directories, as if they were always in CWD
+#
+export CDPATH=:~:~/src:~/src/lexblog
+
+#
 # Prompt: green working dir on it's own line
 # without color: PS1="\n\w\n[\u@\h]\$ "
 #
