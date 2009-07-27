@@ -38,6 +38,8 @@ set showcmd		    " display incomplete commands
 set incsearch		" do incremental searching
 set ignorecase      " Do case insensitive matching
 set smartcase       " Do smart case matching
+set scrolloff=2     " Keep some context visible when scrolling
+set wildmenu        " Modern completion menu
 
 " line numbers
 set nu
@@ -94,6 +96,15 @@ else
   set autoindent		" always set autoindenting on
 
 endif " has("autocmd")
+
+if has("viminfo")
+
+  " Allow some global variables to persist between sessions
+  " Plugins sometimes use this to retain useful things
+  set viminfo^=!
+
+endif
+
 "}}}
 
 " Indentation {{{
