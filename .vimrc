@@ -187,6 +187,11 @@ endif " has("autocmd")
 " Code completion shortcut
 imap <f3> <C-x><C-o><C-p>
 
+" Toggle search hilighting
+map <silent> <F11> :set invhlsearch<CR>
+imap <silent> <F11> <C-o>:set invhlsearch<CR>
+vmap <silent> <F11> :<C-u>set invhlsearch<CR>gv
+
 "}}}
 "}}}
 
