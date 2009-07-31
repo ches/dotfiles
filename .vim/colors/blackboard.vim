@@ -20,7 +20,7 @@ if has("gui_running")
   highlight Cursor guifg=Black   guibg=Yellow
   highlight CursorLine guibg=#191E2F
   highlight LineNr guibg=#323232 guifg=#888888
-  highlight Folded guifg=White
+  highlight Folded guifg=White guibg=#1C3B79
 
   "General Colors
   highlight Comment guifg=#AEAEAE
@@ -34,6 +34,15 @@ if has("gui_running")
   highlight Search guibg=#1C3B79
   highlight PreProc guifg=Grey
   
+  " listchars stuff, extra line tildes
+  highlight NonText       guifg=#404040 ctermfg=8
+  highlight SpecialKey    guifg=#404040 ctermfg=8
+
+  " Visual mode and stuff
+  highlight Visual        guibg=#1C3B79
+  highlight Pmenu         guifg=White ctermfg=White guibg=#1C3B79 gui=bold cterm=bold
+  highlight PmenuSel      guifg=White ctermfg=White guibg=DarkCyan gui=bold cterm=bold
+
   "Ruby Colors
   highlight link rubyClass Keyword
   highlight link rubyDefine Keyword
