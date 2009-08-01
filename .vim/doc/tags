@@ -23,6 +23,8 @@
 'Tlist_Use_SingleClick'	taglist.txt	/*'Tlist_Use_SingleClick'*
 'Tlist_WinHeight'	taglist.txt	/*'Tlist_WinHeight'*
 'Tlist_WinWidth'	taglist.txt	/*'Tlist_WinWidth'*
+:Ack	ack.txt	/*:Ack*
+:AckAdd	ack.txt	/*:AckAdd*
 :CVSEdit	vcscommand.txt	/*:CVSEdit*
 :CVSEditors	vcscommand.txt	/*:CVSEditors*
 :CVSUnedit	vcscommand.txt	/*:CVSUnedit*
@@ -32,6 +34,8 @@
 :CVSWatchOn	vcscommand.txt	/*:CVSWatchOn*
 :CVSWatchRemove	vcscommand.txt	/*:CVSWatchRemove*
 :CVSWatchers	vcscommand.txt	/*:CVSWatchers*
+:LAck	ack.txt	/*:LAck*
+:LAckAdd	ack.txt	/*:LAckAdd*
 :MatchDebug	matchit.txt	/*:MatchDebug*
 :TlistAddFiles	taglist.txt	/*:TlistAddFiles*
 :TlistAddFilesRecursive	taglist.txt	/*:TlistAddFilesRecursive*
@@ -93,6 +97,9 @@ VCSCommandSplit	vcscommand.txt	/*VCSCommandSplit*
 VCSCommandVCSTypeOverride	vcscommand.txt	/*VCSCommandVCSTypeOverride*
 [%	matchit.txt	/*[%*
 ]%	matchit.txt	/*]%*
+ack	ack.txt	/*ack*
+ack-author	ack.txt	/*ack-author*
+ack.txt	ack.txt	/*ack.txt*
 b:VCSCommandCommand	vcscommand.txt	/*b:VCSCommandCommand*
 b:VCSCommandOriginalBuffer	vcscommand.txt	/*b:VCSCommandOriginalBuffer*
 b:VCSCommandSourceFile	vcscommand.txt	/*b:VCSCommandSourceFile*
