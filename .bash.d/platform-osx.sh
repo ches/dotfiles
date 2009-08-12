@@ -4,6 +4,10 @@
 export EDITOR='mate -w'
 export VISUAL='mate -w'
 
+# Nix flow control keys so readline inc search, emacs, etc. can have them
+stty stop undef
+stty start undef
+
 # =================================
 # =       App-specific Bits       =
 # =================================
