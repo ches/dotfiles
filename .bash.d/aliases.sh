@@ -9,6 +9,8 @@ alias ln="ln -i"
 #
 # Other handy aliases
 #
+alias h=history
+
 alias ll="ls -laF"
 alias la='ls -A'
 alias l='ls -CF'
