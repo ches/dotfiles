@@ -10,6 +10,7 @@
 	stat = status
 	br = branch
 	sh = !git-sh
+	last = log -1 -p HEAD
 [merge]
 	summary = true
 [core]
