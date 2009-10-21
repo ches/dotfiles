@@ -1,16 +1,5 @@
-" An example for a vimrc file.
-"
-" Maintainer:	Bram Moolenaar <Bram@vim.org>
-" Last change:	2002 Sep 19
-"
-" To use it, copy it to
-"     for Unix and OS/2:  ~/.vimrc
-"	      for Amiga:  s:.vimrc
-"  for MS-DOS and Win32:  $VIM\_vimrc
-"	    for OpenVMS:  sys$login:.vimrc
-
-" Customized from the example cited above, mostly with help from:
-" http://pida.co.uk/trac/wiki/ConfiguringVimForPython
+" Initially based on the Vim distribution's example vimrc, with
+" additional inspiration from all over the web.
 
 " When started as "evim", evim.vim will already have done these settings.
 if v:progname =~? "evim"
@@ -28,23 +17,23 @@ set nocompatible
 set backspace=indent,eol,start
 
 if has("vms")
-  set nobackup		" do not keep a backup file, use versions instead
+  set nobackup                  " do not keep a backup file, use versions instead
 else
-  set backup		" keep a backup file
+  set backup                    " keep a backup file
+  set backupdir=~/.backup/vim   " leave all the droppings in one place
 endif
-set history=50		" keep 50 lines of command line history
-set ruler		    " show the cursor position all the time
-set showcmd		    " display incomplete commands
-set incsearch		" do incremental searching
+
+set history=50      " keep 50 lines of command line history
+set ruler           " show the cursor position all the time
+set showcmd         " display commands as they're being entered
+set incsearch       " do incremental searching
 set ignorecase      " Do case insensitive matching
-set smartcase       " Do smart case matching
+set smartcase       " But if search contains capitals, be sensitive
 set scrolloff=2     " Keep some context visible when scrolling
 set wildmenu        " Modern completion menu
+set number          " line numbers
 
-" line numbers
-set nu
-
-" automatically flush to disk when using :make, etc.
+" automatically flush to disk when using :make, changing buffers, etc.
 set autowrite
 
 " threshold for reporting number of lines changed
@@ -93,7 +82,7 @@ if has("autocmd")
 
 else
 
-  set autoindent		" always set autoindenting on
+  set autoindent        " always set autoindenting on
 
 endif " has("autocmd")
 
@@ -101,7 +90,8 @@ if has("viminfo")
 
   " Allow some global variables to persist between sessions
   " Plugins sometimes use this to retain useful things
-  set viminfo^=!
+  " % saves and restores buffer list when started with no args
+  set viminfo^=!,%
 
 endif
 
@@ -121,7 +111,7 @@ set softtabstop=4
 " no tabs! spaces only..
 set expandtab
 
-" do not break lines when line lenght increases
+" do not break lines when line length increases
 set textwidth=0
 
 " < and > will hit indentation levels instead of always -4/+4
@@ -139,6 +129,10 @@ set cinkeys+=;
 
 " align break with case in a switch
 "set cinoptions+=b1
+
+" Use attractive characters to show tabs & trailing spaces
+set listchars=tab:»·,trail:·,eol:¬,nbsp:␣
+
 "}}}
 
 " Folding {{{
@@ -198,11 +192,38 @@ endif " has("autocmd")
 " Code completion shortcut
 imap <f3> <C-x><C-o><C-p>
 
+" Easy paste mode toggling
+set pastetoggle=<F6>
+
 " Toggle search hilighting
 map <silent> <F11> :set invhlsearch<CR>
 imap <silent> <F11> <C-o>:set invhlsearch<CR>
 vmap <silent> <F11> :<C-u>set invhlsearch<CR>gv
 
+" Toggle showing invisibles
+map <silent> <C-F11> :set invlist<CR>
+imap <silent> <C-F11> <C-o>:set invlist<CR>
+vmap <silent> <C-F11> :<C-u>:set invlist<CR>gv
+
+"}}}
+
+" Language- and plugin-specific Preferences {{{
+if has("autocmd")
+
+  " Use leader+space to write and execute
+  autocmd FileType vim map <buffer> <leader><space> :w!<cr>:source %<cr>
+  autocmd FileType ruby map <buffer> <leader><space> :w!<cr>:!ruby %<cr>
+  autocmd FileType python map <buffer> <leader><space> :w!<cr>:!python %<cr>
+
+  " autocmd FileType python setlocal cinwords=if,elif,else,for,while,try,except,finally,def,class,with
+  autocmd FileType javascript,ruby,vim setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+
+  let javascript_enable_domhtmlcss=1
+
+  autocmd FileType html,xhtml,xml,htmldjango,htmljinja,eruby,mako setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+  autocmd BufNewFile,BufRead *.mako setlocal ft=mako
+
+endif " has("autocmd")
 "}}}
 "}}}
 
