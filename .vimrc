@@ -223,6 +223,8 @@ if has("autocmd")
   autocmd FileType html,xhtml,xml,htmldjango,htmljinja,eruby,mako setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
   autocmd BufNewFile,BufRead *.mako setlocal ft=mako
 
+  autocmd FileType mkd set ai formatoptions=tcroqn2 comments=n:>
+
 endif " has("autocmd")
 "}}}
 "}}}
