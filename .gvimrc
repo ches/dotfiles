@@ -11,3 +11,6 @@ set columns=100
 " Font
 set guifont=Monaco:h12
 
+" Use full horizontal width on fullscreen
+"set fuoptions+=maxhorz
+
