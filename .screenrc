@@ -83,11 +83,11 @@ bindkey -k F2 next
 chdir $HOME
 screen -t   bash    0
 
-chdir $HOME/src/lexblog/lexcode
+chdir $HOME/src/work/lexblog/lexcode
 screen -t   lexblog 1
 
-chdir $HOME/src/rails
-screen -t   rails   2
+chdir $HOME/src/work/railsmachine
+screen -t   railsmachine   2
 
 select 0
 chdir $HOME  # So new windows start in home

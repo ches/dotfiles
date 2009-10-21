@@ -31,7 +31,7 @@ export VISUAL=vim
 #
 # 'cd' to children of a host of directories, as if they were always in CWD
 #
-export CDPATH=:~:~/src:~/src/lexblog
+export CDPATH=:~:~/src:~/src/work/railsmachine
 
 #
 # Prompt: green working dir on it's own line
