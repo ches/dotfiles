@@ -1,35 +1,49 @@
 [user]
 	name = Ches Martin
-	email = ches.martin@gmail.com
-[color]
-	ui = auto
+	email = ches@whiskeyandgrits.net
 [alias]
 	ci = commit
+	civ = commit -v
 	co = checkout
 	st = status
 	stat = status
 	br = branch
+	df = diff
+	lg = log -p
+	vdiff = !git diff | $EDITOR
 	sh = !git-sh
 	last = log -1 -p HEAD
+
+	k = !gitk
+	wtf = !git-wtf
+	who = shortlog -s --
+	edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; $EDITOR `f`"
+	add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
 [merge]
 	summary = true
+	tool = kdiff3
+[branch]
+	autosetupmerge = true
 [core]
 	excludesfile = /Users/ches/.gitignore
 	editor = mate -w
+	whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
+[color]
+	ui = auto
+[color "branch"]
+	current = yellow
+	remote = magenta
+[color "sh"]
+	workdir = green bold
+	branch = cyan reverse
+[gui]
+	fontdiff = -family Monaco -size 11 -weight normal -slant roman -underline 0 -overstrike 0
 [git-tmbundle]
 	gitx-path = /Applications/Development/GitX.app/Contents/Resources/gitx
 [git-tmbundle "log"]
 	limit = 100
 [github]
 	user = ches
-	token = 233e3e2bfd41621c81064641e783aec3
-[color "sh"]
-	workdir = green bold
-	branch = cyan reverse
-[gui]
-	fontdiff = -family Monaco -size 11 -weight normal -slant roman -underline 0 -overstrike 0
-[branch]
-	autosetupmerge = true
 [instaweb]
 	httpd = webrick
 	port = 8000

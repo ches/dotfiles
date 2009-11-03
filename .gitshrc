@@ -25,3 +25,6 @@ gitalias stat='git status'
 # git log
 gitalias l='git log'
 gitalias ll='git log --pretty=oneline --abbrev-commit'
+
+# git-wtf
+gitalias wtf='git wtf'
