@@ -34,7 +34,12 @@ set wildmenu        " Modern completion menu
 set number          " line numbers
 
 " automatically flush to disk when using :make, changing buffers, etc.
-set autowrite
+" Alternatively, set hidden to allow moving around and leaving dirty files be
+"set autowrite
+set hidden
+
+" use existing window if I try to open an already-open buffer
+set switchbuf=useopen
 
 " threshold for reporting number of lines changed
 set report=0
@@ -59,7 +64,7 @@ if &t_Co > 2 || has("gui_running")
   syntax on
   set hlsearch
   set cursorline
-  colorscheme oceanblack
+  colorscheme twilight  " last used: oceanblack
 endif
 
 " Only do this part when compiled with support for autocommands.
@@ -189,6 +194,9 @@ endif " has("autocmd")
 
 " Remappings {{{
 
+" I'm drinkin' the comma-as-leader kool aid
+let mapleader = ","
+
 " Code completion shortcut
 imap <f3> <C-x><C-o><C-p>
 
@@ -200,10 +208,39 @@ map <silent> <F11> :set invhlsearch<CR>
 imap <silent> <F11> <C-o>:set invhlsearch<CR>
 vmap <silent> <F11> :<C-u>set invhlsearch<CR>gv
 
-" Toggle showing invisibles
-map <silent> <C-F11> :set invlist<CR>
-imap <silent> <C-F11> <C-o>:set invlist<CR>
-vmap <silent> <C-F11> :<C-u>:set invlist<CR>gv
+" Easy window split navigation {{{
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+map <C-h> <C-w>h
+"}}}
+
+" Some TextMate-inspired stuff. 'D' is Command key
+
+" Toggle line wrapping
+" TextMate uses Opt-Cmd-w but that closes all windows in MacVim...
+map <silent> <C-M-w> :set invwrap<CR>
+imap <silent> <C-M-w> <C-o>:set invwrap<CR>
+vmap <silent> <C-M-w> :<C-u>:set invwrap<CR>gv
+
+if has('mac')
+
+  " Option key as meta
+  set macmeta
+
+  " Toggle showing invisibles
+  map <silent> <D-M-i> :set invlist<CR>
+  imap <silent> <D-M-i> <C-o>:set invlist<CR>
+  vmap <silent> <D-M-i> :<C-u>:set invlist<CR>gv
+
+else
+
+  " Toggle showing invisibles
+  map <silent> <C-F11> :set invlist<CR>
+  imap <silent> <C-F11> <C-o>:set invlist<CR>
+  vmap <silent> <C-F11> :<C-u>:set invlist<CR>gv
+
+endif
 
 "}}}
 
