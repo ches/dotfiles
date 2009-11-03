@@ -2,9 +2,11 @@
 :verbose: true
 :update_sources: true
 :sources: 
+- http://gemcutter.org/
 - http://gems.rubyforge.org/
 - http://gems.github.com/
-:backtrace: false
+grep: --columns name,summary,version
 :bulk_threshold: 1000
-:benchmark: false
+:backtrace: false
 rdoc: --inline-source --line-numbers --format=html --template=hanna
+:benchmark: false
