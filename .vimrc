@@ -226,6 +226,13 @@ if has("autocmd")
   autocmd FileType mkd set ai formatoptions=tcroqn2 comments=n:>
 
 endif " has("autocmd")
+
+" Plugin Remappings {{{
+
+" NERD tree - double-leader
+map <Leader>, :NERDTreeToggle<cr>
+
+"}}}
 "}}}
 "}}}
 
