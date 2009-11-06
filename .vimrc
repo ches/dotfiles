@@ -252,6 +252,8 @@ endif
 " Language- and plugin-specific Preferences {{{
 if has("autocmd")
 
+  " FileType Stuff {{{
+
   " Use leader+space to write and execute
   autocmd FileType vim map <buffer> <leader><space> :w!<cr>:source %<cr>
   autocmd FileType ruby map <buffer> <leader><space> :w!<cr>:!ruby %<cr>
@@ -261,11 +263,14 @@ if has("autocmd")
   autocmd FileType javascript,ruby,vim setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 
   let javascript_enable_domhtmlcss=1
+  let xml_use_xhtml = 1                     " default xml to self-closing tags
 
   autocmd FileType html,xhtml,xml,htmldjango,htmljinja,eruby,mako setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
   autocmd BufNewFile,BufRead *.mako setlocal ft=mako
 
   autocmd FileType mkd set ai formatoptions=tcroqn2 comments=n:>
+
+  "}}}
 
 endif " has("autocmd")
 
