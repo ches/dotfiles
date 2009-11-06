@@ -162,11 +162,16 @@ if has("autocmd")
 
   " When editing a file, always jump to the last known cursor position. {{{
   " Don't do it when the position is invalid or when inside an event handler
-  " (happens when dropping a file on gvim).
-  autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal g`\"" |
-    \ endif
+  " (happens when dropping a file on gvim), or for commit messages.
+  autocmd BufReadPost * call SetCursorPosition()
+  function! SetCursorPosition()
+    if &filetype !~ 'commit\c'
+      if line("'\"") > 0 && line("'\"") <= line("$")
+        exe "normal g`\""
+        normal! zz
+      endif
+    end
+  endfunction
   "}}}
   
   " Skeletons {{{
