@@ -23,15 +23,18 @@ else
   set backupdir=~/.backup/vim   " leave all the droppings in one place
 endif
 
-set history=50      " keep 50 lines of command line history
+set history=500     " keep more command line history
 set ruler           " show the cursor position all the time
 set showcmd         " display commands as they're being entered
 set incsearch       " do incremental searching
 set ignorecase      " Do case insensitive matching
 set smartcase       " But if search contains capitals, be sensitive
-set scrolloff=2     " Keep some context visible when scrolling
+set scrolloff=3     " Keep some context visible when scrolling
 set wildmenu        " Modern completion menu
 set number          " line numbers
+
+" wildmenu does shell-style completion AND tab-through
+set wildmode=list:longest,full
 
 " automatically flush to disk when using :make, changing buffers, etc.
 " Alternatively, set hidden to allow moving around and leaving dirty files be
@@ -213,6 +216,10 @@ map <silent> <F11> :set invhlsearch<CR>
 imap <silent> <F11> <C-o>:set invhlsearch<CR>
 vmap <silent> <F11> :<C-u>set invhlsearch<CR>gv
 
+" It's a fast-moving world these days -- does your scrolling keep up?
+noremap <C-y> 2<C-y>
+noremap <C-e> 2<C-e>
+
 " Easy window split navigation {{{
 map <C-j> <C-w>j
 map <C-k> <C-w>k
@@ -220,32 +227,8 @@ map <C-l> <C-w>l
 map <C-h> <C-w>h
 "}}}
 
-" Some TextMate-inspired stuff. 'D' is Command key
-
-" Toggle line wrapping
-" TextMate uses Opt-Cmd-w but that closes all windows in MacVim...
-map <silent> <C-M-w> :set invwrap<CR>
-imap <silent> <C-M-w> <C-o>:set invwrap<CR>
-vmap <silent> <C-M-w> :<C-u>:set invwrap<CR>gv
-
-if has('mac')
-
-  " Option key as meta
-  set macmeta
-
-  " Toggle showing invisibles
-  map <silent> <D-M-i> :set invlist<CR>
-  imap <silent> <D-M-i> <C-o>:set invlist<CR>
-  vmap <silent> <D-M-i> :<C-u>:set invlist<CR>gv
-
-else
-
-  " Toggle showing invisibles
-  map <silent> <C-F11> :set invlist<CR>
-  imap <silent> <C-F11> <C-o>:set invlist<CR>
-  vmap <silent> <C-F11> :<C-u>:set invlist<CR>gv
-
-endif
+" Lotsa TextMate-inspired Mappings
+source ~/.vim/include/textmate-mappings.vim
 
 "}}}
 
@@ -272,9 +255,35 @@ if has("autocmd")
 
   "}}}
 
+  " NERDTree
+  let NERDTreeWinPos          = 'right'
+  let NERDTreeShowBookmarks   = 1
+
+  " TaskList on bottom
+  let g:tlWindowPosition      = 1
+
+  " snipMate Setup and Support functions - scrooloose/snipmate-snippets
+  source ~/.vim/snippets/support_functions.vim
+  autocmd vimenter * call s:SetupSnippets()
+  function! s:SetupSnippets()
+
+    "if we're in a rails env then read in the rails snippets
+    if filereadable("./config/environment.rb")
+      call ExtractSnips("~/.vim/snippets/ruby-rails", "ruby")
+      call ExtractSnips("~/.vim/snippets/eruby-rails", "eruby")
+    endif
+
+    call ExtractSnips("~/.vim/snippets/html", "eruby")
+    call ExtractSnips("~/.vim/snippets/html", "xhtml")
+    call ExtractSnips("~/.vim/snippets/html", "php")
+  endfunction
+
 endif " has("autocmd")
 
-" Plugin Remappings {{{
+" Plugin Mappings {{{
+
+" Ack Search
+map <Leader>a :Ack<space>
 
 " NERD tree - double-leader
 map <Leader>, :NERDTreeToggle<cr>
