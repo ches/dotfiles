@@ -1,5 +1,5 @@
-" Toolbar off
-set go-=T
+set guioptions-=T       " Toolbar off
+set guioptions-=L       " No left hand scrollbars
 
 " Transparency
 set transp=6
@@ -7,6 +7,9 @@ set transp=6
 " Window size - automatically larger for vimdiff!
 if &diff
   set columns=170 lines=50
+
+  " So many schemes have forgotten diff highlighting...
+  colorscheme xoria256
 else
   set columns=100 lines=50
 end
