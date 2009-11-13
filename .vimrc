@@ -288,6 +288,41 @@ map <Leader>a :Ack<space>
 " NERD tree - double-leader
 map <Leader>, :NERDTreeToggle<cr>
 
+" VCSCommand {{{
+
+" The defaults (prefix of <leader>c) conflict with NERDCommenter, and
+" I don't really like them anyway...
+" FIXME: the bang commands don't work
+map <Leader>va <Plug>VCSAdd
+" 'Blame' is the most natural mnemonic for me
+map <Leader>vb <Plug>VCSAnnotate
+map <Leader>vB <Plug>VCSAnnotate!
+map <Leader>vc <Plug>VCSCommit
+map <Leader>vD <Plug>VCSDelete
+map <Leader>vd <Plug>VCSDiff
+map <Leader>vv <Plug>VCSVimDiff
+" Close VCS scratch buffer and return - mnemonic: eXit :-)
+map <Leader>vx <Plug>VCSGotoOriginal!
+map <Leader>vl <Plug>VCSLog
+" I think I'm far too likely to try 'r' for 'remove' all the time...
+map <Leader>vR <Plug>VCSReview
+map <Leader>vs <Plug>VCSStatus
+
+"}}}
+
+" Specky - RSpec plugin {{{
+
+let g:speckyBannerKey = "<C-S>b"
+let g:speckyQuoteSwitcherKey = "<C-S>'"
+let g:speckyRunRdocKey = "<C-S>r"
+let g:speckySpecSwitcherKey = "<C-S>x"
+let g:speckyRunSpecKey = "<C-S>s"
+"let g:speckyRunSpecCmd = "spec -fs"
+let g:speckyRunRdocCmd = "qri -f plain"
+let g:speckyWindowType = 1      " Horizontal split
+
+"}}}
+
 "}}}
 "}}}
 "}}}
