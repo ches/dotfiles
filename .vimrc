@@ -262,6 +262,9 @@ if has("autocmd")
   " TaskList on bottom
   let g:tlWindowPosition      = 1
 
+  " Open the YankRing window
+  nnoremap <silent> <M-v> :YRShow<CR>
+
   " snipMate Setup and Support functions - scrooloose/snipmate-snippets
   source ~/.vim/snippets/support_functions.vim
   autocmd vimenter * call s:SetupSnippets()
