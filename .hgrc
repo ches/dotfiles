@@ -40,6 +40,12 @@ qct=/usr/local/lib/hg/qct.py
 qstatus = status --rev -2:-1  # prints files changed (only) in the current patch
 qclear = qrefresh -X re:.     # empty current patch, but leave the diffs in the working copy
 last = log -l1 -p
+blame = blame --number --user --date -q
+
+[bookmarks]
+# More git-like behavior: only update the bookmark you are currently using,
+# instead of multiple if they are pointing to the same changeset
+track.current = True
 
 [extdiff]
 cmd.vdiff = fmdiff
