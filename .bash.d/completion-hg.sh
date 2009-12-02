@@ -89,6 +89,13 @@ _hg_tags()
     COMPREPLY=(${COMPREPLY[@]:-} $(compgen -W '$tags' -- "$cur"))
 }
 
+_hg_branches()
+{
+    local branches="$("$hg" branches -q 2>/dev/null)"
+    local IFS=$'\n'
+    COMPREPLY=(${COMPREPLY[@]:-} $(compgen -W '$branches' -- "$cur"))
+}
+
 # this is "kind of" ugly...
 _hg_count_non_option()
 {
@@ -189,9 +196,11 @@ _hg_command_specific()
     if [ "$cmd" != status ] && [ "$prev" = -r ] || [ "$prev" == --rev ]; then
 	if [ $canonical = 1 ]; then
 	    _hg_tags
+	    _hg_branches
 	    return 0
 	elif [[ status != "$cmd"* ]]; then
 	    _hg_tags
+	    _hg_branches
 	    return 0
 	else
 	    return 1
@@ -207,9 +216,11 @@ _hg_command_specific()
 		return 0
 	    fi
 	    _hg_tags
+	    _hg_branches
 	;;
 	manifest|update)
 	    _hg_tags
+	    _hg_branches
 	;;
 	pull|push|outgoing|incoming)
 	    _hg_paths
@@ -220,6 +231,10 @@ _hg_command_specific()
 	;;
 	add)
 	    _hg_status "u"
+	;;
+	merge)
+	    _hg_tags
+	    _hg_branches
 	;;
 	commit)
 	    _hg_status "mar"
@@ -262,6 +277,22 @@ complete -o bashdefault -o default -F _hg hg 2>/dev/null \
 
 
 # Completion for commands provided by extensions
+
+# bookmarks
+_hg_bookmarks()
+{
+    local bookmarks="$("$hg" bookmarks --quiet 2>/dev/null )"
+    local IFS=$'\n'
+    COMPREPLY=(${COMPREPLY[@]:-} $(compgen -W '$bookmarks' -- "$cur"))
+}
+
+_hg_cmd_bookmarks()
+{
+    if [[ "$prev" = @(-d|--delete|-m|--rename) ]]; then
+        _hg_bookmarks
+        return
+    fi
+}
 
 # mq
 _hg_ext_mq_patchlist()
@@ -324,6 +355,14 @@ _hg_cmd_qdelete()
     _hg_ext_mq_patchlist $qcmd
 }
 
+_hg_cmd_qfinish()
+{
+    if [[ "$prev" = @(-a|--applied) ]]; then
+	return
+    fi
+    _hg_ext_mq_patchlist qapplied
+}
+
 _hg_cmd_qsave()
 {
     if [[ "$prev" = @(-n|--name) ]]; then
@@ -335,6 +374,7 @@ _hg_cmd_qsave()
 _hg_cmd_strip()
 {
     _hg_tags
+    _hg_branches
 }
 
 _hg_cmd_qcommit()
@@ -443,6 +483,7 @@ _hg_cmd_bisect()
     case "$subcmd" in
 	good|bad)
 	    _hg_tags
+	    _hg_branches
 	    ;;
     esac
 
@@ -479,6 +520,7 @@ _hg_cmd_email()
     esac
 
     _hg_tags
+    _hg_branches
     return
 }
 
@@ -487,6 +529,7 @@ _hg_cmd_email()
 _hg_cmd_sign()
 {
     _hg_tags
+    _hg_branches
 }
 
 
@@ -507,6 +550,24 @@ _hg_cmd_transplant()
 
     # all other transplant options values and command parameters are revisions
     _hg_tags
+    _hg_branches
     return
 }
 
+# shelve
+_hg_shelves()
+{
+    local shelves="$("$hg" unshelve -l . 2>/dev/null)"
+    local IFS=$'\n'
+    COMPREPLY=(${COMPREPLY[@]:-} $(compgen -W '$shelves' -- "$cur"))
+}
+
+_hg_cmd_shelve()
+{
+    _hg_status "mard"
+}
+
+_hg_cmd_unshelve()
+{
+    _hg_shelves
+}
