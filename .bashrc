@@ -9,7 +9,7 @@ shopt -s histappend  # make sure hist is kept across sessions
 bind Space:magic-space  # auto-expand history magic
 
 #
-# Alright, fine, default to vim. Emacs is too damned slow for simple stuff.
+# I think I'm a convert.
 #
 export EDITOR=vim
 export VISUAL=vim
@@ -34,10 +34,11 @@ export VISUAL=vim
 export CDPATH=:~:~/src:~/src/work/railsmachine
 
 #
-# Prompt: green working dir on it's own line
-# without color: PS1="\n\w\n[\u@\h]\$ "
+# A man's prompt is his castle, or something.
 #
-export PS1="\n\[\033[0;32m\]\w\[\033[0m\]\n[\u@\h]\$ "
+if [ -f ~/.bash.d/prompt.sh ]; then
+    . ~/.bash.d/prompt.sh
+fi
 
 #
 # Directory listings in Technicolor
@@ -84,6 +85,7 @@ export PYTHONSTARTUP=$HOME/.pythonrc
 # virtualenvwrapper
 export WORKON_HOME=$HOME/.virtualenvs
 source /usr/local/bin/virtualenvwrapper_bashrc
+export PIP_VIRTUALENV_BASE=$WORKON_HOME
 
 #
 # Memcached
