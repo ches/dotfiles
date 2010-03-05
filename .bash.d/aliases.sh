@@ -13,6 +13,7 @@ alias h=history
 
 alias ll="ls -laF"
 alias la='ls -A'
+alias lt='ls -lt'
 alias l='ls -CF'
 
 alias ..='cd ..'
@@ -23,6 +24,8 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias pcregrep='pcregrep --color=auto'
 
+alias r='fc -s'
+alias g='vim --remote-silent'
 alias ri='ri -f ansi'
 
 # ====================================================
@@ -39,6 +42,7 @@ alias mq='hg -R $(hg root)/.hg/patches'
 #
 if [ "$(uname -s)" == "Darwin" ]; then
     alias mvimdiff='mvim -d'
+    alias g='mvim --remote-silent'
 
     # Open Bitbucket page for the Mercurial repository the current working directory resides in
     alias bb='open $(hg paths | sed -En "s%^(.+) = (.+)bitbucket.org/(.+)/(.+)%https://bitbucket.org/\3/\4%p")'
