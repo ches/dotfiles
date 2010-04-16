@@ -2,7 +2,7 @@ set guioptions-=T       " Toolbar off
 set guioptions-=L       " No left hand scrollbars
 
 " Transparency
-set transp=6
+set transp=4
 
 " Window size - automatically larger for vimdiff!
 if &diff
