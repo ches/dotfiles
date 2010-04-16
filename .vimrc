@@ -288,8 +288,12 @@ if has("autocmd")
   let NERDTreeMapActivateNode = '<CR>' " step in with Enter in addition to 'o'
   let NERDTreeIgnore          = ['\.git','\.hg','\.svn','\.DS_Store']
 
+  " Change default TaskList invocation, conflicts with Command-T plugin
+  map <leader>T <Plug>TaskList
   " TaskList on bottom (open with <leader>t)
   let g:tlWindowPosition      = 1
+  " Custom TaskList tokens
+  let g:tlTokenList = ['FIXME', 'TODO', 'CHANGED', 'PONY']
 
   " Open the YankRing window
   nnoremap <silent> <M-v> :YRShow<CR>
