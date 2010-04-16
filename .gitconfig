@@ -19,6 +19,8 @@
 	who = shortlog -s --
 	edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; $EDITOR `f`"
 	add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
+	amend = commit -a --amend -C HEAD
+	up = !sh -c 'git pull && git log --pretty=format:\"%Cred%ae %Creset- %C(yellow)%s %Creset(%ar)\" HEAD@{1}..'
 [merge]
 	summary = true
 	tool = kdiff3
@@ -33,6 +35,8 @@
 [color "branch"]
 	current = yellow
 	remote = magenta
+[color "diff"]
+	whitespace = red reverse
 [color "sh"]
 	workdir = green bold
 	branch = cyan reverse

@@ -3,7 +3,7 @@ username = Ches Martin <ches.martin@gmail.com>
 ssh = ssh -C
 
 [defaults]
-log = --limit 20
+#log = --limit 20
 
 [web]
 style = monoblue
@@ -27,6 +27,7 @@ hgext.mq =
 hgext.pager =
 # git-style ancestor references, e.g. foo^, foo~3:
 hgext.parentrevspec =
+hgext.progress =
 hgext.rebase =
 hgext.record =
 hgext.transplant =

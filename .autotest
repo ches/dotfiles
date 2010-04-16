@@ -1,66 +1,9 @@
-require 'autotest/redgreen'
-require 'autotest/menu'
+require 'autotest/growl'
 require 'autotest/timestamp'
-
-module Autotest::Growl
-  
-  def self.growl title, msg, img, pri=0, sticky=""
-    system "growlnotify -n autotest --image #{img} -p #{pri} -m #{msg.inspect} #{title} #{sticky} > /dev/null 2>&1"
-  end
-
-  Autotest.add_hook :ran_command do |at|
-    results = [at.results].flatten.join("\n")
-    output = results.slice(/(\d+)\s+examples?,\s*(\d+)\s+failures?(,\s*(\d+)\s+pending)?/)
-    if output =~ /[1-9][0-9]?\sfailure/
-      growl "Test Results", "#{output}", "~/.autotest_images/rails_fail.png", 2, "-s"
-    elsif output =~ /pending/
-      growl "Test Results", "#{output}", "~/.autotest_images/rails_pending.png"
-    # something seems to be printing the test command now, so a default 'else'
-    # here would show an empty green notification
-    elsif output =~ /0\sfailures/
-      growl "Test Results", "#{output}", "~/.autotest_images/rails_ok.png"
-    end
-  end
-    
-end
+#require 'autotest/fsevent'
 
 # Take a load off autotest's back, and my CPU!
-Autotest.add_hook :initialize do |at|  
-    %w{.svn .hg .git vendor}.each {|exception| at.add_exception(exception)}  
+Autotest.add_hook :initialize do |at|
+  %w{.svn .hg .git vendor}.each {|exception| at.add_exception(exception)}
 end
 
-
-# module AutoGrowl
-#   image_root = "~/.autotest_images"
-#   def self.growl title, msg, img='', pri=0, stick=""
-#     system "growlnotify -n autotest --image #{img} -p #{pri} -m #{msg.inspect} #{title} #{stick}"
-#   end
-#  
-#   Autotest.add_hook :run do  |at|
-#     growl "Run", "Run" unless $TESTING
-#   end
-#  
-#   Autotest.add_hook :red do |at|
-#     growl "Tests Failed", "#{at.files_to_test.size} tests failed", "#{image_root}/rails_fail.png", 2
-#   end
-#  
-#   Autotest.add_hook :green do |at|
-#     growl "Tests Passed", "All tests passed", "#{image_root}/rails_ok.png", -2 if at.tainted
-#   end
-#  
-#   Autotest.add_hook :init do |at|
-#     growl "autotest", "autotest was started" unless $TESTING
-#   end
-#  
-#   Autotest.add_hook :interrupt do |at|
-#     growl "autotest", "autotest was reset" unless $TESTING
-#   end
-#  
-#   Autotest.add_hook :quit do |at|
-#     growl "autotest", "autotest is exiting" unless $TESTING
-#   end
-#  
-#   Autotest.add_hook :all do |at|_hook
-#     growl "autotest", "Tests have fully passed", "#{image_root}/rails_ok.png", -1 unless $TESTING
-#   end
-# end
