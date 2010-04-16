@@ -32,6 +32,7 @@ set smartcase       " But if search contains capitals, be sensitive
 set scrolloff=3     " Keep some context visible when scrolling
 set wildmenu        " Modern completion menu
 set number          " line numbers
+set numberwidth=5   " a little bit of buffer is prettier
 
 " wildmenu does shell-style completion AND tab-through
 set wildmode=list:longest,full
@@ -154,10 +155,12 @@ set listchars=tab:»·,trail:·,eol:¬,nbsp:␣
 
 " Colors {{{
 
-highlight LineNr  term=underline    ctermfg=grey    guifg=grey
-highlight CursorLine    guibg=Grey10
+" These might be desired depending on colorscheme
+"highlight LineNr  term=underline    ctermfg=grey    guifg=grey
+"highlight CursorLine    guibg=Grey10
 " No hideous pink default autocomplete menu
-highlight PMenu gui=bold guibg=#CECECE guifg=#444444
+"highlight PMenu gui=bold guibg=#CECECE guifg=#444444
+
 "}}}
 
 " Autocommands {{{
@@ -220,6 +223,29 @@ vmap <silent> <F11> :<C-u>set invhlsearch<CR>gv
 noremap <C-y> 2<C-y>
 noremap <C-e> 2<C-e>
 
+" Yank from cursor to end of line, to be consistent with C and D.
+nnoremap Y y$
+
+" Why so much hand lifting pain for command editing?
+" Allow Emacs/readline-like keys.
+cnoremap <C-A>      <Home>
+cnoremap <C-B>      <Left>
+cnoremap <C-E>      <End>
+cnoremap <C-F>      <Right>
+cnoremap <C-N>      <Down>
+cnoremap <C-P>      <Up>
+if has('mac')
+  cnoremap <M-b>      <S-Left>
+  cnoremap <M-f>      <S-Right>
+  cnoremap <M-BS>     <C-W>
+else
+  cnoremap <ESC>b     <S-Left>
+  cnoremap <ESC><C-B> <S-Left>
+  cnoremap <ESC>f     <S-Right>
+  cnoremap <ESC><C-F> <S-Right>
+  cnoremap <ESC><C-H> <C-W>
+endif
+
 " Easy window split navigation {{{
 map <C-j> <C-w>j
 map <C-k> <C-w>k
@@ -243,7 +269,7 @@ if has("autocmd")
   autocmd FileType python map <buffer> <leader><space> :w!<cr>:!python %<cr>
 
   " autocmd FileType python setlocal cinwords=if,elif,else,for,while,try,except,finally,def,class,with
-  autocmd FileType javascript,ruby,vim setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+  autocmd FileType javascript,ruby,vim,yaml setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 
   let javascript_enable_domhtmlcss=1
   let xml_use_xhtml = 1                     " default xml to self-closing tags
@@ -258,8 +284,11 @@ if has("autocmd")
   " NERDTree
   let NERDTreeWinPos          = 'right'
   let NERDTreeShowBookmarks   = 1
+  let NERDTreeQuitOnOpen      = 1      " hide after opening a file
+  let NERDTreeMapActivateNode = '<CR>' " step in with Enter in addition to 'o'
+  let NERDTreeIgnore          = ['\.git','\.hg','\.svn','\.DS_Store']
 
-  " TaskList on bottom
+  " TaskList on bottom (open with <leader>t)
   let g:tlWindowPosition      = 1
 
   " Open the YankRing window
@@ -269,7 +298,6 @@ if has("autocmd")
   source ~/.vim/snippets/support_functions.vim
   autocmd vimenter * call s:SetupSnippets()
   function! s:SetupSnippets()
-
     "if we're in a rails env then read in the rails snippets
     if filereadable("./config/environment.rb")
       call ExtractSnips("~/.vim/snippets/ruby-rails", "ruby")
@@ -281,6 +309,20 @@ if has("autocmd")
     call ExtractSnips("~/.vim/snippets/html", "php")
   endfunction
 
+  " Hacky but seemingly working snippet reloading.
+  function! ReloadSnippets( snippets_dir, ft )
+    if strlen( a:ft ) == 0
+      let filetype = "_"
+    else
+      let filetype = a:ft
+    endif
+
+    call ResetSnippets()
+    call GetSnippets( a:snippets_dir, filetype )
+  endfunction
+
+  nmap <Leader>rs :call ReloadSnippets(snippets_dir, &filetype)<CR>
+
 endif " has("autocmd")
 
 " Plugin Mappings {{{
@@ -289,7 +331,7 @@ endif " has("autocmd")
 map <Leader>a :Ack<space>
 
 " NERD tree - double-leader
-map <Leader>, :NERDTreeToggle<cr>
+map <Leader><Leader> :NERDTreeToggle<cr>
 
 " VCSCommand {{{
 
@@ -328,6 +370,28 @@ let g:speckyWindowType = 1      " Horizontal split
 
 "}}}
 "}}}
+"}}}
+
+" Custom Functions {{{
+
+let g:browser = 'open '
+
+" Open the Rails ApiDock page for the word under cursor
+function! OpenRailsDoc(keyword)
+  let url = 'http://apidock.com/rails/'.a:keyword
+  exec '!'.g:browser.' '.url
+endfunction
+
+" Open the Ruby ApiDock page for the word under cursor
+function! OpenRubyDoc(keyword)
+  let url = 'http://apidock.com/ruby/'.a:keyword
+  exec '!'.g:browser.' '.url
+endfunction
+
+" Easily lookup documentation on apidock
+noremap <leader>rb :call OpenRubyDoc(expand('<cword>'))<CR>
+noremap <leader>rr :call OpenRailsDoc(expand('<cword>'))<CR>
+
 "}}}
 
 " vim:foldmethod=marker commentstring="%s
