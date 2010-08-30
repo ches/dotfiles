@@ -9,6 +9,9 @@ map <silent> <C-M-w> :set invwrap<CR>
 imap <silent> <C-M-w> <C-o>:set invwrap<CR>
 vmap <silent> <C-M-w> :<C-u>:set invwrap<CR>gv
 
+" insert hashrocket, =>, with control-l
+imap <C-l> <Space>=><Space>
+
 if has('mac')
 
   " Option key as meta
@@ -37,8 +40,13 @@ if has('mac')
   vmap <M-D-[> =
   imap <M-D-[> <C-f>
 
+  " Toggle line numbers with Cmd-Opt-l
+  nmap <silent> <D-M-l> :set invnumber<CR>
+  imap <silent> <D-M-l> <C-o>:set invnumber<CR>
+  vmap <silent> <D-M-l> :<C-u>:set invnumber<CR>gv
+
   " Toggle showing invisibles
-  map <silent> <D-M-i> :set invlist<CR>
+  nmap <silent> <D-M-i> :set invlist<CR>
   imap <silent> <D-M-i> <C-o>:set invlist<CR>
   vmap <silent> <D-M-i> :<C-u>:set invlist<CR>gv
 
@@ -57,7 +65,7 @@ else
   imap <S-C-CR> <Esc>A;<CR>
 
   " Ctrl-bracket Indenting
-  nmap <C-[> <<
+  "nmap <C-[> <<    #FIXME: this is freaking out console vim on my Mac
   vmap <C-[> <
   imap <C-[> <C-d>
   nmap <C-]> >>
@@ -66,6 +74,11 @@ else
   nmap <M-C-[> ==
   vmap <M-C-[> =
   imap <M-C-[> <C-f>
+
+  " Toggle line numbers with Ctrl-Alt-l
+  nmap <silent> <C-M-l> :set invnumber<CR>
+  imap <silent> <C-M-l> <C-o>:set invnumber<CR>
+  vmap <silent> <C-M-l> :<C-u>:set invnumber<CR>gv
 
   " Toggle showing invisibles
   map <silent> <C-F11> :set invlist<CR>
