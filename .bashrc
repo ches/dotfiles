@@ -87,6 +87,10 @@ export WORKON_HOME=$HOME/.virtualenvs
 source /usr/local/bin/virtualenvwrapper_bashrc
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
 
+# Ruby Version Manager
+[[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
+[[ -r $rvm_path/scripts/completion ]] && source $rvm_path/scripts/completion
+
 #
 # Memcached
 #
