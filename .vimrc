@@ -327,6 +327,15 @@ if has("autocmd")
 
   nmap <Leader>rs :call ReloadSnippets(snippets_dir, &filetype)<CR>
 
+  " Gist
+  let g:gist_put_url_to_clipboard_after_post  = 1
+  let g:gist_show_privates                    = 0   " seems broken :-(
+  " detect filetype if vim failed autodetection
+  let g:gist_detect_filetype                  = 1
+  if has('mac')
+    let g:gist_clip_command                   = 'pbcopy'
+  endif
+
 endif " has("autocmd")
 
 " Plugin Mappings {{{
