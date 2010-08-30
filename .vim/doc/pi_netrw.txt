@@ -1,4 +1,4 @@
-*pi_netrw.txt*  For Vim version 7.2.  Last change: 2009 Oct 20
+*pi_netrw.txt*  For Vim version 7.2.  Last change: 2009 Dec 28
 
 	    -----------------------------------------------------
 	    NETRW REFERENCE MANUAL    by Charles E. Campbell, Jr.
@@ -195,17 +195,19 @@ EXTERNAL APPLICATIONS AND PROTOCOLS			*netrw-externapp* {{{2
 	  sftp:  *g:netrw_sftp_cmd*  = "sftp"
 
 	*g:netrw_http_xcmd* : the option string for http://... protocols are
-	specified via this variable and may be independently overridden.
+	specified via this variable and may be independently overridden.  By
+	default, the option arguments for the http-handling commands are: >
 
-		    elinks : "-dump >"
-		    links  : "-dump >"
+		    elinks : "-source >"
+		    links  : "-source >"
 		    curl   : "-o"
 		    wget   : "-q -O"
 		    fetch  : "-o"
-
-	For example, if your system has elinks but you want to see the html
-	source in detail rather than a text rendering thereof, you may wish
-	to have  let g:netrw_http_xcmd= "-source >" in your .vimrc.
+<
+	For example, if your system has elinks, and you'd rather see the
+	page using an attempt at rendering the text, you may wish to have >
+		let g:netrw_http_xcmd= "-dump >"
+<	in your .vimrc.
 
 
 READING						*netrw-read* *netrw-nread* {{{2
@@ -433,6 +435,30 @@ series of commands (typically ftp) which it issues to an external program
 (ftp, scp, etc) which does the actual file transfer/protocol.  Files are read
 from/written to a temporary file (under Unix/Linux, /tmp/...) which the
 <netrw.vim> script will clean up.
+
+Now, a word about Jan Minář's "FTP User Name and Password Disclosure"; first,
+ftp is not a secure protocol.  User names and passwords are transmitted "in
+the clear" over the internet; any snooper tool can pick these up; this is not
+a netrw thing, this is a ftp thing.  If you're concerned about this, please
+try to use scp or sftp instead.
+
+Netrw re-uses the user id and password during the same vim session and so long
+as the remote hostname remains the same.
+
+Jan seems to be a bit confused about how netrw handles ftp; normally multiple
+commands are performed in a "ftp session", and he seems to feel that the
+uid/password should only be retained over one ftp session.  However, netrw
+does every ftp operation in a separate "ftp session"; so remembering the
+uid/password for just one "ftp session" would be the same as not remembering
+the uid/password at all.  IMHO this would rapidly grow tiresome as one
+browsed remote directories, for example.
+
+On the other hand, thanks go to Jan M. for pointing out the many
+vulnerabilities that netrw (and vim itself) had had in handling "crafted"
+filenames.  The |shellescape()| and |fnameescape()| functions were written in
+response by Bram Moolenaar to handle these sort of problems, and netrw has
+been modified to use them.  Still, my advice is, if the "filename" looks like
+a vim command that you aren't comfortable with having executed, don't open it.
 
 				*netrw-putty* *netrw-pscp* *netrw-psftp*
 One may modify any protocol's implementing external application by setting a
@@ -1018,7 +1044,7 @@ One may easily "bookmark" a directory by using >
 
 	mb
 <
-Bookmarks are retained in between sesions in a $HOME/.netrwbook file, and are
+Bookmarks are retained in between sessions in a $HOME/.netrwbook file, and are
 kept in sorted order.
 
 Related Topics:
@@ -1047,8 +1073,8 @@ horizontally or vertically, respectively.  When the option is set to three, a
 <cr> will cause the file to appear in a new tab.
 
 
-When using the gui (gvim) one may select a file by pressing the <leftmouse>
-button.  In addtion, if
+When using the gui (gvim), one may select a file by pressing the <leftmouse>
+button.  In addition, if
 
  *|g:netrw_retmap| == 1      AND   (its default value is 0)
  * in a netrw-selected file, AND
@@ -1445,6 +1471,14 @@ hiding list and the hiding of files or directories that begin with ".".
 As an example, >
 	let g:netrw_list_hide= '\(^\|\s\s\)\zs\.\S\+'
 Effectively, this makes the effect of a |netrw-gh| command the initial setting.
+What it means:
+
+	\(^\|\s\s\)   : if the line begins with the following, -or-
+	                two consecutive spaces are encountered
+	\zs           : start the hiding match now
+	\.            : if it now begins with a dot
+	\S\+          : and is followed by one or more non-whitespace
+	                characters
 
 Associated setting variables: |g:netrw_hide| |g:netrw_list_hide|
 Associated topics: |netrw-a| |netrw-gh| |netrw-mh|
@@ -2642,6 +2676,11 @@ which is loaded automatically at startup (assuming :set nocp).
 	      Sep 19, 2009 * (Mike McEwan) writes via ftp now send both
 			     g:netrw_ftpmode and g:netrw_ftpextracmd (if the
 			     latter exists)
+	      Dec 02, 2009 * netrw uses vimgrep several places; it now uses
+			     "noautocmd vimgrep" (should be speedier).
+	      Dec 03, 2009 * changed back to using -source instead of -dump
+			     for elinks-using commands. (requested by James
+			     Vega and Karsten Hopp)
 	v135: Oct 29, 2008 * using |simplify()| on directory names
 			     (supporting handling ".."s in directory names)
 	      Oct 31, 2008 * added special file highlighting for core dumps
@@ -2923,7 +2962,7 @@ which is loaded automatically at startup (assuming :set nocp).
 			     marked files.
 	v110: May 10, 2007 * added [ and ] maps to NetrwTreeListing
 	      May 25, 2007 * |g:netrw_preview| included
-	      May 29, 2007 * modifed netrw#NetBrowseX to consistently use
+	      May 29, 2007 * modified netrw#NetBrowseX to consistently use
 			     g:netrw_shq instead of hardcoded quotes,
 			     and modified the snippet that sets up redir
 			     so Windows machines use "nul" instead of

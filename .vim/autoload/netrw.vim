@@ -1,10 +1,10 @@
 " netrw.vim: Handles file transfer and remote directory listing across
 "            AUTOLOAD SECTION
-" Date:		Oct 20, 2009
-" Version:	136p	ASTRO-ONLY
+" Date:		Dec 28, 2009
+" Version:	136
 " Maintainer:	Charles E Campbell, Jr <NdrOchip@ScampbellPfamily.AbizM-NOSPAM>
 " GetLatestVimScripts: 1075 1 :AutoInstall: netrw.vim
-" Copyright:    Copyright (C) 1999-2008 Charles E. Campbell, Jr. {{{1
+" Copyright:    Copyright (C) 1999-2009 Charles E. Campbell, Jr. {{{1
 "               Permission is hereby granted to use and distribute this code,
 "               with or without modifications, provided that this copyright
 "               notice is copied with it. Like anything else that's free,
@@ -22,7 +22,7 @@
 if &cp || exists("g:loaded_netrw")
   finish
 endif
-let g:loaded_netrw = "v136p"
+let g:loaded_netrw = "v136"
 if v:version < 702
  echohl WarningMsg
  echo "***warning*** this version of netrw needs vim 7.2"
@@ -51,7 +51,7 @@ setlocal cpo&vim
 " ======================
 
 " ---------------------------------------------------------------------
-" NetrwInit: initializizes variables if they haven't been defined {{{2
+" NetrwInit: initializes variables if they haven't been defined {{{2
 "            Loosely,  varname = value.
 fun s:NetrwInit(varname,value)
   if !exists(a:varname)
@@ -100,19 +100,13 @@ endif
 if !exists("g:netrw_http_cmd")
  if executable("elinks")
   let g:netrw_http_cmd = "elinks"
-  if !exists("g:netrw_http_xcmd")
-   let g:netrw_http_xcmd= "-dump >"
-  endif
+  call s:NetrwInit("g:netrw_http_xcmd","-source >")
  elseif executable("links")
   let g:netrw_http_cmd = "links"
-  if !exists("g:netrw_http_xcmd")
-   let g:netrw_http_xcmd= "-dump >"
-  endif
+  call s:NetrwInit("g:netrw_http_xcmd","-source >")
  elseif executable("curl")
   let g:netrw_http_cmd	= "curl"
-  if !exists("g:netrw_http_xcmd")
-   let g:netrw_http_xcmd= "-o"
-  endif
+  call s:NetrwInit("g:netrw_http_xcmd","-o")
  elseif executable("wget")
   let g:netrw_http_cmd	= "wget"
   call s:NetrwInit("g:netrw_http_xcmd","-q -O")
@@ -2403,6 +2397,7 @@ fun! s:NetrwGetBuffer(islocal,dirname)
 "  call Decho("--re-use a buffer if possible--")
   if exists("w:netrw_liststyle") && w:netrw_liststyle == s:TREELIST
    " find NetrwTreeList buffer if there is one
+"   call Decho("find NetrwTreeList buffer if there is one")
    if exists("w:netrw_treebufnr") && w:netrw_treebufnr > 0
 "    call Decho("  re-use w:netrw_treebufnr=".w:netrw_treebufnr)
     let eikeep= &ei
@@ -2426,7 +2421,7 @@ fun! s:NetrwGetBuffer(islocal,dirname)
 "   call Decho("  bufnr(dirname<".escape(dirname,'\').">)=".bufnum)
 
    if bufnum < 0 && dirname !~ '/$'
-    " trying appending a trailing /
+    " try appending a trailing /
 "    call Decho("  try appending a trailing / to dirname<".dirname.">")
     let bufnum= bufnr(escape(dirname.'/','\'))
     if bufnum > 0
@@ -2435,7 +2430,7 @@ fun! s:NetrwGetBuffer(islocal,dirname)
    endif
 
    if bufnum < 0 && dirname =~ '/$'
-    " trying removing a trailing /
+    " try removing a trailing /
 "    call Decho("  try removing a trailing / from dirname<".dirname.">")
     let bufnum= bufnr(escape(substitute(dirname,'/$','',''),'\'))
     if bufnum > 0
@@ -2447,17 +2442,26 @@ fun! s:NetrwGetBuffer(islocal,dirname)
    " note: !~ was used just below, but that means using ../ to go back would match (ie. abc/def/  and abc/ matches)
    if bufnum > 0 && bufname(bufnum) != dirname && bufname(bufnum) != '.'
     " handle approximate matches
-"    call Decho("  handling approx match: bufnum#%d<".bufname(bufnum)."> approx=dirname<".dirname.">")
+"    call Decho("  handling approx match: bufnum#".bufnum."<".bufname(bufnum)."> approx-dirname<".dirname.">")
     let ibuf    = 1
     let buflast = bufnr("$")
 "    call Decho("  findbuf2: buflast=".buflast)
     while ibuf <= buflast
      let bname= substitute(bufname(ibuf),'\\','/','g')
      let bname= substitute(bname,'.\zs/$','','')
-"     call Decho("  findbuf3: dirname<".dirname."> bufname(".ibuf.")<".bname.">")
-     if bname != '' && dirname =~ '/'.bname.'/\=$' | break | endif
-     if bname   =~ '^'.dirname.'/\=$' | break | endif
-     if dirname =~ '^'.bname.'/$'     | break | endif
+"     call Decho("  findbuf3: while [ibuf=",ibuf."]<=[buflast=".buflast."]: dirname<".dirname."> bufname(".ibuf.")<".bname.">")
+     if bname   != '' && dirname =~ '/'.bname.'/\=$' && dirname !~ '^/'
+"      call Decho("  findbuf3: passes test 1 : dirname<".dirname.'> =~ /'.bname.'/\=$ && dirname !~ ^/')
+      break
+     endif
+     if bname   =~ '^'.dirname.'/\=$'
+"      call Decho('  findbuf3: passes test 2 : bname<'.bname.'>=~^'.dirname.'/\=$')
+      break
+     endif
+     if dirname =~ '^'.bname.'/$'
+"      call Decho('  findbuf3: passes test 3 : dirname<'.dirname.'>=~^'.bname.'/$')
+      break
+     endif
      let ibuf= ibuf + 1
     endwhile
     if ibuf > buflast
@@ -3610,7 +3614,13 @@ fun! netrw#Explore(indx,dosplit,style,...)
       " starpat=1: Explore *//pattern  (current directory only search for files containing pattern)
 "      call Decho("starpat=".starpat.": build *//pattern list")
 "      call Decho("pattern<".pattern.">")
-      exe "vimgrep /".pattern."/gj ".fnameescape(b:netrw_curdir)."/*"
+      try
+       exe "noautocmd vimgrep /".pattern."/gj ".fnameescape(b:netrw_curdir)."/*"
+      catch /^Vim\%((\a\+)\)\=:E480/
+       call netrw#ErrorMsg(s:WARNING,"no match with pattern<".pattern.">",76)
+"       call Dret("netrw#Explore : unable to find pattern<".pattern.">")
+       return
+      endtry
       let w:netrw_explore_list = s:NetrwExploreListUniq(map(getqflist(),'bufname(v:val.bufnr)'))
       if &hls | let keepregslash= s:ExplorePatHls(pattern) | endif
 
@@ -3618,9 +3628,9 @@ fun! netrw#Explore(indx,dosplit,style,...)
       " starpat=2: Explore **//pattern (recursive descent search for files containing pattern)
 "      call Decho("starpat=".starpat.": build **//pattern list")
       try
-       exe "silent vimgrep /".pattern."/gj "."**/*"
+       exe "silent noautocmd vimgrep /".pattern."/gj "."**/*"
       catch /^Vim\%((\a\+)\)\=:E480/
-      	call netrw#ErrorMsg(s:WARNING,'no files matched pattern<'.pattern.'>',45)
+       call netrw#ErrorMsg(s:WARNING,'no files matched pattern<'.pattern.'>',45)
        if &hls | let keepregslash= s:ExplorePatHls(pattern) | endif
        silent! let @* = keepregstar
        silent! let @+ = keepregstar
@@ -4559,7 +4569,13 @@ fun! s:NetrwMarkFileGrep(islocal)
 
    " use vimgrep for both local and remote
 "   call Decho("exe vimgrep".pat." ".netrwmarkfilelist)
-   exe "vimgrep".pat." ".netrwmarkfilelist
+   try
+    exe "noautocmd vimgrep".pat." ".netrwmarkfilelist
+    catch /^Vim\%((\a\+)\)\=:E480/
+     call netrw#ErrorMsg(s:WARNING,"no match with pattern<".pattern.">",76)
+"     call Dret("s:NetrwMarkFileGrep : unable to find pattern<".pattern.">")
+     return
+   endtry
 
    2match none
    call netrw#NetrwRestorePosn(svpos)
@@ -7419,7 +7435,7 @@ endfun
 "   0=note     = s:NOTE
 "   1=warning  = s:WARNING
 "   2=error    = s:ERROR
-"  Sep 04, 2009 : max errnum currently is 75
+"  Dec 03, 2009 : max errnum currently is 76
 fun! netrw#ErrorMsg(level,msg,errnum)
 "  call Dfunc("netrw#ErrorMsg(level=".a:level." msg<".a:msg."> errnum=".a:errnum.") g:netrw_use_errorwindow=".g:netrw_use_errorwindow)
 
