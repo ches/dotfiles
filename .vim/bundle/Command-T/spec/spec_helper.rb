@@ -21,21 +21,18 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-require 'vim/screen'
-require 'vim/window'
+if !Object.const_defined?('Bundler')
+  require 'rubygems'
+  require 'bundler'
+  Bundler.setup
+end
+require 'rspec'
 
-module VIM
-  def self.has_syntax?
-    VIM.evaluate('has("syntax")').to_i != 0
-  end
+lib = File.expand_path('../ruby', File.dirname(__FILE__))
+unless $LOAD_PATH.include? lib
+  $LOAD_PATH.unshift lib
+end
 
-  def self.pwd
-    VIM.evaluate('getcwd()')
-  end
-
-  # Escape a string for safe inclusion in a Vim single-quoted string
-  # (single quotes escaped by doubling, everything else is literal)
-  def self.escape_for_single_quotes str
-    str.gsub "'", "''"
-  end
-end # module VIM
+RSpec.configure do |config|
+  config.mock_framework = :rr
+end
