@@ -62,6 +62,11 @@ map Q gq
 " text is lost and it only works for putting the current register.
 "vnoremap p "_dp
 
+" Pathogen makes Vim plugin management saner:
+" http://www.vim.org/scripts/script.php?script_id=2332
+" Heed the install notes for system vim defaults on Linux.
+call pathogen#runtime_append_all_bundles()
+
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
 if &t_Co > 2 || has("gui_running")
@@ -290,7 +295,7 @@ if has("autocmd")
 
   " Change default TaskList invocation, conflicts with Command-T plugin
   map <leader>T <Plug>TaskList
-  " TaskList on bottom (open with <leader>t)
+  " TaskList on bottom (open with <leader>T)
   let g:tlWindowPosition      = 1
   " Custom TaskList tokens
   let g:tlTokenList = ['FIXME', 'TODO', 'CHANGED', 'PONY']
