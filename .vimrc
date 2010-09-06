@@ -280,6 +280,7 @@ if has("autocmd")
   let xml_use_xhtml = 1                     " default xml to self-closing tags
 
   autocmd FileType html,xhtml,xml,htmldjango,htmljinja,eruby,mako setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+  autocmd BufNewFile,BufRead jquery.*.js set ft=javascript syntax=jquery
   autocmd BufNewFile,BufRead *.mako setlocal ft=mako
 
   autocmd FileType mkd set ai formatoptions=tcroqn2 comments=n:>
