@@ -41,13 +41,27 @@ function parse_git_branch {
     fi
     if [[ ${git_status} =~ ${branch_pattern} ]]; then
         branch=${BASH_REMATCH[1]}
-        echo " ${GREEN}(${WHITE}${branch}${stash}${state}${remote}${GREEN})"
+        echo " ${GREEN}(${WHITE}± ${branch}${stash}${state}${remote}${GREEN})"
+    fi
+}
+
+function ruby_version() {
+    if [[ -f ~/.rvm/bin/rvm-prompt ]]; then
+        local system=$(~/.rvm/bin/rvm-prompt s)
+        local interp=$(~/.rvm/bin/rvm-prompt i)
+        if [[ ! -n $system ]]; then
+            # Don't show interpreter if it's just MRI
+            case $interp in
+                ruby) echo " ${RED}♦ $(~/.rvm/bin/rvm-prompt v g)${COLOR_NONE}" ;;
+                *)    echo " ${RED}♦ $(~/.rvm/bin/rvm-prompt i v g)${COLOR_NONE}" ;;
+            esac
+        fi
     fi
 }
 
 function prompt_func() {
     previous_return_value=$?;
-    prompt="${GREEN}\w$(parse_git_branch)${COLOR_NONE}\n[\u@\h]"
+    prompt="${GREEN}\w$(parse_git_branch)${COLOR_NONE}$(ruby_version)\n[\u@\h]"
     if test $previous_return_value -eq 0
     then
         PS1="\n${prompt}\$ "
