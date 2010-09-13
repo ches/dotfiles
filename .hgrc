@@ -1,5 +1,5 @@
 [ui]
-username = Ches Martin <ches.martin@gmail.com>
+username = Ches Martin <ches@whiskeyandgrits.net>
 ssh = ssh -C
 
 [defaults]
@@ -28,6 +28,7 @@ hgext.pager =
 # git-style ancestor references, e.g. foo^, foo~3:
 hgext.parentrevspec =
 hgext.progress =
+hgext.purge =
 hgext.rebase =
 hgext.record =
 hgext.transplant =
