@@ -296,6 +296,7 @@ if has("autocmd")
   let NERDTreeQuitOnOpen      = 1      " hide after opening a file
   let NERDTreeMapActivateNode = '<CR>' " step in with Enter in addition to 'o'
   let NERDTreeIgnore          = ['\.git','\.hg','\.svn','\.DS_Store']
+  let NERDTreeHijackNetrw     = 0      " I like netrw when I `:e somedir`
 
   " Change default TaskList invocation, conflicts with Command-T plugin
   map <leader>T <Plug>TaskList
