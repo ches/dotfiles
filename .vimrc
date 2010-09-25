@@ -37,6 +37,9 @@ set numberwidth=5   " a little bit of buffer is prettier
 " wildmenu does shell-style completion AND tab-through
 set wildmode=list:longest,full
 
+" Ignore some extensions when tab-completing
+set wildignore=*.swp,*.bak,*.pyc,*.o,*.class
+
 " automatically flush to disk when using :make, changing buffers, etc.
 " Alternatively, set hidden to allow moving around and leaving dirty files be
 "set autowrite
@@ -303,6 +306,10 @@ if has("autocmd")
 
   " Open the YankRing window
   nnoremap <silent> <M-v> :YRShow<CR>
+
+  " Lusty Juggler buffer switcher
+  let g:LustyJugglerShowKeys = 'a'
+  nmap <silent> <leader>b :LustyJuggler<CR>
 
   " snipMate Setup and Support functions - scrooloose/snipmate-snippets
   source ~/.vim/snippets/support_functions.vim
