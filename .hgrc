@@ -39,11 +39,13 @@ prompt = ~/.hglib/hg-prompt/prompt.py
 qct=/usr/local/lib/hg/qct.py
 
 [alias]
-# Thanks: http://wikis.sun.com/display/SunOnMac/MercurialTips
-qstatus = status --rev -2:-1  # prints files changed (only) in the current patch
-qclear = qrefresh -X re:.     # empty current patch, but leave the diffs in the working copy
 last = log -l1 -p
 blame = blame --number --user --date -q
+# Thanks: http://wikis.sun.com/display/SunOnMac/MercurialTips
+# prints files changed (only) in the current patch:
+qstatus = status --rev -2:-1
+# empty current patch, but leave the diffs in the working copy:
+qclear = qrefresh -X re:.
 
 [bookmarks]
 # More git-like behavior: only update the bookmark you are currently using,
