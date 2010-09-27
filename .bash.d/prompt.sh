@@ -45,7 +45,30 @@ function parse_git_branch {
     fi
 }
 
-function ruby_version() {
+# TODO: for speed, make only one `hg prompt` call and massage data
+function hg_prompt_info {
+    # Because my home dir is an hg repo for dotfiles...
+    hg_root="$(hg root 2> /dev/null)"
+    if [[ ${hg_root} == $HOME ]]; then exit; fi
+
+    # Override the hg-prompt extensions status characters
+    hg_status="$(hg prompt '{status}')"
+    if [[ -n $hg_status ]]; then
+        state="${RED}⚡"
+    fi
+
+    hg_shelf="$(hg attic 2> /dev/null)"
+    if [[ -n $hg_shelf ]]; then
+        shelf="${RED}*"
+    fi
+
+    # Imperfect, but I almost always want to have a 'master' bookmark
+    hg_prompt="$(hg prompt '{{branch|quiet}:}{{bookmark}}{:{patch}}')"
+    echo " ${GREEN}(${WHITE}☿ ${hg_prompt}${shelf}${state}${GREEN})"
+}
+
+
+function ruby_version {
     if [[ -f ~/.rvm/bin/rvm-prompt ]]; then
         local system=$(~/.rvm/bin/rvm-prompt s)
         local interp=$(~/.rvm/bin/rvm-prompt i)
@@ -59,9 +82,9 @@ function ruby_version() {
     fi
 }
 
-function prompt_func() {
+function prompt_func {
     previous_return_value=$?;
-    prompt="${GREEN}\w$(parse_git_branch)${COLOR_NONE}$(ruby_version)\n[\u@\h]"
+    prompt="${GREEN}\w$(parse_git_branch)$(hg_prompt_info)${COLOR_NONE}$(ruby_version)\n[\u@\h]"
     if test $previous_return_value -eq 0
     then
         PS1="\n${prompt}\$ "
