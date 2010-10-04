@@ -49,7 +49,7 @@ function parse_git_branch {
 function hg_prompt_info {
     # Because my home dir is an hg repo for dotfiles...
     hg_root="$(hg root 2> /dev/null)"
-    if [[ ${hg_root} == $HOME ]]; then exit; fi
+    if [ -z ${hg_root} ] || [[ ${hg_root} = $HOME ]]; then exit; fi
 
     # Override the hg-prompt extensions status characters
     hg_status="$(hg prompt '{status}')"
