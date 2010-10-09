@@ -327,19 +327,7 @@ if has("autocmd")
     call ExtractSnips("~/.vim/snippets/html", "php")
   endfunction
 
-  " Hacky but seemingly working snippet reloading.
-  function! ReloadSnippets( snippets_dir, ft )
-    if strlen( a:ft ) == 0
-      let filetype = "_"
-    else
-      let filetype = a:ft
-    endif
-
-    call ResetSnippets()
-    call GetSnippets( a:snippets_dir, filetype )
-  endfunction
-
-  nmap <Leader>rs :call ReloadSnippets(snippets_dir, &filetype)<CR>
+  nmap <Leader>rs :call ReloadAllSnippets()<CR>
 
   " Gist
   let g:gist_put_url_to_clipboard_after_post  = 1
