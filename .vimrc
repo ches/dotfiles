@@ -282,8 +282,7 @@ if has("autocmd")
   let javascript_enable_domhtmlcss=1
   let xml_use_xhtml = 1                     " default xml to self-closing tags
 
-  autocmd FileType html,xhtml,xml,htmldjango,htmljinja,eruby,mako,cucumber \
-    setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+  autocmd FileType html,xhtml,xml,htmldjango,htmljinja,eruby,mako,cucumber setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
   autocmd BufNewFile,BufRead jquery.*.js set ft=javascript syntax=jquery
   autocmd BufNewFile,BufRead *.mako setlocal ft=mako
 
@@ -348,6 +347,10 @@ map <Leader>a :Ack<space>
 
 " NERD tree - double-leader
 map <Leader><Leader> :NERDTreeToggle<cr>
+
+" Ready for tab-completion of named Tabular patterns
+" Choosing 'gq' since it's similar function to the format command
+map <Leader>gq :Tabularize<space>
 
 " VCSCommand {{{
 
