@@ -4,11 +4,11 @@ SHELL = /bin/sh
 #### Start of system configuration section. ####
 
 srcdir = .
-topdir = /Users/ches/.rvm/rubies/ruby-1.8.7-p174/lib/ruby/1.8/i686-darwin10.4.0
+topdir = /Users/ches/.rvm/rubies/ruby-1.8.7-p302/lib/ruby/1.8/i686-darwin10.4.0
 hdrdir = $(topdir)
 VPATH = $(srcdir):$(topdir):$(hdrdir)
 exec_prefix = $(prefix)
-prefix = $(DESTDIR)/Users/ches/.rvm/rubies/ruby-1.8.7-p174
+prefix = $(DESTDIR)/Users/ches/.rvm/rubies/ruby-1.8.7-p302
 sharedstatedir = $(prefix)/com
 mandir = $(datarootdir)/man
 psdir = $(docdir)
@@ -62,7 +62,7 @@ RUBY_SO_NAME = ruby
 arch = i686-darwin10.4.0
 sitearch = i686-darwin10.4.0
 ruby_version = 1.8
-ruby = /Users/ches/.rvm/rubies/ruby-1.8.7-p174/bin/ruby
+ruby = /Users/ches/.rvm/rubies/ruby-1.8.7-p302/bin/ruby
 RUBY = $(ruby)
 RM = rm -f
 MAKEDIRS = mkdir -p
