@@ -1,0 +1,118 @@
+require 'rake'
+require 'open-uri'
+
+# Yanked with slight modification from Tammer Saleh's post:
+#   http://tammersaleh.com/posts/the-modern-vim-config-with-pathogen
+
+GIT_BUNDLES = [
+  'git://github.com/bronson/vim-ruby-block-conv.git',
+  'git://github.com/godlygeek/tabular.git',
+  'git://github.com/mileszs/ack.vim.git',
+  'git://github.com/msanders/cocoa.vim.git',
+  'git://github.com/msanders/snipmate.vim.git',
+  'git://github.com/nelstrom/vim-blackboard.git',
+  'git://github.com/scrooloose/nerdtree.git',
+  'git://github.com/scrooloose/nerdcommenter.git',
+  'git://github.com/timcharper/textile.vim.git',
+  'git://github.com/tpope/vim-cucumber.git',
+  'git://github.com/tpope/vim-endwise.git',
+  'git://github.com/tpope/vim-git.git',
+  'git://github.com/tpope/vim-markdown.git',
+  'git://github.com/tpope/vim-rake.git',
+  'git://github.com/tpope/vim-rails.git',
+  'git://github.com/tpope/vim-repeat.git',
+  'git://github.com/tpope/vim-surround.git',
+  'git://github.com/tpope/vim-vividchalk.git',
+  'git://github.com/wincent/Command-T.git',
+  'git://github.com/vim-ruby/vim-ruby.git',
+  'git://repo.or.cz/vcscommand'
+  # "git://github.com/astashov/vim-ruby-debugger.git",
+  # "git://github.com/tsaleh/vim-align.git",
+  # "git://github.com/tsaleh/vim-supertab.git",
+]
+
+VIM_ORG_SCRIPTS = [
+  # ['IndexedSearch', '7062',  'plugin'],
+  ['gist',          '13427',  'plugin'],
+  ['lusty-juggler', '13094',  'plugin'],
+  ['tasklist',      '10388',  'plugin'],
+  ['wordcomplete',  '6504',   'plugin'],
+  ['jquery',        '12276',  'syntax'],
+  ['matchit',       '8196',   'zip'],
+  ['taglist',       '7701',   'zip'],
+  ['yankring',      '13554',  'zip']
+]
+
+desc 'Update all Pathogen bundles and docs'
+task :default => ['bundles:update:all', 'bundles:doc']
+
+namespace :bundles do
+  task :cd do
+    cd File.join(File.dirname(__FILE__), 'bundle')
+  end
+
+  desc 'Set working directory and delete bundles'
+  task :clean => :cd do
+    puts 'Trashing everything in .vim/bundle (lookout!)'
+    Dir["*"].each {|d| rm_rf d }
+  end
+
+  desc 'Generate plugin help tags with Pathogen'
+  task :doc do
+    puts "== Generating helptags with pathogen"
+    system 'vim -e -c "call pathogen#helptags()" -c q'
+  end
+
+  namespace :update do
+
+    # TODO: make clean tasks that only delete git or vimscript bundles
+
+    desc 'Update Pathogen bundles from Git repositories'
+    task :git => 'bundles:clean' do
+      GIT_BUNDLES.each do |url|
+        dir = url.split('/').last.sub(/\.git$/, '')
+        puts "  Unpacking #{url} into #{dir}"
+        `git clone --depth 1 #{url} #{dir}`
+        rm_rf File.join(dir, '.git')
+      end
+    end
+
+    desc 'Update Pathogen bundles from vim.org'
+    task :vimscripts => 'bundles:clean' do
+      VIM_ORG_SCRIPTS.each do |name, script_id, script_type|
+        puts "  Downloading #{name}"
+        local_file = File.join(name, script_type, "#{name}.#{script_type == 'zip' ? 'zip' : 'vim'}")
+        mkdir_p File.dirname(local_file)
+        File.open(local_file, 'w') do |file|
+          file << open("http://www.vim.org/scripts/download_script.php?src_id=#{script_id}").read
+        end
+        if script_type == 'zip'
+          %x(unzip -d #{name} #{local_file} && rm -r #{name}/zip)
+        end
+      end
+    end
+
+    desc 'Assorted post-install steps and cleanup'
+    task :postinstall => :git do
+      puts '== Building command-t plugin'
+      cd('Command-T') do
+        system '$HOME/.rvm/bin/rvm use system; rake make'
+      end
+
+      puts "== Nuking snipMate's built-in default snippets"
+      cd('snipmate.vim') do
+        rm_rf 'snippets'
+      end
+
+      puts '== Removing extraneous vim-ruby repo stuff'
+      cd('vim-ruby') do
+        rm_rf %w[ bin etc CONTRIBUTORS CHANGELOG FAQ NEWS INSTALL README Rakefile ]
+      end
+    end
+
+    desc 'Update all Pathogen bundles'
+    task :all => [:git, :vimscripts, :postinstall]
+  end
+
+end
+
