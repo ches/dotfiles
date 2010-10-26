@@ -1,0 +1,17 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=1374
+
+TailMinusF allows you to view the contents of a file in real time.  When a
+change in the file is detected, the window displaying the file is updated and
+repositioned to the last line.
+
+The update is not exactly real time, but usually updates within a few seconds
+of the file change.  The update interval of the output is determined by the
+|updatetime| parameter, along with continued usage of Vim.  This means that if
+you are not doing any editing or motion commands, the preview window will not
+be updated.  See |CursorHold| for more information.
+
+Because this window becomes the preview window, it will accept all related
+commands.  For more information, see |preview-window|.
+
+Once installed, simply use &#039:Tail <filename>&#039 to see the file.
+ Use ':pclose' to close this window.

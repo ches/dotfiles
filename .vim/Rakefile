@@ -25,6 +25,7 @@ GIT_BUNDLES = [
   'git://github.com/tpope/vim-vividchalk.git',
   'git://github.com/wincent/Command-T.git',
   'git://github.com/vim-ruby/vim-ruby.git',
+  'git://github.com/vim-scripts/TailMinusF.git',
   'git://repo.or.cz/vcscommand'
   # "git://github.com/astashov/vim-ruby-debugger.git",
   # "git://github.com/tsaleh/vim-align.git",
