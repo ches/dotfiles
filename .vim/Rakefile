@@ -12,7 +12,7 @@ GIT_BUNDLES = [
   'git://github.com/msanders/snipmate.vim.git',
   'git://github.com/nelstrom/vim-blackboard.git',
   'git://github.com/scrooloose/nerdtree.git',
-  'git://github.com/scrooloose/nerdcommenter.git',
+  'git://github.com/ervandew/nerdcommenter.git',    # switch from scrooloose fork for NERDDefaultAlign
   'git://github.com/timcharper/textile.vim.git',
   'git://github.com/tpope/vim-cucumber.git',
   'git://github.com/tpope/vim-endwise.git',

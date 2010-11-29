@@ -291,7 +291,8 @@ if has("autocmd")
   let NERDTreeHijackNetrw     = 0      " I like netrw when I `:e somedir`
 
   "NERDCommenter
-  let NERDSpaceDelims = 1     " use a space after comment chars
+  let NERDSpaceDelims  = 1             " use a space after comment chars
+  let NERDDefaultAlign = 'left'
 
   " Change default TaskList invocation, conflicts with Command-T plugin
   map <leader>T <Plug>TaskList
