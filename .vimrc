@@ -6,8 +6,8 @@ if v:progname =~? "evim"
   finish
 endif
 
-" General options {{{
-" Miscellaneous and Display {{{
+" General options {{{1
+" Miscellaneous and Display {{{2
 
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
@@ -112,9 +112,7 @@ if has("viminfo")
 
 endif
 
-"}}}
-
-" Indentation {{{
+" Indentation {{{2
 
 " no-longer skinny tabs!
 set tabstop=4
@@ -150,18 +148,15 @@ set cinkeys+=;
 " Use attractive characters to show tabs & trailing spaces
 set listchars=tab:»·,trail:·,eol:¬,nbsp:␣
 
-"}}}
-
-" Folding {{{
+" Folding {{{2
 
 " fold only when I ask for it damnit!
 ""set foldmethod=marker
 
 " close a fold when I leave it
 ""set foldclose=all
-"}}}
 
-" Colors {{{
+" Colors {{{2
 
 " These might be desired depending on colorscheme
 "highlight LineNr  term=underline    ctermfg=grey    guifg=grey
@@ -169,9 +164,7 @@ set listchars=tab:»·,trail:·,eol:¬,nbsp:␣
 " No hideous pink default autocomplete menu
 "highlight PMenu gui=bold guibg=#CECECE guifg=#444444
 
-"}}}
-
-" Autocommands {{{
+" Autocommands {{{2
 if has("autocmd")
 
   " When editing a file, always jump to the last known cursor position. {{{
@@ -209,9 +202,7 @@ if has("autocmd")
   "}}}
 
 endif " has("autocmd")
-"}}}
-
-" Remappings {{{
+" Remappings {{{1
 
 " I'm drinkin' the comma-as-leader kool aid
 let mapleader = ","
@@ -259,14 +250,15 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 map <C-h> <C-w>h
+
+" Toggle a window's height stickiness, so C-w = doesn't equalize it
+nmap <leader>` :set invwinfixheight winfixheight?<CR>
 "}}}
 
 " Lotsa TextMate-inspired Mappings
 source ~/.vim/include/textmate-mappings.vim
 
-"}}}
-
-" Language- and plugin-specific Preferences {{{
+" Language- and plugin-specific Preferences {{{1
 if has("autocmd")
 
   " FileType Stuff {{{
@@ -298,6 +290,9 @@ if has("autocmd")
   let NERDTreeIgnore          = ['\.git','\.hg','\.svn','\.DS_Store']
   let NERDTreeHijackNetrw     = 0      " I like netrw when I `:e somedir`
 
+  "NERDCommenter
+  let NERDSpaceDelims = 1     " use a space after comment chars
+
   " Change default TaskList invocation, conflicts with Command-T plugin
   map <leader>T <Plug>TaskList
   " TaskList on bottom (open with <leader>T)
@@ -310,18 +305,13 @@ if has("autocmd")
 
   " Lusty Juggler buffer switcher
   let g:LustyJugglerShowKeys = 'a'
+  let g:LustyJugglerSuppressRubyWarning = 1
   nmap <silent> <leader>b :LustyJuggler<CR>
 
   " snipMate Setup and Support functions - scrooloose/snipmate-snippets
   source ~/.vim/snippets/support_functions.vim
   autocmd vimenter * call s:SetupSnippets()
   function! s:SetupSnippets()
-    "if we're in a rails env then read in the rails snippets
-    if filereadable("./config/environment.rb")
-      call ExtractSnips("~/.vim/snippets/ruby-rails", "ruby")
-      call ExtractSnips("~/.vim/snippets/eruby-rails", "eruby")
-    endif
-
     call ExtractSnips("~/.vim/snippets/html", "eruby")
     call ExtractSnips("~/.vim/snippets/html", "xhtml")
     call ExtractSnips("~/.vim/snippets/html", "php")
@@ -331,7 +321,7 @@ if has("autocmd")
 
   " Gist
   let g:gist_put_url_to_clipboard_after_post  = 1
-  let g:gist_show_privates                    = 0   " seems broken :-(
+  let g:gist_show_privates                    = 1
   " detect filetype if vim failed autodetection
   let g:gist_detect_filetype                  = 1
   if has('mac')
@@ -340,7 +330,7 @@ if has("autocmd")
 
 endif " has("autocmd")
 
-" Plugin Mappings {{{
+" Plugin Mappings {{{2
 
 " Ack Search
 map <Leader>a :Ack<space>
@@ -352,7 +342,7 @@ map <Leader><Leader> :NERDTreeToggle<cr>
 " Choosing 'gq' since it's similar function to the format command
 map <Leader>gq :Tabularize<space>
 
-" VCSCommand {{{
+" VCSCommand {{{3
 
 " The defaults (prefix of <leader>c) conflict with NERDCommenter, and
 " I don't really like them anyway...
@@ -372,9 +362,7 @@ map <Leader>vl <Plug>VCSLog
 map <Leader>vR <Plug>VCSReview
 map <Leader>vs <Plug>VCSStatus
 
-"}}}
-
-" Specky - RSpec plugin {{{
+" Specky - RSpec plugin {{{3
 
 let g:speckyBannerKey = "<C-S>b"
 let g:speckyQuoteSwitcherKey = "<C-S>'"
@@ -385,15 +373,14 @@ let g:speckyRunSpecKey = "<C-S>s"
 let g:speckyRunRdocCmd = "qri -f plain"
 let g:speckyWindowType = 1      " Horizontal split
 
-"}}}
+" Custom Functions {{{1
 
-"}}}
-"}}}
-"}}}
+if has('mac')
+  let g:browser = 'open '
 
-" Custom Functions {{{
-
-let g:browser = 'open '
+  " Command that Rails.vim uses for various browser-opening functions
+  command -bar -nargs=1 OpenURL :!open <args>
+endif
 
 " Open the Rails ApiDock page for the word under cursor
 function! OpenRailsDoc(keyword)
@@ -410,8 +397,6 @@ endfunction
 " Easily lookup documentation on apidock
 noremap <leader>rb :call OpenRubyDoc(expand('<cword>'))<CR>
 noremap <leader>rr :call OpenRailsDoc(expand('<cword>'))<CR>
-
-"}}}
 
 " vim:foldmethod=marker commentstring="%s
 
