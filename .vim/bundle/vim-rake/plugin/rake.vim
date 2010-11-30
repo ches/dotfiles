@@ -104,8 +104,8 @@ let s:abstract_prototype = {}
 
 function! s:FindRakeRoot(path) abort
   let path = s:shellslash(a:path)
-  for p in split($GEM_PATH,':')
-    if s:shellslash(p.'/gems/') ==# (path)[0 : strlen(p)+5]
+  for p in [$GEM_HOME] + split($GEM_PATH,':')
+    if p !=# '' && s:shellslash(p.'/gems/') ==# (path)[0 : strlen(p)+5]
       return simplify(s:shellslash(p.'/gems/')).matchstr(path[strlen(p)+6:-1],'[^\\/]*')
     endif
   endfor
@@ -113,8 +113,12 @@ function! s:FindRakeRoot(path) abort
   let ofn = ""
   let nfn = fn
   while fn != ofn
-    if filereadable(fn.'/Rakefile') && !filereadable(fn.'/config/environment.rb')
-      return s:sub(simplify(fnamemodify(fn,':p')),'[\\/]$','')
+    if filereadable(fn.'/Rakefile')
+      if filereadable(fn.'/config/environment.rb')
+        return ''
+      else
+        return s:sub(simplify(fnamemodify(fn,':p')),'[\\/]$','')
+      endif
     endif
     let ofn = fn
     let fn = fnamemodify(ofn,':h')

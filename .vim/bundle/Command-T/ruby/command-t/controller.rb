@@ -54,7 +54,13 @@ module CommandT
     def hide
       @match_window.close
       if VIM::Window.select @initial_window
-        ::VIM::command "silent b #{@initial_buffer.number}"
+        if @initial_buffer.number == 0
+          # upstream bug: buffer number misreported as 0
+          # see: https://wincent.com/issues/1617
+          ::VIM::command "silent b #{@initial_buffer.name}"
+        else
+          ::VIM::command "silent b #{@initial_buffer.number}"
+        end
       end
     end
 
@@ -132,6 +138,14 @@ module CommandT
       @prompt.cursor_start if @focus == @prompt
     end
 
+    def leave
+      @match_window.leave
+    end
+
+    def unload
+      @match_window.unload
+    end
+
   private
 
     def set_up_max_height
@@ -177,7 +191,8 @@ module CommandT
     def relative_path_under_working_directory path
       # any path under the working directory will be specified as a relative
       # path to improve the readability of the buffer list etc
-      path.index(pwd = "#{VIM::pwd}/") == 0 ? path[pwd.length..-1] : path
+      pwd = File.expand_path(VIM::pwd) + '/'
+      path.index(pwd) == 0 ? path[pwd.length..-1] : path
     end
 
     # Backslash-escape space, \, |, %, #, "
