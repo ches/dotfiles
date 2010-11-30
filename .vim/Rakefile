@@ -34,7 +34,7 @@ GIT_BUNDLES = [
 
 VIM_ORG_SCRIPTS = [
   # ['IndexedSearch', '7062',  'plugin'],
-  ['gist',          '13427',  'plugin'],
+  ['gist',          '14204',  'plugin'],
   ['lusty-juggler', '13094',  'plugin'],
   ['tasklist',      '10388',  'plugin'],
   ['wordcomplete',  '6504',   'plugin'],
