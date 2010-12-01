@@ -11,6 +11,7 @@ GIT_BUNDLES = [
   'git://github.com/msanders/cocoa.vim.git',
   'git://github.com/nelstrom/vim-blackboard.git',
   'git://github.com/scrooloose/nerdtree.git',
+  'git://github.com/sjl/gundo.vim.git',
   'git://github.com/ervandew/nerdcommenter.git',    # switch from scrooloose fork for NERDDefaultAlign
   'git://github.com/timcharper/textile.vim.git',
   'git://github.com/tpope/vim-cucumber.git',
@@ -103,9 +104,12 @@ namespace :bundles do
         system '$HOME/.rvm/bin/rvm use system; rake make'
       end
 
-      puts '== Removing extraneous vim-ruby repo stuff'
+      puts '== Removing extraneous stuff kept in some plugin repos'
       cd('vim-ruby') do
         rm_rf %w[ bin etc CONTRIBUTORS CHANGELOG FAQ NEWS INSTALL README Rakefile ]
+      end
+      cd('gundo.vim') do
+        rm_rf %w[ site tests README.markdown .hgignore .hgtags ]
       end
     end
 

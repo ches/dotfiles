@@ -332,10 +332,21 @@ map <Leader><Leader> :NERDTreeToggle<cr>
 " Choosing 'gq' since it's similar function to the format command
 map <Leader>gq :Tabularize<space>
 
-" UltiSnips
-let g:UltiSnipsExpandTrigger       = "<tab>"
-let g:UltiSnipsJumpForwardTrigger  = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+if has('python')
+  " UltiSnips
+  let g:UltiSnipsExpandTrigger       = "<tab>"
+  let g:UltiSnipsJumpForwardTrigger  = "<tab>"
+  let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+  " Gundo
+  nnoremap <F5> :GundoToggle<CR>
+  let g:gundo_preview_bottom = 1     " force wide window across bottom
+
+else
+
+  let g:gundo_disable = 1
+
+endif
 
 " VCSCommand {{{3
 
