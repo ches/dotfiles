@@ -309,17 +309,6 @@ if has("autocmd")
   let g:LustyJugglerSuppressRubyWarning = 1
   nmap <silent> <leader>b :LustyJuggler<CR>
 
-  " snipMate Setup and Support functions - scrooloose/snipmate-snippets
-  source ~/.vim/snippets/support_functions.vim
-  autocmd vimenter * call s:SetupSnippets()
-  function! s:SetupSnippets()
-    call ExtractSnips("~/.vim/snippets/html", "eruby")
-    call ExtractSnips("~/.vim/snippets/html", "xhtml")
-    call ExtractSnips("~/.vim/snippets/html", "php")
-  endfunction
-
-  nmap <Leader>rs :call ReloadAllSnippets()<CR>
-
   " Gist
   let g:gist_put_url_to_clipboard_after_post  = 1
   let g:gist_show_privates                    = 1
@@ -342,6 +331,11 @@ map <Leader><Leader> :NERDTreeToggle<cr>
 " Ready for tab-completion of named Tabular patterns
 " Choosing 'gq' since it's similar function to the format command
 map <Leader>gq :Tabularize<space>
+
+" UltiSnips
+let g:UltiSnipsExpandTrigger       = "<tab>"
+let g:UltiSnipsJumpForwardTrigger  = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 " VCSCommand {{{3
 

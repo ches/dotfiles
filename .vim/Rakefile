@@ -9,7 +9,6 @@ GIT_BUNDLES = [
   'git://github.com/godlygeek/tabular.git',
   'git://github.com/mileszs/ack.vim.git',
   'git://github.com/msanders/cocoa.vim.git',
-  'git://github.com/msanders/snipmate.vim.git',
   'git://github.com/nelstrom/vim-blackboard.git',
   'git://github.com/scrooloose/nerdtree.git',
   'git://github.com/ervandew/nerdcommenter.git',    # switch from scrooloose fork for NERDDefaultAlign
@@ -26,6 +25,7 @@ GIT_BUNDLES = [
   'git://github.com/wincent/Command-T.git',
   'git://github.com/vim-ruby/vim-ruby.git',
   'git://github.com/vim-scripts/TailMinusF.git',
+  'git://github.com/vim-scripts/UltiSnips.git',
   'git://repo.or.cz/vcscommand'
   # "git://github.com/astashov/vim-ruby-debugger.git",
   # "git://github.com/tsaleh/vim-align.git",
@@ -82,13 +82,16 @@ namespace :bundles do
     task :vimscripts => 'bundles:clean' do
       VIM_ORG_SCRIPTS.each do |name, script_id, script_type|
         puts "  Downloading #{name}"
-        local_file = File.join(name, script_type, "#{name}.#{script_type == 'zip' ? 'zip' : 'vim'}")
+        local_file = File.join(name, script_type, "#{name}.#{script_type =~ /zip|tgz/ ? $& : 'vim'}")
         mkdir_p File.dirname(local_file)
         File.open(local_file, 'w') do |file|
           file << open("http://www.vim.org/scripts/download_script.php?src_id=#{script_id}").read
         end
-        if script_type == 'zip'
+        case script_type
+        when 'zip'
           %x(unzip -d #{name} #{local_file} && rm -r #{name}/zip)
+        when 'tgz'
+          %x(tar xzf #{local_file})
         end
       end
     end
@@ -98,11 +101,6 @@ namespace :bundles do
       puts '== Building command-t plugin'
       cd('Command-T') do
         system '$HOME/.rvm/bin/rvm use system; rake make'
-      end
-
-      puts "== Nuking snipMate's built-in default snippets"
-      cd('snipmate.vim') do
-        rm_rf 'snippets'
       end
 
       puts '== Removing extraneous vim-ruby repo stuff'
