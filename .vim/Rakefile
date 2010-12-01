@@ -18,6 +18,7 @@ GIT_BUNDLES = [
   'git://github.com/tpope/vim-endwise.git',
   'git://github.com/tpope/vim-git.git',
   'git://github.com/tpope/vim-markdown.git',
+  'git://github.com/tpope/vim-ragtag.git',
   'git://github.com/tpope/vim-rake.git',
   'git://github.com/tpope/vim-rails.git',
   'git://github.com/tpope/vim-repeat.git',
