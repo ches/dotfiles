@@ -16,6 +16,7 @@ GIT_BUNDLES = [
   'git://github.com/timcharper/textile.vim.git',
   'git://github.com/tpope/vim-cucumber.git',
   'git://github.com/tpope/vim-endwise.git',
+  'git://github.com/tpope/vim-fugitive.git',
   'git://github.com/tpope/vim-git.git',
   'git://github.com/tpope/vim-markdown.git',
   'git://github.com/tpope/vim-ragtag.git',
@@ -111,6 +112,9 @@ namespace :bundles do
       end
       cd('gundo.vim') do
         rm_rf %w[ site tests README.markdown .hgignore .hgtags ]
+      end
+      cd('vim-fugitive') do
+        rm_f %w[ .gitignore README.markdown ]
       end
     end
 
