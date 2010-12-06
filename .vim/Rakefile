@@ -1,12 +1,13 @@
 require 'rake'
 require 'open-uri'
 
-# Yanked with slight modification from Tammer Saleh's post:
+# Yanked and modified from Tammer Saleh's post:
 #   http://tammersaleh.com/posts/the-modern-vim-config-with-pathogen
 
 GIT_BUNDLES = [
   'git://github.com/bronson/vim-ruby-block-conv.git',
   'git://github.com/godlygeek/tabular.git',
+  'git://github.com/godlygeek/csapprox.git',
   'git://github.com/mileszs/ack.vim.git',
   'git://github.com/msanders/cocoa.vim.git',
   'git://github.com/nelstrom/vim-blackboard.git',
@@ -107,6 +108,7 @@ namespace :bundles do
       end
 
       puts '== Removing extraneous stuff kept in some plugin repos'
+      cd('csapprox') { rm_f %w[ .gitignore ] }
       cd('vim-ruby') do
         rm_rf %w[ bin etc CONTRIBUTORS CHANGELOG FAQ NEWS INSTALL README Rakefile ]
       end
