@@ -8,12 +8,14 @@ GIT_BUNDLES = [
   'git://github.com/bronson/vim-ruby-block-conv.git',
   'git://github.com/godlygeek/tabular.git',
   'git://github.com/godlygeek/csapprox.git',
+  'git://github.com/bloveridge/jslint.vim.git',
   'git://github.com/mileszs/ack.vim.git',
   'git://github.com/msanders/cocoa.vim.git',
   'git://github.com/nelstrom/vim-blackboard.git',
   'git://github.com/scrooloose/nerdtree.git',
   'git://github.com/sjl/gundo.vim.git',
   'git://github.com/ervandew/nerdcommenter.git',    # switch from scrooloose fork for NERDDefaultAlign
+  'git://github.com/pangloss/vim-javascript.git',
   'git://github.com/timcharper/textile.vim.git',
   'git://github.com/tpope/vim-cucumber.git',
   'git://github.com/tpope/vim-endwise.git',
@@ -115,8 +117,14 @@ namespace :bundles do
       cd('gundo.vim') do
         rm_rf %w[ site tests README.markdown .hgignore .hgtags ]
       end
+      cd('jslint.vim') do
+        rm_rf %w[ bin .gitignore CHANGES LICENSE README.markdown Rakefile ]
+      end
       cd('vim-fugitive') do
         rm_f %w[ .gitignore README.markdown ]
+      end
+      cd('vim-javascript') do
+        rm_rf %w[ extras tmp Rakefile ]
       end
     end
 
