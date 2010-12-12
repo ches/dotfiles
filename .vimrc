@@ -29,6 +29,7 @@ set showcmd         " display commands as they're being entered
 set incsearch       " do incremental searching
 set ignorecase      " Do case insensitive matching
 set smartcase       " But if search contains capitals, be sensitive
+set gdefault        " Line-global substitution by default, usually what you want
 set scrolloff=3     " Keep some context visible when scrolling
 set wildmenu        " Modern completion menu
 set number          " line numbers
@@ -39,6 +40,9 @@ set wildmode=list:longest,full
 
 " Ignore some extensions when tab-completing
 set wildignore=*.swp,*.bak,*.pyc,*.o,*.class
+
+" Basically the default statusline when ruler is enabled, with fugitive
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
 " automatically flush to disk when using :make, changing buffers, etc.
 " Alternatively, set hidden to allow moving around and leaving dirty files be
@@ -269,7 +273,9 @@ if has("autocmd")
   autocmd FileType python map <buffer> <leader><space> :w!<cr>:!python %<cr>
 
   " autocmd FileType python setlocal cinwords=if,elif,else,for,while,try,except,finally,def,class,with
-  autocmd FileType javascript,ruby,vim,yaml setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+  autocmd FileType ruby,vim,yaml setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+  autocmd FileType javascript setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+  autocmd User Rails.javascript* setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
 
   let javascript_enable_domhtmlcss=1
   let xml_use_xhtml = 1                     " default xml to self-closing tags
@@ -337,6 +343,7 @@ if has('python')
   let g:UltiSnipsExpandTrigger       = "<tab>"
   let g:UltiSnipsJumpForwardTrigger  = "<tab>"
   let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+  nmap <Leader>rs :py UltiSnips_Manager.reset()<CR>
 
   " Gundo
   nnoremap <F5> :GundoToggle<CR>
@@ -367,6 +374,14 @@ map <Leader>vl <Plug>VCSLog
 " I think I'm far too likely to try 'r' for 'remove' all the time...
 map <Leader>vR <Plug>VCSReview
 map <Leader>vs <Plug>VCSStatus
+
+" Fugitive
+noremap <C-g>s :Gstatus<CR>
+noremap <C-g>c :Gcommit<CR>
+noremap <C-g>d :Gdiff<CR>
+noremap <C-g>l :Glog<CR>
+noremap <C-g>w :Gwrite<CR>
+noremap <C-g>b :Gblame<CR>
 
 " Specky - RSpec plugin {{{3
 
