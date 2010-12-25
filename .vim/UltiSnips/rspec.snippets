@@ -1,32 +1,32 @@
-snippet anr "and_raise"
+snippet anr "and_raise" w
 and_raise(${1:exception})
 endsnippet
 
-snippet anrb "and_return_block"
+snippet anrb "and_return_block" w
 and_return { $1 }
 endsnippet
 
-snippet andra "and_return_value"
+snippet andra "and_return_value" w
 and_return(${1:value})
 endsnippet
 
-snippet ant "and_throw"
+snippet ant "and_throw" w
 and_throw(${1:sym})
 endsnippet
 
-snippet any "and_yield"
+snippet any "and_yield" w
 and_yield(${1:values})
 endsnippet
 
-snippet annot "any_number_of_times"
+snippet annot "any_number_of_times" w
 any_number_of_times
 endsnippet
 
-snippet atl "at_least"
+snippet atl "at_least" w
 at_least(${1:n}).times
 endsnippet
 
-snippet atm "at_most"
+snippet atm "at_most" w
 at_most(${1:n}).times
 endsnippet
 
@@ -74,19 +74,21 @@ describe ${1:Type}, "${2:description}" do
 end
 endsnippet
 
-snippet ex "exactly"
+snippet ex "exactly" w
 exactly(${1:n}).times
 endsnippet
 
+# TODO: the middle tabstop on these next two should be $0, but UltiSnips
+# doesn't handle this correctly yet
 snippet its "it should"
 it "should ${1:do something}"${2: do
-  $0
+  $3
 end}
 endsnippet
 
 snippet it "It"
 it "${1:does something}"${2: do
-  $0
+  $3
 end}
 endsnippet
 
@@ -141,7 +143,7 @@ RSpec::Runner.configure do |config|
 end
 endsnippet
 
-snippet on "once"
+snippet on "once" w
 once
 endsnippet
 
@@ -375,7 +377,28 @@ after(${1::each}) do
 end
 endsnippet
 
-snippet tw "twice"
+snippet tw "twice" w
 twice
+endsnippet
+
+snippet let "let"
+let(:${1:symbol}) { $2 }
+endsnippet
+
+snippet letb "let block"
+let :${1:symbol} do
+  $2
+end
+$0
+endsnippet
+
+snippet subj "subject"
+subject { $1 }
+endsnippet
+
+snippet exp "expect to"
+expect do
+  $1
+end.to ${2:change {${3:subject}}.${4:from($5).to($6)}}
 endsnippet
 
