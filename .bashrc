@@ -82,10 +82,12 @@ fi
 # Sets up history and completion
 #
 export PYTHONSTARTUP=$HOME/.pythonrc
-# virtualenvwrapper
+# virtualenv & wrapper
+export VIRTUALENV_USE_DISTRIBUTE=true
 export WORKON_HOME=$HOME/.virtualenvs
-source /usr/local/bin/virtualenvwrapper_bashrc
+source /usr/local/bin/virtualenvwrapper.sh
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
+export PIP_RESPECT_VIRTUALENV=true
 
 # Ruby Version Manager
 [[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
