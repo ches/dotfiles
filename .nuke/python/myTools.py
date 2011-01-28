@@ -26,6 +26,6 @@ def autoBackdrop( padding=50, top = 40, fontSize = 40, text ='' ):
     bd.setXYpos( x-padding, y-padding-top )
     bd['bdwidth'].setValue( r-x + 2*padding )
     bd['bdheight'].setValue( t-y +2*padding+top )
-    bd['note_font_size'].setValue( fontSize )    
+    bd['note_font_size'].setValue( fontSize )
     bd['tile_color'].setValue( randomGray() )
 

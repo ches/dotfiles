@@ -1,7 +1,7 @@
 import myTools
 
 #
-# GIZMOS
+# Gizmos and UI
 #
 nodes_toolbar = nuke.toolbar("Nodes")
 my_tools_menu = nodes_toolbar.addMenu('My Tools')
