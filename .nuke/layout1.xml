@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="0" y="22" w="1920" h="1174" screen="0">
+        <splitter orientation="1">
+            <split size="1272"></split>
+            <splitter orientation="1">
+                <split size="48"></split>
+                <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                    <page id="Toolbar.1"></page>
+                </dock>
+                <split size="1220"></split>
+                <splitter orientation="2">
+                    <split size="607"></split>
+                    <dock id="" activePageId="Viewer.1">
+                        <page id="Viewer.1"></page>
+                    </dock>
+                    <split size="541"></split>
+                    <dock id="" activePageId="DAG.1">
+                        <page id="DAG.1"></page>
+                        <page id="Curve Editor.1"></page>
+                    </dock>
+                </splitter>
+            </splitter>
+            <split size="644"></split>
+            <dock id="" activePageId="Properties.1">
+                <page id="Properties.1"></page>
+            </dock>
+        </splitter>
+    </window>
+</layout>

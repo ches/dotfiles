@@ -1,0 +1,19 @@
+Preferences {
+ inputs 0
+ AutoSaveIdle 15
+ maxPanels 6
+ UIFont Helvetica
+ LabelFont Helvetica
+ DAGBackColor 0x323232ff
+ ArrowColorLeft 0x5b5b5bff
+ ArrowColorRight 0x5b5b5bff
+ ArrowColorUp 0x5b5b5bff
+ ArrowColorDown 0x5b5b5bff
+ expression_arrows false
+ clone_arrows false
+ InputArrowSize 25
+ LeftInputArrowSize 4.6
+ ArrowheadLength 9
+ ArrowheadWidth 6
+ ScriptEditorFont Monaco
+}
