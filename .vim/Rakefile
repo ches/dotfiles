@@ -9,6 +9,7 @@ GIT_BUNDLES = [
   'git://github.com/ches/vim-session.git',
   'git://github.com/godlygeek/tabular.git',
   'git://github.com/godlygeek/csapprox.git',
+  'git://github.com/kchmck/vim-coffee-script.git',
   'git://github.com/bloveridge/jslint.vim.git',
   'git://github.com/mileszs/ack.vim.git',
   'git://github.com/msanders/cocoa.vim.git',
@@ -35,7 +36,6 @@ GIT_BUNDLES = [
   'git://github.com/vim-scripts/UltiSnips.git',
   'git://repo.or.cz/vcscommand'
   # "git://github.com/astashov/vim-ruby-debugger.git",
-  # "git://github.com/tsaleh/vim-align.git",
   # "git://github.com/tsaleh/vim-supertab.git",
 ]
 
