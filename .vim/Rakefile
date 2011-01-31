@@ -34,6 +34,7 @@ GIT_BUNDLES = [
   'git://github.com/tpope/vim-vividchalk.git',
   'git://github.com/wincent/Command-T.git',
   'git://github.com/vim-ruby/vim-ruby.git',
+  'git://github.com/vim-scripts/taglist.vim.git',
   'git://github.com/vim-scripts/TailMinusF.git',
   'git://github.com/vim-scripts/UltiSnips.git',
   'git://repo.or.cz/vcscommand'
@@ -49,7 +50,6 @@ VIM_ORG_SCRIPTS = [
   ['wordcomplete',  '6504',   'plugin'],
   ['jquery',        '12276',  'syntax'],
   ['matchit',       '8196',   'zip'],
-  ['taglist',       '7701',   'zip'],
   ['yankring',      '13554',  'zip']
 ]
 
