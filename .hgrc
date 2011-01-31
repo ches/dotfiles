@@ -46,6 +46,7 @@ blame = blame --number --user --date -q
 qstatus = status --rev -2:-1
 # empty current patch, but leave the diffs in the working copy:
 qclear = qrefresh -X re:.
+untrack = rm -Af
 
 [bookmarks]
 # More git-like behavior: only update the bookmark you are currently using,
