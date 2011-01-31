@@ -12,7 +12,7 @@ else
 end
 
 " Font
-set guifont=Monaco:h12
+set guifont=Inconsolata:h14
 
 if has('mac')
 
@@ -22,6 +22,7 @@ if has('mac')
   " Use full horizontal width on fullscreen
   " I really wish this could be toggled without entering and leaving fs mode --
   " I like the Writeroom-style central editor column when not using a vsplit
+  set fuoptions+=maxhorz
   map <F2> :set fuoptions+=maxhorz<CR>
   map <S-F2> :set fuoptions-=maxhorz<CR>
 
