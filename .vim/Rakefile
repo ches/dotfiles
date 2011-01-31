@@ -9,11 +9,13 @@ GIT_BUNDLES = [
   'git://github.com/ches/vim-session.git',
   'git://github.com/godlygeek/tabular.git',
   'git://github.com/godlygeek/csapprox.git',
+  'git://github.com/kana/vim-textobj-user.git',
   'git://github.com/kchmck/vim-coffee-script.git',
   'git://github.com/bloveridge/jslint.vim.git',
   'git://github.com/mileszs/ack.vim.git',
   'git://github.com/msanders/cocoa.vim.git',
   'git://github.com/nelstrom/vim-blackboard.git',
+  'git://github.com/nelstrom/vim-textobj-rubyblock.git',
   'git://github.com/scrooloose/nerdtree.git',
   'git://github.com/sjl/gundo.vim.git',
   'git://github.com/ervandew/nerdcommenter.git',    # switch from scrooloose fork for NERDDefaultAlign
@@ -129,6 +131,12 @@ namespace :bundles do
       end
       cd('vim-session') do
         rm_rf %w[ INSTALL README.md TODO.md ]
+      end
+      cd('vim-textobj-user') do
+        rm_rf %w[ .gitignore Makefile mdeum test ]
+      end
+      cd('vim-textobj-rubyblock') do
+        rm_rf %w[ .gitignore README.md readme.vim.org textobj-rubyblock.vba test todo.otl vimballer ]
       end
     end
 
