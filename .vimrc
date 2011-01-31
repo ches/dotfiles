@@ -349,6 +349,10 @@ if has('python')
   nnoremap <F5> :GundoToggle<CR>
   let g:gundo_preview_bottom = 1     " force wide window across bottom
 
+  " Sparkup
+  " Way to default to a mapping that conflicts with scrolling, guy (<C-e>)...
+  let g:sparkupExecuteMapping = "<M-e>"
+
 else
 
   let g:gundo_disable = 1
