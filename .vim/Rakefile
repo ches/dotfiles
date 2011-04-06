@@ -9,6 +9,7 @@ GIT_BUNDLES = [
   'git://github.com/ches/vim-session.git',
   'git://github.com/godlygeek/tabular.git',
   'git://github.com/godlygeek/csapprox.git',
+  'git://github.com/greyblake/vim-preview.git',
   'git://github.com/kana/vim-textobj-user.git',
   'git://github.com/kchmck/vim-coffee-script.git',
   'git://github.com/bloveridge/jslint.vim.git',
@@ -128,6 +129,9 @@ namespace :bundles do
       end
       cd('vim-javascript') do
         rm_rf %w[ extras tmp Rakefile ]
+      end
+      cd('vim-preview') do
+        rm_rf %w[ .gitignore GPL-LICENSE.txt README.markdown ]
       end
       cd('vim-session') do
         rm_rf %w[ INSTALL README.md TODO.md ]
