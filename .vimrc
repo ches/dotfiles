@@ -200,9 +200,7 @@ if has("autocmd")
 
   " Automatically distribute my vimrc to the servers I use {{{
   "autocmd BufWritePost ~/.vimrc !scp ~/.vimrc valleyofwind.dyndns.org:.
-  "autocmd BufWritePost ~/.vimrc !scp ~/.vimrc eidolos@crawl.akrasiac.org:.eidovimrc
   "autocmd BufWritePost ~/.vim/skeletons/* !scp % valleyofwind.dyndns.org:.vim/skeletons/
-  "autocmd BufWritePost ~/.vim/skeletons/* !scp % eidolos@crawl.akrasiac.org:.vim/skeletons/
   "}}}
 
 endif " has("autocmd")
@@ -267,11 +265,6 @@ if has("autocmd")
 
   " FileType Stuff {{{
 
-  " Use leader+space to write and execute
-  autocmd FileType vim map <buffer> <leader><space> :w!<cr>:source %<cr>
-  autocmd FileType ruby map <buffer> <leader><space> :w!<cr>:!ruby %<cr>
-  autocmd FileType python map <buffer> <leader><space> :w!<cr>:!python %<cr>
-
   " autocmd FileType python setlocal cinwords=if,elif,else,for,while,try,except,finally,def,class,with
   autocmd FileType ruby,vim,yaml setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
   autocmd FileType javascript setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
@@ -284,9 +277,22 @@ if has("autocmd")
   autocmd BufNewFile,BufRead jquery.*.js set ft=javascript syntax=jquery
   autocmd BufNewFile,BufRead *.mako setlocal ft=mako
 
-  autocmd FileType mkd set ai formatoptions=tcroqn2 comments=n:>
+  " Use leader+space to write and execute
+  autocmd FileType vim map <buffer> <leader><space> :w!<cr>:source %<cr>
+  autocmd FileType ruby map <buffer> <leader><space> :w!<cr>:!ruby %<cr>
+  autocmd FileType python map <buffer> <leader><space> :w!<cr>:!python %<cr>
 
+  autocmd FileType markdown nnoremap <leader>1 yypVr=
+  autocmd FileType markdown nnoremap <leader>2 yypVr-
+
+  autocmd FileType vimwiki map <M-Space> <Plug>VimwikiToggleListItem
   "}}}
+
+  " Taglist
+  let Tlist_Use_Right_Window = 1
+  map <Leader>< :TlistToggle<CR>       " Shifted version of NERDTree toggle
+
+  let tlist_vimwiki_settings = 'vimwiki;h:Headers'
 
   " NERDTree
   let NERDTreeWinPos          = 'right'
@@ -296,16 +302,14 @@ if has("autocmd")
   let NERDTreeIgnore          = ['\.git','\.hg','\.svn','\.DS_Store']
   let NERDTreeHijackNetrw     = 0      " I like netrw when I `:e somedir`
 
-  "NERDCommenter
-  let NERDSpaceDelims  = 1             " use a space after comment chars
-  let NERDDefaultAlign = 'left'
+  " NERDCommenter
+  let NERDSpaceDelims         = 1      " use a space after comment chars
+  let NERDDefaultAlign        = 'left'
 
-  " Change default TaskList invocation, conflicts with Command-T plugin
+  " TaskList
+  let g:tlWindowPosition      = 1      " TaskList on bottom
+  let g:tlTokenList           = ['FIXME', 'TODO', 'CHANGED', 'PONY']
   map <leader>T <Plug>TaskList
-  " TaskList on bottom (open with <leader>T)
-  let g:tlWindowPosition      = 1
-  " Custom TaskList tokens
-  let g:tlTokenList = ['FIXME', 'TODO', 'CHANGED', 'PONY']
 
   " Open the YankRing window
   nnoremap <silent> <M-v> :YRShow<CR>
@@ -323,6 +327,11 @@ if has("autocmd")
   if has('mac')
     let g:gist_clip_command                   = 'pbcopy'
   endif
+
+  " vimwiki
+  let g:vimwiki_menu      = 'Plugin.Vimwiki'
+  let g:vimwiki_use_mouse = 1  " A rare case where I may actually use the mouse :-)
+  let g:vimwiki_list      = [{'path': '~/src/vimwiki/', 'path_html': '~/src/vimwiki/html/'}]
 
 endif " has("autocmd")
 

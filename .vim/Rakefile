@@ -38,6 +38,7 @@ GIT_BUNDLES = [
   'git://github.com/vim-scripts/taglist.vim.git',
   'git://github.com/vim-scripts/TailMinusF.git',
   'git://github.com/vim-scripts/UltiSnips.git',
+  'git://github.com/vim-scripts/vimwiki.git',
   'git://repo.or.cz/vcscommand'
   # "git://github.com/astashov/vim-ruby-debugger.git",
   # "git://github.com/tsaleh/vim-supertab.git",
@@ -141,6 +142,9 @@ namespace :bundles do
       end
       cd('vim-textobj-rubyblock') do
         rm_rf %w[ .gitignore README.md readme.vim.org textobj-rubyblock.vba test todo.otl vimballer ]
+      end
+      cd('vimwiki') do
+        rm_f %w[ README ]
       end
     end
 
