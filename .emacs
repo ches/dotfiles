@@ -16,21 +16,12 @@
 (vendor 'color-theme)
 (vendor 'pair-mode)
 
-;; ELSE mode - a type of abbrev expansion
-(vendor 'else-mode)
-
 (vendor 'mmm-mode)
 (vendor 'mmm-auto)
 
-;; Yet Another snippet mode. They even called it that. This might replace ELSE.
+;; Yet Another snippet mode. They even called it that.
 ;; http://code.google.com/p/yasnippet/
 (vendor 'yasnippet-bundle)
-
-;; This is the full way to load, if not compiled into a bundle (slow):
-;(add-to-list 'load-path "~/.emacs.d/site-lisp/yasnippet")
-;(require 'yasnippet)
-;(yas/initialize)
-;(yas/load-directory "~/.emacs.d/site-lisp/yasnippet/snippets")
 
 ;; Fancier git functionality than the standard vc-git lib provides
 ; (add-to-list 'load-path "~/.emacs.d/site-lisp/git-emacs")
