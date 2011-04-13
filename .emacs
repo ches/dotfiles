@@ -24,8 +24,9 @@
 (vendor 'yasnippet-bundle)
 
 ;; Fancier git functionality than the standard vc-git lib provides
-; (add-to-list 'load-path "~/.emacs.d/site-lisp/git-emacs")
-(vendor 'git-emacs)
+;; http://bogolisk.blogspot.com/
+;; https://github.com/bogolisk/egg/wiki/Manual
+(vendor 'egg)
 
 ;; Enable a backtrace if customizations make emacs shit the bed
 ; (setq debug-on-error t)
