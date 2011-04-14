@@ -32,6 +32,16 @@ augroup endwise " {{{1
                 \ let b:endwise_addition = 'end&' |
                 \ let b:endwise_words = 'fu\%[nction],wh\%[ile],if,for,try' |
                 \ let b:endwise_syngroups = 'vimFuncKey,vimNotFunc,vimCommand'
+    autocmd FileType sh
+                \ let b:endwise_addition = '\=submatch(0)=="if" ? "fi" : submatch(0)=="case" ? "esac" : "done"' |
+                \ let b:endwise_words = 'if,case,do' |
+                \ let b:endwise_pattern = '\%(^\s*\zs\%(if\|case\)\>\ze\|\zs\<do\ze$\|^\s*\zsdo\s*\ze$\)' |
+                \ let b:endwise_syngroups = 'shConditional,shLoop,shIf,shFor,shRepeat,shCaseEsac'
+    autocmd FileType lua
+                \ let b:endwise_addition = '\=submatch(0)=="{" ? "}" : "end"' |
+                \ let b:endwise_words = 'function,do,then' |
+                \ let b:endwise_pattern = '^\s*\zs\%(function\|do\|then\)\>\%(.*[^.:@$]\<end\>\)\@!\|\<then\|do\ze\%(\s*|.*|\)\=\s*$' |
+                \ let b:endwise_syngroups = 'luaFunction,luaStatement,luaCond'
 augroup END " }}}1
 
 " Maps {{{1
@@ -129,3 +139,4 @@ endfunction
 let &cpo = s:cpo_save
 
 " vim:set ft=vim ff=unix ts=8 sw=4 sts=4:
+
