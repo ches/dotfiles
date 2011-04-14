@@ -41,11 +41,13 @@ hi Comment guifg=#5f5a60 gui=italic
 hi Todo guifg=#808080 guibg=NONE gui=bold,italic
 
 hi Constant guifg=#cf6a4c
-"hi String guifg=#8f9d6a
-hi String guifg=#ddf2a4
+hi String guifg=#8f9d6a
+"hi String guifg=#ddf2a4
 
 hi Identifier guifg=#7587a6
 " Type
+hi Type guifg=#9b703f
+"hi Type guifg=#9B859D
 hi Structure guifg=#9B859D
 hi Function guifg=#dad085
 " dylan: method, library, ...
