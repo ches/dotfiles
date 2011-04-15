@@ -35,6 +35,7 @@ GIT_BUNDLES = [
   'git://github.com/tpope/vim-vividchalk.git',
   'git://github.com/wincent/Command-T.git',
   'git://github.com/vim-ruby/vim-ruby.git',
+  'git://github.com/vim-scripts/a.vim.git',
   'git://github.com/vim-scripts/taglist.vim.git',
   'git://github.com/vim-scripts/TailMinusF.git',
   'git://github.com/vim-scripts/UltiSnips.git',
@@ -115,6 +116,7 @@ namespace :bundles do
       end
 
       puts '== Removing extraneous stuff kept in some plugin repos'
+      cd('a.vim') { rm_f %w[ README ] }
       cd('csapprox') { rm_f %w[ .gitignore ] }
       cd('vim-ruby') do
         rm_rf %w[ bin etc CONTRIBUTORS CHANGELOG FAQ NEWS INSTALL README Rakefile ]
