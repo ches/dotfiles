@@ -1,2 +1,12 @@
 # Case-insensitive filesystems be damned
 set completion-ignore-case on
+
+# Show completions immediately if multiple matches
+set show-all-if-ambiguous on
+set show-all-if-unmodified on
+
+# Call method in IRB. See .irbrc
+$if Ruby
+    "\C-x\C-p": "toggle_object_complete\n"
+    "\C-x\C-h": "Hirb::View.toggle_formatter\n"
+$endif
