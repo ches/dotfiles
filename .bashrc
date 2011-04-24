@@ -93,6 +93,8 @@ export PIP_RESPECT_VIRTUALENV=true
 [[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
 [[ -r $rvm_path/scripts/completion ]] && source $rvm_path/scripts/completion
 
+export JRUBY_HOME=$HOME/.rvm/rubies/jruby-1.6.1
+
 #
 # Memcached
 #
@@ -106,3 +108,4 @@ if [ "$(uname -s)" == "Darwin" ] && [ -f ~/.bash.d/platform-osx.sh ]; then
 elif [ -f ~/.bash.d/platform-linux.sh ]; then
     . ~/.bash.d/platform-linux.sh
 fi
+

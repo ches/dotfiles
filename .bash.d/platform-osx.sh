@@ -1,8 +1,5 @@
-#
-# Geez, a GUI editor. You don't even deserve to be editing a bash config
-#
-export EDITOR='mate -w'
-export VISUAL='mate -w'
+export EDITOR='mvim -f'
+export VISUAL='mvim -f'
 
 export FCEDIT=vim
 
@@ -32,3 +29,4 @@ stty start undef
 # Make a simple command-line prompt:  bash-$
 
 # PS1=$'\[\e]2;[bash]   \h::\]$PWD\[\a\]\[\e]1;\]$(basename "$(dirname "$PWD")")/\W\[\a\]\u-\$ '
+

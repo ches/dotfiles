@@ -26,6 +26,7 @@ alias pcregrep='pcregrep --color=auto'
 
 alias r='fc -s'
 alias g='vim --remote-silent'
+alias gt='vim --remote-tab'
 alias ri='ri -f ansi'
 
 # ====================================================
@@ -37,12 +38,21 @@ alias ri='ri -f ansi'
 #
 alias mq='hg -R $(hg root)/.hg/patches'
 
+# Create a simple .rvmrc in the current dir using the current Ruby and gemset
+alias mkrvmrc='echo "rvm `rvm-prompt i v g`" > .rvmrc'
+
 #
 # OS X
 #
 if [ "$(uname -s)" == "Darwin" ]; then
-    alias mvimdiff='mvim -d'
+    # MacVim has all the juicy bits like ruby and python scripting support built in.
+    # An alias instead of symlink means it loads all the vimruntime with no extra config.
+    alias vim=/Applications/Development/MacVim.app/Contents/MacOS/Vim
+
     alias g='mvim --remote-silent'
+    alias gt='mvim --remote-tab'
+    # mvim handles this if you create a symlink named mvimdiff
+    # alias mvimdiff='mvim -d'
 
     # Open Bitbucket page for the Mercurial repository the current working directory resides in
     alias bb='open $(hg paths | sed -En "s%^(.+) = (.+)bitbucket.org/(.+)/(.+)%https://bitbucket.org/\3/\4%p")'
@@ -54,7 +64,7 @@ if [ "$(uname -s)" == "Darwin" ]; then
     #
     # Remote Access
     #
-    alias chessh='sshfs ches@Cinewave.local:/Users/ches /Volumes/sshfs/ches -oauto_cache,reconnect,volname="ches on Cinewave"'
+    alias minissh='sshfs ches@kodama.local:/Users/ches /Volumes/sshfs/ches -oauto_cache,reconnect,volname="ches on kodama"'
 
     # Leopard Quick Look:
     alias ql='qlmanage -p "$@" >& /dev/null'
@@ -62,3 +72,4 @@ if [ "$(uname -s)" == "Darwin" ]; then
     #alias top="top -X"  # the stupidly named 'compatibility mode' --
                          # DON'T mimic Jaguar, because Jaguar's top was stupid
 fi
+

@@ -1,6 +1,7 @@
 #
 # Completion
 #
+source ~/.bash.d/completion-django.sh
 source ~/.bash.d/completion-git.sh
 source /usr/local/etc/bash_completion.d/git-flow-completion.bash
 source ~/.bash.d/completion-hg.sh
