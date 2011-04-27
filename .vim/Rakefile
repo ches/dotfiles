@@ -9,6 +9,7 @@ GIT_BUNDLES = [
   'git://github.com/ches/vim-session.git',
   'git://github.com/godlygeek/tabular.git',
   'git://github.com/godlygeek/csapprox.git',
+  'git://github.com/gregsexton/gitv.git',
   'git://github.com/greyblake/vim-preview.git',
   'git://github.com/kana/vim-textobj-user.git',
   'git://github.com/kchmck/vim-coffee-script.git',
