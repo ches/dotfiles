@@ -10,10 +10,20 @@ endif
 let b:did_ftplugin = 1
 
 setlocal formatoptions-=t formatoptions+=croql
-setlocal comments=s:###,m:\ ,e:###,:#
+setlocal comments=f-1:###,:#
 setlocal commentstring=#\ %s
+
+" Fold by indentation, but only if enabled.
+setlocal foldmethod=indent
+
+if !exists("coffee_folding")
+  setlocal nofoldenable
+endif
+
+" Compile some CoffeeScript.
+command! -range=% CoffeeCompile <line1>,<line2>:w !coffee -scb
 
 " Compile the current file on write.
 if exists("coffee_compile_on_save")
-  autocmd BufWritePost,FileWritePost *.coffee silent !coffee -c <afile> &
+  autocmd BufWritePost,FileWritePost *.coffee silent !coffee -c "<afile>" &
 endif

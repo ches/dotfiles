@@ -286,8 +286,9 @@ function! s:Rake(bang,arg)
           \.'%m\ [%f:%l]:'
     execute 'make! '.a:arg
     if a:bang !=# '!'
-      cwindow
+      return 'cwindow'
     endif
+    return ''
   finally
     let &l:errorformat = old_errorformat
     let &l:makeprg = old_makeprg
@@ -541,10 +542,22 @@ endfunction
 call s:command("-bar -bang -nargs=? Rtags :execute s:Tags(<q-args>)")
 
 augroup rake_tags
+  autocmd!
   autocmd User Rake
         \ if s:project().path() !~# ',' &&
         \     stridx(&tags, s:project().tags_file()) < 0 |
         \   let &l:tags .= ',' . s:project().tags_file() |
+        \ endif
+augroup END
+
+" }}}1
+" Path {{{1
+
+augroup rake_path
+  autocmd!
+  autocmd User Rake
+        \ if stridx(&path, escape(s:project().path('lib'),', ')) < 0 |
+        \   let &l:path = escape(s:project().path('lib'),', ') . ',' . &l:path |
         \ endif
 augroup END
 
