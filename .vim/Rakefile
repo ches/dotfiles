@@ -37,6 +37,7 @@ GIT_BUNDLES = [
   'git://github.com/wincent/Command-T.git',
   'git://github.com/vim-ruby/vim-ruby.git',
   'git://github.com/vim-scripts/a.vim.git',
+  'git://github.com/vim-scripts/dbext.vim.git',
   'git://github.com/vim-scripts/taglist.vim.git',
   'git://github.com/vim-scripts/TailMinusF.git',
   'git://github.com/vim-scripts/UltiSnips.git',

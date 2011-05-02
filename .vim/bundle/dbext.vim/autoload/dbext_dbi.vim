@@ -4,10 +4,10 @@
 "                It adds transaction support and the ability
 "                to reach any database currently supported
 "                by Perl and DBI.
-" Version:       10.00
+" Version:       12.00
 " Maintainer:    David Fishburn <dfishburn dot vim at gmail dot com>
 " Authors:       David Fishburn <dfishburn dot vim at gmail dot com>
-" Last Modified: 2009 Mar 10
+" Last Modified: 2010 Jul 15
 " Created:       2007-05-24
 " Homepage:      http://vim.sourceforge.net/script.php?script_id=356
 "
@@ -42,6 +42,8 @@
 "        "C:\Program Files\Microsoft Visual Studio .Net 2003\Common7\Tools\vsvars32.bat"
 "        or
 "        "C:\Program Files\Microsoft Visual Studio 8\Common7\Tools\vsvars32.bat"
+"        or
+"        "C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\Tools\vsvars32.bat"
 "            perl Makefile.PL
 "            nmake
 "            nmake test
@@ -114,7 +116,7 @@ if !has('perl')
     let g:loaded_dbext_dbi_msg = 'Vim does not have perl support enabled'
     finish
 endif
-let g:loaded_dbext_dbi = 1000
+let g:loaded_dbext_dbi = 1200
 
 if !exists("dbext_dbi_debug")
    let g:dbext_dbi_debug = 0
@@ -1000,8 +1002,14 @@ sub db_query
     }
 
 
-    $sth->execute;
-    db_debug("db_query:executed:".$sql);
+    my $row_count = $sth->execute;
+    db_debug("db_query:rowcount[$row_count] executed[$sql]");
+    if ( $row_count eq "0E0" || $row_count lt "0" ) {
+        # 0E0 - Special case which means no rows were affected
+        # -1  - Can be returned if executing DDL (as an example)
+        $row_count = 0;
+    }
+    db_set_vim_var('g:dbext_rows_affected', $row_count);
     ( $level, $err, $msg, $state ) = db_check_error($driver);
     if ( ! $msg eq "" ) {
         $msg = "$level. DBQe:".(($level ne "I")?"SQLCode:$err:":"").$msg.(($state ne "")?":$state":"");
@@ -1083,6 +1091,8 @@ sub db_format_results
                 return -1;
             }
         }
+
+        db_set_vim_var('g:dbext_rows_affected', $row_count);
 
         if( $driver eq "ODBC" ) {
             $more_results = $sth->{odbc_more_results};
