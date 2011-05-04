@@ -6,7 +6,7 @@ require 'open-uri'
 
 GIT_BUNDLES = [
   'git://github.com/bronson/vim-ruby-block-conv.git',
-  'git://github.com/ches/vim-session.git',
+  'git://github.com/claco/jasmine.vim.git',
   'git://github.com/godlygeek/tabular.git',
   'git://github.com/godlygeek/csapprox.git',
   'git://github.com/gregsexton/gitv.git',
@@ -38,6 +38,7 @@ GIT_BUNDLES = [
   'git://github.com/vim-ruby/vim-ruby.git',
   'git://github.com/vim-scripts/a.vim.git',
   'git://github.com/vim-scripts/dbext.vim.git',
+  'git://github.com/vim-scripts/session.vim--Odding.git',
   'git://github.com/vim-scripts/taglist.vim.git',
   'git://github.com/vim-scripts/TailMinusF.git',
   'git://github.com/vim-scripts/UltiSnips.git',
@@ -137,9 +138,6 @@ namespace :bundles do
       end
       cd('vim-preview') do
         rm_rf %w[ .gitignore GPL-LICENSE.txt README.markdown ]
-      end
-      cd('vim-session') do
-        rm_rf %w[ INSTALL README.md TODO.md ]
       end
       cd('vim-textobj-user') do
         rm_rf %w[ .gitignore Makefile mdeum test ]
