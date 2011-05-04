@@ -13,7 +13,6 @@ GIT_BUNDLES = [
   'git://github.com/greyblake/vim-preview.git',
   'git://github.com/kana/vim-textobj-user.git',
   'git://github.com/kchmck/vim-coffee-script.git',
-  'git://github.com/bloveridge/jslint.vim.git',
   'git://github.com/mileszs/ack.vim.git',
   'git://github.com/msanders/cocoa.vim.git',
   'git://github.com/nelstrom/vim-blackboard.git',
@@ -43,6 +42,7 @@ GIT_BUNDLES = [
   'git://github.com/vim-scripts/TailMinusF.git',
   'git://github.com/vim-scripts/UltiSnips.git',
   'git://github.com/vim-scripts/vimwiki.git',
+  'git://github.com/wookiehangover/jshint.vim.git',
   'git://repo.or.cz/vcscommand'
   # "git://github.com/astashov/vim-ruby-debugger.git",
   # "git://github.com/tsaleh/vim-supertab.git",
@@ -127,7 +127,7 @@ namespace :bundles do
       cd('gundo.vim') do
         rm_rf %w[ site tests README.markdown .hgignore .hgtags ]
       end
-      cd('jslint.vim') do
+      cd('jshint.vim') do
         rm_rf %w[ bin .gitignore CHANGES LICENSE README.markdown Rakefile ]
       end
       cd('vim-fugitive') do
