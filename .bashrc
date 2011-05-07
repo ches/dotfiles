@@ -5,8 +5,11 @@ export LC_CTYPE=en_US.UTF-8
 #
 export HISTCONTROL=erasedups
 export HISTSIZE=5000
-shopt -s histappend  # make sure hist is kept across sessions
+shopt -s histappend     # make sure hist is kept across sessions
 bind Space:magic-space  # auto-expand history magic
+
+# for the love of god don't offer to autocomplete this shit
+export FIGNORE="#:~:DS_Store:.pyc:.swp:.swo"
 
 #
 # I think I'm a convert.
