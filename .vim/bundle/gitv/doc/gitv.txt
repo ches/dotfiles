@@ -249,6 +249,12 @@ browser mode split horizontally. NOTE: It is for this reason that you should
 not move the browser window as it will cause commits to be opened in
 unexpected places.
 
+3.7 Folding
+
+Folding of branches is supported in the browser window. Initially all folds
+are always open and will open on a reload. You can collapse any branch by
+using Vim's built in fold operators. See |folding| for more details.
+
 ==============================================================================
 4. Configuration Options                               *gitv-config-options*
 
@@ -312,11 +318,22 @@ occasional very long commit messages.
 
 If set to 1 then commit subject truncation is enabled. This will truncate
 commit subjects, where necessary, so that the whole line will fit in one
-screen width. NOTE: It is possible that this can truncate any refs pointing at
-a commit. In this situation it will not be possible to check out any of these
-refs. This is due to gitv being unable to recognise that they are refs.
+screen width. If this is set, then automatically switching to a horizontal
+layout will no longer work as commits will be truncated to always fit in a
+vertical split. NOTE: It is possible that this can truncate any refs pointing
+at a commit. In this situation it will not be possible to check out any of
+these refs. This is due to gitv being unable to recognise that they are refs.
 >
     g:Gitv_TruncateCommitSubjects = 0
+<
+
+4.7 Open Preview On Launch
+
+If set to 1 then the preview window is displayed when launching gitv in
+browser mode. If set to 0 then no preview window is displayed until a commit
+is opened. This option has no effect in file mode.
+>
+    g:Gitv_OpenPreviewOnLaunch = 1
 <
 ==============================================================================
 5. Changelog                                                *gitv-changelog*

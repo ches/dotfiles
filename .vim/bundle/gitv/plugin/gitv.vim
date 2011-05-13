@@ -18,7 +18,7 @@ set cpo&vim
 "g:Gitv_GitExecutable          - string
 "g:Gitv_WipeAllOnClose         - int
 "g:Gitv_WrapLines              - {0,1}
-"g:Gitv_TruncateCommitSubjects - {0, 1}
+"g:Gitv_TruncateCommitSubjects - {0,1}
 
 if !exists("g:Gitv_CommitStep")
     let g:Gitv_CommitStep = &lines
@@ -40,8 +40,15 @@ if !exists('g:Gitv_TruncateCommitSubjects')
     let g:Gitv_TruncateCommitSubjects = 0
 endif
 
+if !exists('g:Gitv_OpenPreviewOnLaunch')
+    let g:Gitv_OpenPreviewOnLaunch = 1
+endif
+
 "this counts up each time gitv is opened to ensure a unique file name
 let g:Gitv_InstanceCounter = 0
+
+let s:localUncommitedMsg = 'Local uncommitted changes, not checked in to index.'
+let s:localCommitedMsg   = 'Local changes checked in to index but not committed.'
 
 command! -nargs=* -bang Gitv call s:OpenGitv(shellescape(<q-args>), <bang>0)
 cabbrev gitv Gitv
@@ -54,29 +61,12 @@ fu! Gitv_OpenGitCommand(command, windowCmd, ...) "{{{
     "this function is not limited to script scope as is useful for running other commands.
     "e.g call Gitv_OpenGitCommand("diff --no-color", 'vnew') is useful for getting an overall git diff.
 
-    if !a:0     "no extra args
-        "switches to the buffer repository before running the command and switches back after.
-        let dir = fugitive#buffer().repo().dir()
-        if dir == ''
-            echom "No git repository could be found."
-            return 0
-        endif
-        let workingDir = fnamemodify(dir,':h')
+    let [result, finalCmd] = s:RunGitCommand(a:command, a:0)
 
-        let cd = exists('*haslocaldir') && haslocaldir() ? 'lcd ' : 'cd '
-        let bufferDir = getcwd()
-        try
-            execute cd.'`=workingDir`'
-            let finalCmd = g:Gitv_GitExecutable.' --git-dir="' .dir. '" ' . a:command
-            let result = system(finalCmd)
-        finally
-            execute cd.'`=bufferDir`'
-        endtry
-    else
-        let result = system(a:command)
+    if type(result) == type(0)
+        return 0
     endif
-
-    if !exists('result') || result == ""
+    if type(result) == type("") && result == ""
         echom "No output."
         return 0
     else
@@ -85,31 +75,33 @@ fu! Gitv_OpenGitCommand(command, windowCmd, ...) "{{{
             silent setlocal noreadonly
             1,$ d
         else
-            let goBackTo = winnr()
+            let goBackTo       = winnr()
+            let dir            = s:GetRepoDir()
+            let workingDir     = fnamemodify(dir,':h')
+            let cd             = exists('*haslocaldir') && haslocaldir() ? 'lcd ' : 'cd '
+            let bufferDir      = getcwd()
+            let tempSplitBelow = &splitbelow
+            let tempSplitRight = &splitright
             try
-                if exists('workingDir') && exists('cd')
-                    execute cd.'`=workingDir`'
-                endif
+                set nosplitbelow
+                set nosplitright
+                execute cd.'`=workingDir`'
                 exec a:windowCmd
                 let newWindow = winnr()
             finally
                 exec goBackTo . 'wincmd w'
-                if exists('bufferDir') && exists('cd')
-                    execute cd.'`=bufferDir`'
-                endif
+                execute cd.'`=bufferDir`'
                 if exists('newWindow')
                     exec newWindow . 'wincmd w'
                 endif
+                exec 'set '. (tempSplitBelow ? '' : 'no') . 'splitbelow'
+                exec 'set '. (tempSplitRight ? '' : 'no') . 'splitright'
             endtry
         endif
         if !(&modifiable)
             return 0
         endif
-        if !a:0
-            let b:Git_Command = finalCmd
-        else
-            let b:Git_Command = a:command
-        endif
+        let b:Git_Command = finalCmd
         silent setlocal ft=git
         silent setlocal buftype=nofile
         silent setlocal nobuflisted
@@ -132,9 +124,44 @@ fu! Gitv_OpenGitCommand(command, windowCmd, ...) "{{{
         return 1
     endif
 endf "}}} }}}
+"General Git Functions: "{{{
+fu! s:RunGitCommand(command, verbatim) "{{{
+    "if verbatim returns result of system command, else
+    "switches to the buffer repository before running the command and switches back after.
+    if !a:verbatim
+        "switches to the buffer repository before running the command and switches back after.
+        let dir        = s:GetRepoDir()
+        let workingDir = fnamemodify(dir,':h')
+        if workingDir == ''
+            return 0
+        endif
+
+        let cd = exists('*haslocaldir') && haslocaldir() ? 'lcd ' : 'cd '
+        let bufferDir = getcwd()
+        try
+            execute cd.'`=workingDir`'
+            let finalCmd = g:Gitv_GitExecutable.' --git-dir="' .dir. '" ' . a:command
+            let result   = system(finalCmd)
+        finally
+            execute cd.'`=bufferDir`'
+        endtry
+    else
+        let result   = system(a:command)
+        let finalCmd = a:command
+    endif
+    return [result, finalCmd]
+endfu "}}}
+fu! s:GetRepoDir() "{{{
+    let dir = fugitive#buffer().repo().dir()
+    if dir == ''
+        echom "No git repository could be found."
+    endif
+    return dir
+endfu "}}} }}}
 "Open And Update Gitv:"{{{
 fu! s:OpenGitv(extraArgs, fileMode) "{{{
-    let sanatizedArgs = a:extraArgs == "''" ? '' : a:extraArgs
+    let sanatizedArgs = a:extraArgs   == "''" ? '' : a:extraArgs
+    let sanatizedArgs = sanatizedArgs == '""' ? '' : sanatizedArgs
     let g:Gitv_InstanceCounter += 1
     if !s:IsCompatible() "this outputs specific errors
         return
@@ -171,7 +198,11 @@ fu! s:OpenBrowserMode(extraArgs) "{{{
     endif
     call s:SetupBufferCommands(0)
     "open the first commit
-    silent call s:OpenGitvCommit("Gedit", 0)
+    if g:Gitv_OpenPreviewOnLaunch
+        silent call s:OpenGitvCommit("Gedit", 0)
+    else
+        call s:MoveIntoPreviewAndExecute('bdelete', 0)
+    endif
 endf "}}}
 fu! s:OpenFileMode(extraArgs) "{{{
     let relPath = fugitive#buffer().path()
@@ -217,8 +248,8 @@ fu! s:ConstructAndExecuteCmd(direction, reload, commitCount, extraArgs, filePath
             return res
         endif
     else
-        let cmd  = "log " . a:extraArgs 
-        let cmd .= " --no-color --decorate=full --pretty=format:\"%d %s__SEP__%ar__SEP__%an__SEP__[%h]\" --graph -" 
+        let cmd  = "log " . a:extraArgs
+        let cmd .= " --no-color --decorate=full --pretty=format:\"%d %s__SEP__%ar__SEP__%an__SEP__[%h]\" --graph -"
         let cmd .= a:commitCount
         if a:filePath != ''
             let cmd .= ' -- ' . a:filePath
@@ -237,11 +268,10 @@ fu! s:SetupBuffer(commitCount, extraArgs, filePath) "{{{
     silent %s/refs\/tags\//t:/ge
     silent %s/refs\/remotes\//r:/ge
     silent %s/refs\/heads\///ge
-    "silent 1,$Tabularize /__SEP__/
-    "silent %s/__SEP__//ge
-    silent %call s:Align("__SEP__")
+    silent %call s:Align("__SEP__", a:filePath)
     silent %s/\s\+$//e
-    call append(line('$'), '-- Load More --')
+    call s:AddLoadMore()
+    call s:AddLocalNodes(a:filePath)
     if a:filePath != ''
         call append(0, '-- ['.a:filePath.'] --')
     endif
@@ -249,6 +279,40 @@ fu! s:SetupBuffer(commitCount, extraArgs, filePath) "{{{
     silent setlocal readonly
     silent setlocal cursorline
 endf "}}}
+fu! s:AddLocalNodes(filePath) "{{{
+    let suffix = a:filePath == '' ? '' : ' -- '.a:filePath
+    let gitCmd = "diff --no-color" . suffix
+    let [result, cmd] = s:RunGitCommand(gitCmd, 0)
+    let headLine = search('^\(\(|\|\/\|\\\|\*\)\s\?\)*\s*([^)]*HEAD', 'cnw')
+    let headLine = headLine == 0 ? 1 : headLine
+    if result != ""
+	let line = s:AlignWithRefs(headLine, s:localUncommitedMsg)
+        call append(headLine-1, substitute(line, '*', '=', ''))
+        let headLine += 1
+    endif
+    let gitCmd = "diff --no-color --cached" . suffix
+    let [result, cmd] = s:RunGitCommand(gitCmd, 0)
+    if result != ""
+	let line = s:AlignWithRefs(headLine, s:localCommitedMsg)
+        call append(headLine-1, substitute(line, '*', '+', ''))
+    endif
+endfu
+fu! s:AlignWithRefs(targetLine, targetStr)
+    "returns the targetStr prefixed with enough whitespace to align with
+    "the first asterisk on targetLine
+    if a:targetLine == 0
+	return '*  '.a:targetStr
+    endif
+    let line = getline(a:targetLine)
+    let idx = stridx(line, '(')
+    if idx == -1
+	return '*  '.a:targetStr
+    endif
+    return strpart(line, 0, idx) . a:targetStr
+endfu "}}}
+fu! s:AddLoadMore() "{{{
+    call append(line('$'), '-- Load More --')
+endfu "}}}
 fu! s:SetupMappings() "{{{
     "operations
     nmap <buffer> <silent> <cr> :call <SID>OpenGitvCommit("Gedit", 0)<cr>
@@ -276,11 +340,7 @@ fu! s:SetupMappings() "{{{
     nmap <buffer> <silent> P :call <SID>JumpToHead()<cr>
 endf "}}}
 fu! s:SetupBufferCommands(fileMode) "{{{
-    if a:fileMode || s:IsHorizontal()
-        silent command! -buffer -nargs=* -complete=customlist,s:fugitive_GitComplete Git wincmd j|Git <args>|wincmd k|normal u
-    else
-        silent command! -buffer -nargs=* -complete=customlist,s:fugitive_GitComplete Git wincmd l|Git <args>|wincmd h|normal u
-    endif
+    silent command! -buffer -nargs=* -complete=customlist,s:fugitive_GitComplete Git call <sid>MoveIntoPreviewAndExecute("unsilent Git <args>",1)|normal u
 endfu "}}}
 fu! s:ResizeWindow(fileMode) "{{{
     if a:fileMode "window height determined by &previewheight
@@ -326,28 +386,55 @@ fu! s:RecordBufferExecAndWipe(cmd, wipe) "{{{
     if a:wipe
         "safe guard against wiping out buffer you're in
         if bufnr('%') != buf && bufexists(buf)
-            exec 'bwipeout ' . buf
+            exec 'bdelete ' . buf
         endif
     endif
 endfu "}}}
-fu! s:MoveIntoPreviewAndExecute(cmd) "{{{
-    let horiz = s:IsHorizontal()
-    let filem = s:IsFileMode()
-    if !filem
-        if horiz
-            wincmd j
-        else
-            wincmd l
-        endif
+fu! s:MoveIntoPreviewAndExecute(cmd, tryToOpenNewWin) "{{{
+    if winnr("$") == 1 "is the only window
+        call s:AttemptToCreateAPreviewWindow(a:tryToOpenNewWin, a:cmd)
+        return
     endif
+    let horiz      = s:IsHorizontal()
+    let filem      = s:IsFileMode()
+    let currentWin = winnr()
+
+    if horiz || filem
+        wincmd j
+    else
+        wincmd l
+    endif
+
+    if currentWin == winnr() "haven't moved anywhere
+        call s:AttemptToCreateAPreviewWindow(a:tryToOpenNewWin, a:cmd)
+        return
+    endif
+
     silent exec a:cmd
-    if !filem
-        if horiz
-            wincmd k
-        else
-            wincmd h
-        endif
+    if horiz || filem
+        wincmd k
+    else
+        wincmd h
     endif
+endfu "}}}
+fu! s:AttemptToCreateAPreviewWindow(shouldAttempt, cmd) "{{{
+    if a:shouldAttempt
+        call s:CreateNewPreviewWindow()
+        call s:MoveIntoPreviewAndExecute(a:cmd, 0)
+    else
+        echoerr "No preview window detected."
+    endif
+endfu "}}}
+fu! s:CreateNewPreviewWindow() "{{{
+    "this should not be called by anything other than AttemptToCreateAPreviewWindow
+    let horiz      = s:IsHorizontal()
+    let filem      = s:IsFileMode()
+    if horiz || filem
+        Gsplit HEAD
+    else
+        Gvsplit HEAD
+    endif
+    wincmd x
 endfu "}}}
 fu! s:IsHorizontal() "{{{
     "NOTE: this can only tell you if horizontal while cursor in browser window
@@ -356,7 +443,9 @@ fu! s:IsHorizontal() "{{{
     return horizGlobal || horizBuffer
 endf "}}}
 fu! s:AutoHorizontal() "{{{
-    return exists('g:Gitv_OpenHorizontal') && g:Gitv_OpenHorizontal ==? 'auto'
+    return exists('g:Gitv_OpenHorizontal') &&
+                \ type(g:Gitv_OpenHorizontal) == type("") &&
+                \ g:Gitv_OpenHorizontal ==? 'auto'
 endf "}}}
 fu! s:IsFileMode() "{{{
     return exists('b:Gitv_FileMode') && b:Gitv_FileMode == 1
@@ -376,9 +465,9 @@ fu! s:OpenRelativeFilePath(sha, geditForm) "{{{
     if relPath == ''
         return
     endif
-    wincmd j
     let cmd = a:geditForm . " " . a:sha . ":" . relPath
-    call s:RecordBufferExecAndWipe(cmd, a:geditForm=='Gedit')
+    let cmd = 'call s:RecordBufferExecAndWipe("'.cmd.'", '.(a:geditForm=='Gedit').')'
+    call s:MoveIntoPreviewAndExecute(cmd, 1)
 endf "}}} }}}
 "Mapped Functions:"{{{
 "Operations: "{{{
@@ -388,13 +477,15 @@ fu! s:OpenGitvCommit(geditForm, forceOpenFugitive) "{{{
         return
     endif
     if s:IsFileMode() && getline('.') =~ "^-- \\[.*\\] --$"
-        "open working copy of file
-        let fp = s:GetRelativeFilePath()
-        wincmd j
-        let form = a:geditForm[1:] "strip off the leading 'G'
-        let cmd = form . " " . fugitive#buffer().repo().tree() . "/" . fp
-        call s:RecordBufferExecAndWipe(cmd, form=='edit')
-        wincmd k
+        call s:OpenWorkingCopy(a:geditForm)
+        return
+    endif
+    if getline('.') =~ s:localUncommitedMsg.'$'
+        call s:OpenWorkingDiff(a:geditForm, 0)
+        return
+    endif
+    if getline('.') =~ s:localCommitedMsg.'$'
+        call s:OpenWorkingDiff(a:geditForm, 1)
         return
     endif
     let sha = s:GetGitvSha(line('.'))
@@ -403,19 +494,37 @@ fu! s:OpenGitvCommit(geditForm, forceOpenFugitive) "{{{
     endif
     if s:IsFileMode() && !a:forceOpenFugitive
         call s:OpenRelativeFilePath(sha, a:geditForm)
-        wincmd k
     else
         let cmd = a:geditForm . " " . sha
         let cmd = 'call s:RecordBufferExecAndWipe("'.cmd.'", '.(a:geditForm=='Gedit').')'
-        if s:IsFileMode()
-            wincmd j
-            exec cmd
-            wincmd k
-        else
-            call s:MoveIntoPreviewAndExecute(cmd)
-        endif
+        call s:MoveIntoPreviewAndExecute(cmd, 1)
     endif
-endf "}}}
+endf
+fu! s:OpenWorkingCopy(geditForm)
+    let fp = s:GetRelativeFilePath()
+    let form = a:geditForm[1:] "strip off the leading 'G'
+    let cmd = form . " " . fugitive#buffer().repo().tree() . "/" . fp
+    let cmd = 'call s:RecordBufferExecAndWipe("'.cmd.'", '.(form=='edit').')'
+    call s:MoveIntoPreviewAndExecute(cmd, 1)
+endfu
+fu! s:OpenWorkingDiff(geditForm, staged)
+    let winCmd = a:geditForm[1:] == 'edit' ? '' : a:geditForm[1:]
+    if s:IsFileMode()
+        let fp = s:GetRelativeFilePath()
+        let suffix = ' -- '.fp
+        let g:Gitv_InstanceCounter += 1
+        let winCmd = 'new gitv'.'-'.g:Gitv_InstanceCounter
+    else
+        let suffix = ''
+    endif
+    if a:staged
+        let cmd = 'call Gitv_OpenGitCommand(\"diff --no-color --cached'.suffix.'\", \"'.winCmd.'\")'
+    else
+        let cmd = 'call Gitv_OpenGitCommand(\"diff --no-color'.suffix.'\", \"'.winCmd.'\")'
+    endif
+    let cmd = 'call s:RecordBufferExecAndWipe("'.cmd.'", '.(winCmd=='').')'
+    call s:MoveIntoPreviewAndExecute(cmd, 1)
+endfu "}}}
 fu! s:CheckOutGitvCommit() "{{{
     let allrefs = s:GetGitvRefs()
     let sha = s:GetGitvSha(line('.'))
@@ -466,11 +575,9 @@ fu! s:DiffGitvCommit() range "{{{
     endif
     if a:firstline != a:lastline
         call s:OpenRelativeFilePath(shafirst, "Gedit")
-    else
-        wincmd j
     endif
-    exec "Gdiff " . shalast
-endf "}}} 
+    call s:MoveIntoPreviewAndExecute("Gdiff " . shalast, a:firstline != a:lastline)
+endf "}}}
 fu! s:StatGitvCommit() range "{{{
     let shafirst = s:GetGitvSha(a:firstline)
     let shalast  = s:GetGitvSha(a:lastline)
@@ -483,9 +590,13 @@ fu! s:StatGitvCommit() range "{{{
     endif
     let cmd .= ' --stat'
     let cmd = "call s:SetupStatBuffer('".cmd."')"
-    call s:MoveIntoPreviewAndExecute(cmd)
-endf "}}}
-fu! s:SetupStatBuffer(cmd) "{{{
+    if s:IsFileMode()
+        exec cmd
+    else
+        call s:MoveIntoPreviewAndExecute(cmd, 1)
+    endif
+endf
+fu! s:SetupStatBuffer(cmd)
     silent let res = Gitv_OpenGitCommand(a:cmd, s:IsFileMode()?'vnew':'')
     if res
         silent set filetype=gitv
@@ -510,8 +621,8 @@ fu! s:JumpToHead() "{{{
     silent! /^\(\(|\|\/\|\\\|\*\)\s\?\)\+\s\+\zs(HEAD/
 endf "}}}
 "}}} }}}
-"Alignment And Truncate Functions: "{{{
-fu! s:Align(seperator) range "{{{
+"Align And Truncate Functions: "{{{
+fu! s:Align(seperator, filePath) range "{{{
     let lines = getline(a:firstline, a:lastline)
     call map(lines, 'split(v:val, a:seperator)')
 
@@ -525,7 +636,7 @@ fu! s:Align(seperator) range "{{{
             let newline = []
             for i in range(len(tokens))
                 let token = tokens[i]
-                call add(newline, token . repeat(' ', maxLens[i]-strlen(token)+1))
+                call add(newline, token . repeat(' ', maxLens[i]-strwidth(token)+1))
             endfor
             call add(newlines, newline)
         else
@@ -534,20 +645,22 @@ fu! s:Align(seperator) range "{{{
     endfor
 
     if g:Gitv_TruncateCommitSubjects
-        call s:TruncateLines(newlines)
+        call s:TruncateLines(newlines, a:filePath)
     endif
 
     call map(newlines, "join(v:val)")
     call setline(a:firstline, newlines)
 endfu "}}}
-fu! s:TruncateLines(lines) "{{{
+fu! s:TruncateLines(lines, filePath) "{{{
     "truncates the commit subject for any line > &columns
-    call map(a:lines, "s:TruncateHelp(v:val)")
+    call map(a:lines, "s:TruncateHelp(v:val, a:filePath)")
 endfu "}}}
-fu! s:TruncateHelp(line)
-    let length = strlen(join(a:line))
-    if length > &columns
-        let delta = length - &columns
+fu! s:TruncateHelp(line, filePath) "{{{
+    let length = strwidth(join(a:line))
+    let maxWidth = s:IsHorizontal() ? &columns : &columns/2
+    let maxWidth = a:filePath != '' ? winwidth(0) : maxWidth
+    if length > maxWidth
+        let delta = length - maxWidth
         "offset = 3 for the elipsis and 1 for truncation
         let offset = 3 + 1
         if a:line[0][-(delta + offset + 1):] =~ "^\\s\\+$"
@@ -558,14 +671,14 @@ fu! s:TruncateHelp(line)
         let a:line[0] = a:line[0][:-(delta + offset)] . extension
     endif
     return a:line
-endfu
+endfu "}}}
 fu! s:MaxLengths(colls) "{{{
     "precondition: coll is a list of lists of strings -- should be rectangular
     "returns a list of maximum string lengths
     let lengths = []
     for x in a:colls
         for y in range(len(x))
-            let length = strlen(x[y])
+            let length = strwidth(x[y])
             if length > get(lengths, y, 0)
                 if len(lengths)-1 < y
                     call add(lengths, length)

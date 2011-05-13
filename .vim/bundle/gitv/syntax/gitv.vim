@@ -16,23 +16,29 @@ syn match gitvSubject /.*/
 syn match gitvDate /\(\d\+ years\?, \)\?\d\+ \%(second\|seconds\|minute\|minutes\|hour\|hours\|day\|days\|week\|weeks\|month\|months\|year\) ago/ contained containedin=gitvSubject
 syn match gitvHash /\[[0-9a-f]\{7}\]$/ contained containedin=gitvSubject
 
-syn match  gitvGraphEdge9 /\(|\|\/\|\\\|\*\)\s\?/ nextgroup=gitvRef,gitvSubject skipwhite
-syn match  gitvGraphEdge8 /\(|\|\/\|\\\|\*\)\s\?/  nextgroup=gitvGraphEdge9,gitvRef,gitvSubject skipwhite
-syn match  gitvGraphEdge7 /\(|\|\/\|\\\|\*\)\s\?/  nextgroup=gitvGraphEdge8,gitvRef,gitvSubject skipwhite
-syn match  gitvGraphEdge6 /\(|\|\/\|\\\|\*\)\s\?/  nextgroup=gitvGraphEdge7,gitvRef,gitvSubject skipwhite
-syn match  gitvGraphEdge5 /\(|\|\/\|\\\|\*\)\s\?/  nextgroup=gitvGraphEdge6,gitvRef,gitvSubject skipwhite
-syn match  gitvGraphEdge4 /\(|\|\/\|\\\|\*\)\s\?/  nextgroup=gitvGraphEdge5,gitvRef,gitvSubject skipwhite
-syn match  gitvGraphEdge3 /\(|\|\/\|\\\|\*\)\s\?/  nextgroup=gitvGraphEdge4,gitvRef,gitvSubject skipwhite
-syn match  gitvGraphEdge2 /\(|\|\/\|\\\|\*\)\s\?/  nextgroup=gitvGraphEdge3,gitvRef,gitvSubject skipwhite
-syn match  gitvGraphEdge1 /\(|\|\/\|\\\|\*\)\s\?/  nextgroup=gitvGraphEdge2,gitvRef,gitvSubject skipwhite
-syn match  gitvGraphEdge0 /^\(\(|\|\/\|\\\|\*\)\s\?\)/  nextgroup=gitvGraphEdge1,gitvRef,gitvSubject skipwhite
+syn match  gitvGraphEdge9 /_\?\(|\|-\(-\|\.\)\|\/|\?\|\\\|\*\|+\|=\)\s\?/ nextgroup=gitvGraphEdge0,gitvRef,gitvSubject skipwhite
+syn match  gitvGraphEdge8 /_\?\(|\|-\(-\|\.\)\|\/|\?\|\\\|\*\|+\|=\)\s\?/ nextgroup=gitvGraphEdge9,gitvRef,gitvSubject skipwhite
+syn match  gitvGraphEdge7 /_\?\(|\|-\(-\|\.\)\|\/|\?\|\\\|\*\|+\|=\)\s\?/ nextgroup=gitvGraphEdge8,gitvRef,gitvSubject skipwhite
+syn match  gitvGraphEdge6 /_\?\(|\|-\(-\|\.\)\|\/|\?\|\\\|\*\|+\|=\)\s\?/ nextgroup=gitvGraphEdge7,gitvRef,gitvSubject skipwhite
+syn match  gitvGraphEdge5 /_\?\(|\|-\(-\|\.\)\|\/|\?\|\\\|\*\|+\|=\)\s\?/ nextgroup=gitvGraphEdge6,gitvRef,gitvSubject skipwhite
+syn match  gitvGraphEdge4 /_\?\(|\|-\(-\|\.\)\|\/|\?\|\\\|\*\|+\|=\)\s\?/ nextgroup=gitvGraphEdge5,gitvRef,gitvSubject skipwhite
+syn match  gitvGraphEdge3 /_\?\(|\|-\(-\|\.\)\|\/|\?\|\\\|\*\|+\|=\)\s\?/ nextgroup=gitvGraphEdge4,gitvRef,gitvSubject skipwhite
+syn match  gitvGraphEdge2 /_\?\(|\|-\(-\|\.\)\|\/|\?\|\\\|\*\|+\|=\)\s\?/ nextgroup=gitvGraphEdge3,gitvRef,gitvSubject skipwhite
+syn match  gitvGraphEdge1 /_\?\(|\|-\(-\|\.\)\|\/|\?\|\\\|\*\|+\|=\)\s\?/ nextgroup=gitvGraphEdge2,gitvRef,gitvSubject skipwhite
+syn match  gitvGraphEdge0 /_\?\(|\|-\(-\|\.\)\|\/|\?\|\\\|\*\|+\|=\)\s\?/ nextgroup=gitvGraphEdge1,gitvRef,gitvSubject skipwhite
+syn match  gitvGraphEdgeH /_/ contained containedin=gitvGraphEdge0,gitvGraphEdge1,gitvGraphEdge2,gitvGraphEdge3,gitvGraphEdge4,gitvGraphEdge5,gitvGraphEdge6,gitvGraphEdge7,gitvGraphEdge8,gitvGraphEdge9
 
 syn match gitvRef /\s*(.\{-})/ nextgroup=gitvSubject skipwhite
 syn match gitvRefTag /t:\zs.\{-}\ze\(, \|)\)/ contained containedin=gitvRef
 syn match gitvRefRemote /r:\zs.\{-}\ze\(, \|)\)/ contained containedin=gitvRef
+syn match gitvRefHead /HEAD/ contained containedin=gitvRef
 
 syn match gitvLoadMore /^-- Load More --$/
-syn match gitvWorkingCopy /^-- \[.*\] --$/ contained containedin=gitvSubject
+syn match gitvWorkingCopy /^-- \[.*\] --$/
+syn match gitvLocalUncommit /Local uncommitted changes, not checked in to index\.$/ contained containedin=gitvSubject
+syn match gitvLocalCommited /Local changes checked in to index but not committed\.$/ contained containedin=gitvSubject
+syn match gitvLocalCommitedNode /+/ contained containedin=gitvGraphEdge0,gitvGraphEdge1,gitvGraphEdge2,gitvGraphEdge3,gitvGraphEdge4,gitvGraphEdge5,gitvGraphEdge6,gitvGraphEdge7,gitvGraphEdge8,gitvGraphEdge9
+syn match gitvLocalUncommitNode /=/ contained containedin=gitvGraphEdge0,gitvGraphEdge1,gitvGraphEdge2,gitvGraphEdge3,gitvGraphEdge4,gitvGraphEdge5,gitvGraphEdge6,gitvGraphEdge7,gitvGraphEdge8,gitvGraphEdge9
 
 syn match gitvAddedMarks /|\s\+\d\+ \zs+*-*\ze$/ contained containedin=gitvSubject
 syn match gitvAddedMarks /|\s\+Bin \zs\d\+ -> \d\+\ze bytes$/ contained containedin=gitvSubject
@@ -44,6 +50,7 @@ hi def link gitvHash              Number
 hi def link gitvRef               Directory
 hi def link gitvRefTag            String
 hi def link gitvRefRemote         Statement
+hi def link gitvRefHead           Special
 hi def link gitvDate              Statement
 hi def link gitvSubject           Normal
 hi def link gitvLoadMore          Question
@@ -76,5 +83,10 @@ else
     highlight default gitvGraphEdge8 ctermfg=blue        guifg=darkslateblue
     highlight default gitvGraphEdge9 ctermfg=darkmagenta guifg=darkviolet
 endif
+
+highlight default gitvLocalCommitedNode ctermfg=green guifg=green
+highlight default gitvLocalUncommitNode ctermfg=red   guifg=red
+highlight default gitvLocalCommited     gui=bold
+highlight default gitvLocalUncommit     gui=bold
 
 let b:current_syntax = "gitv"
