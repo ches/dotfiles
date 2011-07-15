@@ -1,3 +1,4 @@
 --pager=less
+--ignore-dir=coverage
 --type-add
 ruby=.haml
