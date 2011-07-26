@@ -13,6 +13,10 @@ style = monoblue
 allow_archive = bz2, gz, zip
 pygments_style = manni
 
+# Certificate Authority certs generated from OS X system roots
+# http://mercurial.selenic.com/wiki/CACertificates
+cacerts = /usr/local/etc/hg/ca-roots.pem
+
 [diff]
 # so mq can handle add/remove/move, symlinks, lots of other stuff
 git = 1
