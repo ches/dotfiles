@@ -2,6 +2,9 @@
 username = Ches Martin <ches@whiskeyandgrits.net>
 ssh = ssh -C
 
+# Abort instead of trying to auto-commit when subrepos have changes
+commitsubrepos = no
+
 [defaults]
 #log = --limit 20
 
@@ -36,10 +39,11 @@ hgext.zeroconf =
 #hgshelve = ~/.hglib/hgshelve/hgshelve.py
 hgattic = ~/.hglib/hgattic/attic.py
 prompt = ~/.hglib/hg-prompt/prompt.py
+histedit = ~/.hglib/histedit/hg_histedit.py
 qct=/usr/local/lib/hg/qct.py
+hggit =
 
 [alias]
-last = log -l1 -p
 blame = blame --number --user --date -q
 # Thanks: http://wikis.sun.com/display/SunOnMac/MercurialTips
 # prints files changed (only) in the current patch:
@@ -47,6 +51,9 @@ qstatus = status --rev -2:-1
 # empty current patch, but leave the diffs in the working copy:
 qclear = qrefresh -X re:.
 untrack = rm -Af
+# git symmetry
+show = log -pr
+last = log -l1 -p
 
 [bookmarks]
 # More git-like behavior: only update the bookmark you are currently using,
@@ -63,6 +70,11 @@ kdiff3.args = $base $local $other -o $output
 kdiff3.fixeol=True
 kdiff3.gui=True
 
+vimdiff.executable = mvim
+vimdiff.args = -d $local $other
+vimdiff.checkchanged = true
+vimdiff.gui = true
+
 merge.checkconflicts=True
 merge.priority=-10
 
@@ -71,7 +83,8 @@ filemerge.gui=True
 
 [pager]
 pager = LESS='FRX' less
-attend = help, log, glog, status, qstatus, incoming, outgoing, diff, qdiff, cat, annotate, unshelve, last
+attend = help, log, glog, status, qstatus, incoming, outgoing, diff, qdiff, cat, annotate, unshelve, last, show
 
 [hgk]
 path=~/bin/hgk
+
