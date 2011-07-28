@@ -171,37 +171,51 @@ set listchars=tab:»·,trail:·,eol:¬,nbsp:␣
 " Autocommands {{{2
 if has("autocmd")
 
-  " When editing a file, always jump to the last known cursor position. {{{
-  " Don't do it when the position is invalid or when inside an event handler
-  " (happens when dropping a file on gvim), or for commit messages.
-  autocmd BufReadPost * call SetCursorPosition()
-  function! SetCursorPosition()
-    if &filetype !~ 'commit\c'
-      if line("'\"") > 0 && line("'\"") <= line("$")
-        exe "normal g`\""
-        normal! zz
-      endif
-    end
-  endfunction
-  "}}}
+  augroup BufActions
+    autocmd!
+
+    " When editing a file, always jump to the last known cursor position. {{{
+    " Don't do it when the position is invalid or when inside an event handler
+    " (happens when dropping a file on gvim), or for commit messages.
+    autocmd BufReadPost * call SetCursorPosition()
+    function! SetCursorPosition()
+      if &filetype !~ 'commit\c'
+        if line("'\"") > 0 && line("'\"") <= line("$")
+          exe "normal g`\""
+          normal! zz
+        endif
+      end
+    endfunction
+    "}}}
   
-  " Skeletons {{{
-  autocmd BufNewFile *.py silent 0read ~/.vim/skeleton/skeleton.py   | normal G
-  "autocmd BufNewFile *.pl silent 0read ~/.vim/skeleton/perl.pl     | normal G
-  "autocmd BufNewFile *.t  silent 0read ~/.vim/skeleton/perl-test.t | normal G
-  "autocmd BufNewFile *.c  silent 0read ~/.vim/skeleton/c.c         | normal 4j$
-  "autocmd BufNewFile *.hs silent 0read ~/.vim/skeleton/haskell.hs  | normal Gk$
-  "}}}
+    " Skeletons {{{
+    autocmd BufNewFile *.py silent 0read ~/.vim/skeleton/skeleton.py   | normal G
+    autocmd BufNewFile *.sh silent 0read ~/.vim/skeleton/skeleton.sh   | normal G
+    "autocmd BufNewFile *.pl silent 0read ~/.vim/skeleton/perl.pl     | normal G
+    "autocmd BufNewFile *.t  silent 0read ~/.vim/skeleton/perl-test.t | normal G
+    "autocmd BufNewFile *.c  silent 0read ~/.vim/skeleton/c.c         | normal 4j$
+    "autocmd BufNewFile *.hs silent 0read ~/.vim/skeleton/haskell.hs  | normal Gk$
+    "}}}
 
-  " Auto +x {{{
-  au BufWritePost *.sh !chmod +x %
-  au BufWritePost *.pl !chmod +x %
-  "}}}
+    " Auto file perms {{{
+    autocmd BufNewFile */.netrc,*/.fetchmailrc,*/.my.cnf let b:chmod_new="go-rwx"
+    autocmd BufNewFile  * let b:chmod_exe=1
+    autocmd BufWritePre * if exists("b:chmod_exe") |
+          \ unlet b:chmod_exe |
+          \ if getline(1) =~ '^#!' | let b:chmod_new="+x" | endif |
+          \ endif
+    autocmd BufWritePost,FileWritePost * if exists("b:chmod_new")|
+          \ silent! execute "!chmod ".b:chmod_new." <afile>"|
+          \ unlet b:chmod_new|
+          \ endif
+    "}}}
 
-  " Automatically distribute my vimrc to the servers I use {{{
-  "autocmd BufWritePost ~/.vimrc !scp ~/.vimrc valleyofwind.dyndns.org:.
-  "autocmd BufWritePost ~/.vim/skeletons/* !scp % valleyofwind.dyndns.org:.vim/skeletons/
-  "}}}
+    " Automatically distribute my vimrc to the servers I use {{{
+    "autocmd BufWritePost ~/.vimrc !scp ~/.vimrc valleyofwind.dyndns.org:.
+    "autocmd BufWritePost ~/.vim/skeletons/* !scp % valleyofwind.dyndns.org:.vim/skeletons/
+    "}}}
+
+  augroup END
 
 endif " has("autocmd")
 " Remappings {{{1
@@ -263,30 +277,58 @@ source ~/.vim/include/textmate-mappings.vim
 " Language- and plugin-specific Preferences {{{1
 if has("autocmd")
 
-  " FileType Stuff {{{
+  augroup FiletypeSets "{{{
+    autocmd!
+    autocmd BufNewFile,BufRead jquery.*.js set ft=javascript syntax=jquery
+    autocmd BufNewFile,BufRead *.mako set ft=mako
+    autocmd BufNewFile,BufRead Rakefile,Capfile,Gemfile,Vagrantfile set ft=ruby
+    " Keep the multiplying zombie virus-infected fugitive buffer hoard at bay
+    autocmd BufReadPost fugitive://* set bufhidden=delete
+  augroup END "}}}
 
-  " autocmd FileType python setlocal cinwords=if,elif,else,for,while,try,except,finally,def,class,with
-  autocmd FileType ruby,vim,yaml setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-  autocmd FileType javascript setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
-  autocmd User Rails.javascript* setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+  " TODO: might soon want to start organizing this ballooning group of stuff
+  " in after/ftplugin files :-)
+  augroup FToptions "{{{ autocmd!
+    " autocmd FileType python setlocal
+    " cinwords=if,elif,else,for,while,try,except,finally,def,class,with
+    autocmd FileType html,xhtml,xml,htmldjango,htmljinja,eruby,mako,cucumber setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType ruby,vim,yaml setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType javascript setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+    autocmd User Rails.javascript* setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
 
-  let javascript_enable_domhtmlcss=1
-  let xml_use_xhtml = 1                     " default xml to self-closing tags
+    " Use leader+space to write and execute
+    autocmd FileType vim map <buffer> <leader><space> :w!<cr>:source %<cr>
+    autocmd FileType sh map <buffer> <leader><space> :w!<cr>:!/bin/sh %<cr>
+    autocmd FileType ruby map <buffer> <leader><space> :w!<cr>:!ruby %<cr>
+    autocmd FileType python map <buffer> <leader><space> :w!<cr>:!python %<cr>
 
-  autocmd FileType html,xhtml,xml,htmldjango,htmljinja,eruby,mako,cucumber setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-  autocmd BufNewFile,BufRead jquery.*.js set ft=javascript syntax=jquery
-  autocmd BufNewFile,BufRead *.mako setlocal ft=mako
+    " Be trusting about Ruby code being evaluated for autocompletion
+    autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+    autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+    autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+    " Easily lookup documentation on apidock
+    autocmd FileType ruby noremap <buffer> <leader>rb :OpenURL http://apidock.com/rails/<cword><CR>
+    autocmd FileType ruby noremap <buffer> <leader>rr :OpenURL http://apidock.com/ruby/<cword><CR>
 
-  " Use leader+space to write and execute
-  autocmd FileType vim map <buffer> <leader><space> :w!<cr>:source %<cr>
-  autocmd FileType ruby map <buffer> <leader><space> :w!<cr>:!ruby %<cr>
-  autocmd FileType python map <buffer> <leader><space> :w!<cr>:!python %<cr>
+    autocmd FileType python nnoremap <silent> <buffer> K :call ShowPyDoc(expand("<cword>"), 1)<CR>
 
-  autocmd FileType markdown nnoremap <leader>1 yypVr=
-  autocmd FileType markdown nnoremap <leader>2 yypVr-
+    autocmd FileType javascript let javascript_enable_domhtmlcss=1
+    autocmd FileType xml let xml_use_xhtml = 1 " default xml to self-closing tags
+    autocmd FileType vim setlocal keywordprg=:help
 
-  autocmd FileType vimwiki map <M-Space> <Plug>VimwikiToggleListItem
-  "}}}
+    autocmd FileType markdown nnoremap <buffer> <leader>1 yypVr=
+    autocmd FileType markdown nnoremap <buffer> <leader>2 yypVr-
+
+    autocmd FileType vimwiki setlocal foldlevel=2 textwidth=78 linebreak
+    autocmd FileType vimwiki map <buffer> <M-Space> <Plug>VimwikiToggleListItem
+    autocmd FileType vimwiki map <buffer> <Leader>wg :VimwikiGoto<space>
+    autocmd FileType vimwiki map <buffer> <Leader>w/ :VimwikiSearch<space>/
+
+    autocmd FileType text,markdown,gitcommit,vimwiki setlocal spell
+    autocmd FileType help,man,qf nnoremap <silent><buffer> q :q<CR>
+  augroup END "}}}
+
+  let python_highlight_all = 1
 
   " Taglist
   let Tlist_Use_Right_Window = 1
