@@ -3,3 +3,6 @@
 .hglib/hg-prompt = http://bitbucket.org/sjl/hg-prompt
 .hglib/histedit = https://bitbucket.org/durin42/histedit
 
+# Vim Plugin Management
+.vim/bundle/vundle = [git]git://github.com/gmarik/vundle.git
+
