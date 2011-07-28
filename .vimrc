@@ -69,10 +69,10 @@ map Q gq
 " text is lost and it only works for putting the current register.
 "vnoremap p "_dp
 
-" Pathogen makes Vim plugin management saner:
-" http://www.vim.org/scripts/script.php?script_id=2332
-" Heed the install notes for system vim defaults on Linux.
-call pathogen#runtime_append_all_bundles()
+" Silence CSApprox's gripes if running a vim without gui support
+if !has('gui')
+  let g:CSApprox_loaded = 1
+endif
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
@@ -428,9 +428,7 @@ function! OpenRubyDoc(keyword)
   exec '!'.g:browser.' '.url
 endfunction
 
-" Easily lookup documentation on apidock
-noremap <leader>rb :call OpenRubyDoc(expand('<cword>'))<CR>
-noremap <leader>rr :call OpenRailsDoc(expand('<cword>'))<CR>
+runtime include/bundles.vim
 
 " vim:foldmethod=marker commentstring="%s
 

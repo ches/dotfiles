@@ -1,158 +1,42 @@
 require 'rake'
-require 'open-uri'
 
-# Yanked and modified from Tammer Saleh's post:
-#   http://tammersaleh.com/posts/the-modern-vim-config-with-pathogen
-
-GIT_BUNDLES = [
-  'git://github.com/bronson/vim-ruby-block-conv.git',
-  'git://github.com/claco/jasmine.vim.git',
-  'git://github.com/godlygeek/tabular.git',
-  'git://github.com/godlygeek/csapprox.git',
-  'git://github.com/gregsexton/gitv.git',
-  'git://github.com/greyblake/vim-preview.git',
-  'git://github.com/kana/vim-textobj-user.git',
-  'git://github.com/kchmck/vim-coffee-script.git',
-  'git://github.com/mileszs/ack.vim.git',
-  'git://github.com/msanders/cocoa.vim.git',
-  'git://github.com/nelstrom/vim-blackboard.git',
-  'git://github.com/nelstrom/vim-textobj-rubyblock.git',
-  'git://github.com/scrooloose/nerdtree.git',
-  'git://github.com/sjl/gundo.vim.git',
-  'git://github.com/ervandew/nerdcommenter.git',    # switch from scrooloose fork for NERDDefaultAlign
-  'git://github.com/pangloss/vim-javascript.git',
-  'git://github.com/timcharper/textile.vim.git',
-  'git://github.com/tpope/vim-cucumber.git',
-  'git://github.com/tpope/vim-endwise.git',
-  'git://github.com/tpope/vim-fugitive.git',
-  'git://github.com/tpope/vim-git.git',
-  'git://github.com/tpope/vim-markdown.git',
-  'git://github.com/tpope/vim-ragtag.git',
-  'git://github.com/tpope/vim-rake.git',
-  'git://github.com/tpope/vim-rails.git',
-  'git://github.com/tpope/vim-repeat.git',
-  'git://github.com/tpope/vim-surround.git',
-  'git://github.com/tpope/vim-vividchalk.git',
-  'git://github.com/wincent/Command-T.git',
-  'git://github.com/vim-ruby/vim-ruby.git',
-  'git://github.com/vim-scripts/a.vim.git',
-  'git://github.com/vim-scripts/dbext.vim.git',
-  'git://github.com/vim-scripts/session.vim--Odding.git',
-  'git://github.com/vim-scripts/taglist.vim.git',
-  'git://github.com/vim-scripts/TailMinusF.git',
-  'git://github.com/vim-scripts/UltiSnips.git',
-  'git://github.com/vim-scripts/vimwiki.git',
-  'git://github.com/wookiehangover/jshint.vim.git',
-  'git://repo.or.cz/vcscommand'
-  # "git://github.com/astashov/vim-ruby-debugger.git",
-  # "git://github.com/tsaleh/vim-supertab.git",
-]
-
-VIM_ORG_SCRIPTS = [
-  # ['IndexedSearch', '7062',  'plugin'],
-  ['gist',          '14204',  'plugin'],
-  ['lusty-juggler', '13094',  'plugin'],
-  ['tasklist',      '10388',  'plugin'],
-  ['wordcomplete',  '6504',   'plugin'],
-  ['jquery',        '12276',  'syntax'],
-  ['matchit',       '8196',   'zip'],
-  ['yankring',      '13554',  'zip']
-]
-
-desc 'Update all Pathogen bundles and docs'
-task :default => ['bundles:update:all', 'bundles:doc']
+desc 'Update and build all Vim plugin bundles'
+task :default => 'bundles:distupdate'
 
 namespace :bundles do
   task :cd do
     cd File.join(File.dirname(__FILE__), 'bundle')
   end
 
-  desc 'Set working directory and delete bundles'
-  task :clean => :cd do
-    puts 'Trashing everything in .vim/bundle (lookout!)'
-    Dir["*"].each {|d| rm_rf d }
+  desc 'Purge any unmanaged bundles from the bundle dir'
+  task :clean do
+    puts '== Cleaning unmanaged bundles...'
+    system 'vim +BundleClean +q'
   end
 
-  desc 'Generate plugin help tags with Pathogen'
-  task :doc do
-    puts "== Generating helptags with pathogen"
-    system 'vim -e -c "call pathogen#helptags()" -c q'
+  desc 'Install all Vim plugin bundles'
+  task :install do
+    puts '== Installing all Vundle-managed plugins...'
+    system 'vim -c +BundleInstall +q'
   end
 
-  namespace :update do
-
-    # TODO: make clean tasks that only delete git or vimscript bundles
-
-    desc 'Update Pathogen bundles from Git repositories'
-    task :git => 'bundles:clean' do
-      GIT_BUNDLES.each do |url|
-        dir = url.split('/').last.sub(/\.git$/, '')
-        puts "  Unpacking #{url} into #{dir}"
-        `git clone --depth 1 #{url} #{dir}`
-        rm_rf File.join(dir, '.git')
-      end
-    end
-
-    desc 'Update Pathogen bundles from vim.org'
-    task :vimscripts => 'bundles:clean' do
-      VIM_ORG_SCRIPTS.each do |name, script_id, script_type|
-        puts "  Downloading #{name}"
-        local_file = File.join(name, script_type, "#{name}.#{script_type =~ /zip|tgz/ ? $& : 'vim'}")
-        mkdir_p File.dirname(local_file)
-        File.open(local_file, 'w') do |file|
-          file << open("http://www.vim.org/scripts/download_script.php?src_id=#{script_id}").read
-        end
-        case script_type
-        when 'zip'
-          %x(unzip -d #{name} #{local_file} && rm -r #{name}/zip)
-        when 'tgz'
-          %x(tar xzf #{local_file})
-        end
-      end
-    end
-
-    desc 'Assorted post-install steps and cleanup'
-    task :postinstall => :git do
-      puts '== Building command-t plugin'
-      cd('Command-T') do
-        system '$HOME/.rvm/bin/rvm use system; rake make'
-      end
-
-      puts '== Removing extraneous stuff kept in some plugin repos'
-      cd('a.vim') { rm_f %w[ README ] }
-      cd('csapprox') { rm_f %w[ .gitignore ] }
-      cd('vim-ruby') do
-        rm_rf %w[ bin etc CONTRIBUTORS CHANGELOG FAQ NEWS INSTALL README Rakefile ]
-      end
-      cd('gundo.vim') do
-        rm_rf %w[ site tests README.markdown .hgignore .hgtags ]
-      end
-      cd('jshint.vim') do
-        rm_rf %w[ bin .gitignore CHANGES LICENSE README.markdown Rakefile ]
-      end
-      cd('vim-fugitive') do
-        rm_f %w[ .gitignore README.markdown ]
-      end
-      cd('vim-javascript') do
-        rm_rf %w[ extras tmp Rakefile ]
-      end
-      cd('vim-preview') do
-        rm_rf %w[ .gitignore GPL-LICENSE.txt README.markdown ]
-      end
-      cd('vim-textobj-user') do
-        rm_rf %w[ .gitignore Makefile mdeum test ]
-      end
-      cd('vim-textobj-rubyblock') do
-        rm_rf %w[ .gitignore README.md readme.vim.org textobj-rubyblock.vba test todo.otl vimballer ]
-      end
-      cd('vimwiki') do
-        rm_f %w[ README ]
-      end
-    end
-
-    desc 'Update all Pathogen bundles'
-    task :all => [:git, :vimscripts, :postinstall]
+  desc 'Update specified bundles, or default to all'
+  task :update, :bundle do |task, args|
+    bundle = args[:bundle] || ''  # all
+    puts '== Updating Vundle-managed plugins...'
+    system "vim -c 'BundleInstall! #{bundle}' +BundleClean +q"
   end
+
+  desc 'Post-install steps -- compilation, etc.'
+  task :build => :cd do
+    puts '== Building command-t plugin'
+    cd('Command-T/ruby/command-t') do
+      system '$HOME/.rvm/bin/rvm use system; ruby extconf.rb && make'
+    end
+  end
+
+  desc 'Update and build all Vim plugin bundles'
+  task :distupdate => [:update, :build]
 
 end
 
