@@ -31,6 +31,7 @@ set ignorecase      " Do case insensitive matching
 set smartcase       " But if search contains capitals, be sensitive
 set gdefault        " Line-global substitution by default, usually what you want
 set scrolloff=3     " Keep some context visible when scrolling
+set sidescrolloff=4
 set wildmenu        " Modern completion menu
 set number          " line numbers
 set numberwidth=5   " a little bit of buffer is prettier
@@ -41,6 +42,9 @@ set wildmode=list:longest,full
 " Ignore some extensions when tab-completing
 set wildignore=*.swp,*.bak,*.pyc,*.o,*.class
 
+" Only insert up to longest common autocomplete match
+set completeopt+=longest
+
 " Basically the default statusline when ruler is enabled, with fugitive
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
@@ -49,8 +53,14 @@ set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 "set autowrite
 set hidden
 
+" If file changed outside vim but not inside, just read it
+set autoread
+
 " use existing window if I try to open an already-open buffer
 set switchbuf=useopen
+
+" New h/v split window show up on bottom/right
+set splitbelow splitright
 
 " threshold for reporting number of lines changed
 set report=0
@@ -115,6 +125,10 @@ if has("viminfo")
   set viminfo^=!,%
 
 endif
+
+" Get a sweet :Man command to open pages in split
+runtime ftplugin/man.vim
+nmap K :Man <cword><CR>
 
 " Indentation {{{2
 
@@ -223,8 +237,14 @@ endif " has("autocmd")
 " I'm drinkin' the comma-as-leader kool aid
 let mapleader = ","
 
-" Code completion shortcut
-imap <f3> <C-x><C-o><C-p>
+" Omni completion shortcut
+imap <M-space> <C-x><C-o><C-p>
+
+" See tpope's wicked Run() function -- I'd like to cook up something
+" similar ror ruby, pyflakes/pep8, etc.
+map <F2> :cprev<CR>
+map <F3> :wa<Bar>make<CR>
+map <F4> :cnext<CR>
 
 " Easy paste mode toggling
 set pastetoggle=<F6>
@@ -331,10 +351,15 @@ if has("autocmd")
   let python_highlight_all = 1
 
   " Taglist
-  let Tlist_Use_Right_Window = 1
-  map <Leader>< :TlistToggle<CR>       " Shifted version of NERDTree toggle
+  let Tlist_Use_Right_Window        = 1
+  let Tlist_GainFocus_On_ToggleOpen = 1
+  let Tlist_Enable_Fold_Column      = 0
+  let Tlist_File_Fold_Auto_Close    = 1 " Fold all trees but current file
+  " Shifted version of NERDTree toggle
+  map <Leader>< :TlistToggle<CR>
 
   let tlist_vimwiki_settings = 'vimwiki;h:Headers'
+  let tlist_objc_settings    = 'objc;i:interface;c:class;m:method;p:property'
 
   " NERDTree
   let NERDTreeWinPos          = 'right'
@@ -347,6 +372,8 @@ if has("autocmd")
   " NERDCommenter
   let NERDSpaceDelims         = 1      " use a space after comment chars
   let NERDDefaultAlign        = 'left'
+  " Not cool when end-of-line comments break when uncommenting /* */ blocks:
+  let NERDRemoveAltComs       = 0
 
   " TaskList
   let g:tlWindowPosition      = 1      " TaskList on bottom
@@ -355,6 +382,14 @@ if has("autocmd")
 
   " Open the YankRing window
   nnoremap <silent> <M-v> :YRShow<CR>
+  let g:yankring_history_dir = '$HOME/.autosave'
+  " Make sure YankRing plays nice with custom remapping.
+  " See `:h yankring-custom-maps`
+  function! YRRunAfterMaps()
+    nnoremap <silent> Y   :<C-U>YRYankCount 'y$'<CR>
+  endfunction
+
+  let g:dbext_default_history_file = '$HOME/.autosave'
 
   " Lusty Juggler buffer switcher
   let g:LustyJugglerShowKeys = 'a'
@@ -373,7 +408,21 @@ if has("autocmd")
   " vimwiki
   let g:vimwiki_menu      = 'Plugin.Vimwiki'
   let g:vimwiki_use_mouse = 1  " A rare case where I may actually use the mouse :-)
-  let g:vimwiki_list      = [{'path': '~/src/vimwiki/', 'path_html': '~/src/vimwiki/html/'}]
+  let g:vimwiki_folding   = 1
+
+  let main_wiki           = {}
+  let main_wiki.path      = '~/src/vimwiki'
+  let main_wiki.path_html = '~/src/vimwiki/html'
+  let main_wiki.nested_syntaxes =
+    \ {'python': 'python', 'ruby': 'ruby', 'sh': 'sh', 'vimscript': 'vim'}
+
+  " 'diary' makes me feel like a teenage girl
+  let main_wiki.diary_rel_path = 'journal/'
+  let main_wiki.diary_index    = 'journal'
+  let main_wiki.diary_header   = 'Journal'
+
+  let g:vimwiki_list      = [main_wiki]
+  " }}}
 
 endif " has("autocmd")
 
@@ -384,6 +433,9 @@ map <Leader>a :Ack<space>
 
 " NERD tree - double-leader
 map <Leader><Leader> :NERDTreeToggle<cr>
+
+" Command-T's <Leader>t default is good for files, but I use <Leader>b already
+map <Leader>B :CommandTBuffer<CR>
 
 " Ready for tab-completion of named Tabular patterns
 " Choosing 'gq' since it's similar function to the format command
@@ -397,12 +449,23 @@ if has('python')
   nmap <Leader>rs :py UltiSnips_Manager.reset()<CR>
 
   " Gundo
-  nnoremap <F5> :GundoToggle<CR>
+  nnoremap <F7> :GundoToggle<CR>
   let g:gundo_preview_bottom = 1     " force wide window across bottom
 
   " Sparkup
   " Way to default to a mapping that conflicts with scrolling, guy (<C-e>)...
-  let g:sparkupExecuteMapping = "<M-e>"
+  let g:sparkupExecuteMapping = "<C-s>"
+
+  " ConqueTerm - namespace of 'q' kinda makes sense to me
+  " mnemonic: terminal - don't like 'shell' because 'qs' is slow to type
+  nmap <Leader>qt :ConqueTermSplit bash<CR>
+  " mnemonic: command
+  nmap <Leader>qc :ConqueTermSplit<space>
+  let g:ConqueTerm_CloseOnEnd = 1
+  " Exec current file in new split term. By default this conflicts with my
+  " <F11> mapping for toggling hlsearch. <F10> execs current file in last-used
+  " existing term, so let's use the shifted version of that
+  let g:ConqueTerm_ExecFileKey = '<S-F10>'
 
 else
 
@@ -438,6 +501,9 @@ noremap <C-g>l :Glog<CR>
 noremap <C-g>w :Gwrite<CR>
 noremap <C-g>b :Gblame<CR>
 
+noremap <C-g>v :Gitv --all<CR>
+noremap <C-g>V :Gitv! --all<CR>
+
 " Specky - RSpec plugin {{{3
 
 let g:speckyBannerKey = "<C-S>b"
@@ -458,17 +524,22 @@ if has('mac')
   command -bar -nargs=1 OpenURL :!open <args>
 endif
 
-" Open the Rails ApiDock page for the word under cursor
-function! OpenRailsDoc(keyword)
-  let url = 'http://apidock.com/rails/'.a:keyword
-  exec '!'.g:browser.' '.url
-endfunction
+" Commands {{{1
 
-" Open the Ruby ApiDock page for the word under cursor
-function! OpenRubyDoc(keyword)
-  let url = 'http://apidock.com/ruby/'.a:keyword
-  exec '!'.g:browser.' '.url
-endfunction
+" Stolen shamelessly from tpope
+if has("eval")
+  command! -bar -nargs=1 -complete=file E :exe "edit ".substitute(<q-args>,'\(.*\):\(\d\+\):\=$','+\2 \1','')
+  command! -bar -nargs=0 SudoW   :setl nomod|silent exe 'write !sudo tee % >/dev/null'|let &mod = v:shell_error
+  command! -bar -nargs=* -bang W :write<bang> <args>
+  command! -bar -nargs=0 -bang Scratch :silent edit<bang> \[Scratch]|set buftype=nofile bufhidden=hide noswapfile buflisted
+  command! -bar -count=0 RFC     :e http://www.ietf.org/rfc/rfc<count>.txt|setl ro noma
+  command! -bar -nargs=* -bang -complete=file Rename :
+        \ let v:errmsg = ""|
+        \ saveas<bang> <args>|
+        \ if v:errmsg == ""|
+        \   call delete(expand("#"))|
+        \ endif
+endif
 
 runtime include/bundles.vim
 
