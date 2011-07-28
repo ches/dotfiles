@@ -25,8 +25,15 @@ alias egrep='egrep --color=auto'
 alias pcregrep='pcregrep --color=auto'
 
 alias r='fc -s'
-alias g='vim --remote-silent'
-alias gt='vim --remote-tab'
+
+# TODO: perhaps functions to detect and use servernames for CLI vs. GUI--
+# tpope has examples
+alias e='vim --remote-silent'
+alias et='vim --remote-tab'
+alias g='vim -g --remote-silent'
+alias gt='vim -g --remote-tab'
+alias p=$PAGER
+
 alias ri='ri -f ansi'
 
 # ====================================================
@@ -48,11 +55,6 @@ if [ "$(uname -s)" == "Darwin" ]; then
     # MacVim has all the juicy bits like ruby and python scripting support built in.
     # An alias instead of symlink means it loads all the vimruntime with no extra config.
     alias vim=/Applications/Development/MacVim.app/Contents/MacOS/Vim
-
-    alias g='mvim --remote-silent'
-    alias gt='mvim --remote-tab'
-    # mvim handles this if you create a symlink named mvimdiff
-    # alias mvimdiff='mvim -d'
 
     # Open Bitbucket page for the Mercurial repository the current working directory resides in
     alias bb='open $(hg paths | sed -En "s%^(.+) = (.+)bitbucket.org/(.+)/(.+)%https://bitbucket.org/\3/\4%p")'

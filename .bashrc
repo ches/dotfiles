@@ -52,6 +52,7 @@ export LSCOLORS="gxfxcxdxbxegedabagacad"
 #
 # 'less' is more
 #
+export PAGER="/usr/bin/less"
 export LESS="-R"
 export LESSOPEN="|lesspipe.sh %s"
 
