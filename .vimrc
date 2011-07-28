@@ -405,7 +405,8 @@ if has("autocmd")
     let g:gist_clip_command                   = 'pbcopy'
   endif
 
-  " vimwiki
+  " Vimwiki {{{
+  " My custom functions below define a web link handler
   let g:vimwiki_menu      = 'Plugin.Vimwiki'
   let g:vimwiki_use_mouse = 1  " A rare case where I may actually use the mouse :-)
   let g:vimwiki_folding   = 1
@@ -517,11 +518,34 @@ let g:speckyWindowType = 1      " Horizontal split
 
 " Custom Functions {{{1
 
-if has('mac')
-  let g:browser = 'open '
+" Rails.vim and others call this by naming convention for various
+" browser-opening functions
+function! OpenURL(url)
+  if has('mac')
+    let g:browser = 'open '
+  endif
+  exec 'silent !'.g:browser.' '.a:url
+endfunction
+command! -nargs=1 OpenURL :call OpenURL(<q-args>)
 
-  " Command that Rails.vim uses for various browser-opening functions
-  command -bar -nargs=1 OpenURL :!open <args>
+nnoremap gG :OpenURL http://www.google.com/search?q=<cword><CR>
+nnoremap gW :OpenURL http://en.wikipedia.org/wiki/Special:Search?search=<cword><CR>
+
+function! VimwikiWeblinkHandler(weblink)
+  call OpenURL(a:weblink)
+endfunction
+
+if has('python')
+  " Just starting to play with possibilities here :-)
+  function! MyConqueStartup(term)
+    let syntax_associations = { 'mongo': 'javascript' }
+
+    if has_key(syntax_associations, a:term.program_name)
+      execute 'setlocal syntax=' . syntax_associations[a:term.program_name]
+    endif
+  endfunction
+
+  call conque_term#register_function('after_startup', 'MyConqueStartup')
 endif
 
 " Commands {{{1
