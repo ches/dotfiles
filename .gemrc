@@ -3,8 +3,10 @@
 :update_sources: true
 :sources: 
 - http://rubygems.org/
-grep: --columns name,summary,version
 :bulk_threshold: 1000
 :backtrace: false
-rdoc: --inline-source --line-numbers --format=html --template=hanna
 :benchmark: false
+gem: --no-ri --no-rdoc
+rdoc: --inline-source --line-numbers --format=html --template=hanna
+grep: --columns name,summary,version
+
