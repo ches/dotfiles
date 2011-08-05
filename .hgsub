@@ -1,6 +1,6 @@
-.hglib/hgshelve = http://bitbucket.org/tksoh/hgshelve
-.hglib/hgattic = http://bitbucket.org/Bill_Barry/hgattic
-.hglib/hg-prompt = http://bitbucket.org/sjl/hg-prompt
+.hglib/hgshelve = https://bitbucket.org/tksoh/hgshelve
+.hglib/hgattic = https://bitbucket.org/Bill_Barry/hgattic
+.hglib/hg-prompt = https://bitbucket.org/sjl/hg-prompt
 .hglib/histedit = https://bitbucket.org/durin42/histedit
 
 # Vim Plugin Management
