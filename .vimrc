@@ -96,10 +96,13 @@ endif
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
 
-  " Enable file type detection.
-  " Use the default filetype settings, so that mail gets 'tw' set to 72,
-  " 'cindent' is on in C files, etc.
-  " Also load indent files, to automatically do language-dependent indenting.
+  " Vundle has similar particularities about filetype initialization as
+  " pathogen does
+  filetype off
+  runtime! include/bundles.vim
+
+  " Enable file type detection, letting plugins, autocmds and such do all
+  " their magic for custom language-dependent settings.
   filetype plugin indent on
 
   " Put these in an autocmd group, so that we can delete them easily.
@@ -308,9 +311,8 @@ if has("autocmd")
 
   " TODO: might soon want to start organizing this ballooning group of stuff
   " in after/ftplugin files :-)
-  augroup FToptions "{{{ autocmd!
-    " autocmd FileType python setlocal
-    " cinwords=if,elif,else,for,while,try,except,finally,def,class,with
+  augroup FToptions "{{{
+    autocmd!
     autocmd FileType html,xhtml,xml,htmldjango,htmljinja,eruby,mako,cucumber setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
     autocmd FileType ruby,vim,yaml setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
     autocmd FileType javascript setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
@@ -331,6 +333,8 @@ if has("autocmd")
     autocmd FileType ruby noremap <buffer> <leader>rr :OpenURL http://apidock.com/ruby/<cword><CR>
 
     autocmd FileType python nnoremap <silent> <buffer> K :call ShowPyDoc(expand("<cword>"), 1)<CR>
+    autocmd FileType python nnoremap <silent> <buffer> <F5> :call Pep8()<CR>
+    " autocmd FileType python setlocal cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 
     autocmd FileType javascript let javascript_enable_domhtmlcss=1
     autocmd FileType xml let xml_use_xhtml = 1 " default xml to self-closing tags
@@ -565,7 +569,8 @@ if has("eval")
         \ endif
 endif
 
-runtime include/bundles.vim
+" Plugin distributed with Vim to bring forward existing session w/ open file
+runtime! macros/editexisting.vim
 
 " vim:foldmethod=marker commentstring="%s
 
