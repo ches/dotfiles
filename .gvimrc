@@ -23,8 +23,16 @@ if has('mac')
   " I really wish this could be toggled without entering and leaving fs mode --
   " I like the Writeroom-style central editor column when not using a vsplit
   set fuoptions+=maxhorz
-  map <M-F1> :set fuoptions+=maxhorz<CR>
-  map <M-F2> :set fuoptions-=maxhorz<CR>
+  function! ToggleMaxhorz()
+    if &fuoptions =~ 'maxhorz'
+      set fuoptions-=maxhorz
+      echo 'maxhorz off'
+    else
+      set fuoptions+=maxhorz
+      echo 'maxhorz on'
+    endif
+  endfunction
+  map <M-F2> :call ToggleMaxhorz()<CR>
 
 endif
 
