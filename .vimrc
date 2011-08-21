@@ -483,20 +483,20 @@ endif
 " The defaults (prefix of <leader>c) conflict with NERDCommenter, and
 " I don't really like them anyway...
 " FIXME: the bang commands don't work
-map <Leader>va <Plug>VCSAdd
+map <Leader>va :VCSAdd<CR>
 " 'Blame' is the most natural mnemonic for me
-map <Leader>vb <Plug>VCSAnnotate
-map <Leader>vB <Plug>VCSAnnotate!
-map <Leader>vc <Plug>VCSCommit
-map <Leader>vD <Plug>VCSDelete
-map <Leader>vd <Plug>VCSDiff
-map <Leader>vv <Plug>VCSVimDiff
+map <Leader>vb :VCSAnnotate<CR>
+map <Leader>vB :VCSAnnotate!<CR>
+map <Leader>vc :VCSCommit<CR>
+map <Leader>vD :VCSDelete<CR>
+map <Leader>vd :VCSDiff<CR>
+map <Leader>vv :VCSVimDiff<CR>
 " Close VCS scratch buffer and return - mnemonic: eXit :-)
-map <Leader>vx <Plug>VCSGotoOriginal!
-map <Leader>vl <Plug>VCSLog
+map <silent> <Leader>vx :VCSGotoOriginal!<CR>
+map <Leader>vl :VCSLog<CR>
 " I think I'm far too likely to try 'r' for 'remove' all the time...
-map <Leader>vR <Plug>VCSReview
-map <Leader>vs <Plug>VCSStatus
+map <Leader>vR :VCSReview<CR>
+map <Leader>vs :VCSStatus<CR>
 
 " Fugitive
 noremap <C-g>s :Gstatus<CR>
