@@ -15,16 +15,23 @@ if [ "$(uname -s)" != "Darwin" ]; then
     exit 1
 fi
 
+POWD_LAUNCHAGENT="$HOME/Library/LaunchAgents/cx.pow.powd.plist"
+POW_FIREWALL_LAUNCHDAEMON="/Library/LaunchDaemons/cx.pow.firewall.plist"
+APACHE_LAUNCHDAEMON="/System/Library/LaunchDaemons/org.apache.httpd.plist"
+
+# Quick and dirty. Feel free to contribute nicer error handling, etc.
 toggle="$1"
 case "$toggle" in
     'on')
-        sudo launchctl unload /System/Library/LaunchDaemons/org.apache.httpd.plist
-        launchctl load ~/Library/LaunchAgents/cx.pow.powd.plist &&
-            launchctl list | grep pow
+        sudo launchctl unload $APACHE_LAUNCHDAEMON
+        sudo launchctl load $POW_FIREWALL_LAUNCHDAEMON
+        launchctl load $POWD_LAUNCHAGENT && launchctl list | grep pow
         ;;
     'off')
-        launchctl unload ~/Library/LaunchAgents/cx.pow.powd.plist
-        sudo launchctl load /System/Library/LaunchDaemons/org.apache.httpd.plist &&
+        launchctl unload $POWD_LAUNCHAGENT
+        sudo launchctl unload $POW_FIREWALL_LAUNCHDAEMON
+        sudo ipfw show | grep ",20559 .* dst-port 80 in" | cut -d' ' -f1 | xargs sudo ipfw delete
+        sudo launchctl load $APACHE_LAUNCHDAEMON &&
             sudo launchctl list | grep apache
         ;;
     *)
