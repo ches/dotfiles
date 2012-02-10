@@ -33,6 +33,7 @@ set gdefault        " Line-global substitution by default, usually what you want
 set scrolloff=3     " Keep some context visible when scrolling
 set sidescrolloff=4
 set wildmenu        " Modern completion menu
+set nowrap          " Default to no visual line
 set number          " line numbers
 set numberwidth=5   " a little bit of buffer is prettier
 
@@ -171,11 +172,11 @@ set listchars=tab:»·,trail:·,eol:¬,nbsp:␣
 
 " Folding {{{2
 
-" fold only when I ask for it damnit!
-""set foldmethod=marker
-
-" close a fold when I leave it
-""set foldclose=all
+set foldmethod=syntax   " try to fold in an intelligent manner based on ftplugins
+set foldlevelstart=99   " default to all folds open when opening a buffer
+set foldnestmax=4       " don't be absurd about how deeply to nest syntax folding
+"set foldclose=all      " close a fold when I leave it
+set foldopen-=block     " drives me nuts that moving with ] opens folds
 
 " Colors {{{2
 
@@ -314,7 +315,7 @@ if has("autocmd")
   augroup FToptions "{{{
     autocmd!
     autocmd FileType html,xhtml,xml,htmldjango,htmljinja,eruby,mako,cucumber setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-    autocmd FileType ruby,vim,yaml setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType coffee,ruby,vim,yaml setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
     autocmd FileType javascript setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
     autocmd User Rails.javascript* setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
 
@@ -387,6 +388,7 @@ if has("autocmd")
   " Open the YankRing window
   nnoremap <silent> <M-v> :YRShow<CR>
   let g:yankring_history_dir = '$HOME/.autosave'
+
   " Make sure YankRing plays nice with custom remapping.
   " See `:h yankring-custom-maps`
   function! YRRunAfterMaps()
@@ -459,7 +461,7 @@ if has('python')
 
   " Sparkup
   " Way to default to a mapping that conflicts with scrolling, guy (<C-e>)...
-  let g:sparkupExecuteMapping = "<C-s>"
+  let g:sparkupExecuteMapping = "<M-s>"
 
   " ConqueTerm - namespace of 'q' kinda makes sense to me
   " mnemonic: terminal - don't like 'shell' because 'qs' is slow to type
@@ -521,6 +523,23 @@ let g:speckyRunRdocCmd = "qri -f plain"
 let g:speckyWindowType = 1      " Horizontal split
 
 " Custom Functions {{{1
+
+" Mappings below use this generalized function to strip trailing white space,
+" or reformat the file, preserving cursor position, etc.
+" Hat tip: http://vimcasts.org/episodes/tidying-whitespace/
+function! Preserve(command)
+  " Preserve cursor position and last search
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  " Do the damn thang
+  execute a:command
+  " Restore the saved bits
+  let @/=_s
+  call cursor(l, c)
+endfunction
+nmap _$ :call Preserve("%s/\\s\\+$//e")<CR>
+nmap _= :call Preserve("normal gg=G")<CR>
 
 " Rails.vim and others call this by naming convention for various
 " browser-opening functions
