@@ -24,6 +24,7 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias pcregrep='pcregrep --color=auto'
 
+# History editing/repetition
 alias r='fc -s'
 
 # TODO: perhaps functions to detect and use servernames for CLI vs. GUI--
@@ -35,6 +36,9 @@ alias gt='vim -g --remote-tab'
 alias p=$PAGER
 
 alias ri='ri -f ansi'
+
+# External IP
+alias myip='curl ifconfig.me'
 
 # ====================================================
 # =         App- and Platform-specific Bits          =
@@ -67,6 +71,7 @@ if [ "$(uname -s)" == "Darwin" ]; then
     # Remote Access
     #
     alias minissh='sshfs ches@kodama.local:/Users/ches /Volumes/sshfs/ches -oauto_cache,reconnect,volname="ches on kodama"'
+    alias mediassh='sshfs ches@nausicaamedia.dyndns.org:/Volumes/Media /Volumes/sshfs/Media -oauto_cache,reconnect,volname="Media on kodama"'
 
     # Leopard Quick Look:
     alias ql='qlmanage -p "$@" >& /dev/null'

@@ -7,9 +7,17 @@ export FCEDIT=vim
 stty stop undef
 stty start undef
 
+# https://github.com/joelthelion/autojump/wiki
+if [ -f `brew --prefix`/etc/autojump ]; then
+    . `brew --prefix`/etc/autojump
+fi
+
 # =================================
 # =       App-specific Bits       =
 # =================================
+
+export JAVA_HOME="/Library/Java/Home/"
+export NODE_PATH="/usr/local/lib/node_modules"
 
 #
 # Custom Shake path

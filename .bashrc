@@ -99,6 +99,9 @@ export PIP_RESPECT_VIRTUALENV=true
 
 export JRUBY_HOME=$HOME/.rvm/rubies/jruby-1.6.1
 
+# AWS env vars that the Java API tools want
+[[ -r ~/.aws/aws-envvars.sh ]] && source ~/.aws/aws-envvars.sh
+
 #
 # Memcached
 #
@@ -112,4 +115,9 @@ if [ "$(uname -s)" == "Darwin" ] && [ -f ~/.bash.d/platform-osx.sh ]; then
 elif [ -f ~/.bash.d/platform-linux.sh ]; then
     . ~/.bash.d/platform-linux.sh
 fi
+
+# Machine-specific stuff, creds kept out of SCM, etc.
+for f in ~/.local/*.sh; do
+    . "$f"
+done
 
