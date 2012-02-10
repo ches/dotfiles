@@ -5,8 +5,12 @@ set completion-ignore-case on
 set show-all-if-ambiguous on
 set show-all-if-unmodified on
 
+"\C-x\C-r": re-read-init-file
+
 # Call method in IRB. See .irbrc
 $if Ruby
     "\C-x\C-p": "toggle_object_complete\n"
     "\C-x\C-h": "Hirb::View.toggle_formatter\n"
+    "\C-x\C-l": "toggle_db_logging\n"
 $endif
+
