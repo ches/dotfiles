@@ -380,10 +380,14 @@ if has("autocmd")
   " Not cool when end-of-line comments break when uncommenting /* */ blocks:
   let NERDRemoveAltComs       = 0
 
-  " TaskList
-  let g:tlWindowPosition      = 1      " TaskList on bottom
-  let g:tlTokenList           = ['FIXME', 'TODO', 'CHANGED', 'PONY']
-  map <leader>T <Plug>TaskList
+  " TagmaTasks
+  let g:TagmaTasksHeight   = 8
+  let g:TagmaTasksTokens   = ['FIXME', 'TODO', 'NOTE', 'XXX', 'OPTIMIZE', 'PONY']
+  let g:TagmaTasksJumpTask = 0
+  " The plugin's jump mappings conflict with Unimpaired's tag nav
+  let g:TagmaTasksJumpKeys = 0
+  " Defaults to lowercase t, which would make CommandT slow
+  let g:TagmaTasksPrefix = '<Leader>T'
 
   " Open the YankRing window
   nnoremap <silent> <M-v> :YRShow<CR>
