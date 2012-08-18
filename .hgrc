@@ -27,7 +27,6 @@ hgext.color =
 hgext.convert =
 hgext.extdiff =
 hgext.fetch =
-hgext.graphlog =
 hgext.hgk =
 hgext.highlight =
 hgext.mq =
@@ -49,6 +48,7 @@ hggit =
 
 [alias]
 blame = blame --number --user --date -q
+glog = log --graph
 # Thanks: http://wikis.sun.com/display/SunOnMac/MercurialTips
 # prints files changed (only) in the current patch:
 qstatus = status --rev -2:-1
