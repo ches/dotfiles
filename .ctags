@@ -1,3 +1,6 @@
+--regex-ruby=/^[ \t]*describe (.*) do/\1/d,rspec describe/
+--regex-ruby=/^[ \t]*context ['"](.*)['"] do/\1/C,rspec context/
+
 --langdef=objc
 --langmap=objc:.m.h
 --regex-objc=/^[[:space:]]*[-+][[:space:]]*\([[:alpha:]]+[[:space:]]*\*?\)[[:space:]]*([[:alnum:]]+):[[:space:]]*\(/\1/m,method/
