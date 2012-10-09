@@ -2,25 +2,34 @@
 	name = Ches Martin
 	email = ches@whiskeyandgrits.net
 [alias]
-	ci = commit
-	civ = commit -v
+	br = branch
 	co = checkout
+	s = status --short
 	st = status
 	stat = status
-	br = branch
+	ci = commit
+	civ = commit -v
+	cim = commit -m
+	cia = commit -a -m
+	amend = commit -a --amend -C HEAD
+	unstage = reset HEAD
 	df = diff
-	lg = log -p
+	dc = diff --cached
 	vdiff = !git diff | $EDITOR
-	sh = !git-sh
+	who = shortlog -s --
+	lg = log -p
+	ll = log --graph --pretty=format:'%C(blue)%h %C(green)%d%Creset %s  %C(black bold)%an, %ar%Creset'
+	glog = log --graph --stat --decorate
+	# 'show' does the same, I just like to have a common alias with Mercurial
 	last = log -1 -p HEAD
+	recent = log --relative --abbrev-commit --date=local --pretty=format:'%C(white)%h %C(cyan)%cr %C(green)by %cn %Creset%n%C(yellow)%cd%n%s' --stat -5
+	info = remote show origin
 
 	k = !gitk
-	wtf = !git-wtf
-	who = shortlog -s --
 	edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; $EDITOR `f`"
 	add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
-	amend = commit -a --amend -C HEAD
-	up = !sh -c 'git pull && git log --pretty=format:\"%Cred%ae %Creset- %C(yellow)%s %Creset(%ar)\" HEAD@{1}..'
+	up = !sh -c 'git pull && git log --pretty=format:"%Cred%ae %Creset- %C(yellow)%s %Creset(%ar)" HEAD@{1}..'
+	ctags = !.git/hooks/ctags
 [merge]
 	summary = true
 	tool = kdiff3
@@ -28,8 +37,8 @@
 	autosetupmerge = true
 [core]
 	excludesfile = /Users/ches/.gitignore
-	editor = mate -w
 	whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
+	autocrlf = false
 [color]
 	ui = auto
 [color "branch"]
@@ -42,12 +51,20 @@
 	branch = cyan reverse
 [gui]
 	fontdiff = -family Monaco -size 11 -weight normal -slant roman -underline 0 -overstrike 0
-[git-tmbundle]
-	gitx-path = /Applications/Development/GitX.app/Contents/Resources/gitx
-[git-tmbundle "log"]
-	limit = 100
 [github]
 	user = ches
 [instaweb]
 	httpd = webrick
 	port = 8000
+[init]
+	templatedir = ~/.git_template
+[mergetool "kdiff3"]
+	trustExitCode = false
+	keepBackup = false
+[rerere]
+	enabled = true
+[push]
+	default = current
+[web]
+	browser = open
+
