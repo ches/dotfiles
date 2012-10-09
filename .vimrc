@@ -355,16 +355,12 @@ if has("autocmd")
 
   let python_highlight_all = 1
 
-  " Taglist
-  let Tlist_Use_Right_Window        = 1
-  let Tlist_GainFocus_On_ToggleOpen = 1
-  let Tlist_Enable_Fold_Column      = 0
-  let Tlist_File_Fold_Auto_Close    = 1 " Fold all trees but current file
-  " Shifted version of NERDTree toggle
-  map <Leader>< :TlistToggle<CR>
+  " TagBar
+  runtime include/tagbar-types.vim
+  let g:tagbar_autoclose = 1
 
-  let tlist_vimwiki_settings = 'vimwiki;h:Headers'
-  let tlist_objc_settings    = 'objc;i:interface;c:class;m:method;p:property'
+  " Shifted version of NERDTree toggle
+  map <Leader>< :TagbarToggle<CR>
 
   " NERDTree
   let NERDTreeWinPos          = 'right'
