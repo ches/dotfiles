@@ -97,8 +97,9 @@ export PIP_RESPECT_VIRTUALENV=true
 # Ruby Version Manager
 [[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
 [[ -r $rvm_path/scripts/completion ]] && source $rvm_path/scripts/completion
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
-export JRUBY_HOME=$HOME/.rvm/rubies/jruby-1.6.1
+export JRUBY_HOME=$HOME/.rvm/rubies/jruby-1.6.7.2
 
 # AWS env vars that the Java API tools want
 [[ -r ~/.aws/aws-envvars.sh ]] && source ~/.aws/aws-envvars.sh
