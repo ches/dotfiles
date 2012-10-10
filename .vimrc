@@ -300,10 +300,36 @@ if has('mac')
   nnoremap <Leader>ql :write<CR>:sil !qlmanage -p % >& /dev/null &<CR>:redraw!<CR>
   nnoremap <Leader>qlk :sil !killall qlmanage >& /dev/null<CR>
 endif
+
+" Gross, but I'm tired of trying to get various terminal emulators to emit
+" consistent fucking escape sequences. These, for now, are whatever iTerm2 in
+" xterm-256color mode emits for function keys...
+"
+" http://stackoverflow.com/questions/3519532/mapping-function-keys-in-vim
+" http://stackoverflow.com/questions/9950944/binding-special-keys-as-vim-shortcuts
+if has('mac') && ($TERM == 'xterm-256color' || $TERM == 'screen-256color')
+  if has('autocmd')
+    augroup TermYakShaving
+      autocmd!
+      map <Esc>OP <F1>
+      map <Esc>OQ <F2>
+      map <Esc>OR <F3>
+      map <Esc>OS <F4>
+      map <Esc>[16~ <F5>
+      map <Esc>[17~ <F6>
+      map <Esc>[18~ <F7>
+      map <Esc>[19~ <F8>
+      map <Esc>[20~ <F9>
+      map <Esc>[21~ <F10>
+      map <Esc>[23~ <F11>
+      map <Esc>[24~ <F12>
+    augroup END
+  endif
+endif
 "}}}
 
 " Lotsa TextMate-inspired Mappings
-source ~/.vim/include/textmate-mappings.vim
+runtime include/textmate-mappings.vim
 
 " Language- and plugin-specific Preferences {{{1
 if has("autocmd")
