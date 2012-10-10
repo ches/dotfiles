@@ -320,6 +320,9 @@ if has('mac') && ($TERM == 'xterm-256color' || $TERM == 'screen-256color')
   map <Esc>[21~ <F10>
   map <Esc>[23~ <F11>
   map <Esc>[24~ <F12>
+
+  imap <Esc>[17~ <F6>
+  imap <Esc>[23~ <F11>
 endif
 "}}}
 
@@ -465,13 +468,14 @@ endif " has("autocmd")
 " Plugin Mappings {{{2
 
 " Ack Search
-map <Leader>a :Ack<space>
+map <Leader>a :Ack!<space>
+map <Leader>n :AckFromSearch!<CR>
 
 " NERD tree - double-leader
 map <Leader><Leader> :NERDTreeToggle<cr>
 
 " Command-T's <Leader>t default is good for files, but I use <Leader>b already
-map <Leader>B :CommandTBuffer<CR>
+map <Leader>f :CommandTBuffer<CR>
 
 " Ready for tab-completion of named Tabular patterns
 " Choosing 'gq' since it's similar function to the format command
