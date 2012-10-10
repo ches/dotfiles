@@ -293,6 +293,13 @@ map <C-h> <C-w>h
 
 " Toggle a window's height stickiness, so C-w = doesn't equalize it
 nmap <leader>` :set invwinfixheight winfixheight?<CR>
+
+" QuickLook the current file. With Brett Terpstra's awesome CSS fork of
+" the MMD QuickLook plugin, this sure beats browser-based Markdown preview.
+if has('mac')
+  nnoremap <Leader>ql :write<CR>:sil !qlmanage -p % >& /dev/null &<CR>:redraw!<CR>
+  nnoremap <Leader>qlk :sil !killall qlmanage >& /dev/null<CR>
+endif
 "}}}
 
 " Lotsa TextMate-inspired Mappings
@@ -343,6 +350,7 @@ if has("autocmd")
 
     autocmd FileType markdown nnoremap <buffer> <leader>1 yypVr=
     autocmd FileType markdown nnoremap <buffer> <leader>2 yypVr-
+    autocmd FileType markdown setlocal linebreak
 
     autocmd FileType vimwiki setlocal foldlevel=2 textwidth=78 linebreak
     autocmd FileType vimwiki map <buffer> <M-Space> <Plug>VimwikiToggleListItem
