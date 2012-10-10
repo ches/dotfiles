@@ -71,6 +71,10 @@ call s:hibg("TabLineFill","#808080")
 " Complain about lines that are too long
 "match Error /\%80v.\+/
 
+" Plain ol' red and green for diffs
+highlight diffAdded guifg=#00bf00
+highlight diffRemoved guifg=#bf0000
+
 let tm_comment="#5e5a60"
 let tm_constant="#b86f4f"
 let tm_entity="#907241"
