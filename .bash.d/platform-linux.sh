@@ -19,6 +19,8 @@ eval $('lesspipe')
 # =       App-specific Bits       =
 # =================================
 
+[[ -r /usr/local/bin/virtualenvwrapper.sh ]] && source /usr/local/bin/virtualenvwrapper.sh
+
 #
 # Environment variables for Apple Shake
 #
@@ -26,3 +28,4 @@ export NR_INCLUDE_PATH=~/nreal/plugins/Furnace3.0v1_shake4.00-linux-x86-release-
 export NR_ICON_PATH=~/nreal/plugins/Furnace3.0v1_shake4.00-linux-x86-release-32/icons:~/nreal/plugins/Tinder2.1v1_Shake-v4.00_Linux/icons
 export FOUNDRY_LICENSE_FILE=~/nreal/FLEXlm/foundry.lic
 export FOUNDRY_LICENSE_LOG=~/nreal/FLEXlm/license.log
+

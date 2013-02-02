@@ -19,6 +19,8 @@ fi
 export JAVA_HOME="/Library/Java/Home/"
 export NODE_PATH="/usr/local/lib/node_modules"
 
+[[ -r /usr/local/share/python/virtualenvwrapper.sh ]] && source /usr/local/share/python/virtualenvwrapper.sh
+
 #
 # Custom Shake path
 #
