@@ -8,8 +8,8 @@ stty stop undef
 stty start undef
 
 # https://github.com/joelthelion/autojump/wiki
-if [ -f `brew --prefix`/etc/autojump ]; then
-    . `brew --prefix`/etc/autojump
+if [ -f `brew --prefix`/etc/autojump.sh ]; then
+    . `brew --prefix`/etc/autojump.sh
 fi
 
 # =================================
