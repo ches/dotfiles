@@ -119,7 +119,9 @@ elif [ -f ~/.bash.d/platform-linux.sh ]; then
 fi
 
 # Machine-specific stuff, creds kept out of SCM, etc.
-for f in ~/.local/*.sh; do
-    . "$f"
-done
+if [ -d ~/.local ]; then
+    for f in ~/.local/*.sh; do
+        . "$f"
+    done
+fi
 
