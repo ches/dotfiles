@@ -1,12 +1,12 @@
 # Just source this to set the ENV vars.
 # Set AWS_CREDENTIAL_FILE in ~/.local
 
-if [ -f ~/.ec2/pk-*.pem ]; then
-    export EC2_PRIVATE_KEY="$(/bin/ls $HOME/.ec2/pk-*.pem)"
+if [ -f ~/.aws/ec2/pk-*.pem ]; then
+    export EC2_PRIVATE_KEY="$(/bin/ls $HOME/.aws/ec2/pk-*.pem)"
 fi
 
-if [ -f ~/.ec2/pk-*.pem ]; then
-    export EC2_CERT="$(/bin/ls $HOME/.ec2/cert-*.pem)"
+if [ -f ~/.aws/ec2/pk-*.pem ]; then
+    export EC2_CERT="$(/bin/ls $HOME/.aws/ec2/cert-*.pem)"
 fi
 
 if [[ "$(uname -s)" = "Darwin" ]]; then
