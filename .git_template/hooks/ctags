@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# http://tbaggery.com/2011/08/08/effortless-ctags-with-git.html
+mkdir .git/tags_lock 2>/dev/null || exit 0
+trap "rmdir .git/tags_lock; rm .git/tags.$$" EXIT
+
+ctags --tag-relative -R -f .git/tags.$$ --exclude=.git --languages=-sql
+mv .git/tags.$$ .git/tags
+
