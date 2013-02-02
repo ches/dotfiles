@@ -1,0 +1,15 @@
+*~
+# Stupid vim swap files...
+.*.sw?
+*.py[co]
+*.tmproj
+.git-wtfrc
+.project
+.pydevproject
+.ropeproject
+.tm_properties
+.tmtags
+.DS_Store
+Gemfile.lock
+.rvmrc
+/tags
