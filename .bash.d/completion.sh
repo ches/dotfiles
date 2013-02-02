@@ -13,7 +13,10 @@ source ~/.bash.d/completion-knife.sh
 source ~/.bash.d/completion-git.sh
 source ~/.bash.d/completion-hg.sh
 source ~/.bash.d/completion-VBoxManage.sh
-complete -W "$(sake -T | awk {'print $2'})" sake
+
+if installed sake; then
+    complete -W "$(sake -T | awk {'print $2'})" sake
+fi
 
 #
 # Rake

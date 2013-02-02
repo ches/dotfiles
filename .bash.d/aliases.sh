@@ -47,10 +47,22 @@ alias myip='curl ifconfig.me'
 #
 # Version Control
 #
-alias mq='hg -R $(hg root)/.hg/patches'
+if installed hg; then
+    alias mq='hg -R $(hg root)/.hg/patches'
+fi
+
+if installed hub; then
+    alias git=hub
+fi
 
 # Create a simple .rvmrc in the current dir using the current Ruby and gemset
-alias mkrvmrc='echo "rvm `rvm-prompt i v g`" > .rvmrc'
+if installed rvm; then
+    alias mkrvmrc='echo "rvm `rvm-prompt i v g`" > .rvmrc'
+fi
+
+if installed bundle; then
+    alias be='bundle exec'
+fi
 
 #
 # OS X

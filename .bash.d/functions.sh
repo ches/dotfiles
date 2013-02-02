@@ -1,3 +1,11 @@
+# Check if a command is installed. For some reason that I can't remember, this
+# is deemed superior to `which`.
+function installed {
+    local cmd=$1
+    command -v ${cmd} >/dev/null
+}
+
+
 #
 # OS X
 #
@@ -75,3 +83,4 @@ if [ "$(uname -s)" == "Darwin" ]; then
         fi
     }
 fi
+

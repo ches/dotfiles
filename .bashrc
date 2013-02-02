@@ -58,24 +58,24 @@ export LESS="-R"
 export LESSOPEN="|lesspipe.sh %s"
 
 #
-# Completion
+# Functions for great justice
 #
-if [ -f ~/.bash.d/completion.sh ]; then
-    . ~/.bash.d/completion.sh
+if [ -f ~/.bash.d/functions.sh ]; then
+	. ~/.bash.d/functions.sh
 fi
 
 #
-# Aliases for great justice
+# And aliases for all mankind
 #
 if [ -f ~/.bash.d/aliases.sh ]; then
     . ~/.bash.d/aliases.sh
 fi
 
 #
-# And functions for all mankind
+# Completion
 #
-if [ -f ~/.bash.d/functions.sh ]; then
-	. ~/.bash.d/functions.sh
+if [ -f ~/.bash.d/completion.sh ]; then
+    . ~/.bash.d/completion.sh
 fi
 
 # ====================================================
