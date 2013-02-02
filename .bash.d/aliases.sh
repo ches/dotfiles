@@ -70,7 +70,7 @@ fi
 if [ "$(uname -s)" == "Darwin" ]; then
     # MacVim has all the juicy bits like ruby and python scripting support built in.
     # An alias instead of symlink means it loads all the vimruntime with no extra config.
-    alias vim=/Applications/Development/MacVim.app/Contents/MacOS/Vim
+    alias vim=/Applications/MacVim.app/Contents/MacOS/Vim
 
     # Open Bitbucket page for the Mercurial repository the current working directory resides in
     alias bb='open $(hg paths | sed -En "s%^(.+) = (.+)bitbucket.org/(.+)/(.+)%https://bitbucket.org/\3/\4%p")'
