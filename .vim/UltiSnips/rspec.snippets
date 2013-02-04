@@ -1,21 +1,21 @@
 snippet anr "and_raise" w
-and_raise(${1:exception})
+and_raise${1:(${2:exception})}
 endsnippet
 
-snippet anrb "and_return_block" w
+snippet andra "and_return" w
+and_return${1:(${2:value})}
+endsnippet
+
+snippet anrb "and_return block" w
 and_return { $1 }
 endsnippet
 
-snippet andra "and_return_value" w
-and_return(${1:value})
-endsnippet
-
 snippet ant "and_throw" w
-and_throw(${1:sym})
+and_throw${1:(${2:sym})}
 endsnippet
 
 snippet any "and_yield" w
-and_yield(${1:values})
+and_yield${1:(${2:values})}
 endsnippet
 
 snippet annot "any_number_of_times" w
@@ -37,7 +37,7 @@ end
 endsnippet
 
 snippet con "context"
-context "${1:context}" do
+context '${1:context}' do
   $0
 end
 endsnippet
@@ -57,18 +57,18 @@ end
 endsnippet
 
 snippet des "Describe"
-describe "${1:subject}" do
+describe '${1:subject}' do
   $0
 end
 endsnippet
 
-snippet dest "Describe_type"
+snippet dest "Describe Type"
 describe ${1:Type} do
   $0
 end
 endsnippet
 
-snippet dests "Describe_type_string"
+snippet dests "Describe Type string"
 describe ${1:Type}, "${2:description}" do
   $0
 end
@@ -78,17 +78,15 @@ snippet ex "exactly" w
 exactly(${1:n}).times
 endsnippet
 
-# TODO: the middle tabstop on these next two should be $0, but UltiSnips
-# doesn't handle this correctly yet
 snippet its "it should"
-it "should ${1:do something}"${2: do
-  $3
+it 'should ${1:do something}'${2: do
+	$3
 end}
 endsnippet
 
 snippet it "It"
-it "${1:does something}"${2: do
-  $3
+it '${1:does something}'${2: do
+	$3
 end}
 endsnippet
 
@@ -128,17 +126,16 @@ end
 
 endsnippet
 
-snippet moc "mock"
+snippet moc "mock" b
 ${1:var} = mock("${2:mock_name}"${3:, :null_object => true})
-$0
 endsnippet
 
 snippet mm "mock_model"
-mock_model(${1:model})$0
+mock_model${1:(${2:model})}
 endsnippet
 
-snippet mocw "mock_with"
-RSpec::Runner.configure do |config|
+snippet mocw "mock_with" b
+RSpec.configure do |config|
 	config.mock_with :${0:mocha|flexmock|rr}
 end
 endsnippet
@@ -147,231 +144,219 @@ snippet on "once" w
 once
 endsnippet
 
-snippet reqs "Require spec_helper"
+snippet reqs "Require spec_helper" b
 require 'spec_helper'
 
 
 endsnippet
 
-snippet shbs "response_should_be_success"
+snippet shbs "response.should be_success"
 response.should be_success
-$0
 endsnippet
 
-snippet shnbs "response_should_not_be_success"
+snippet shnbs "response.should_not be_success"
 response.should_not be_success
-$0
 endsnippet
 
 snippet conn "Set Controller for Spec"
 controller_name :${1:controller}
 endsnippet
 
-snippet bef "setup"
+snippet bef "before block" b
 before(${1::each}) do
   $0
 end
 endsnippet
 
-snippet sh= "should =="
-${1:target}.should == ${2:value}
-$0
+snippet sh= "should ==" w
+should == ${1:value}
 endsnippet
 
-snippet shm "should =~"
-${1:target}.should =~ /${2:regexp}/
-$0
+snippet sh= "should ==" !b
+${1:subject}.should == ${2:value}
 endsnippet
 
-snippet she "should eql"
-${1:target}.should eql(${2:value})
-$0
+snippet shm "should =~" w
+should =~ /${1:regexp}/
 endsnippet
 
-snippet shb "should_be"
-${1:target}.should be(${2:result})
-$0
+snippet shm "should =~" !b
+${1:subject}.should =~ /${2:regexp}/
 endsnippet
 
-snippet shbko "should_be_a_kind_of"
-${1:target}.should be_a_kind_of(${2:klass})
-$0
+snippet she "should eql" w
+should eql(${1:value})
 endsnippet
 
-snippet shbio "should_be_an_instance_of"
-${1:target}.should be_instance_of(${2:klass})
-$0
+snippet she "should eql" !b
+${1:subject}.should eql${2:(${3:value})}
 endsnippet
 
-snippet shbc "should_be_close"
-${1:target}.should be_close(${2:result}, ${3:tolerance})
-$0
+snippet shb "should be" w
+should be${1:(${2:result})}
 endsnippet
 
-snippet shbr "should_be_redirect"
+snippet shb "should be" !b
+${1:subject}.should be${2:(${3:result})}
+endsnippet
+
+snippet shbko "should be_a_kind_of" !b
+${1:subject}.should be_a_kind_of${2:(${3:klass})}
+endsnippet
+
+snippet shbio "should be_instance_of" !b
+${1:subject}.should be_instance_of${2:(${3:klass})}
+endsnippet
+
+snippet shbc "should be_close" !b
+${1:subject}.should be_close(${2:result}, ${3:tolerance})
+endsnippet
+
+snippet shin "should include" !b
+${1:subject}.should include(${2:object}${3:, ${4:object2}})
+endsnippet
+
+snippet shbr "should be_redirect"
 response.should be_redirect
-$0
 endsnippet
 
-snippet she "should_equal"
-${1:target}.should equal(${2:value})
-$0
+snippet she "should equal" !b
+${1:subject}.should equal${2:(${3:value})}
 endsnippet
 
-snippet shh "should_have"
-${1:target}.should have(${2:num}).${3:things}
-$0
+snippet shh "should have" !b
+${1:subject}.should have(${2:num}).${3:things}
 endsnippet
 
-snippet shhal "should_have_at_least"
-${1:target}.should have_at_least(${2:num}).${3:things}
-$0
+snippet shhal "should have_at_least" !b
+${1:subject}.should have_at_least(${2:num}).${3:things}
 endsnippet
 
-snippet shham "should_have_at_most"
-${1:target}.should have_at_most(${2:num}).${3:things}
-$0
+snippet shham "should have_at_most" !b
+${1:subject}.should have_at_most(${2:num}).${3:things}
 endsnippet
 
-snippet shhr "should_have_records"
-${1:target}.should have(${2:x}).records
-$0
+snippet shhr "should have_records" !b
+${1:subject}.should have(${2:x}).records
 endsnippet
 
-snippet shm "should_match"
-${1:target}.should match(/${2:regexp}/)
-$0
+snippet shm "should_match" !b
+${1:subject}.should match(/${2:regexp}/)
 endsnippet
 
-snippet shn= "should_not =="
-${1:target}.should_not == ${2:value}
-$0
+snippet shn= "should_not ==" !b
+${1:subject}.should_not == ${2:value}
 endsnippet
 
-snippet shnm "should_not =~"
-${1:target}.should_not =~ /${2:regexp}/
-$0
+snippet shnm "should_not =~" !b
+${1:subject}.should_not =~ /${2:regexp}/
 endsnippet
 
-snippet shne "should_not eql"
-${1:target}.should_not eql(${2:value})
-$0
+snippet shne "should_not eql" !b
+${1:subject}.should_not eql${2:(${3:value})}
 endsnippet
 
-snippet shnb "should_not_be"
-${1:target}.should_not be(${2:result})
-$0
+snippet shnb "should_not be(predicate)" !b
+${1:subject}.should_not be${2:(${3:predicate})}
 endsnippet
 
-snippet shkof "should_not_be_a_kind_of"
-${1:target}.should_not be_a_kind_of(${2:klass})
-$0
+snippet shkof "should_not be_a_kind_of" !b
+${1:subject}.should_not be_a_kind_of${2:(${3:klass})}
 endsnippet
 
-snippet shbio "should_not_be_an_instance_of"
-${1:target}.should_not be_instance_of(${2:klass})
-$0
+snippet shbio "should_not be_instance_of" !b
+${1:subject}.should_not be_instance_of${2:(${3:klass})}
 endsnippet
 
-snippet shnbc "should_not_be_close"
-${1:target}.should_not be_close(${2:result}, ${3:tolerance})
-$0
+snippet shnbc "should_not be_close" !b
+${1:subject}.should_not be_close(${2:result}, ${3:tolerance})
 endsnippet
 
-snippet shnbr "should_not_be_redirect"
+snippet shnin "should not_include" !b
+${1:subject}.should_not include(${2:object}${3:, ${4:object2}})
+endsnippet
+
+snippet shnbr "should_not be_redirect"
 response.should_not be_redirect
-$0
 endsnippet
 
-snippet shne "should_not_equal"
-${1:target}.should_not equal(${2:value})
-$0
+snippet shne "should_not equal" !b
+${1:subject}.should_not equal${2:(${3:value})}
 endsnippet
 
-snippet shnm "should_not_match"
-${1:target}.should_not match(/${2:regexp}/)
-$0
+snippet shnm "should_not match" !b
+${1:subject}.should_not match${2:(/${3:regexp}/)}
 endsnippet
 
-snippet shnp "should_not_predicate"
-${1:target}.should_not ${2:be_${3:predicate}} $4
-$0
+snippet shnp "should_not be_{predicate}" !b
+${1:subject}.should_not ${2:be_${3:predicate}}
 endsnippet
 
-snippet shnre "should_not_raise"
-lambda { $1 }.should_not raise_error(${2:error})
-$0
+snippet shnre "should_not raise" !b
+expect { $1 }.not_to raise_error${2:(${3:error})}
 endsnippet
 
-snippet shnr "should_not_receive"
-${1:mock}.should_not_receive(:${2:message})$3
-$0
-
+snippet shnr "should_not_receive" !b
+${1:mock}.should_not_receive${2:(:${3:message})}
 endsnippet
 
-snippet shnrt "should_not_respond_to"
-${1:target}.should_not respond_to(:${2:sym})
-$0
+snippet shnrt "should_not respond_to" !b
+${1:subject}.should_not respond_to${2:(:${3:sym})}
 endsnippet
 
-snippet shns "should_not_satisfy"
-${1:target}.should_not satisfy { |obj| $2 }
-$0
+snippet shns "should_not satisfy" !b
+${1:subject}.should_not satisfy { |obj| $2 }
 endsnippet
 
-snippet shnt "should_not_throw"
-lambda { $1 }.should_not throw_symbol(:${2:symbol})
-$0
+snippet shnt "should_not throw" !b
+expect { $1 }.should_not throw_symbol${2:(:${3:symbol})}
 endsnippet
 
-snippet shp "should_predicate"
-${1:target}.should ${2:be_${3:predicate}} $4
-$0
+snippet shp "should be_{predicate}" !b
+${1:subject}.should ${2:be_${3:predicate}}
 endsnippet
 
-snippet shre "should_raise"
-lambda { $1 }.should raise_error(${2:error})
-$0
+snippet shre "should raise" !b
+expect { $1 }.to raise_error${2:(${3:error})}
 endsnippet
 
-snippet shr "should_receive"
-${1:mock}.should_receive(:${2:message})$3
+snippet shr "should_receive" !b
+${1:mock}.should_receive${2:(:${3:message})}
 endsnippet
 
-snippet wia "should_receive_with_args"
-with(${1})$2
+snippet wia "with(args)"
+with(${1})
 endsnippet
 
-snippet shrt "should_redirect_to"
-response.should redirect_to(${1:url})
-$0
+snippet shrt "should redirect_to"
+response.should redirect_to${1:(${2:url})}
 endsnippet
 
-snippet shrt "should_render"
-response.should render_template(:${1:template})
-$0
+snippet shrt "should render_template"
+response.should render_template${1:(:${2:template})}
 endsnippet
 
-snippet shrt "should_respond_to"
-${1:target}.should respond_to(:${2:sym})
-$0
+snippet shrt "should respond_to" !b
+${1:subject}.should respond_to${2:(:${3:sym})}
 endsnippet
 
-snippet shs "should_satisfy"
-${1:target}.should satisfy { |obj| $2 }
-$0
+snippet shs "should satisfy" !b
+${1:subject}.should satisfy { |obj| $2 }
 endsnippet
 
-snippet sht "should_throw"
-lambda { $1 }.should throw_symbol(:${2:symbol})
-$0
+snippet sht "should throw" !b
+expect { $1 }.should throw_symbol${2:(:${3:symbol})}
 endsnippet
 
-snippet stu "stub"
-${1:double}.stub(:${2:message})$3
+snippet stu "stub" w
+stub(:${1:message})
 endsnippet
 
-snippet aft "teardown"
+snippet stu "stub" !b
+${1:double}.stub(:${2:message})
+endsnippet
+
+snippet aft "teardown after block" b
 after(${1::each}) do
   $0
 end
@@ -381,24 +366,72 @@ snippet tw "twice" w
 twice
 endsnippet
 
-snippet let "let"
+snippet let "let" b
 let(:${1:symbol}) { $2 }
 endsnippet
 
-snippet letb "let block"
+snippet letb "let block" b
 let :${1:symbol} do
   $2
 end
-$0
 endsnippet
 
-snippet subj "subject"
+snippet subj "subject" b
 subject { $1 }
 endsnippet
 
-snippet exp "expect to"
+snippet exp "expect to" b
 expect do
   $1
 end.to ${2:change {${3:subject}}.${4:from($5).to($6)}}
+endsnippet
+
+snippet sef "shared_examples_for" b
+shared_examples_for '${1:group description}' do
+  $2
+end
+endsnippet
+
+snippet shbl "it_behaves_like" b
+it_behaves_like '${1:shared example group}'
+endsnippet
+
+#
+# Capybara magic predicate matchers
+#
+# These now wait for Ajax so that `should_not have_xpath` is equivalent to
+# `should have_no_xpath`, etc.
+#
+# Unfortunately also have placeholder issues currently
+snippet shhs "should have_selector" !b
+${1:subject}.should have_selector(${2::xpath, }${3:selector})
+endsnippet
+
+snippet shnhs "should_not have_selector" !b
+${1:subject}.should_not have_selector(${2::xpath, }${3:selector})
+endsnippet
+
+snippet shhxp "should have_xpath" !b
+${1:subject}.should have_xpath${2:(${3:selector})}
+endsnippet
+
+snippet shnhxp "should_not have_xpath" !b
+${1:subject}.should_not have_xpath${2:(${3:selector})}
+endsnippet
+
+snippet shhcss "should have_css" !b
+${1:subject}.should have_css${2:(${3:selector})}
+endsnippet
+
+snippet shnhcss "should_not have_css" !b
+${1:subject}.should_not have_css${2:(${3:selector})}
+endsnippet
+
+snippet shhc "should have_content" !b
+${1:subject}.should have_content${2:('$3')}
+endsnippet
+
+snippet shnhc "should_not have_content" !b
+${1:subject}.should_not have_content${2:('$3')}
 endsnippet
 

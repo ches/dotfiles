@@ -1,0 +1,120 @@
+# Refer to the Scala style guide at:
+#   http://docs.scala-lang.org/style/
+
+# See http://www.scala-lang.org/node/166
+snippet '^#!' "Scala shell script shebang" r
+#!/bin/sh
+exec scala "\$0" "\$@"
+!#
+
+endsnippet
+
+
+snippet im "Import, with optional enumerations" b
+import ${1:packages}${2:.${3:\{${4:Class, AnotherClass}\}}${5:._}}
+endsnippet
+
+
+snippet val "Value" b
+val ${1:name} = ${2:value}
+endsnippet
+
+
+snippet var "Variable" b
+var ${1:name} = ${2:value}
+endsnippet
+
+
+snippet l "Anonymous Function (mnemonic: lambda)"
+(${1:x: Int}) => ${2:x + 1}
+endsnippet
+
+
+snippet def "Method Declaration" b
+def ${1:name}(${2:x: Int}): ${3:ReturnType} = ${4:\{
+	$5
+\}}
+endsnippet
+
+
+snippet proc "Procedure (pure side-effect function)" b
+def ${1:name}(${2:x: Int}) ${3:\{
+	$4
+\}}
+endsnippet
+
+
+snippet 'obj(ect)?' "Object Declaration" r
+object ${1:Name}${2: extends ${3:Application}} {
+	$0
+}
+endsnippet
+
+
+snippet class "Class Declaration" b
+class ${1:Person}${2:(${3:name: String, age: Int})}${4: extends ${5:Trait}} {
+	$0
+}
+endsnippet
+
+
+snippet trait "Trait Declaration" b
+trait ${1:Name} {
+	$0
+}
+endsnippet
+
+
+snippet if "If Block/Inline" b
+if (${1:condition}) ${2:\{
+	$3
+\}}
+endsnippet
+
+
+snippet else "Else Block/Inline" b
+else ${2:\{
+	$3
+\}}
+endsnippet
+
+
+snippet match "Match Block"
+match {
+	case ${1:pattern} => ${2:expression}$0
+}
+endsnippet
+
+
+snippet case "Case Clause"
+case ${1:_} => ${2:expression}
+endsnippet
+
+
+snippet "for (" "Sequence Comprehension Inline"
+for (${1:i} <- ${2:0 to 10}) yield $3)
+endsnippet
+
+
+snippet "for {" "Sequence Comprehension Block"
+for {
+	${1:i} <- ${2:0 until n}
+} yield $0
+endsnippet
+
+
+snippet main "Application Object main Method Declaration" b
+def main(args: Array[String]) {
+	$0
+}
+endsnippet
+
+
+snippet tostr "toString Declaration" b
+override def toString = ${1:\{
+	$2
+\}}
+endsnippet
+
+# TODO: try/catch
+
