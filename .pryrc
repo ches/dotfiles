@@ -12,15 +12,22 @@
 #
 #   https://github.com/mon-ouie/pry_debug
 #   https://github.com/AndrewO/ruby-debug-pry
+#
+# Some nifty ideas: http://rbjl.net/49-railsrc-rails-console-snippets
 
-VIM = '/Applications/Development/MacVim.app/Contents/MacOS/Vim -f'
+VIM = '/Applications/MacVim.app/Contents/MacOS/Vim -f'
 Pry.editor = proc { |file, line| "#{VIM} #{file} +#{line}" }
-
-Pry.config.commands.import Pry::ExtendedCommands::Experimental
 
 # Example of custom prompt mucking
 # Pry.config.prompt = proc { |obj, nest_level| "#{obj}:#{obj.instance_eval('_pry_').instance_variable_get('@output_array').count}> " }
 # Pry.config.prompt = proc { |obj, nest_level| "#{obj}:#{obj.instance_eval('Pry').class_eval('@current_line')}> " }
+
+if Pry.plugins['debugger'].enabled
+  Pry.commands.alias_command 'c', 'continue'
+  Pry.commands.alias_command 's', 'step'
+  Pry.commands.alias_command 'n', 'next'
+  Pry.commands.alias_command 'f', 'finish'
+end
 
 begin
   require 'hirb'
@@ -55,10 +62,14 @@ if defined?(Rails) && Rails.respond_to?(:logger)    # Rails 3 style
     if $db_logging_enabled
       ActiveRecord::Base.logger = Logger.new(nil) if defined?(ActiveRecord)
       Mongoid.logger = Logger.new(nil) if defined?(Mongoid)
+      Dalli.logger = Logger.new(nil) if defined?(Dalli)
+      Tire.configure { reset :logger } if defined?(Tire)
       $db_logging_enabled = false
     else
       ActiveRecord::Base.logger = Rails.logger if defined?(ActiveRecord)
       Mongoid.logger = Rails.logger if defined?(Mongoid)
+      Dalli.logger = Rails.logger if defined?(Dalli)
+      Tire.configure { logger $stdout } if defined?(Tire)
       $db_logging_enabled = true
     end
   end
