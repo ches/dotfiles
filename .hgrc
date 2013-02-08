@@ -43,7 +43,7 @@ hgext.zeroconf =
 hgattic = ~/.hglib/hgattic/hgattic.py
 prompt = ~/.hglib/hg-prompt/prompt.py
 histedit = ~/.hglib/histedit/hg_histedit.py
-qct=/usr/local/lib/hg/qct.py
+#qct=/usr/local/lib/hg/qct.py
 hggit =
 
 [alias]

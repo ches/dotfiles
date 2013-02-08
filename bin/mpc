@@ -2,7 +2,7 @@
 
 # Wrapper to talk to my media center MPD when I'm at home
 
-REMOTE_MPD="kodama.local"
+REMOTE_MPD="mini.local"
 
 if [[ "$(hostname)" == "$REMOTE_MPD" ]]; then
     exec /usr/local/bin/mpc "$@"
