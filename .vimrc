@@ -20,7 +20,7 @@ if has("vms")
   set nobackup                  " do not keep a backup file, use versions instead
 else
   set backup                    " keep a backup file
-  set backupdir=~/.backup/vim   " leave all the droppings in one place
+  set backupdir=~/.autosave/vim " leave all the droppings in one place
 endif
 
 set history=500     " keep more command line history
@@ -419,7 +419,7 @@ if has("autocmd")
 
   " Open the YankRing window
   nnoremap <silent> <M-v> :YRShow<CR>
-  let g:yankring_history_dir = '$HOME/.autosave'
+  let g:yankring_history_dir = '$HOME/.autosave/vim'
 
   " Make sure YankRing plays nice with custom remapping.
   " See `:h yankring-custom-maps`
@@ -427,7 +427,7 @@ if has("autocmd")
     nnoremap <silent> Y   :<C-U>YRYankCount 'y$'<CR>
   endfunction
 
-  let g:dbext_default_history_file = '$HOME/.autosave'
+  let g:dbext_default_history_file = '$HOME/.autosave/vim'
 
   " Lusty Juggler buffer switcher
   let g:LustyJugglerShowKeys = 'a'
