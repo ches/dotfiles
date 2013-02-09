@@ -442,6 +442,9 @@ if has("autocmd")
     let g:gist_clip_command                   = 'pbcopy'
   endif
 
+  " Don't want this, and it fucks up LustyJuggler and Endwise
+  let g:SuperTabCrMapping = 0
+
   " Vimwiki {{{
   " My custom functions below define a web link handler
   let g:vimwiki_menu      = 'Plugin.Vimwiki'
