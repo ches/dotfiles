@@ -398,9 +398,8 @@ if has("autocmd")
   let NERDTreeWinPos          = 'right'
   let NERDTreeShowBookmarks   = 1
   let NERDTreeQuitOnOpen      = 1      " hide after opening a file
-  let NERDTreeMapActivateNode = '<CR>' " step in with Enter in addition to 'o'
-  let NERDTreeIgnore          = ['\.git','\.hg','\.svn','\.DS_Store']
   let NERDTreeHijackNetrw     = 0      " I like netrw when I `:e somedir`
+  let NERDTreeIgnore          = ['\.git','\.hg','\.svn','\.DS_Store']
 
   " NERDCommenter
   let NERDSpaceDelims         = 1      " use a space after comment chars
