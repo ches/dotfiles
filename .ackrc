@@ -6,4 +6,8 @@ ruby=.haml
 css=.less
 --type-add
 css=.scss
+--type-set
+coffee=.coffee
+--type-add
+js=.coffee
 
