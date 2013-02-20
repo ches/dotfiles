@@ -14,6 +14,10 @@ source ~/.bash.d/completion-git.sh
 source ~/.bash.d/completion-hg.sh
 source ~/.bash.d/completion-VBoxManage.sh
 
+if installed aws_completer; then
+    complete -C aws_completer aws
+fi
+
 if installed sake; then
     complete -W "$(sake -T | awk {'print $2'})" sake
 fi

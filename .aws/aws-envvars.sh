@@ -9,6 +9,11 @@ if [ -f ~/.aws/ec2/pk-*.pem ]; then
     export EC2_CERT="$(/bin/ls $HOME/.aws/ec2/cert-*.pem)"
 fi
 
+# pip install awscli -- http://aws.amazon.com/cli/
+if [ -f ~/.aws/awscli.ini ]; then
+    export AWS_CONFIG_FILE="$HOME/.aws/awscli.ini"
+fi
+
 if [[ "$(uname -s)" = "Darwin" ]]; then
     export EC2_HOME="/usr/local/Library/LinkedKegs/ec2-api-tools/jars"
     export AWS_IAM_HOME="/usr/local/Cellar/aws-iam-tools/HEAD/jars"
