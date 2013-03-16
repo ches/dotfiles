@@ -582,8 +582,8 @@ noremap <C-g>l :Glog<CR>
 noremap <C-g>w :Gwrite<CR>
 noremap <C-g>b :Gblame<CR>
 
-noremap <C-g>v :Gitv --all<CR>
-noremap <C-g>V :Gitv! --all<CR>
+noremap <C-g>v :Gitv<CR>
+noremap <C-g>V :Gitv!<CR>
 
 " Specky - RSpec plugin {{{3
 
