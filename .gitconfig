@@ -64,7 +64,7 @@
 [rerere]
 	enabled = true
 [push]
-	default = current
+	default = upstream
 [web]
 	browser = open
 
