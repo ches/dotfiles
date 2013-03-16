@@ -392,6 +392,24 @@ if has("autocmd")
     autocmd FileType help,man,qf nnoremap <silent><buffer> q :q<CR>
   augroup END "}}}
 
+  " With regards to tpope. See his vimrc for more ideas.
+  augroup Compilers "{{{
+    autocmd!
+    " TODO: Focused tests a la :.Rake, try to use spin, etc. when available
+    autocmd FileType cucumber compiler cucumber | setl makeprg=cucumber\ \"%:p\"
+    autocmd FileType ruby
+          \ if expand('%') =~# '_test\.rb$' |
+          \   compiler rubyunit | setl makeprg=testrb\ \"%:p\" |
+          \ elseif expand('%') =~# '_spec\.rb$' |
+          \   compiler rspec | setl makeprg=rspec\ \"%:p\" |
+          \ else |
+          \   compiler ruby | setl makeprg=ruby\ -wc\ \"%:p\" |
+          \ endif
+    autocmd User Bundler
+          \ if &makeprg !~# 'bundle' | setl makeprg^=bundle\ exec\  | endif
+  augroup END "}}}
+
+
   let python_highlight_all = 1
 
   " TagBar
