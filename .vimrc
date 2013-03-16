@@ -467,6 +467,15 @@ if has("autocmd")
     let g:gist_clip_command                   = 'pbcopy'
   endif
 
+  " Opt-in for fenced code block highlighting
+  let g:markdown_fenced_languages = [
+    \ 'coffee',
+    \ 'js=javascript',
+    \ 'python',
+    \ 'ruby', 'erb=eruby',
+    \ 'scala'
+  \ ]
+
   " Don't want this, and it fucks up LustyJuggler and Endwise
   let g:SuperTabCrMapping = 0
 
@@ -475,6 +484,11 @@ if has("autocmd")
   let g:vimwiki_menu      = 'Plugin.Vimwiki'
   let g:vimwiki_use_mouse = 1  " A rare case where I may actually use the mouse :-)
   let g:vimwiki_folding   = 1
+
+  " Override so vimwiki's syntax doesn't greedily take over all md files
+  " Default: {'.md': 'markdown'}
+  " Becomes default in trunk: https://code.google.com/p/vimwiki/source/detail?r=b6544f3369e28ed6e5d5dad50afae36fdc096701
+  let g:vimwiki_ext2syntax = {}
 
   let main_wiki           = {}
   let main_wiki.path      = '~/src/vimwiki'
