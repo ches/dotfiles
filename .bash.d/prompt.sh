@@ -70,7 +70,7 @@ function hg_prompt_info {
 
 function ruby_version {
     if [[ -f ~/.rvm/bin/rvm-prompt ]]; then
-        local system=$(~/.rvm/bin/rvm-prompt s)
+        local system=$(~/.rvm/bin/rvm-prompt s --no-default)
         local interp=$(~/.rvm/bin/rvm-prompt i)
         if [[ ! -n $system ]]; then
             # Don't show interpreter if it's just MRI
