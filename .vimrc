@@ -360,9 +360,16 @@ if has("autocmd")
     autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
     autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
     autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+
     " Easily lookup documentation on apidock
-    autocmd FileType ruby noremap <buffer> <leader>rb :OpenURL http://apidock.com/rails/<cword><CR>
-    autocmd FileType ruby noremap <buffer> <leader>rr :OpenURL http://apidock.com/ruby/<cword><CR>
+    " TODO: Perhaps make <Leader>k a convention for all language docs
+    if has('mac')
+      autocmd FileType ruby noremap <silent> <buffer> <leader>rb :call system('open dash://ruby:' . expand('<cword>'))<CR>
+      autocmd FileType ruby noremap <silent> <buffer> <leader>rr :call system('open dash://rails:' . expand('<cword>'))<CR>
+    else
+      autocmd FileType ruby noremap <buffer> <leader>rb :OpenURL http://apidock.com/ruby/<cword><CR>
+      autocmd FileType ruby noremap <buffer> <leader>rr :OpenURL http://apidock.com/rails/<cword><CR>
+    endif
 
     autocmd FileType python nnoremap <silent> <buffer> K :call ShowPyDoc(expand("<cword>"), 1)<CR>
     autocmd FileType python nnoremap <silent> <buffer> <F5> :call Pep8()<CR>
