@@ -49,6 +49,10 @@ set completeopt+=longest
 " Basically the default statusline when ruler is enabled, with fugitive
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
+" The Powerline status plugin expects to be always-on, instead of the default
+" of only when there is more than one window.
+set laststatus=2
+
 " automatically flush to disk when using :make, changing buffers, etc.
 " Alternatively, set hidden to allow moving around and leaving dirty files be
 "set autowrite
@@ -101,6 +105,8 @@ if has("autocmd")
   " pathogen does
   filetype off
   runtime! include/bundles.vim
+
+  set runtimepath+=~/.vim/bundle/powerline/powerline/bindings/vim
 
   " Enable file type detection, letting plugins, autocmds and such do all
   " their magic for custom language-dependent settings.

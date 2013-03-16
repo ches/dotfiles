@@ -12,7 +12,8 @@ else
 end
 
 " Font
-set guifont=Inconsolata:h14
+" I can't really be bothered with automating all this special setup :-/
+set guifont=Inconsolata\ for\ Powerline:h14
 
 if has('mac')
 
