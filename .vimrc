@@ -602,6 +602,10 @@ let g:speckyRunSpecKey = "<C-S>s"
 let g:speckyRunRdocCmd = "qri -f plain"
 let g:speckyWindowType = 1      " Horizontal split
 
+" SplitJoin {{{3
+let g:splitjoin_normalize_whitespace = 1
+let g:splitjoin_align = 1
+
 " Custom Functions {{{1
 
 " Mappings below use this generalized function to strip trailing white space,
