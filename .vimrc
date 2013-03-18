@@ -477,16 +477,11 @@ if has("autocmd")
   " Tslime / Turbux combo for REPL interaction/running tests in tmux panes. No
   " quickfix list, but nice when tests are out-of-process anyway like spin or
   " spork. Note: Vimux is nice too, but I like tslime's window/pane control.
+  " To customize per-project at runtime:
+  "   let g:turbux_command_rspec = 'spin push'
   vmap <C-c><C-c> <Plug>SendSelectionToTmux
   nmap <C-c><C-c> <Plug>NormalModeSendToTmux
   nmap <C-c>r <Plug>SetTmuxVars
-
-  " Mapping mnemonic: [u]nit test. I'm getting low on leader space :-/
-  " To customize per-project at runtime:
-  "   let g:turbux_command_rspec = 'spin push'
-  let g:no_turbux_mappings = 1
-  map <leader>u <Plug>SendTestToTmux
-  map <leader>U <Plug>SendFocusedTestToTmux
 
   " Opt-in for fenced code block highlighting
   let g:markdown_fenced_languages = [
@@ -536,8 +531,9 @@ map <Leader>n :AckFromSearch!<CR>
 " NERD tree - double-leader
 map <Leader><Leader> :NERDTreeToggle<cr>
 
-" Command-T's <Leader>t default is good for files, but I use <Leader>b already
-map <Leader>f :CommandTBuffer<CR>
+" Mnemonic: [f]iles, with a shared key. I use <Leader>b for LustyJuggler.
+nnoremap <Leader>f :CommandT<CR>
+nnoremap <Leader>F :CommandTBuffer<CR>
 
 " Ready for tab-completion of named Tabular patterns
 " Choosing 'gq' since it's similar function to the format command
