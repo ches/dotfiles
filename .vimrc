@@ -52,6 +52,7 @@ set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 " The Powerline status plugin expects to be always-on, instead of the default
 " of only when there is more than one window.
 set laststatus=2
+set noshowmode
 
 " automatically flush to disk when using :make, changing buffers, etc.
 " Alternatively, set hidden to allow moving around and leaving dirty files be
@@ -472,6 +473,20 @@ if has("autocmd")
   if has('mac')
     let g:gist_clip_command                   = 'pbcopy'
   endif
+
+  " Tslime / Turbux combo for REPL interaction/running tests in tmux panes. No
+  " quickfix list, but nice when tests are out-of-process anyway like spin or
+  " spork. Note: Vimux is nice too, but I like tslime's window/pane control.
+  vmap <C-c><C-c> <Plug>SendSelectionToTmux
+  nmap <C-c><C-c> <Plug>NormalModeSendToTmux
+  nmap <C-c>r <Plug>SetTmuxVars
+
+  " Mapping mnemonic: [u]nit test. I'm getting low on leader space :-/
+  " To customize per-project at runtime:
+  "   let g:turbux_command_rspec = 'spin push'
+  let g:no_turbux_mappings = 1
+  map <leader>u <Plug>SendTestToTmux
+  map <leader>U <Plug>SendFocusedTestToTmux
 
   " Opt-in for fenced code block highlighting
   let g:markdown_fenced_languages = [

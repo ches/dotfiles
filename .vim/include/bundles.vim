@@ -22,6 +22,8 @@ Bundle 'godlygeek/csapprox'
 Bundle 'gregsexton/gitv'
 " Bundle 'greyblake/vim-preview'  " Too many damned external dependencies
 Bundle 'ivanov/vim-ipython'
+Bundle 'jgdavey/tslime.vim'
+Bundle 'jgdavey/vim-turbux'
 Bundle 'jmcantrell/vim-virtualenv'
 Bundle 'kana/vim-textobj-user'
 Bundle 'kchmck/vim-coffee-script'
