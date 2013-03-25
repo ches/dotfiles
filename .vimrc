@@ -468,8 +468,11 @@ if has("autocmd")
   " Gist
   let g:gist_put_url_to_clipboard_after_post  = 1
   let g:gist_show_privates                    = 1
+  let g:gist_post_private                     = 1
   " detect filetype if vim failed autodetection
   let g:gist_detect_filetype                  = 1
+  " :w! updates a Gist, not plain :w
+  let g:gist_update_on_write                  = 2
   if has('mac')
     let g:gist_clip_command                   = 'pbcopy'
   endif
