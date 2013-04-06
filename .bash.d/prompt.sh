@@ -93,4 +93,6 @@ function prompt_func {
     fi
 }
 
-export PROMPT_COMMAND=prompt_func
+# Append history immediately so other open shells can use it
+export PROMPT_COMMAND='history -a; prompt_func'
+

@@ -1,11 +1,37 @@
 # Case-insensitive filesystems be damned
 set completion-ignore-case on
 
+# Hyphen can be used to complete underscores
+set completion-map-case on
+
 # Show completions immediately if multiple matches
 set show-all-if-ambiguous on
 set show-all-if-unmodified on
 
+# With multiple matches, only show the remaining part.
+# Unsupported in OS X editline  >:-(
+set completion-prefix-display-length 2
+
 "\C-x\C-r": re-read-init-file
+
+# Cycle through available completions
+"\ej": menu-complete
+# "\ek": menu-complete-backward
+# For OS X :-/
+"\ek": "\e-1\ej"
+
+# Default Ctrl-w to stop at punctuation
+"\C-w": unix-filename-rubout
+"\C-x\C-w": unix-word-rubout
+
+# Up/Down will use history search for what's typed so far.
+# Ctrl-p/n still cycle dumbly.
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+
+# Need to kill -9 a thing that didn't die? Grep directory when you forgot -r?
+# Hat tip: http://www.ukuug.org/events/linux2003/papers/bash_tips/
+"\eo": "\C-p\C-a\ef "
 
 # Call method in IRB. See .irbrc
 $if Ruby
