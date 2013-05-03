@@ -4,6 +4,7 @@
 *.py[co]
 *.tmproj
 .git-wtfrc
+.idea
 .project
 .pydevproject
 .ropeproject

@@ -28,3 +28,7 @@ gitalias ll='git log --pretty=oneline --abbrev-commit'
 
 # git-wtf
 gitalias wtf='git wtf'
+
+# Avoid my default interfering with the custom prompt
+unset PROMPT_COMMAND
+
