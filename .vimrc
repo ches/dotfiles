@@ -357,7 +357,10 @@ if has("autocmd")
     autocmd FileType html,xhtml,xml,htmldjango,htmljinja,eruby,mako,cucumber setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
     autocmd FileType coffee,ruby,vim,yaml setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
     autocmd FileType javascript setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+
+    " Rails.vim defaults to 2 for traditional JS, I prefer 4
     autocmd User Rails.javascript* setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+    autocmd User Rails.javascript.coffee* setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 
     " Use leader+space to write and execute
     autocmd FileType vim map <buffer> <leader><space> :w!<cr>:source %<cr>
@@ -374,6 +377,9 @@ if has("autocmd")
     " TODO: Perhaps make <Leader>k a convention for all language docs
     if has('mac')
       autocmd User Rails :DashKeywords rails ruby
+      autocmd User Rails.javascript* :DashKeywords js
+      autocmd User Rails.javascript.coffee* :DashKeywords coffee js
+      autocmd FileType scala :DashKeywords scala akka play
     else
       autocmd FileType ruby noremap <buffer> <leader>rb :OpenURL http://apidock.com/ruby/<cword><CR>
       autocmd FileType ruby noremap <buffer> <leader>rr :OpenURL http://apidock.com/rails/<cword><CR>
@@ -528,6 +534,13 @@ if has("autocmd")
   let g:vimwiki_list      = [main_wiki]
   " }}}
 
+  if has('mac')
+    " Map vim filetypes to Dash search keywords
+    let g:dash_map = {
+      \ 'python' : 'py',
+      \ 'javascript' : 'js'
+    \ }
+  endif
 endif " has("autocmd")
 
 " Plugin Mappings {{{2
