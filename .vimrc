@@ -139,7 +139,6 @@ endif
 
 " Get a sweet :Man command to open pages in split
 runtime ftplugin/man.vim
-nmap K :Man <cword><CR>
 
 " Indentation {{{2
 
@@ -306,6 +305,9 @@ nmap <leader>` :set invwinfixheight winfixheight?<CR>
 if has('mac')
   nnoremap <Leader>ql :write<CR>:sil !qlmanage -p % >& /dev/null &<CR>:redraw!<CR>
   nnoremap <Leader>qlk :sil !killall qlmanage >& /dev/null<CR>
+
+  " dash.vim
+  nmap <silent> <leader>k <Plug>DashSearch
 endif
 
 " Gross, but I'm tired of trying to get various terminal emulators to emit
@@ -371,14 +373,17 @@ if has("autocmd")
     " Easily lookup documentation on apidock
     " TODO: Perhaps make <Leader>k a convention for all language docs
     if has('mac')
-      autocmd FileType ruby noremap <silent> <buffer> <leader>rb :call system('open dash://ruby:' . expand('<cword>'))<CR>
-      autocmd FileType ruby noremap <silent> <buffer> <leader>rr :call system('open dash://rails:' . expand('<cword>'))<CR>
+      autocmd User Rails :DashKeywords rails ruby
     else
       autocmd FileType ruby noremap <buffer> <leader>rb :OpenURL http://apidock.com/ruby/<cword><CR>
       autocmd FileType ruby noremap <buffer> <leader>rr :OpenURL http://apidock.com/rails/<cword><CR>
     endif
 
-    autocmd FileType python nnoremap <silent> <buffer> K :call ShowPyDoc(expand("<cword>"), 1)<CR>
+    " Use fancier man.vim version instead of keywordprg
+    autocmd FileType c,sh nnoremap K :Man <cword><CR>
+
+    " Make pydoc.vim's doc window close easier
+    autocmd BufNewFile __doc__ nmap <silent> <buffer> q :q<CR>
     autocmd FileType python nnoremap <silent> <buffer> <F5> :call Pep8()<CR>
     " autocmd FileType python setlocal cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 
@@ -537,6 +542,7 @@ map <Leader><Leader> :NERDTreeToggle<cr>
 " Mnemonic: [f]iles, with a shared key. I use <Leader>b for LustyJuggler.
 nnoremap <Leader>f :CommandT<CR>
 nnoremap <Leader>F :CommandTBuffer<CR>
+nnoremap <Leader><C-f> :CommandTTag<CR>
 
 " Ready for tab-completion of named Tabular patterns
 " Choosing 'gq' since it's similar function to the format command
