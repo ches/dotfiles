@@ -64,12 +64,18 @@ if defined?(Rails) && Rails.respond_to?(:logger)    # Rails 3 style
       Mongoid.logger = Logger.new(nil) if defined?(Mongoid)
       Dalli.logger = Logger.new(nil) if defined?(Dalli)
       Tire.configure { reset :logger } if defined?(Tire)
+      if $redis
+        $redis.client.logger = Logger.new(nil) if !$redis.client.is_a?(MockRedis)
+      end
       $db_logging_enabled = false
     else
       ActiveRecord::Base.logger = Rails.logger if defined?(ActiveRecord)
       Mongoid.logger = Rails.logger if defined?(Mongoid)
       Dalli.logger = Rails.logger if defined?(Dalli)
       Tire.configure { logger $stdout } if defined?(Tire)
+      if $redis
+        $redis.client.logger = Rails.logger if !$redis.client.is_a?(MockRedis)
+      end
       $db_logging_enabled = true
     end
   end
