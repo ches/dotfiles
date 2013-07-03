@@ -3,6 +3,7 @@
 .*.sw?
 *.py[co]
 *.tmproj
+.agignore
 .git-wtfrc
 .idea
 .project

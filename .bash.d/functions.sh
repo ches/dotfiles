@@ -5,6 +5,20 @@ function installed {
     command -v ${cmd} >/dev/null
 }
 
+# Run something, piping all output to null.
+function silent {
+    $* &> /dev/null
+}
+
+# Make a quick datetime-stamped copy of a file.
+function mkbackup {
+    local filename=$1
+    local extension="${filename##*.}"
+    local base="${filename%.*}"
+    local filetime=$(date +%Y%m%d-%H%M%S)
+
+    cp ${filename} ${base}-${filetime}.${extension}
+}
 
 #
 # OS X
