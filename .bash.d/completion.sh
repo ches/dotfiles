@@ -10,7 +10,6 @@ fi
 
 source ~/.bash.d/completion-django.sh
 source ~/.bash.d/completion-knife.sh
-source ~/.bash.d/completion-git.sh
 source ~/.bash.d/completion-hg.sh
 source ~/.bash.d/completion-VBoxManage.sh
 
