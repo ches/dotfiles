@@ -26,14 +26,22 @@ if has('autocmd')
     autocmd FileType ruby imap <C-l> <Space>=><Space>
     autocmd FileType coffee imap <C-l> <Space>->
 
-    " Run tests/specs in Ruby/Rails apps
-    autocmd User Rails,Rake nmap <D-r> :Rake<CR>
-    autocmd User Rails,Rake nmap <D-R> :.Rake<CR>
+    if has('mac') && has('gui_running')
+      " Run tests/specs in Ruby/Rails apps
+      autocmd User Rails,Rake nmap <D-r> :Rake<CR>
+      autocmd User Rails,Rake nmap <D-R> :.Rake<CR>
 
-    " 'Run' some filetypes the way TM would
-    autocmd FileType coffee nmap <D-r> :CoffeeRun<CR>
-    " The 'build' mapping in TM does compile-and-display
-    autocmd FileType coffee nmap <D-b> :CoffeeCompile<CR>
+      " 'Run' some filetypes the way TM would
+      autocmd FileType coffee nmap <D-r> :CoffeeRun<CR>
+      " The 'build' mapping in TM does compile-and-display
+      autocmd FileType coffee nmap <D-b> :CoffeeCompile<CR>
+    else
+      " Left Option as Esc in iTerm2
+      autocmd User Rails,Rake nmap <Esc>r :Rake<CR>
+      autocmd User Rails,Rake nmap <Esc>R :.Rake<CR>
+      autocmd FileType coffee nmap <Esc>r :CoffeeRun<CR>
+      autocmd FileType coffee nmap <Esc>b :CoffeeCompile<CR>
+    endif
   augroup END
 endif
 
@@ -79,6 +87,9 @@ else
 
   " These don't match up as closely since modifier key handling portability on
   " the console is a slippery slope... see `:help :map-alt-keys` for instance.
+  "
+  " http://vim.1045645.n5.nabble.com/How-to-map-Ctrl-tp1192843p1192844.html
+  "
   " For now the mappings below will assume a 'alt/option sends escape' config
   " option, which is convenient for OS X and probably other terminal
   " emulators. Frankly, it's all hardly worth the trouble and I've mostly
@@ -121,5 +132,9 @@ else
   imap <silent> <Esc><S-i> <C-o>:set invlist<CR>
   vmap <silent> <Esc><S-i> :<C-u>:set invlist<CR>gv
 
+  " Toggle line wrapping
+  map <silent> <Esc><S-w> :set invwrap<CR>
+  imap <silent> <Esc><S-w> <C-o>:set invwrap<CR>
+  vmap <silent> <Esc><S-w> :<C-u>:set invwrap<CR>gv
 endif
 

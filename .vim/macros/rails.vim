@@ -2,6 +2,7 @@
 " TODO: do we need to Rset any custom file alternates, etc.?
 " TODO: can try to get fancy to conditionally override defaults...
 " Rnavcommand observer app/observers -glob=**/*
+Rnavcommand sweeper app/sweepers -glob=**/*
 Rnavcommand decorator app/decorators -glob=**/*
 Rnavcommand job app/jobs -glob=**/*
 Rnavcommand admin app/admin -default=both()

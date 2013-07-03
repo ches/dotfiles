@@ -297,6 +297,12 @@ map <C-k> <C-w>k
 map <C-l> <C-w>l
 map <C-h> <C-w>h
 
+" Resizing, assuming left Option as Esc here
+map <Esc>= <C-w>3+
+map <Esc>- <C-w>3-
+map <Esc>, <C-w>3<
+map <Esc>. <C-w>3>
+
 " Toggle a window's height stickiness, so C-w = doesn't equalize it
 nmap <leader>` :set invwinfixheight winfixheight?<CR>
 
@@ -456,8 +462,8 @@ if has("autocmd")
   let g:TagmaTasksJumpTask = 0
   " The plugin's jump mappings conflict with Unimpaired's tag nav
   let g:TagmaTasksJumpKeys = 0
-  " Defaults to lowercase t, which would make CommandT slow
-  let g:TagmaTasksPrefix = '<Leader>T'
+  " Defaults to <Leader>t, which would make CommandT slow
+  let g:TagmaTasksPrefix = '\t'
 
   " Open the YankRing window
   nnoremap <silent> <M-v> :YRShow<CR>
