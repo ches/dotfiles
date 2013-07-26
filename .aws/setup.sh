@@ -1,12 +1,9 @@
 # Just source this to set the ENV vars.
-# Set AWS_CREDENTIAL_FILE in ~/.local
 
-if [ -f ~/.aws/ec2/pk-*.pem ]; then
-    export EC2_PRIVATE_KEY="$(/bin/ls $HOME/.aws/ec2/pk-*.pem)"
-fi
-
-if [ -f ~/.aws/ec2/pk-*.pem ]; then
-    export EC2_CERT="$(/bin/ls $HOME/.aws/ec2/cert-*.pem)"
+# https://github.com/michaelcontento/awsenv and my fork
+if [ -d ~/.awsenv/bin ]; then
+    export PATH=$PATH:$HOME/.awsenv/bin
+    eval "$(awsenv init -)"
 fi
 
 # pip install awscli -- http://aws.amazon.com/cli/

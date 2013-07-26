@@ -100,8 +100,8 @@ PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 export JRUBY_HOME=$HOME/.rvm/rubies/jruby-1.6.7.2
 
-# AWS env vars that the Java API tools want
-[[ -r ~/.aws/aws-envvars.sh ]] && source ~/.aws/aws-envvars.sh
+# AWS credential management and env vars that the Java API tools want
+[[ -r ~/.aws/setup.sh ]] && source ~/.aws/setup.sh
 
 #
 # Memcached
