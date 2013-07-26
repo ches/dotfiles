@@ -14,4 +14,6 @@
 .DS_Store
 Gemfile.lock
 .rvmrc
+.ruby-version
+.ruby-gemset
 /tags
