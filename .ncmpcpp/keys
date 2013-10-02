@@ -1,0 +1,22 @@
+# standard arrows + Vim-style
+key_prev_column = 260 'h'
+key_next_column = 261 'l'
+
+# I want to pause a lot more often than change display formats -- make it easy
+key_toggle_display_mode = 'P'
+key_pause = 'p'
+
+# More Vim. Keeping defaults as secondary binding in some cases.
+# For Ctrl+[a-z] the key codes are 1-26.
+key_page_up = 339 2    # Ctrl-b
+key_page_down = 338 6  # Ctrl-f
+key_next_found_position = '.' 'n'
+key_prev_found_position = ',' 'N'
+
+# We've shadowed a default 'n' binding
+key_move_song_up = 'O'
+key_move_song_down = 'o'
+
+key_go_to_now_playing = 'M'  # default o
+key_move_to = 'm'            # default M
+
