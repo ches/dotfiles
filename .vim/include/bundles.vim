@@ -79,6 +79,8 @@ Bundle 'wincent/Command-T'
 "       https://github.com/scrooloose/syntastic/pull/46
 " Bundle 'wookiehangover/jshint.vim'
 Bundle 'vim-ruby/vim-ruby'
+Bundle 'xolox/vim-misc'
+Bundle 'xolox/vim-session'
 
 " From vim-scripts GitHub account (vimscripts.org mirrors)
 Bundle 'a.vim'
@@ -86,7 +88,6 @@ Bundle 'dbext.vim'
 Bundle 'jQuery'
 Bundle 'LustyJuggler'
 Bundle 'matchit.zip'
-Bundle 'session.vim--Odding'
 Bundle 'TailMinusF'
 Bundle 'taglist.vim'
 Bundle 'vimwiki'
