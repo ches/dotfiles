@@ -56,6 +56,7 @@ qstatus = status --rev -2:-1
 qclear = qrefresh -X re:.
 untrack = rm -Af
 # git symmetry
+df = diff
 show = log -pr
 last = log -l1 -p
 
@@ -87,7 +88,7 @@ filemerge.gui=True
 
 [pager]
 pager = LESS='FRX' less
-attend = help, log, glog, lg, status, qstatus, incoming, outgoing, diff, qdiff, cat, annotate, unshelve, last, show
+attend = help, log, glog, lg, status, qstatus, incoming, outgoing, diff, df, qdiff, cat, annotate, unshelve, last, show
 
 [mq]
 # Use the secret phase for mq changesets -- see `hg help phases`
