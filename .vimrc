@@ -512,9 +512,6 @@ if has("autocmd")
     \ 'scala'
   \ ]
 
-  " Don't want this, and it fucks up LustyJuggler and Endwise
-  let g:SuperTabCrMapping = 0
-
   " Vimwiki {{{
   " My custom functions below define a web link handler
   let g:vimwiki_menu      = 'Plugin.Vimwiki'
@@ -573,6 +570,37 @@ if has('python')
   let g:UltiSnipsJumpForwardTrigger  = "<tab>"
   let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
   nmap <Leader>rs :py UltiSnips_Manager.reset()<CR>
+
+  " UltiSnips + YouCompleteMe compat without changing the UltiSnips mappings
+  " from using Tab. Pretty close to how I want it to behave. Reminder: <C-Y>
+  " cancels completion pop-up for dismissing YCM suggestions when trying to
+  " tab through snippet placeholders. It's possible to use an expression
+  " mapping to make <CR> do this when the pop-up is visible, but it isn't
+  " worth the insanity -- see http://git.io/RndnRw
+  "
+  " https://github.com/Valloric/YouCompleteMe/issues/36#issuecomment-15451411
+  function! g:UltiSnips_Complete()
+    call UltiSnips_ExpandSnippet()
+    if g:ulti_expand_res == 0
+      if pumvisible()
+        return "\<C-n>"
+      else
+        call UltiSnips_JumpForwards()
+        if g:ulti_jump_forwards_res == 0
+          return "\<TAB>"
+        endif
+      endif
+    endif
+    return ""
+  endfunction
+
+  " YCM does it's mapping in after, so crudely override :-\
+  au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+
+  " YouCompleteMe
+  " I haven't built YCM's Clang magic initially, big slow download/build
+  let g:ycm_register_as_syntastic_checker = 0
+  let g:ycm_collect_identifiers_from_tags_files = 1
 
   " Gundo
   nnoremap <F7> :GundoToggle<CR>
