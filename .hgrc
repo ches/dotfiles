@@ -37,10 +37,9 @@ hgext.progress =
 hgext.purge =
 hgext.rebase =
 hgext.record =
+hgext.shelve =
 hgext.transplant =
 hgext.zeroconf =
-#hgshelve = ~/.hglib/hgshelve/hgshelve.py
-hgattic = ~/.hglib/hgattic/hgattic.py
 prompt = ~/.hglib/hg-prompt/prompt.py
 histedit = ~/.hglib/histedit/hg_histedit.py
 #qct=/usr/local/lib/hg/qct.py
@@ -88,7 +87,7 @@ filemerge.gui=True
 
 [pager]
 pager = LESS='FRX' less
-attend = help, log, glog, lg, status, qstatus, incoming, outgoing, diff, df, qdiff, cat, annotate, unshelve, last, show
+attend = help, log, glog, lg, status, qstatus, incoming, outgoing, diff, df, qdiff, cat, annotate, shelve, last, show
 
 [mq]
 # Use the secret phase for mq changesets -- see `hg help phases`
