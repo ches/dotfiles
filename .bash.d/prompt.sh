@@ -18,9 +18,9 @@ function parse_git_branch {
     git_status="$(git status 2> /dev/null)"
     if [ -x git_status ]; then exit; fi
     git_stash="$(git stash list 2> /dev/null)"
-    branch_pattern="^# On branch ([^${IFS}]*)"
-    remote_pattern="# Your branch is (.*) of"
-    diverge_pattern="# Your branch and (.*) have diverged"
+    branch_pattern="^On branch ([^${IFS}]*)"
+    remote_pattern="Your branch is (.*) of"
+    diverge_pattern="Your branch and (.*) have diverged"
 
     if [[ ! ${git_status} =~ "working directory clean" ]]; then
         state="${RED}⚡"
