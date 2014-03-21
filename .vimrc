@@ -595,9 +595,16 @@ if has('python')
   endfunction
 
   " YCM does it's mapping in after, so crudely override :-\
+  " TODO: YCM does stuff on VimEnter which is *after* BufRead, BufNewFile,
+  " etc. -- is there some way to make this work for the first file Vim is
+  " initially opened with?
   au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
 
   " YouCompleteMe
+  " MacVim is built against system Python but I normally have brew version
+  " linked as active -- need to `brew unlink` for building YCM and use this:
+  let g:ycm_path_to_python_interpreter = '/usr/bin/python'
+
   " I haven't built YCM's Clang magic initially, big slow download/build
   let g:ycm_register_as_syntastic_checker = 0
   let g:ycm_collect_identifiers_from_tags_files = 1
@@ -609,17 +616,6 @@ if has('python')
   " Sparkup
   " Way to default to a mapping that conflicts with scrolling, guy (<C-e>)...
   let g:sparkupExecuteMapping = "<M-s>"
-
-  " ConqueTerm - namespace of 'q' kinda makes sense to me
-  " mnemonic: terminal - don't like 'shell' because 'qs' is slow to type
-  nmap <Leader>qt :ConqueTermSplit bash<CR>
-  " mnemonic: command
-  nmap <Leader>qc :ConqueTermSplit<space>
-  let g:ConqueTerm_CloseOnEnd = 1
-  " Exec current file in new split term. By default this conflicts with my
-  " <F11> mapping for toggling hlsearch. <F10> execs current file in last-used
-  " existing term, so let's use the shifted version of that
-  let g:ConqueTerm_ExecFileKey = '<S-F10>'
 
 else
 
@@ -708,19 +704,6 @@ nnoremap gW :OpenURL http://en.wikipedia.org/wiki/Special:Search?search=<cword><
 function! VimwikiWeblinkHandler(weblink)
   call OpenURL(a:weblink)
 endfunction
-
-if has('python')
-  " Just starting to play with possibilities here :-)
-  function! MyConqueStartup(term)
-    let syntax_associations = { 'mongo': 'javascript' }
-
-    if has_key(syntax_associations, a:term.program_name)
-      execute 'setlocal syntax=' . syntax_associations[a:term.program_name]
-    endif
-  endfunction
-
-  call conque_term#register_function('after_startup', 'MyConqueStartup')
-endif
 
 " Commands {{{1
 
