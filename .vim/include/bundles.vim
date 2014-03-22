@@ -43,6 +43,7 @@ Bundle 'nanotech/jellybeans.vim'
 Bundle 'nelstrom/vim-blackboard'
 Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'nvie/vim-pep8'
+Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'rygwdn/rope-omni'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
