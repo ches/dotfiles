@@ -6,20 +6,19 @@ HOME_SSID="wensleydale's"
 REMOTE_MPD="mini.local"
 
 if [[ "$(hostname)" == "$REMOTE_MPD" ]]; then
-    exec /usr/local/bin/mpc "$@"
+    exec /usr/local/bin/ncmpcpp "$@"
 else
     # TODO: else linux equivalents
     if [[ "$(uname -s)" == "Darwin" ]]; then
         SSID=`/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk '/ SSID/ {print substr($0, index($0, $2))}'`
-        MPC="/usr/local/bin/mpc"
-        LOCAL_MPD="/usr/local/var/run/mpd/socket"
+        NCMPCPP="/usr/local/bin/ncmpcpp"
     fi
 
     if [[ $SSID =~ "$HOME_SSID" ]]
-        then hostopt=$REMOTE_MPD
-        else hostopt=$LOCAL_MPD
+        then hostopt="-h $REMOTE_MPD"
+        else hostopt=""
     fi
 
-    exec $MPC -h $hostopt "$@"
+    exec $NCMPCPP $hostopt "$@"
 fi
 
