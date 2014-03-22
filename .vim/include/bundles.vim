@@ -13,7 +13,6 @@ endif
 
 Bundle 'alfredodeza/chapa.vim'
 Bundle 'alfredodeza/konira.vim'
-Bundle 'altercation/vim-colors-solarized'
 Bundle 'AndrewRadev/vim-eco'
 Bundle 'AndrewRadev/splitjoin.vim'
 Bundle 'claco/jasmine.vim'
@@ -22,7 +21,6 @@ Bundle 'ecomba/vim-ruby-refactoring'
 Bundle 'fs111/pydoc.vim'
 Bundle 'zakj/vim-showmarks'
 Bundle 'godlygeek/tabular'
-Bundle 'godlygeek/csapprox'
 Bundle 'gregsexton/gitv'
 " Bundle 'greyblake/vim-preview'  " Too many damned external dependencies
 Bundle 'ivanov/vim-ipython'
@@ -39,8 +37,6 @@ Bundle 'mattn/gist-vim'
 Bundle 'mattn/webapi-vim'
 Bundle 'mileszs/ack.vim'
 Bundle 'msanders/cocoa.vim'
-Bundle 'nanotech/jellybeans.vim'
-Bundle 'nelstrom/vim-blackboard'
 Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'nvie/vim-pep8'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
@@ -71,7 +67,6 @@ Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-rvm'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
-Bundle 'tpope/vim-vividchalk'
 Bundle 'wincent/Command-T'
 " Giving Syntastic a spin, would like to settle on it for consolidation but
 " wish they'd fix things like:
@@ -95,6 +90,15 @@ Bundle 'YankRing.vim'
 
 " Custom git repo locations
 Bundle 'git://repo.or.cz/vcscommand'
+
+" Color schemes. Slightly nuts to manage with Vundle I guess, but easy updates.
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'godlygeek/csapprox'
+Bundle 'gregsexton/Atom'
+Bundle 'nanotech/jellybeans.vim'
+Bundle 'nelstrom/vim-blackboard'
+Bundle 'tomasr/molokai'
+Bundle 'tpope/vim-vividchalk'
 
 " vim:foldmethod=marker commentstring="%s
 
