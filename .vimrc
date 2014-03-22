@@ -552,6 +552,13 @@ endif " has("autocmd")
 map <Leader>a :Ack!<space>
 map <Leader>n :AckFromSearch!<CR>
 
+" localvimrc - https://github.com/embear/vim-localvimrc
+let g:localvimrc_sandbox    = 0  " We ask before loading, this is too restrictive
+let g:localvimrc_ask        = 1  " Default, but be paranoid since we don't sandbox
+let g:localvimrc_persistent = 2  " Always store/restore decisions
+
+let g:localvimrc_persistence_file = expand('$HOME') . '/.backup/vim/localvimrc_persistent'
+
 " NERD tree - double-leader
 map <Leader><Leader> :NERDTreeToggle<cr>
 
