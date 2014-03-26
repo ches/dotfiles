@@ -49,10 +49,10 @@ set completeopt+=longest
 " Basically the default statusline when ruler is enabled, with fugitive
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
-" The Powerline status plugin expects to be always-on, instead of the default
-" of only when there is more than one window.
+" Ensure Airline is always on, instead of only appearing when there's a split.
 set laststatus=2
 set noshowmode
+set ttimeoutlen=30
 
 " automatically flush to disk when using :make, changing buffers, etc.
 " Alternatively, set hidden to allow moving around and leaving dirty files be
@@ -106,8 +106,6 @@ if has("autocmd")
   " pathogen does
   filetype off
   runtime! include/bundles.vim
-
-  set runtimepath+=~/.vim/bundle/powerline/powerline/bindings/vim
 
   " Enable file type detection, letting plugins, autocmds and such do all
   " their magic for custom language-dependent settings.
@@ -551,6 +549,28 @@ endif " has("autocmd")
 " Ack Search
 map <Leader>a :Ack!<space>
 map <Leader>n :AckFromSearch!<CR>
+
+"
+" Airline status bar
+"
+
+" TODO: detect availability
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#show_tab_type = 0
+let g:airline#extensions#tabline#tab_min_count = 2
+
+" Trailing whitespace bugs me alright, but not this much.
+let g:airline#extensions#whitespace#enabled = 0
+
+" let g:airline#extensions#tmuxline#enabled = 1
+" let g:airline#extensions#tmuxline#snapshot_file = "~/.tmux/airline-colors.conf"
+
+if !has('gui_running')
+  " Many unfortunately look poor in the console, molokai almost works
+  let g:airline_theme = 'ubaryd'
+endif
 
 " localvimrc - https://github.com/embear/vim-localvimrc
 let g:localvimrc_sandbox    = 0  " We ask before loading, this is too restrictive
