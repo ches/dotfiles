@@ -1,9 +1,0 @@
-require 'autotest/growl'
-require 'autotest/timestamp'
-#require 'autotest/fsevent'
-
-# Take a load off autotest's back, and my CPU!
-Autotest.add_hook :initialize do |at|
-  %w{.svn .hg .git vendor}.each {|exception| at.add_exception(exception)}
-end
-
