@@ -310,8 +310,15 @@ snippet deec "deep_copy(..)  (dee)"
 Marshal.load(Marshal.dump(${0:obj_to_copy}))
 endsnippet
 
-snippet defo "def(*args, opts={}) ... end"
-def ${1:method_name}(${2:*args}${3:, opts=\{\}})
+# This is an override to add parens
+snippet "\b(de)?f" "def <name>..." r
+def ${1:function_name}${2:(${3:*args})}
+	$0
+end
+endsnippet
+
+snippet defo "def(*args, opts = {}) ... end"
+def ${1:method_name}(${2:*args}${3:, opts = \{\}})
 	$0
 end
 endsnippet

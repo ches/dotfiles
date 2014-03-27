@@ -1,5 +1,7 @@
 # Refer to the Scala style guide at:
 #   http://docs.scala-lang.org/style/
+#
+# TODO: ScalaTest DSL snippets
 
 # See http://www.scala-lang.org/node/166
 snippet '^#!' "Scala shell script shebang" r
@@ -9,34 +11,58 @@ exec scala "\$0" "\$@"
 
 endsnippet
 
+snippet "im(port)?" "Import, with optional enumerations" br
+import ${1:packages}${2:.${3:\{ ${4:Class, AnotherClass} \}}${5:._}}
+endsnippet
 
-snippet im "Import, with optional enumerations" b
-import ${1:packages}${2:.${3:\{${4:Class, AnotherClass}\}}${5:._}}
+
+# TODO: try to make this work if there's already text after the { ?
+snippet { "Expand inline block" w
+{ $1 }
+endsnippet
+
+
+snippet } "Expand multi-line block" w
+{
+	$1
+}
 endsnippet
 
 
 snippet val "Value" b
-val ${1:name} = ${2:value}
+val ${1:name}${2:: ${3:T}} = ${4:value}
 endsnippet
 
 
 snippet var "Variable" b
-var ${1:name} = ${2:value}
+var ${1:name}${2:: ${3:T}} = ${4:value}
 endsnippet
 
 
 snippet l "Anonymous Function (mnemonic: lambda)"
-(${1:x: Int}) => ${2:x + 1}
+${1:(${2:x: Int})} => ${3:x + 1}
 endsnippet
 
 
 snippet def "Method Declaration" b
-def ${1:name}(${2:x: Int}): ${3:ReturnType} = ${4:\{
-	$5
+def ${1:name}(${2:arg}$3)${4:: ${5:ReturnType}} = ${6:\{
+	$7
 \}}
 endsnippet
 
 
+snippet arg "Method Arguments" i
+${1:a}: ${2:T}${3:, arg}
+endsnippet
+
+
+snippet vararg "Var arg" i
+${1:args}: ${2:T}*
+endsnippet
+
+
+# TODO: Odersky considers this syntax a misfeature, now strongly frowned upon;
+# This snippet could still be useful with equals sign and Unit return?
 snippet proc "Procedure (pure side-effect function)" b
 def ${1:name}(${2:x: Int}) ${3:\{
 	$4
@@ -44,24 +70,40 @@ def ${1:name}(${2:x: Int}) ${3:\{
 endsnippet
 
 
-snippet 'obj(ect)?' "Object Declaration" r
-object ${1:Name}${2: extends ${3:Application}} {
+snippet class "Class Declaration" b
+class ${1:Person}${2:(${3:name: String, age: Int})}${4: extends ${5:Trait}${6: with ${7:Another}}} {
 	$0
 }
 endsnippet
 
 
-snippet class "Class Declaration" b
-class ${1:Person}${2:(${3:name: String, age: Int})}${4: extends ${5:Trait}} {
+snippet 'obj(ect)?' "Object Declaration" br
+object ${1:Name}${2: extends ${3:Application}${4: with ${5:Mixin}}} {
 	$0
 }
 endsnippet
 
 
 snippet trait "Trait Declaration" b
-trait ${1:Name} {
+trait ${1:Name}${2: extends ${3:Other}${4: with ${5:Another}}} {
 	$0
 }
+endsnippet
+
+
+# "case" is overloaded with pattern matching, so use a completely different mnemonic
+snippet adt "Case Class (Algebraic Data Type)" b
+case class ${1:Name}(${2:arg}$3)
+endsnippet
+
+
+snippet extends "extends ... with"
+extends ${1:Trait}${2: with ${3:Another}}
+endsnippet
+
+
+snippet with "with ..."
+with ${1:That}${2: with}$3
 endsnippet
 
 
@@ -79,9 +121,25 @@ else ${2:\{
 endsnippet
 
 
+snippet ife "If/Else Block/Inline" b
+if (${1:condition}) ${2:\{
+	$3
+\}} else ${4:\{
+	$5
+\}}
+endsnippet
+
+
+snippet elif "else if Block"
+else if (${1:condition}) ${2:\{
+	$3
+\}}
+endsnippet
+
+
 snippet match "Match Block"
 match {
-	case ${1:pattern} => ${2:expression}$0
+	case ${1:pattern} => ${2:expression}$3
 }
 endsnippet
 
@@ -91,15 +149,27 @@ case ${1:_} => ${2:expression}
 endsnippet
 
 
+# FIXME: don't expand again when first tabstop is left as-is
 snippet "for (" "Sequence Comprehension Inline"
-for (${1:i} <- ${2:0 to 10}) yield $3)
+for (${1:i} <- ${2:0 to 10}) yield $3
 endsnippet
 
 
+# FIXME: don't expand again when first tabstop is left as-is
 snippet "for {" "Sequence Comprehension Block"
 for {
 	${1:i} <- ${2:0 until n}
 } yield $0
+endsnippet
+
+
+snippet kv "Key/Value Literal (Map)" w
+${1:key} -> ${2:value}${3:, kv}
+endsnippet
+
+
+snippet kvs "Key/Value Literal, String-Keyed (Map)" w
+"${1:key}" -> ${2:value}${3:, kvs}
 endsnippet
 
 
@@ -110,11 +180,15 @@ def main(args: Array[String]) {
 endsnippet
 
 
-snippet tostr "toString Declaration" b
+snippet "tos(tr)?" "toString Declaration" br
 override def toString = ${1:\{
 	$2
 \}}
 endsnippet
 
+
 # TODO: try/catch
+snippet throw "throw Exception"
+throw new ${1:Exception}${2:("${3:message}")}
+endsnippet
 
