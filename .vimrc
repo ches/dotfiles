@@ -377,12 +377,15 @@ if has("autocmd")
     autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
     autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 
-    " Easily lookup documentation on apidock
+    " Easily lookup documentation
     " TODO: Perhaps make <Leader>k a convention for all language docs
     if has('mac')
-      autocmd User Rails :DashKeywords rails ruby
-      autocmd User Rails.javascript* :DashKeywords js
-      autocmd User Rails.javascript.coffee* :DashKeywords coffee js
+      " The first keywords are custom search profiles that I've set up -- they
+      " search the subsequent docsets as a group, ranked in the order shown here.
+      autocmd User Rails :DashKeywords rr rails ruby
+      autocmd User Rails.javascript* :DashKeywords jj js jquery
+      autocmd User Rails.javascript.coffee* :DashKeywords cjj coffee js jquery
+
       autocmd FileType scala :DashKeywords scala akka play
     else
       autocmd FileType ruby noremap <buffer> <leader>rb :OpenURL http://apidock.com/ruby/<cword><CR>
