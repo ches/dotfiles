@@ -70,6 +70,9 @@ export WORKON_HOME=$HOME/.virtualenvs
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
 export PIP_RESPECT_VIRTUALENV=true
 
+# OCaml OPAM configuration
+[[ -r ~/.opam/opam-init/init.sh ]] && source ~/.opam/opam-init/init.sh
+
 # Ruby Version Switching
 # brew install chruby ruby-install
 # Well put: http://pbrisbin.com/posts/chruby
@@ -80,6 +83,9 @@ fi
 
 # AWS credential management and env vars that the Java API tools want
 [[ -r ~/.aws/setup.sh ]] && source ~/.aws/setup.sh
+
+# Travis gem
+[[ -r ~/.travis/travis.sh ]] && source ~/.travis/travis.sh
 
 #
 # Memcached
@@ -101,7 +107,4 @@ if [ -d ~/.local ]; then
         . "$f"
     done
 fi
-
-# Travis gem
-[[ -r ~/.travis/travis.sh ]] && source ~/.travis/travis.sh
 
