@@ -54,10 +54,11 @@ qstatus = status --rev -2:-1
 # empty current patch, but leave the diffs in the working copy:
 qclear = qrefresh -X re:.
 untrack = rm -Af
-# git symmetry
+# parity with my git mappings
 df = diff
-show = log -pr
+lg = log -p
 last = log -l1 -p
+show = log -pr
 
 [bookmarks]
 # More git-like behavior: only update the bookmark you are currently using,
