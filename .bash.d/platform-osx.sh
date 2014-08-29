@@ -1,3 +1,5 @@
+BREW=`brew --prefix`
+
 export EDITOR='mvim -f'
 export VISUAL='mvim -f'
 
@@ -8,18 +10,23 @@ stty stop undef
 stty start undef
 
 # https://github.com/joelthelion/autojump/wiki
-if [ -f `brew --prefix`/etc/autojump.sh ]; then
-    . `brew --prefix`/etc/autojump.sh
+if [ -f $BREW/etc/autojump.sh ]; then
+    . $BREW/etc/autojump.sh
 fi
 
 # =================================
 # =       App-specific Bits       =
 # =================================
 
+export DOCKER_HOST=tcp://192.168.59.103:2375  # for boot2docker
 export JAVA_HOME="/Library/Java/Home/"
 export NODE_PATH="/usr/local/lib/node_modules"
 
 [[ -r /usr/local/bin/virtualenvwrapper.sh ]] && source /usr/local/bin/virtualenvwrapper.sh
+
+# Tell system Python 2.7 where Homebrew Python's modules are. This gets
+# Mercurial plugins like hg-git installed with brew's pip to work.
+export PYTHONPATH=$BREW/lib/python2.7/site-packages
 
 #
 # Custom Shake path
@@ -39,4 +46,6 @@ export NODE_PATH="/usr/local/lib/node_modules"
 # Make a simple command-line prompt:  bash-$
 
 # PS1=$'\[\e]2;[bash]   \h::\]$PWD\[\a\]\[\e]1;\]$(basename "$(dirname "$PWD")")/\W\[\a\]\u-\$ '
+
+unset BREW
 
