@@ -56,9 +56,9 @@ qclear = qrefresh -X re:.
 untrack = rm -Af
 # parity with my git mappings
 df = diff
-lg = log -p
-last = log -l1 -p
-show = log -pr
+lg = log --patch
+show = log --patch --rev
+last = show .
 
 [bookmarks]
 # More git-like behavior: only update the bookmark you are currently using,
