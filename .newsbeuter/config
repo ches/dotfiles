@@ -1,0 +1,24 @@
+browser "elinks %u"
+external-url-viewer "urlview"
+
+# Newsbeuter is crashing with a malloc/free bug attempting to use The Old Reader;
+# settle for OPML for now.
+urls-source "opml"
+opml-url "file:///Users/ches/.newsbeuter/feeds.opml"
+
+# urls-source "oldreader"
+oldreader-login "ches"
+oldreader-passwordfile "~/.local/oldreader.passwd"
+oldreader-flag-share "s"
+oldreader-flag-star "f"
+
+# Switch Shift usage of the defaults.
+# May want to scope these to certain dialogs?
+bind-key j next
+bind-key k prev
+bind-key J next-feed
+bind-key K prev-feed
+
+macro g set browser "open %u"; open ; set browser "elinks %u"
+macro u set external-url-viewer ""; show-urls ; set external-url-viewer "urlview"
+
