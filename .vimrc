@@ -447,6 +447,19 @@ if has("autocmd")
           \ if &makeprg !~# 'bundle' | setl makeprg^=bundle\ exec\  | endif
   augroup END "}}}
 
+  augroup Cursorline
+    autocmd!
+
+    " Turn on cursorline only on active window. Reduces clutter, easier to
+    " find your place.
+    "
+    " cursorline is slow:
+    "   http://briancarper.net/blog/590/cursorcolumn--cursorline-slowdown
+    "   https://gist.github.com/pera/2624765
+    autocmd WinLeave * setlocal nocursorline
+    autocmd WinEnter,BufRead * setlocal cursorline
+  augroup END
+
 
   let python_highlight_all = 1
 
