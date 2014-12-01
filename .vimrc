@@ -46,6 +46,9 @@ set wildignore=*.swp,*.bak,*.pyc,*.o,*.class
 " Only insert up to longest common autocomplete match
 set completeopt+=longest
 
+" General omnicompletion
+set omnifunc=syntaxcomplete#Complete
+
 " Basically the default statusline when ruler is enabled, with fugitive
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
@@ -352,6 +355,16 @@ if has("autocmd")
     autocmd BufNewFile,BufRead Rakefile,Capfile,Gemfile,Vagrantfile set ft=ruby
     " Keep the multiplying zombie virus-infected fugitive buffer hoard at bay
     autocmd BufReadPost fugitive://* set bufhidden=delete
+  augroup END "}}}
+
+  augroup OmniCompletion "{{{
+    autocmd!
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
   augroup END "}}}
 
   " TODO: might soon want to start organizing this ballooning group of stuff
