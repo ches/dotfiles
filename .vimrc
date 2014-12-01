@@ -704,43 +704,21 @@ if has('python')
   let g:UltiSnipsEditSplit           = "horizontal"
   nmap <Leader>rs :py UltiSnips_Manager.reset()<CR>
 
-  " UltiSnips + YouCompleteMe compat without changing the UltiSnips mappings
-  " from using Tab. Pretty close to how I want it to behave. Reminder: <C-Y>
-  " cancels completion pop-up for dismissing YCM suggestions when trying to
-  " tab through snippet placeholders. It's possible to use an expression
-  " mapping to make <CR> do this when the pop-up is visible, but it isn't
-  " worth the insanity -- see http://git.io/RndnRw
-  "
-  " https://github.com/Valloric/YouCompleteMe/issues/36#issuecomment-15451411
-  function! g:UltiSnips_Complete()
-    call UltiSnips_ExpandSnippet()
-    if g:ulti_expand_res == 0
-      if pumvisible()
-        return "\<C-n>"
-      else
-        call UltiSnips_JumpForwards()
-        if g:ulti_jump_forwards_res == 0
-          return "\<TAB>"
-        endif
-      endif
-    endif
-    return ""
-  endfunction
-
-  " YCM does it's mapping in after, so crudely override :-\
-  " TODO: YCM does stuff on VimEnter which is *after* BufRead, BufNewFile,
-  " etc. -- is there some way to make this work for the first file Vim is
-  " initially opened with?
-  au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
-
   " YouCompleteMe
-  " MacVim is built against system Python but I normally have brew version
-  " linked as active -- need to `brew unlink` for building YCM and use this:
-  let g:ycm_path_to_python_interpreter = '/usr/bin/python'
+  " Wipe out the default Tab completions to stay out of the way of UltiSnips--
+  " it's comfortable to just use Ctrl-n for YCM completion. Tried hacks for
+  " overloading Tab and it wasn't worth it.
+  let g:ycm_key_list_select_completion   = []
+  let g:ycm_key_list_previous_completion = []
 
   " I haven't built YCM's Clang magic initially, big slow download/build
   let g:ycm_register_as_syntastic_checker = 0
   let g:ycm_collect_identifiers_from_tags_files = 1
+
+  " If MacVim is installed from downloaded binary instead of built with
+  " Homebrew Python installed, you might need to `brew unlink python` when
+  " building YCM, and then set this:
+  " let g:ycm_path_to_python_interpreter = '/usr/bin/python'
 
   " Gundo
   nnoremap <F7> :GundoToggle<CR>
