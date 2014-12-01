@@ -574,11 +574,6 @@ if has("autocmd")
   let g:vimwiki_use_mouse = 1  " A rare case where I may actually use the mouse :-)
   let g:vimwiki_folding   = 1
 
-  " Override so vimwiki's syntax doesn't greedily take over all md files
-  " Default: {'.md': 'markdown'}
-  " Becomes default in trunk: https://code.google.com/p/vimwiki/source/detail?r=b6544f3369e28ed6e5d5dad50afae36fdc096701
-  let g:vimwiki_ext2syntax = {}
-
   let main_wiki           = {}
   let main_wiki.path      = '~/src/vimwiki'
   let main_wiki.path_html = '~/src/vimwiki/html'
@@ -751,9 +746,15 @@ if has('python')
   nnoremap <F7> :GundoToggle<CR>
   let g:gundo_preview_bottom = 1     " force wide window across bottom
 
-  " Sparkup
-  " Way to default to a mapping that conflicts with scrolling, guy (<C-e>)...
-  let g:sparkupExecuteMapping = "<M-s>"
+  " Emmet, formerly Zen Coding
+  "
+  " Don't install in every filetype :-/
+  " Might need to add stuff like ERB, or use composites.
+  let g:user_emmet_install_global = 0
+  autocmd FileType html,css EmmetInstall
+
+  " The default mapping prefix conflicts with scrolling (<C-y>)...
+  let g:user_emmet_leader_key='<C-m>'
 
 else
 
@@ -791,6 +792,9 @@ noremap <C-g>b :Gblame<CR>
 
 noremap <C-g>v :Gitv<CR>
 noremap <C-g>V :Gitv!<CR>
+
+" Signify - VCS changes in the gutter with signs
+let g:signify_vcs_list = ['git', 'hg', 'bzr']
 
 " Sessions
 
