@@ -34,6 +34,7 @@ set scrolloff=3     " Keep some context visible when scrolling
 set sidescrolloff=4
 set wildmenu        " Modern completion menu
 set nowrap          " Default to no visual line
+let &showbreak='↪  '
 set number          " line numbers
 set numberwidth=5   " a little bit of buffer is prettier
 
@@ -243,6 +244,7 @@ if has("autocmd")
   augroup END
 
 endif " has("autocmd")
+
 " Remappings {{{1
 
 " I'm drinkin' the comma-as-leader kool aid
@@ -280,7 +282,7 @@ cnoremap <C-E>      <End>
 cnoremap <C-F>      <Right>
 cnoremap <C-N>      <Down>
 cnoremap <C-P>      <Up>
-if has('mac')
+if has('mac') && has('gui_running')
   cnoremap <M-b>      <S-Left>
   cnoremap <M-f>      <S-Right>
   cnoremap <M-BS>     <C-W>
@@ -289,6 +291,7 @@ else
   cnoremap <ESC><C-B> <S-Left>
   cnoremap <ESC>f     <S-Right>
   cnoremap <ESC><C-F> <S-Right>
+  cnoremap <ESC><BS>  <C-W>
   cnoremap <ESC><C-H> <C-W>
 endif
 
@@ -298,11 +301,24 @@ map <C-k> <C-w>k
 map <C-l> <C-w>l
 map <C-h> <C-w>h
 
+" Symmetry with tmux previous window binding
+map <C-w>; <C-w>p
+
 " Resizing, assuming left Option as Esc here
 map <Esc>= <C-w>3+
 map <Esc>- <C-w>3-
 map <Esc>, <C-w>3<
 map <Esc>. <C-w>3>
+
+" Keep a block highlighted while shifting
+vnoremap < <gv
+vnoremap > >gv
+
+" Line "bubbling" with the help of unimpaired.vim
+nmap <C-UP> [e
+nmap <C-DOWN> ]e
+vmap <C-UP> [egv
+vmap <C-DOWN> ]egv
 
 " Toggle a window's height stickiness, so C-w = doesn't equalize it
 nmap <leader>` :set invwinfixheight winfixheight?<CR>
@@ -351,6 +367,7 @@ if has("autocmd")
   augroup FiletypeSets "{{{
     autocmd!
     autocmd BufNewFile,BufRead jquery.*.js set ft=javascript syntax=jquery
+    autocmd BufNewFile,BufRead *.j2 set ft=jinja
     autocmd BufNewFile,BufRead *.mako set ft=mako
     autocmd BufNewFile,BufRead Rakefile,Capfile,Gemfile,Vagrantfile set ft=ruby
     " Keep the multiplying zombie virus-infected fugitive buffer hoard at bay
@@ -372,7 +389,7 @@ if has("autocmd")
   augroup FToptions "{{{
     autocmd!
     autocmd FileType html,xhtml,xml,htmldjango,htmljinja,eruby,mako,cucumber setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-    autocmd FileType coffee,ruby,vim,yaml setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType coffee,ruby,scala,vim,yaml setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
     autocmd FileType javascript setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
 
     " Rails.vim defaults to 2 for traditional JS, I prefer 4
@@ -407,6 +424,7 @@ if has("autocmd")
 
     " Use fancier man.vim version instead of keywordprg
     autocmd FileType c,sh nnoremap K :Man <cword><CR>
+    autocmd FileType vim setlocal keywordprg=:help
 
     " Make pydoc.vim's doc window close easier
     autocmd BufNewFile __doc__ nmap <silent> <buffer> q :q<CR>
@@ -415,7 +433,6 @@ if has("autocmd")
 
     autocmd FileType javascript let javascript_enable_domhtmlcss=1
     autocmd FileType xml let xml_use_xhtml = 1 " default xml to self-closing tags
-    autocmd FileType vim setlocal keywordprg=:help
 
     autocmd FileType markdown nnoremap <buffer> <leader>1 yypVr=
     autocmd FileType markdown nnoremap <buffer> <leader>2 yypVr-
@@ -493,7 +510,13 @@ if has("autocmd")
   let g:TagmaTasksPrefix = '\t'
 
   " Open the YankRing window
-  nnoremap <silent> <M-v> :YRShow<CR>
+  if has('mac') && has('gui_running')
+    nnoremap <silent> <M-v> :YRShow<CR>
+  else
+    " Console with Option as Escape
+    nnoremap <silent> <Esc>v :YRShow<CR>
+  endif
+
   let g:yankring_history_dir = '$HOME/.autosave/vim'
 
   " Make sure YankRing plays nice with custom remapping.
@@ -577,6 +600,7 @@ endif " has("autocmd")
 
 " Ack Search
 map <Leader>a :Ack!<space>
+map <Leader>A :AckWindow!<space>
 map <Leader>n :AckFromSearch!<CR>
 
 let g:ackhighlight = 1
@@ -644,6 +668,7 @@ if has('python')
   let g:UltiSnipsExpandTrigger       = "<tab>"
   let g:UltiSnipsJumpForwardTrigger  = "<tab>"
   let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+  let g:UltiSnipsEditSplit           = "horizontal"
   nmap <Leader>rs :py UltiSnips_Manager.reset()<CR>
 
   " UltiSnips + YouCompleteMe compat without changing the UltiSnips mappings
@@ -728,6 +753,11 @@ noremap <C-g>b :Gblame<CR>
 
 noremap <C-g>v :Gitv<CR>
 noremap <C-g>V :Gitv!<CR>
+
+" Sessions
+
+" Commands namespaced under Session for more consistent recall/completion
+let g:session_command_aliases = 1
 
 " Specky - RSpec plugin {{{3
 
