@@ -478,6 +478,12 @@ if has("autocmd")
   augroup END
 
 
+  " Vimerl for Erlang
+  "
+  " Overwriting any existing buffer content is too surprising.
+  let erlang_skel_replace = 0
+  let erlang_skel_header = { "author": "Ches Martin" }
+
   let python_highlight_all = 1
 
   " TagBar
@@ -642,6 +648,15 @@ let g:airline#extensions#whitespace#enabled = 0
 if !has('gui_running')
   " Many unfortunately look poor in the console, molokai almost works
   let g:airline_theme = 'ubaryd'
+endif
+
+" AutoPairs
+" Meta mappings use Esc for comfortable Option-as-Esc in iTerm
+if !has('gui_running')
+  let g:AutoPairsShortcutToggle = '<Esc>p'
+  let g:AutoPairsShortcutFastWrap = '<Esc>e'
+  let g:AutoPairsShortcutJump = '<Esc>n'
+  let g:AutoPairsShortcutBackInsert = '<Esc>b'
 endif
 
 " localvimrc - https://github.com/embear/vim-localvimrc
