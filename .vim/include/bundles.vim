@@ -31,6 +31,7 @@ Bundle 'jgdavey/vim-turbux'
 Bundle 'jmcantrell/vim-virtualenv'
 Bundle 'kana/vim-textobj-user'
 Bundle 'kchmck/vim-coffee-script'
+Bundle 'kien/ctrlp.vim'
 Bundle 'klen/rope-vim'
 Bundle 'LStinson/TagmaTasks'
 Bundle 'majutsushi/tagbar'
@@ -68,7 +69,6 @@ Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-rvm'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
-Bundle 'wincent/Command-T'
 " Giving Syntastic a spin, would like to settle on it for consolidation but
 " wish they'd fix things like:
 "       https://github.com/scrooloose/syntastic/pull/46

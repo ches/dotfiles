@@ -553,6 +553,25 @@ endif " has("autocmd")
 map <Leader>a :Ack!<space>
 map <Leader>n :AckFromSearch!<CR>
 
+let g:ackhighlight = 1
+
+" If The Silver Searcher is available, use it.
+"
+" The --noheading option to ag should more probably be ack's -H, it currently
+" results in some extra newlines but Vim quickfix deals with it well enough.
+" See:
+"
+"   https://github.com/ggreer/the_silver_searcher/issues/361
+if executable('ag')
+  let g:ackprg = 'ag --nogroup --nocolor --noheading --column'
+
+  " ag is fast enough to just eschew caching altogether. Hot damn.
+  let g:ctrlp_user_command = 'ag --nocolor -g "" %s'
+  let g:ctrlp_use_caching = 0
+elseif executable('ack')
+  let g:ctrlp_user_command = 'ack -k --nocolor -g "" %s'
+endif
+
 "
 " Airline status bar
 "
@@ -586,9 +605,9 @@ let g:localvimrc_persistence_file = expand('$HOME') . '/.backup/vim/localvimrc_p
 map <Leader><Leader> :NERDTreeToggle<cr>
 
 " Mnemonic: [f]iles, with a shared key. I use <Leader>b for LustyJuggler.
-nnoremap <Leader>f :CommandT<CR>
-nnoremap <Leader>F :CommandTBuffer<CR>
-nnoremap <Leader><C-f> :CommandTTag<CR>
+nnoremap <Leader>f :CtrlP<CR>
+nnoremap <Leader>F :CtrlPBuffer<CR>
+nnoremap <Leader><C-f> :CtrlPTag<CR>
 
 " Ready for tab-completion of named Tabular patterns
 " Choosing 'gq' since it's similar function to the format command
