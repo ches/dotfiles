@@ -600,6 +600,29 @@ if has("autocmd")
       \ 'javascript' : 'js'
     \ }
   endif
+
+  " Merlin - Semantic completion for OCaml
+  "
+  " Installed along with its server runtime through OPAM, so the Vim plugin is
+  " not managed via Vundle currently -- see:
+  "
+  "   https://github.com/the-lambda-church/merlin
+  "
+  " Reminder to re-index the docs after upgrades:
+  "
+  "   :execute "helptags " . g:opamshare . "/merlin/vim/doc"
+  if executable('ocamlmerlin') && has('python')
+    let g:opamshare = substitute(system('opam config var share'), '\n$', '', '''')
+    execute "set rtp+=" . g:opamshare . "/merlin/vim"
+
+    let g:syntastic_ocaml_checkers = ['merlin']
+
+    " See the above TODO for java patterns
+    " let g:neocomplete#force_omni_input_patterns.ocaml = '[^. *\t]\.\w*\|\h\w*|#'
+
+    " opam install ocp-indent
+    " autocmd FileType ocaml source g:opamshare . "/typerex/ocp-indent/ocp-indent.vim"
+  endif
 endif " has("autocmd")
 
 " Plugin Mappings {{{2
