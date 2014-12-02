@@ -1,17 +1,27 @@
-" Initially based on the Vim distribution's example vimrc, with
-" additional inspiration from all over the web.
-
 " When started as "evim", evim.vim will already have done these settings.
-if v:progname =~? "evim"
-  finish
+if v:progname =~? "evim" | finish | endif
+
+" Runtime + Plugin System Bootstrap {{{1
+" --------------------------------------
+
+if has('vim_starting')
+  " Use Vim sauce, you can't do anything fun in Vi mode.
+  " This must be first, because it changes other options as a side effect.
+  set nocompatible
+  set runtimepath+=~/.vim/bundle/neobundle.vim
 endif
+
+" Register and load plugins.
+runtime! include/bundles.vim
+
+" Allow plugins to work their magic.
+filetype plugin indent on
+
+" Check and prompt for any plugins pending installation.
+NeoBundleCheck
 
 " General options {{{1
 " Miscellaneous and Display {{{2
-
-" Use Vim settings, rather then Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
-set nocompatible
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -105,15 +115,6 @@ endif
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
-
-  " Vundle has similar particularities about filetype initialization as
-  " pathogen does
-  filetype off
-  runtime! include/bundles.vim
-
-  " Enable file type detection, letting plugins, autocmds and such do all
-  " their magic for custom language-dependent settings.
-  filetype plugin indent on
 
   " Put these in an autocmd group, so that we can delete them easily.
   augroup vimrcEx
