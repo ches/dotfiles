@@ -4,8 +4,12 @@
 *.py[co]
 *.tmproj
 .agignore
+.classpath
 .git-wtfrc
 .idea
+# sbt-ctags -- try to move this to globally shared
+# Also see https://github.com/ceedubs/sbt-ctags - uses target dir
+/.lib-src
 .lvimrc
 .project
 .pydevproject

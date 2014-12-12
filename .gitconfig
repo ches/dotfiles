@@ -1,6 +1,7 @@
 [user]
 	name = Ches Martin
 	email = ches@whiskeyandgrits.net
+	signingkey = AEADCEC6
 [alias]
 	br = branch
 	co = checkout
@@ -39,7 +40,6 @@
 [branch]
 	autosetupmerge = true
 [core]
-	excludesfile = /Users/ches/.gitignore
 	whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
 	autocrlf = false
 [color]
