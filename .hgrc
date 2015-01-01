@@ -1,6 +1,7 @@
 [ui]
 username = Ches Martin <ches@whiskeyandgrits.net>
 ssh = ssh -C
+ignore = ~/.config/hg/ignore
 
 # Abort instead of trying to auto-commit when subrepos have changes
 commitsubrepos = no

@@ -1,0 +1,19 @@
+syntax: glob
+
+# Editor swap/backup junk
+*~
+.*.sw?
+
+*.py[co]
+
+.agignore
+.DS_Store
+.env
+.idea
+.lvimrc
+.pryrc
+.rvmrc
+.ruby-version
+.ruby-gemset
+Gemfile.lock
+
