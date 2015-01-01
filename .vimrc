@@ -214,14 +214,12 @@ if has("autocmd")
       end
     endfunction
     "}}}
-  
+
     " Skeletons {{{
+    autocmd BufNewFile build.sbt silent 0read ~/.vim/skeleton/build.sbt| normal ggf"
+    autocmd BufNewFile .lvimrc silent 0read ~/.vim/skeleton/lvimrc.vim | normal }j
     autocmd BufNewFile *.py silent 0read ~/.vim/skeleton/skeleton.py   | normal G
     autocmd BufNewFile *.sh silent 0read ~/.vim/skeleton/skeleton.sh   | normal G
-    "autocmd BufNewFile *.pl silent 0read ~/.vim/skeleton/perl.pl     | normal G
-    "autocmd BufNewFile *.t  silent 0read ~/.vim/skeleton/perl-test.t | normal G
-    "autocmd BufNewFile *.c  silent 0read ~/.vim/skeleton/c.c         | normal 4j$
-    "autocmd BufNewFile *.hs silent 0read ~/.vim/skeleton/haskell.hs  | normal Gk$
     "}}}
 
     " Auto file perms {{{
