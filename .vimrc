@@ -1,3 +1,13 @@
+"
+"                              ,---.
+"     ,--.   ,--.,--.          |   |
+"      \  `.'  / `--',--,--,--.|  .'      Ches Martin
+"       \     /  ,--.|        ||  |       http://chesmart.in
+"        \   /   |  ||  |  |  |`--'
+"         `-'    `--'`--`--`--'.--.
+"                              '--'
+"
+
 " When started as "evim", evim.vim will already have done these settings.
 if v:progname =~? "evim" | finish | endif
 
@@ -12,7 +22,12 @@ if has('vim_starting')
 endif
 
 " Register and load plugins.
-runtime! include/bundles.vim
+runtime include/bundles.vim
+
+" Built-ins
+runtime macros/editexisting.vim  " Bring forward existing session w/ open file
+runtime macros/matchit.vim       " More powerful % for if/fi, HTML tags, etc.
+runtime ftplugin/man.vim         " Sweet :Man command opens pages in split
 
 " Allow plugins to work their magic.
 filetype plugin indent on
@@ -140,9 +155,6 @@ if has("viminfo")
 
 endif
 
-" Get a sweet :Man command to open pages in split
-runtime ftplugin/man.vim
-
 " Indentation {{{2
 
 " no-longer skinny tabs!
@@ -244,7 +256,7 @@ if has("autocmd")
 
 endif " has("autocmd")
 
-" Remappings {{{1
+" General Mappings {{{1
 
 " I'm drinkin' the comma-as-leader kool aid
 let mapleader = ","
@@ -294,7 +306,7 @@ else
   cnoremap <ESC><C-H> <C-W>
 endif
 
-" Easy window split navigation {{{
+" Easy window split navigation
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
@@ -332,6 +344,8 @@ if has('mac')
   nmap <silent> <leader>k <Plug>DashSearch
 endif
 
+" Terminal Function key hackery {{{
+"
 " Gross, but I'm tired of trying to get various terminal emulators to emit
 " consistent fucking escape sequences. These, for now, are whatever iTerm2 in
 " xterm-256color mode emits for function keys...
@@ -368,7 +382,6 @@ if has("autocmd")
     autocmd BufNewFile,BufRead jquery.*.js set ft=javascript syntax=jquery
     autocmd BufNewFile,BufRead *.j2 set ft=jinja
     autocmd BufNewFile,BufRead *.mako set ft=mako
-    autocmd BufNewFile,BufRead Rakefile,Capfile,Gemfile,Vagrantfile set ft=ruby
     " Keep the multiplying zombie virus-infected fugitive buffer hoard at bay
     autocmd BufReadPost fugitive://* set bufhidden=delete
   augroup END "}}}
@@ -472,6 +485,7 @@ if has("autocmd")
     " cursorline is slow:
     "   http://briancarper.net/blog/590/cursorcolumn--cursorline-slowdown
     "   https://gist.github.com/pera/2624765
+    "   https://code.google.com/p/vim/issues/detail?id=282
     autocmd WinLeave * setlocal nocursorline
     autocmd WinEnter,BufRead * setlocal cursorline
   augroup END
@@ -513,6 +527,8 @@ if has("autocmd")
   let g:TagmaTasksJumpKeys = 0
   " Defaults to <Leader>t, which would make CommandT slow
   let g:TagmaTasksPrefix = '\t'
+  " Plugin is buggy, supposed to set this to empty but does so too late.
+  let g:TagmaTasksRegexp = ''
 
   " Open the YankRing window
   if has('mac') && has('gui_running')
@@ -651,6 +667,7 @@ endif
 
 " TODO: detect availability
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#hunks#enabled = 0
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#show_tab_type = 0
@@ -709,6 +726,10 @@ if has('python')
   " overloading Tab and it wasn't worth it.
   let g:ycm_key_list_select_completion   = []
   let g:ycm_key_list_previous_completion = []
+
+  " Enable using tags. Off by default "because it's slow if your tags file is
+  " on a network directory". lolwut.
+  let g:ycm_collect_identifiers_from_tags_files = 1
 
   " I haven't built YCM's Clang magic initially, big slow download/build
   let g:ycm_register_as_syntastic_checker = 0
@@ -795,9 +816,8 @@ let g:splitjoin_align = 1
 
 " Custom Functions {{{1
 
-" Mappings below use this generalized function to strip trailing white space,
-" or reformat the file, preserving cursor position, etc.
-" Hat tip: http://vimcasts.org/episodes/tidying-whitespace/
+" Generalized function to execute the given command while preserving cursor
+" position, etc. Hat tip: http://vimcasts.org/episodes/tidying-whitespace/
 function! Preserve(command)
   " Preserve cursor position and last search
   let _s=@/
@@ -809,8 +829,17 @@ function! Preserve(command)
   let @/=_s
   call cursor(l, c)
 endfunction
-nmap _$ :call Preserve("%s/\\s\\+$//e")<CR>
-nmap _= :call Preserve("normal gg=G")<CR>
+
+function! StripTrailingWhitespace()
+  call Preserve("%s/\\s\\+$//e")
+endfunction
+
+function! ReformatFile()
+  call Preserve("normal gg=G")
+endfunction
+
+nmap _$ :call StripTrailingWhitespace()<CR>
+nmap _= :call ReformatFile()<CR>
 
 " Rails.vim and others call this by naming convention for various
 " browser-opening functions
@@ -845,9 +874,6 @@ if has("eval")
         \   call delete(expand("#"))|
         \ endif
 endif
-
-" Plugin distributed with Vim to bring forward existing session w/ open file
-runtime! macros/editexisting.vim
 
 " vim:foldmethod=marker commentstring="%s
 
