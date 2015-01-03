@@ -1,7 +1,11 @@
 # Refer to the Scala style guide at:
 #   http://docs.scala-lang.org/style/
 #
-# TODO: ScalaTest DSL snippets
+# TODO: Akka actor snippets:
+#   - actor snippet with companion object with props factory method
+#   - receive method
+#   - watch, supervision strategies
+#   - some Akka IO snippets, maybe
 
 # See http://www.scala-lang.org/node/166
 snippet '^#!' "Scala shell script shebang" r
@@ -11,13 +15,40 @@ exec scala "\$0" "\$@"
 
 endsnippet
 
+
 snippet "im(port)?" "Import, with optional enumerations" br
 import ${1:packages}${2:.${3:\{ ${4:Class, AnotherClass} \}}${5:._}}
 endsnippet
 
 
+snippet pri "private Visibility"
+private ${1:val}
+endsnippet
+
+
+snippet pris "Scoped private Visibility"
+private[${1:scope}] ${2:val}
+endsnippet
+
+
+snippet pro "protected Visibility"
+protected ${1:val}
+endsnippet
+
+
+snippet pros "Scoped protected Visibility"
+protected[${1:scope}] ${2:val}
+endsnippet
+
+
+snippet self "Self Type Annotation"
+${1:self}: ${2:Type} =>
+endsnippet
+
+
+# This avoids matching some other snippets ending in "{"
 # TODO: try to make this work if there's already text after the { ?
-snippet { "Expand inline block" w
+snippet "(?<!(for|kup) ){" "Expand inline block" wr
 { $1 }
 endsnippet
 
@@ -29,12 +60,12 @@ snippet } "Expand multi-line block" w
 endsnippet
 
 
-snippet val "Value" b
+snippet val "Value"
 val ${1:name}${2:: ${3:T}} = ${4:value}
 endsnippet
 
 
-snippet var "Variable" b
+snippet var "Variable"
 var ${1:name}${2:: ${3:T}} = ${4:value}
 endsnippet
 
@@ -44,8 +75,8 @@ ${1:(${2:x: Int})} => ${3:x + 1}
 endsnippet
 
 
-snippet def "Method Declaration" b
-def ${1:name}(${2:arg}$3)${4:: ${5:ReturnType}} = ${6:\{
+snippet def "Method Declaration"
+def ${1:name}${2:(${3:arg})}${4:: ${5:ReturnType}} = ${6:\{
 	$7
 \}}
 endsnippet
@@ -63,28 +94,28 @@ endsnippet
 
 # TODO: Odersky considers this syntax a misfeature, now strongly frowned upon;
 # This snippet could still be useful with equals sign and Unit return?
-snippet proc "Procedure (pure side-effect function)" b
-def ${1:name}(${2:x: Int}) ${3:\{
-	$4
+snippet proc "Procedure (pure side-effect function)"
+def ${1:name}(${2:arg}$3) ${4:\{
+	$5
 \}}
 endsnippet
 
 
-snippet class "Class Declaration" b
-class ${1:Person}${2:(${3:name: String, age: Int})}${4: extends ${5:Trait}${6: with ${7:Another}}} {
+snippet class "Class Declaration"
+class ${1:Person}${2:(${3:arg})}${4: extends ${5:Trait}${6: with ${7:Another}}} {
 	$0
 }
 endsnippet
 
 
 snippet 'obj(ect)?' "Object Declaration" br
-object ${1:Name}${2: extends ${3:Application}${4: with ${5:Mixin}}} {
+object ${1:Name}${2: extends ${3:App}${4: with ${5:Mixin}}} {
 	$0
 }
 endsnippet
 
 
-snippet trait "Trait Declaration" b
+snippet trait "Trait Declaration"
 trait ${1:Name}${2: extends ${3:Other}${4: with ${5:Another}}} {
 	$0
 }
@@ -92,7 +123,7 @@ endsnippet
 
 
 # "case" is overloaded with pattern matching, so use a completely different mnemonic
-snippet adt "Case Class (Algebraic Data Type)" b
+snippet adt "Case Class (Algebraic Data Type)"
 case class ${1:Name}(${2:arg}$3)
 endsnippet
 
@@ -149,13 +180,12 @@ case ${1:_} => ${2:expression}
 endsnippet
 
 
-# FIXME: don't expand again when first tabstop is left as-is
-snippet "for (" "Sequence Comprehension Inline"
-for (${1:i} <- ${2:0 to 10}) yield $3
+# Type {} over the yield placeholder for imperative.
+snippet for "Sequence Comprehension Inline / Imperative for"
+for (${1:i} <- ${2:0 to 10}) ${3:yield $4}
 endsnippet
 
 
-# FIXME: don't expand again when first tabstop is left as-is
 snippet "for {" "Sequence Comprehension Block"
 for {
 	${1:i} <- ${2:0 until n}
@@ -173,6 +203,11 @@ snippet kvs "Key/Value Literal, String-Keyed (Map)" w
 endsnippet
 
 
+snippet Map "Map[K, V]"
+Map[${1:K}, ${2:V}](${3:kv}$4)
+endsnippet
+
+
 snippet main "Application Object main Method Declaration" b
 def main(args: Array[String]) {
 	$0
@@ -187,7 +222,7 @@ override def toString = ${1:\{
 endsnippet
 
 
-# TODO: try/catch
+# TODO: try/catch, Try
 snippet throw "throw Exception"
 throw new ${1:Exception}${2:("${3:message}")}
 endsnippet

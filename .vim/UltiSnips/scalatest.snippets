@@ -1,0 +1,300 @@
+# TODO:
+#   - Other style traits
+#   - WebBrowser Selenium DSL
+#   - More matchers
+#   - withFixture stuff
+
+extends scala
+
+snippet bef "before (BeforeAndAfter)" b
+before {
+	$1
+}
+endsnippet
+
+snippet aft "after (BeforeAndAfter)" b
+after {
+	$1
+}
+endsnippet
+
+snippet befe "beforeEach (BeforeAndAfterEach)" b
+override def beforeEach() {
+	$1
+	super.beforeEach()
+}
+endsnippet
+
+snippet afte "afterEach (BeforeAndAfterEach)" b
+override def afterEach() {
+	try {
+		super.afterEach()
+	}
+	finally {
+		$1
+	}
+}
+endsnippet
+
+snippet befa "beforeAll (BeforeAndAfterAll)" b
+override def beforeAll() {
+	$1
+	super.beforeAll()
+}
+endsnippet
+
+snippet afta "afterAll (BeforeAndAfterAll)" b
+override def afterAll() {
+	try {
+		super.afterAll()
+	}
+	finally {
+		$1
+	}
+}
+endsnippet
+
+#######################################
+#  Matchers - by no means exhaustive  #
+#######################################
+
+# Booleans
+
+snippet shb "shouldBe" b
+${1:subject} shouldBe '${2:predicate}
+endsnippet
+
+snippet shnb "should not be (Boolean)" b
+${1:subject} should not be '${2:predicate}
+endsnippet
+
+snippet shba "should be a" b
+${1:subject} should be a '${2:predicate}
+endsnippet
+
+snippet shbe "shouldBe empty" b
+${1:subject} shouldBe empty
+endsnippet
+
+snippet shnbe "should not be empty" b
+${1:subject} should not be empty
+endsnippet
+
+# Type/instance identity
+
+snippet shbsi "should be theSameInstanceAs" b
+${1:ref1} should be theSameInstanceAs ${2:ref2}
+endsnippet
+
+snippet shbt "shouldBe a [Type]" b
+${1:subject} shouldBe a [${2:Type}]
+endsnippet
+
+snippet shnbt "should not be a [Type]" b
+${1:subject} should not be a [${2:Type}]
+endsnippet
+
+# Strings
+
+snippet shin "string should include" b
+${1:string} should include ("${2:substring}")
+endsnippet
+
+snippet shsw "string should startWith" b
+${1:string} should startWith ("${2:substring}")
+endsnippet
+
+snippet shew "string should endWith" b
+${1:string} should endWith ("${2:substring}")
+endsnippet
+
+snippet shm "string should match regex" b
+${1:string} should ${2:fullyMatch} ("""${3:regex}""")
+endsnippet
+
+# Exceptions
+
+snippet intercept "intercept [Exception]" b
+intercept [${2:Exception}] {
+	$2
+}
+endsnippet
+
+snippet sht "should be thrownBy" b
+an [${1:Exception}] should be thrownBy ${2:expression}
+endsnippet
+
+snippet shtm "thrownBy (with message)" b
+the [${1:Exception}] thrownBy {
+	${2:expression}
+} should have message "${3:message string}"
+endsnippet
+
+snippet shnt "noException should be thrownBy" b
+noException should be thrownBy ${1:expression}
+endsnippet
+
+####################
+#  FunSuite Style  #
+####################
+
+snippet test "test (FunSuite)" b
+test("${1:specification}") {
+	$2
+}
+endsnippet
+
+###################
+#  FunSpec Style  #
+###################
+
+snippet des "describe (FunSpec)" b
+describe("${1:subject}") {
+	$2
+}
+endsnippet
+
+snippet it "it (FunSpec)" b
+it("${1:specification}") {
+	$2
+}
+endsnippet
+
+# Trying to maintain some parity with RSpec snippets, but don't do this! A suite
+# full of passive voice is so tiresome to read.
+#
+# Maybe should use this trigger for FlatSpec `it should` anyway?
+snippet its "it should (FunSpec)" b
+it("should ${1:specification}") {
+	$2
+}
+endsnippet
+
+snippet itt "it (FunSpec, tagged)" b
+it("${1:specification}", ${2:Tags}) {
+	$3
+}
+endsnippet
+
+snippet shbl "should behave like sharedExamples (FunSpec)" b
+it should behave like ${1:sharedBehaviorFunction(sut)}
+endsnippet
+
+####################
+#  WordSpec Style  #
+####################
+
+snippet subj "when clause (WordSpec)" b
+"${1:Subject}" when {
+	$2
+}
+endsnippet
+
+snippet should "should clause (WordSpec)" b
+"${1:subject/scenario}" should {
+	in$2
+}
+endsnippet
+
+snippet must "must clause (WordSpec)" b
+"${1:subject/scenario}" must {
+	in$2
+}
+endsnippet
+
+snippet can "can clause (WordSpec)" b
+"${1:subject/scenario}" can {
+	in$2
+}
+endsnippet
+
+# Applies to WordSpec/FlatSpec/FreeSpec
+# Could make the trigger `spec`?
+snippet in "in specification (WordSpec/FlatSpec/FreeSpec)" b
+"${1:specification}" in {
+	$2
+}
+endsnippet
+
+snippet int "in specification (WordSpec, tagged)" b
+"${1:specification}" taggedAs(${2:Tags}) in {
+	$3
+}
+endsnippet
+
+#######################
+#  FeatureSpec Style  #
+#######################
+
+snippet feat "feature (FeatureSpec)" b
+feature("${1:description}") {
+	$2
+}
+endsnippet
+
+snippet scen "scenario (FeatureSpec)" b
+scenario("${1:description}") {
+	$2
+}
+endsnippet
+
+snippet story "User Story (FeatureSpec info)" b
+info("As a $1")
+info("I want $2")
+info("So I can $3")
+${4:info("And $5")}
+endsnippet
+
+####################
+#  PropSpec Style  #
+####################
+
+snippet prop "property (PropSpec)" b
+property("${1:description}") {
+	$2
+}
+endsnippet
+
+######################################
+#  Informers / Notifiers / Alerters  #
+######################################
+
+# Use note/alert for immediate feedback during test runs, informers for reports
+
+snippet info "info Informer" b
+info("${1:message}")
+endsnippet
+
+snippet given "given Informer" b
+given("${1:message}")
+endsnippet
+
+snippet when "when Informer" b
+when("${1:message}")
+endsnippet
+
+snippet then "then Informer" b
+then("${1:message}")
+endsnippet
+
+snippet note "note Notifier" b
+note("${1:message}")
+endsnippet
+
+snippet alert "alert Alerter" b
+alert("${1:message}")
+endsnippet
+
+snippet markup "markup Documenter" b
+markup("${1:markdown message}")
+endsnippet
+
+snippet "markup {" "markup Documenter Block" b
+markup { """
+${1:System Under Test}
+-----------------
+
+${2:Detailed Markdown documentation for test report output.}
+""" }
+endsnippet
+
