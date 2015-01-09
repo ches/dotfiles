@@ -1,13 +1,30 @@
 --pager=less
 --ignore-dir=coverage
---type-add
-ruby=.haml
---type-add
-css=.less
---type-add
-css=.scss
+--ignore-dir=doc
+--ignore-dir=log
+--ignore-dir=tmp
+
+# Projects where I put Elasticsearch data project-local -- it's tons of files
+--ignore-dir=db/elasticsearch
+
 --type-set
 coffee=.coffee
+
+--type-set
+cucumber=.feature
+
+--type-set
+markdown=.markdown
+
 --type-add
-js=.coffee
+css=.less,.scss
+
+--type-add
+js=.coffee,.js.erb
+
+--type-add
+markdown=.md,.mkd
+
+--type-add
+ruby=.haml,.rake,.slim
 
