@@ -60,6 +60,15 @@ fi
 # ====================================================
 
 #
+# Choose your flava
+#
+if [ "$(uname -s)" == "Darwin" ] && [ -f ~/.bash.d/platform-osx.sh ]; then
+    . ~/.bash.d/platform-osx.sh
+elif [ -f ~/.bash.d/platform-linux.sh ]; then
+    . ~/.bash.d/platform-linux.sh
+fi
+
+#
 # Startup file for Python's interactive interpreter.
 # Sets up history and completion
 #
@@ -69,6 +78,11 @@ export VIRTUALENV_USE_DISTRIBUTE=true
 export WORKON_HOME=$HOME/.virtualenvs
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
 export PIP_RESPECT_VIRTUALENV=true
+
+#
+# Memcached
+#
+export EVENT_NOKQUEUE=1
 
 # OCaml OPAM configuration
 [[ -r ~/.opam/opam-init/init.sh ]] && source ~/.opam/opam-init/init.sh
@@ -86,20 +100,6 @@ fi
 
 # Travis gem
 [[ -r ~/.travis/travis.sh ]] && source ~/.travis/travis.sh
-
-#
-# Memcached
-#
-export EVENT_NOKQUEUE=1
-
-#
-# Choose your flava
-#
-if [ "$(uname -s)" == "Darwin" ] && [ -f ~/.bash.d/platform-osx.sh ]; then
-    . ~/.bash.d/platform-osx.sh
-elif [ -f ~/.bash.d/platform-linux.sh ]; then
-    . ~/.bash.d/platform-linux.sh
-fi
 
 # Machine-specific stuff, creds kept out of SCM, etc.
 if [ -d ~/.local ]; then
