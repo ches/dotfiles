@@ -6,6 +6,8 @@
 " TODO: MacVim requires case sensitivity instead of explicit Shift,
 " i.e. <D-R> instead of <S-D-r>. Anything we can do about <S-D-CR>?
 
+scriptencoding utf-8
+
 " Toggle line wrapping
 " TextMate uses Opt-Cmd-w but that closes all windows in MacVim...
 map <silent> <C-M-w> :set invwrap<CR>
@@ -21,26 +23,35 @@ map <silent> <M-'> cs"'
 if has('autocmd')
   augroup TextmateStuff
     autocmd!
-    " insert hashrocket, =>
+    " Fat vs. skinny versions may seem inconsistent, but based on most used in the lang
     " TODO: make it not greedy for dot-repeating?
-    autocmd FileType ruby imap <C-l> <Space>=><Space>
-    autocmd FileType coffee imap <C-l> <Space>->
+    " TODO: Meta versions don't work in terminal when mapping Option to Escape
+    " in order to make many other mappings more functional. At least the
+    " digraphs are intuitive to remember, e.g. <C-k>=> and <C-k>->
+    autocmd FileType ruby   imap <buffer> <C-l> <Space>=><Space>
+    autocmd FileType coffee imap <buffer> <C-l> <Space>->
+    autocmd FileType coffee imap <buffer> <C-L> <Space>=>
+    autocmd FileType erlang imap <buffer> <C-l> <Space>->
+    autocmd FileType scala  imap <buffer> <C-l> <Space>=><Space>
+    autocmd FileType scala  imap <buffer> <C-L> <Space>-><Space>
+    autocmd FileType scala  imap <buffer> <M-l> <Space>⇒<Space>
+    autocmd FileType scala  imap <buffer> <M-L> <Space>→<Space>
 
     if has('mac') && has('gui_running')
       " Run tests/specs in Ruby/Rails apps
-      autocmd User Rails,Rake nmap <D-r> :Rake<CR>
-      autocmd User Rails,Rake nmap <D-R> :.Rake<CR>
+      autocmd User Rails,Rake nmap <buffer> <D-r> :Rake<CR>
+      autocmd User Rails,Rake nmap <buffer> <D-R> :.Rake<CR>
 
       " 'Run' some filetypes the way TM would
-      autocmd FileType coffee nmap <D-r> :CoffeeRun<CR>
+      autocmd FileType coffee nmap <buffer> <D-r> :CoffeeRun<CR>
       " The 'build' mapping in TM does compile-and-display
-      autocmd FileType coffee nmap <D-b> :CoffeeCompile<CR>
+      autocmd FileType coffee nmap <buffer> <D-b> :CoffeeCompile<CR>
     else
       " Left Option as Esc in iTerm2
-      autocmd User Rails,Rake nmap <Esc>r :Rake<CR>
-      autocmd User Rails,Rake nmap <Esc>R :.Rake<CR>
-      autocmd FileType coffee nmap <Esc>r :CoffeeRun<CR>
-      autocmd FileType coffee nmap <Esc>b :CoffeeCompile<CR>
+      autocmd User Rails,Rake nmap <buffer> <Esc>r :Rake<CR>
+      autocmd User Rails,Rake nmap <buffer> <Esc>R :.Rake<CR>
+      autocmd FileType coffee nmap <buffer> <Esc>r :CoffeeRun<CR>
+      autocmd FileType coffee nmap <buffer> <Esc>b :CoffeeCompile<CR>
     endif
   augroup END
 endif
@@ -113,10 +124,10 @@ else
   " NOTE: something about my old visual mode mappings using <M-]>, etc. breaks
   " UltiSnips snippet expansion with Tab when running vim in console -- weird.
   nmap <Esc>[ <<
-  vmap <Esc>[ <
+  vmap <Esc>[ < gv
   imap <Esc>[ <C-d>
   nmap <Esc>] >>
-  vmap <Esc>] >
+  vmap <Esc>] > gv
   imap <Esc>] <C-t>
   " nmap <M-C-[> ==
   " vmap <M-C-[> =
