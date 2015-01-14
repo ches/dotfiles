@@ -46,6 +46,9 @@ NeoBundle 'tpope/vim-ragtag' " html, xml, haml, erb, php, jinja, django, ?
 NeoBundle 'tpope/vim-repeat'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-unimpaired'
+
+" All the huge third-party submodule deps are annoying, but I've tried
+" neocomplete and it's just unusably slow without tons of tuning :-/
 NeoBundle 'Valloric/YouCompleteMe', {
 \ 'augroup' : 'youcompletemeStart',
 \ 'build_commands' : 'cmake',
@@ -144,6 +147,9 @@ NeoBundleLazy 'tpope/vim-rvm', {
 \ }
 NeoBundleLazy 'vim-ruby/vim-ruby', {
 \ 'autoload' : { 'filetypes' : 'ruby' }
+\ }
+NeoBundleLazy 'vim-scripts/Specky', {
+\ 'autoload' : { 'filename_patterns' : '_spec\.rb$' }
 \ }
 
 " The Rest {{{3
