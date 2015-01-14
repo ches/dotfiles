@@ -139,8 +139,7 @@ NeoBundleLazy 'tpope/vim-rake', {
 " TODO: needs a railsPluginAbolish augroup too
 NeoBundleLazy 'tpope/vim-rails', {
 \ 'autoload' : { 'filetypes' : 'ruby' },
-\ 'augroup' : 'railsPluginDetect',
-\ 'stay_same' : 1
+\ 'augroup' : 'railsPluginDetect'
 \ }
 NeoBundleLazy 'tpope/vim-rvm', {
 \ 'autoload' : { 'filetypes' : 'ruby' }
