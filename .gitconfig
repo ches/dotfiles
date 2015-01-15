@@ -34,14 +34,19 @@
 	ignore = update-index --assume-unchanged
 	unignore = update-index --no-assume-unchanged
 	ignored = !git ls-files -v | grep \"^[[:lower:]]\"
-[merge]
-	summary = true
-	tool = kdiff3
 [branch]
 	autosetupmerge = true
 [core]
 	whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
 	autocrlf = false
+[diff]
+	guitool = gvimdiff
+[merge]
+	summary = true
+	tool = kdiff3
+[mergetool "kdiff3"]
+	trustExitCode = false
+	keepBackup = false
 [color]
 	ui = auto
 [color "branch"]
@@ -61,9 +66,6 @@
 	port = 8000
 [init]
 	templatedir = ~/.git_template
-[mergetool "kdiff3"]
-	trustExitCode = false
-	keepBackup = false
 [rerere]
 	enabled = true
 [push]

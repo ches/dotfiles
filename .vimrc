@@ -125,7 +125,12 @@ if &t_Co > 2 || has("gui_running")
   syntax on
   set hlsearch
   set cursorline
-  colorscheme customtwilight  " last used: oceanblack
+
+  if &diff
+    colorscheme xoria256          " The best diff highlighting I've found
+  else
+    colorscheme customtwilight
+  endif
 endif
 
 " Only do this part when compiled with support for autocommands.

@@ -76,10 +76,12 @@ kdiff3.args = $base $local $other -o $output
 kdiff3.fixeol=True
 kdiff3.gui=True
 
+# See http://mercurial.selenic.com/wiki/MergingWithVim
 vimdiff.executable = mvim
-vimdiff.args = -d $local $other
+vimdiff.args = -f -d $output -M $local $base $other -c "wincmd J" -c "set modifiable" -c "set write"
 vimdiff.checkchanged = true
 vimdiff.gui = true
+vimdiff.premerge = keep
 
 merge.checkconflicts=True
 merge.priority=-10
