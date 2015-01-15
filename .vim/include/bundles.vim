@@ -42,6 +42,7 @@ NeoBundle 'tpope/vim-endwise'
 NeoBundle 'tpope/vim-fugitive', { 'augroup' : 'fugitive' }
 NeoBundle 'tpope/vim-git'
 NeoBundle 'tpope/vim-markdown'
+NeoBundle 'tpope/vim-projectionist'
 NeoBundle 'tpope/vim-ragtag' " html, xml, haml, erb, php, jinja, django, ?
 NeoBundle 'tpope/vim-repeat'
 NeoBundle 'tpope/vim-surround'
@@ -214,8 +215,6 @@ NeoBundleLazy 'wting/rust.vim', {
 
 " From vim-scripts GitHub account (vimscripts.org mirrors)
 " TODO: change all to vim-scripts GitHub account
-" TODO: replace a.vim w/ derekwyatt/vim-fswitch or tpope/projectionist.vim
-NeoBundle 'a.vim'
 NeoBundle 'dbext.vim'
 NeoBundle 'jQuery'
 NeoBundle 'LustyJuggler'
