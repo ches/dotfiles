@@ -41,7 +41,7 @@ function parse_git_branch {
     fi
     if [[ ${git_status} =~ ${branch_pattern} ]]; then
         branch=${BASH_REMATCH[1]}
-        echo " ${GREEN}(${WHITE}± ${branch}${stash}${state}${remote}${GREEN})"
+        echo " ${GREEN}(${WHITE}± ${branch}${stash}${state}${remote}${GREEN})${COLOR_NONE}"
     fi
 }
 
@@ -57,41 +57,80 @@ function hg_prompt_info {
         state="${RED}⚡"
     fi
 
-    hg_shelf="$(hg attic 2> /dev/null)"
+    hg_shelf="$(hg shelve --list 2> /dev/null)"
     if [[ -n $hg_shelf ]]; then
         shelf="${RED}*"
     fi
 
     # Imperfect, but I almost always want to have a 'master' bookmark
     hg_prompt="$(hg prompt '{{branch|quiet}:}{{bookmark}}{:{patch}}')"
-    echo " ${GREEN}(${WHITE}☿ ${hg_prompt}${shelf}${state}${GREEN})"
+    echo " ${GREEN}(${WHITE}☿ ${hg_prompt}${shelf}${state}${GREEN})${COLOR_NONE}"
 }
 
 
+# chruby 0.4.0 is said to add $RUBY_PATCHLEVEL
+# https://twitter.com/postmodern_mod3/status/288985963559022592
+#
+# RVM is supposed to support the same variables, but I haven't tested so still
+# leaving the rvm-prompt version in here for now, just in case.
 function ruby_version {
-    if [[ -f ~/.rvm/bin/rvm-prompt ]]; then
+    local ruby=""
+
+    # chruby will helpfully unset RUBY_VERSION if system version is used; RVM?
+    if [[ -n "$RUBY_VERSION" ]]; then
+        ruby+=" ${RED}♦ "
+
+        # Don't show interpreter if it's just MRI
+        case "$RUBY_ENGINE" in
+            ruby)
+                ruby+="${RUBY_VERSION}${RUBY_PATCHLEVEL:+-}${RUBY_PATCHLEVEL:-}"
+                ;;
+            *)
+                ruby+="${RUBY_ENGINE}-${RUBY_VERSION}${RUBY_PATCHLEVEL:+-}${RUBY_PATCHLEVEL:-}"
+                ;;
+        esac
+    elif [[ -r ~/.rvm/bin/rvm-prompt ]]; then
         local system=$(~/.rvm/bin/rvm-prompt s --no-default)
-        local interp=$(~/.rvm/bin/rvm-prompt i)
+
         if [[ ! -n $system ]]; then
+            local interp=$(~/.rvm/bin/rvm-prompt i)
+
+            ruby+=" ${RED}♦ "
+
             # Don't show interpreter if it's just MRI
             case $interp in
-                ruby) echo " ${RED}♦ $(~/.rvm/bin/rvm-prompt v g)${COLOR_NONE}" ;;
-                *)    echo " ${RED}♦ $(~/.rvm/bin/rvm-prompt i v g)${COLOR_NONE}" ;;
+                ruby)
+                    ruby+="$(~/.rvm/bin/rvm-prompt v g)"
+                    ;;
+                *)
+                    ruby+="$(~/.rvm/bin/rvm-prompt i v g)"
+                    ;;
             esac
         fi
     fi
+
+    [[ -n "$ruby" ]] && echo "${ruby}${COLOR_NONE}"
 }
 
 function prompt_func {
-    previous_return_value=$?;
-    prompt="${GREEN}\w$(parse_git_branch)$(hg_prompt_info)${COLOR_NONE}$(ruby_version)\n[\u@\h]"
-    if test $previous_return_value -eq 0
-    then
-        PS1="\n${prompt}\$ "
+    local previous_exit_code=$?
+
+    local prompt="${GREEN}\w"
+    prompt+="$(parse_git_branch)"
+    prompt+="$(hg_prompt_info)"
+    prompt+="$(ruby_version)"
+    prompt+="\n[\u@\h]"
+
+    # Dirty the $ on end of prompt if last exit code was a failure
+    if [ "$previous_exit_code" -eq 0 ]; then
+        prompt+="\$"
     else
-        PS1="\n${prompt}${RED}\$${COLOR_NONE} "
+        prompt+="${RED}\$${COLOR_NONE} "
     fi
+
+    PS1="\n${prompt} "
 }
 
-export PROMPT_COMMAND="$PROMPT_COMMAND; prompt_func"
+# Would be best to call original first, but that breaks last exit status sniffing. Hmm.
+export PROMPT_COMMAND="prompt_func; $PROMPT_COMMAND"
 
