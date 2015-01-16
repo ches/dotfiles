@@ -71,45 +71,20 @@ function hg_prompt_info {
 # chruby 0.4.0 is said to add $RUBY_PATCHLEVEL
 # https://twitter.com/postmodern_mod3/status/288985963559022592
 #
-# RVM is supposed to support the same variables, but I haven't tested so still
-# leaving the rvm-prompt version in here for now, just in case.
+# RVM is supposed to support the same variables now, but I haven't tested yet.
 function ruby_version {
-    local ruby=""
-
     # chruby will helpfully unset RUBY_VERSION if system version is used; RVM?
-    if [[ -n "$RUBY_VERSION" ]]; then
-        ruby+=" ${RED}♦ "
+    if [[ -z "$RUBY_VERSION" ]]; then exit; fi
 
-        # Don't show interpreter if it's just MRI
-        case "$RUBY_ENGINE" in
-            ruby)
-                ruby+="${RUBY_VERSION}${RUBY_PATCHLEVEL:+-}${RUBY_PATCHLEVEL:-}"
-                ;;
-            *)
-                ruby+="${RUBY_ENGINE}-${RUBY_VERSION}${RUBY_PATCHLEVEL:+-}${RUBY_PATCHLEVEL:-}"
-                ;;
-        esac
-    elif [[ -r ~/.rvm/bin/rvm-prompt ]]; then
-        local system=$(~/.rvm/bin/rvm-prompt s --no-default)
+    local ruby=" ${RED}♦ "
 
-        if [[ ! -n $system ]]; then
-            local interp=$(~/.rvm/bin/rvm-prompt i)
-
-            ruby+=" ${RED}♦ "
-
-            # Don't show interpreter if it's just MRI
-            case $interp in
-                ruby)
-                    ruby+="$(~/.rvm/bin/rvm-prompt v g)"
-                    ;;
-                *)
-                    ruby+="$(~/.rvm/bin/rvm-prompt i v g)"
-                    ;;
-            esac
-        fi
+    # Only show interpreter if it's interesting, i.e. not MRI
+    if [[ "$RUBY_ENGINE" != "ruby" ]]; then
+        ruby+="${RUBY_ENGINE}-"
     fi
 
-    [[ -n "$ruby" ]] && echo "${ruby}${COLOR_NONE}"
+    ruby+="${RUBY_VERSION}${RUBY_PATCHLEVEL:+-}${RUBY_PATCHLEVEL:-}"
+    echo "${ruby}${COLOR_NONE}"
 }
 
 function prompt_func {
