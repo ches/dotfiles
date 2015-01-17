@@ -54,6 +54,7 @@ glog = log --graph
 qstatus = status --rev -2:-1
 # empty current patch, but leave the diffs in the working copy:
 qclear = qrefresh -X re:.
+shelf = shelve --list
 untrack = rm -Af
 # parity with my git mappings
 df = diff
@@ -91,7 +92,7 @@ filemerge.gui=True
 
 [pager]
 pager = LESS='FRX' less
-attend = help, log, glog, lg, status, qstatus, incoming, outgoing, diff, df, qdiff, cat, annotate, shelve, last, show
+attend = help, log, glog, lg, status, qstatus, incoming, outgoing, diff, df, qdiff, cat, annotate, shelve, shelf, last, show
 
 [mq]
 # Use the secret phase for mq changesets -- see `hg help phases`

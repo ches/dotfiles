@@ -26,7 +26,7 @@ function parse_git_branch {
         state="${RED}⚡"
     fi
     if [[ -n ${git_stash} ]]; then
-        stash="${RED}*"
+        stash="${RED}☰"
     fi
     # add an else if or two here if you want to get more specific
     if [[ ${git_status} =~ ${remote_pattern} ]]; then
@@ -41,7 +41,7 @@ function parse_git_branch {
     fi
     if [[ ${git_status} =~ ${branch_pattern} ]]; then
         branch=${BASH_REMATCH[1]}
-        echo " ${GREEN}(${WHITE}± ${branch}${stash}${state}${remote}${GREEN})${COLOR_NONE}"
+        echo " ${GREEN}(${WHITE}± ${branch} ${stash}${state}${remote}${GREEN})${COLOR_NONE}"
     fi
 }
 
@@ -57,14 +57,15 @@ function hg_prompt_info {
         state="${RED}⚡"
     fi
 
+    # TODO: the hamburger would also be appropriate for mq patches
     hg_shelf="$(hg shelve --list 2> /dev/null)"
     if [[ -n $hg_shelf ]]; then
-        shelf="${RED}*"
+        shelf="${RED}☰"
     fi
 
     # Imperfect, but I almost always want to have a 'master' bookmark
     hg_prompt="$(hg prompt '{{branch|quiet}:}{{bookmark}}{:{patch}}')"
-    echo " ${GREEN}(${WHITE}☿ ${hg_prompt}${shelf}${state}${GREEN})${COLOR_NONE}"
+    echo " ${GREEN}(${WHITE}☿ ${hg_prompt} ${shelf}${state}${GREEN})${COLOR_NONE}"
 }
 
 
