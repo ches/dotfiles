@@ -265,15 +265,28 @@ endif " has("autocmd")
 
 " I'm drinkin' the comma-as-leader kool aid
 let mapleader = ","
+let maplocalleader = "\\"
 
 " Omni completion shortcut
 imap <M-space> <C-x><C-o><C-p>
 
+" Builds, with dispatch.vim
+"
 " See tpope's wicked Run() function -- I'd like to cook up something
 " similar ror ruby, pyflakes/pep8, etc.
-map <F2> :cprev<CR>
-map <F3> :wa<Bar>make<CR>
-map <F4> :cnext<CR>
+"
+" TODO: Maybe move to match new Mac media key layout of F7/8/9, but left hand
+" is nicer with leader mappings... Shift versions won't work in terminal,
+" surprising no one.
+nnoremap <F2>         :cprev<CR>
+nnoremap <F3>         :wa<Bar>Dispatch<CR>
+nnoremap <F4>         :cnext<CR>
+nnoremap <Leader><F2> :lprev<CR>
+nnoremap <Leader><F3> :wa<Bar>Make<CR>
+nnoremap <Leader><F4> :lnext<CR>
+
+nnoremap <LocalLeader><F2> :Copen<CR>
+nnoremap <LocalLeader><F3> :Start<CR>
 
 " Easy paste mode toggling
 set pastetoggle=<F6>
@@ -465,6 +478,7 @@ if has("autocmd")
   augroup END "}}}
 
   " With regards to tpope. See his vimrc for more ideas.
+  " TODO: consolidate with dispatch.vim
   augroup Compilers "{{{
     autocmd!
     " TODO: Focused tests a la :.Rake, try to use spin, etc. when available
@@ -575,6 +589,8 @@ if has("autocmd")
   " spork. Note: Vimux is nice too, but I like tslime's window/pane control.
   " To customize per-project at runtime:
   "   let g:turbux_command_rspec = 'spin push'
+  "
+  " TODO: Turbux can use Dispatch now, maybe drop tslime?
   vmap <C-c><C-c> <Plug>SendSelectionToTmux
   nmap <C-c><C-c> <Plug>NormalModeSendToTmux
   nmap <C-c>r <Plug>SetTmuxVars
