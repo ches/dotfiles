@@ -584,13 +584,26 @@ if has("autocmd")
     let g:gist_clip_command                   = 'pbcopy'
   endif
 
-  " Tslime / Turbux combo for REPL interaction/running tests in tmux panes. No
-  " quickfix list, but nice when tests are out-of-process anyway like spin or
-  " spork. Note: Vimux is nice too, but I like tslime's window/pane control.
-  " To customize per-project at runtime:
+  " Tslime provides a simple means of sending text to a tmux pane, most
+  " usefully a REPL.
+  "
+  " There are some alternatives like Vimux, but I like the way Tslime prompts
+  " for the window/pane to use, and allows reconfiguring it. This better suits
+  " a larger pane for a REPL, where Vimux optimizes for running tests/builds
+  " in a small pane that it creates. I prefer Dispatch for that. The new
+  " vim-tmux-runner is worth a look.
+  "
+  " The Turbux test runner plugin can use Tslime, but its auto-detection of
+  " backends gives precendence to Dispatch. This is normally desirable since
+  " Dispatch can parse error output from async test/build runs into quickfix,
+  " but if Tslime is preferable in some scenario, set:
+  "
+  "   let g:turbux_runner = 'tslime'
+  "
+  " A reminder for overriding Turbux's default test runner auto-selection:
+  "
   "   let g:turbux_command_rspec = 'spin push'
   "
-  " TODO: Turbux can use Dispatch now, maybe drop tslime?
   vmap <C-c><C-c> <Plug>SendSelectionToTmux
   nmap <C-c><C-c> <Plug>NormalModeSendToTmux
   nmap <C-c>r <Plug>SetTmuxVars
