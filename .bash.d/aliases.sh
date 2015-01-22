@@ -14,6 +14,7 @@ alias h=history
 alias ll="ls -laF"
 alias la='ls -A'
 alias lt='ls -lt'
+alias ltr='ls -ltr'
 alias l='ls -CF'
 
 alias ..='cd ..'
@@ -35,10 +36,11 @@ alias g='vim -g --remote-silent'
 alias gt='vim -g --remote-tab'
 alias p=$PAGER
 
-alias ri='ri -f ansi'
-
 # External IP
 alias myip='curl ifconfig.me'
+
+# Current time in ISO-8601
+alias nowiso='date "+%Y-%m-%dT%H:%M:%S%z"'
 
 # ====================================================
 # =         App- and Platform-specific Bits          =
@@ -55,6 +57,11 @@ if installed hub; then
     alias git=hub
 fi
 
+# Color for Ruby documentation
+if installed ri; then
+    alias ri='ri -f ansi'
+fi
+
 # Create a simple .rvmrc in the current dir using the current Ruby and gemset
 if installed rvm; then
     alias mkrvmrc='echo "rvm `rvm-prompt i v g`" > .rvmrc'
@@ -68,10 +75,6 @@ fi
 # OS X
 #
 if [ "$(uname -s)" == "Darwin" ]; then
-    # MacVim has all the juicy bits like ruby and python scripting support built in.
-    # An alias instead of symlink means it loads all the vimruntime with no extra config.
-    alias vim=/Applications/MacVim.app/Contents/MacOS/Vim
-
     # Open Bitbucket page for the Mercurial repository the current working directory resides in
     alias bb='open $(hg paths | sed -En "s%^(.+) = (.+)bitbucket.org/(.+)/(.+)%https://bitbucket.org/\3/\4%p")'
 
