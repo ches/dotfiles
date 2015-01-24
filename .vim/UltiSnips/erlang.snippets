@@ -1,0 +1,67 @@
+#
+# Overrides for style (remove space before parens)
+#
+snippet beh "Behaviour Directive"
+-behaviour(${1:behaviour}).
+endsnippet
+
+snippet def "Define Directive"
+-define(${1:macro}${2: (${3:param})}, ${4:body}).
+endsnippet
+
+snippet exp "Export Directive"
+-export([${1:function}/${2:arity}]).
+endsnippet
+
+snippet fu "Function"
+${1:function}(${2:params})${3: when ${4:guard}} ->
+	${5:body}
+endsnippet
+
+snippet ifdef "Ifdef Directive"
+-ifdef(${1:macro}).
+endsnippet
+
+snippet ifndef "Ifndef Directive"
+-ifndef(${1:macro}).
+endsnippet
+
+snippet imp "Import Directive"
+-import(${1:module}, [${2:function}/${3:arity}]).
+endsnippet
+
+snippet inc "Include Directive"
+-include("${1:file}").
+endsnippet
+
+snippet mod "Module Directive"
+-module(${1:`!p snip.rv = snip.basename or "module"`}).
+endsnippet
+
+snippet rec "Record Directive"
+-record(${1:record}, {${2:field}${3: = ${4:value}}}).
+endsnippet
+
+snippet undef "Undef Directive"
+-undef(${1:macro}).
+endsnippet
+
+# Removes a semicolon after pattern arrow
+snippet pat "Case:Receive:Try Clause"
+${1:pattern}${2: when ${3:guard}} ->
+	${4:body}
+endsnippet
+
+#
+# New Stuff
+#
+snippet [ "List Comprehension"
+[${1:X} || ${2:X} <- ${3:List}${4:, gen}]
+endsnippet
+
+snippet gen "Generator Expression"
+${1:X} <- ${2:List}${3:, gen}
+endsnippet
+
+# TODO: espec snippets
+
