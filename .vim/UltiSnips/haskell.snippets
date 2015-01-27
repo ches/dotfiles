@@ -1,0 +1,31 @@
+# The UltiSnips defaults in vim-snippets are good, but TODO:
+#   - module declaration with exports, better than snipmate one
+#   - `Either` patterns
+#   - Perhaps some common `do` IO patterns
+#   - Cabal config snippets, syntax
+
+snippet datar "ADT definition (record syntax)" b
+data ${1:Person} = ${2:$1}
+	{ ${3:firstName} :: ${4:String}${5:
+	, field$6
+	}}
+endsnippet
+
+
+snippet field "Record Field Definition"
+${1:fieldName} :: ${2:Type}
+endsnippet
+
+
+snippet "der(iving)?" "deriving (Typeclasses)" r
+deriving (${1:Eq})
+endsnippet
+
+
+# Yeah, you should prefer `fromMaybe` and the like, but still often handy.
+snippet casem "case ... of Maybe"
+case ${1:expression} of
+	Nothing -> ${2:expression}
+	Just ${3:binding} -> ${4:expression}
+endsnippet
+

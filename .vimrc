@@ -267,6 +267,10 @@ endif " has("autocmd")
 let mapleader = ","
 let maplocalleader = "\\"
 
+" Edit vimrc. Use <leader><space> mapping (when active buffer) to source it.
+nnoremap <leader>ev :split  $MYVIMRC<CR>
+nnoremap <leader>eV :vsplit $MYVIMRC<CR>
+
 " Omni completion shortcut
 imap <M-space> <C-x><C-o><C-p>
 
@@ -545,7 +549,7 @@ if has("autocmd")
   " The plugin's jump mappings conflict with Unimpaired's tag nav
   let g:TagmaTasksJumpKeys = 0
   " Defaults to <Leader>t, which would make CommandT slow
-  let g:TagmaTasksPrefix = '\t'
+  let g:TagmaTasksPrefix = '<LocalLeader>t'
   " Plugin is buggy, supposed to set this to empty but does so too late.
   let g:TagmaTasksRegexp = ''
 
