@@ -177,6 +177,9 @@ NeoBundleLazy 'fatih/vim-go', {
 NeoBundleLazy 'honza/dockerfile.vim', {
 \ 'autoload' : { 'filename_patterns' : 'Dockerfile$' }
 \ }
+NeoBundleLazy 'hspec/hspec.vim', {
+\ 'autoload' : { 'filetypes' : 'haskell' }
+\ }
 NeoBundleLazy 'jimenezrick/vimerl', {
 \ 'autoload' : { 'filetypes' : 'erlang' }
 \ }
