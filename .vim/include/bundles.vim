@@ -24,7 +24,8 @@ NeoBundle 'honza/vim-snippets'
 NeoBundle 'jgdavey/tslime.vim'
 NeoBundle 'jgdavey/vim-turbux'
 NeoBundle 'jiangmiao/auto-pairs'
-NeoBundle 'kana/vim-textobj-user'  " Dependency of something?
+NeoBundle 'kana/vim-textobj-indent', { 'depends' : 'kana/vim-textobj-user' }
+NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'kshenoy/vim-signature'
 NeoBundle 'LStinson/TagmaTasks'
@@ -92,7 +93,7 @@ NeoBundleLazy 'mattn/gist-vim', {
 
 " Python {{{3
 NeoBundleLazy 'alfredodeza/chapa.vim', {
-\ 'autoload' : { 'filetypes' : 'python' }
+\ 'autoload' : { 'filetypes' : ['python', 'javascript'] }
 \ }
 NeoBundleLazy 'alfredodeza/konira.vim', {
 \ 'autoload' : { 'filetypes' : 'python' }
@@ -127,7 +128,8 @@ NeoBundleLazy 'ecomba/vim-ruby-refactoring', {
 \ 'autoload' : { 'filetypes' : 'ruby' }
 \ }
 NeoBundleLazy 'nelstrom/vim-textobj-rubyblock', {
-\ 'autoload' : { 'filetypes' : 'ruby' }
+\ 'autoload' : { 'filetypes' : 'ruby' },
+\ 'depends' : 'kana/vim-textobj-user'
 \ }
 NeoBundleLazy 'tpope/vim-bundler', {
 \ 'autoload' : { 'filetypes' : 'ruby' },
