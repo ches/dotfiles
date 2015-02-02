@@ -13,6 +13,15 @@ NeoBundle 'ludovicchabant/vim-lawrencium', {
 \ 'disabled' : !executable('hg')
 \ }
 
+if executable('opam') && executable('ocamlmerlin') && has('python')
+  let g:opamshare = substitute(system('opam config var share'), '\n$', '', '''')
+
+  NeoBundleLazy g:opamshare . '/merlin/vim', {
+  \ 'name' : 'merlin',
+  \ 'autoload' : { 'filetypes' : 'ocaml' }
+  \ }
+endif
+
 " Always-on {{{2
 
 NeoBundle 'AndrewRadev/splitjoin.vim'

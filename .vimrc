@@ -652,17 +652,11 @@ if has("autocmd")
   " Merlin - Semantic completion for OCaml
   "
   " Installed along with its server runtime through OPAM, so the Vim plugin is
-  " not managed via Vundle currently -- see:
+  " loaded by giving NeoBundle a local path -- see:
   "
-  "   https://github.com/the-lambda-church/merlin
+  "   https://github.com/the-lambda-church/merlin/wiki/vim-from-scratch
   "
-  " Reminder to re-index the docs after upgrades:
-  "
-  "   :execute "helptags " . g:opamshare . "/merlin/vim/doc"
-  if executable('ocamlmerlin') && has('python')
-    let g:opamshare = substitute(system('opam config var share'), '\n$', '', '''')
-    execute "set rtp+=" . g:opamshare . "/merlin/vim"
-
+  if neobundle#is_installed('merlin')
     let g:syntastic_ocaml_checkers = ['merlin']
 
     " See the above TODO for java patterns
