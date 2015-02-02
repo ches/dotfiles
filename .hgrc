@@ -49,13 +49,22 @@ hggit =
 [alias]
 blame = blame --number --user --date -q
 glog = log --graph
+nlog = log --style ~/.hglib/styles/map-cmdline.nlog
+slog = log --style ~/.hglib/styles/map-cmdline.slog
+sglog = glog --style ~/.hglib/styles/map-cmdline.sglog
+vlog = nlog -v
+
+gitlog = log --style ~/.hglib/styles/git.style
+
 # Thanks: http://wikis.sun.com/display/SunOnMac/MercurialTips
 # prints files changed (only) in the current patch:
 qstatus = status --rev -2:-1
 # empty current patch, but leave the diffs in the working copy:
 qclear = qrefresh -X re:.
+
 shelf = shelve --list
 untrack = rm -Af
+
 # parity with my git mappings
 df = diff
 lg = log --patch
@@ -92,7 +101,9 @@ filemerge.gui=True
 
 [pager]
 pager = LESS='FRX' less
-attend = help, log, glog, lg, status, qstatus, incoming, outgoing, diff, df, qdiff, cat, annotate, shelve, shelf, last, show
+attend = help, status, qstatus, incoming, outgoing, diff, df, qdiff,
+         cat, annotate, shelve, shelf, last, show,
+         log, glog, lg, gitlog, nlog, slog, sglog, vlog
 
 [mq]
 # Use the secret phase for mq changesets -- see `hg help phases`
