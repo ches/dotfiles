@@ -68,6 +68,7 @@ untrack = rm -Af
 # parity with my git mappings
 df = diff
 lg = log --patch
+ll = sglog -v
 show = log --patch --rev
 last = show .
 
@@ -103,7 +104,7 @@ filemerge.gui=True
 pager = LESS='FRX' less
 attend = help, status, qstatus, incoming, outgoing, diff, df, qdiff,
          cat, annotate, shelve, shelf, last, show,
-         log, glog, lg, gitlog, nlog, slog, sglog, vlog
+         log, glog, lg, ll, gitlog, nlog, slog, sglog, vlog
 
 [mq]
 # Use the secret phase for mq changesets -- see `hg help phases`
