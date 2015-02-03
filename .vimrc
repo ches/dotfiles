@@ -747,6 +747,10 @@ nnoremap <Leader><C-f> :CtrlPTag<CR>
 " Ready for tab-completion of named Tabular patterns
 " Choosing 'gq' since it's similar function to the format command
 map <Leader>gq :Tabularize<space>
+map <Leader>q= :Tabularize assignments<CR>
+
+" Set up neocomplete/neocomplcache, instead of YouCompleteMe.
+" runtime include/neocompl.vim
 
 if has('python')
   " UltiSnips
