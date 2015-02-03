@@ -91,7 +91,7 @@ function ruby_version {
 function prompt_func {
     local previous_exit_code=$?
 
-    local prompt="${GREEN}\w"
+    local prompt="${GREEN}\w${COLOR_NONE}"
     prompt+="$(parse_git_branch)"
     prompt+="$(hg_prompt_info)"
     prompt+="$(ruby_version)"
@@ -101,7 +101,7 @@ function prompt_func {
     if [ "$previous_exit_code" -eq 0 ]; then
         prompt+="\$"
     else
-        prompt+="${RED}\$${COLOR_NONE} "
+        prompt+="${RED}\$${COLOR_NONE}"
     fi
 
     PS1="\n${prompt} "
