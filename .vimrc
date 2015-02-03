@@ -315,6 +315,7 @@ cnoremap <C-E>      <End>
 cnoremap <C-F>      <Right>
 cnoremap <C-N>      <Down>
 cnoremap <C-P>      <Up>
+cnoremap <C-D>      <Del>
 if has('mac') && has('gui_running')
   cnoremap <M-b>      <S-Left>
   cnoremap <M-f>      <S-Right>
@@ -327,6 +328,9 @@ else
   cnoremap <ESC><BS>  <C-W>
   cnoremap <ESC><C-H> <C-W>
 endif
+
+" Default is Ctrl-F but we've just remapped it
+set cedit=<C-y>
 
 " Easy window split navigation
 map <C-j> <C-w>j
