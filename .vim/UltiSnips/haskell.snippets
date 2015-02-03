@@ -2,7 +2,17 @@
 #   - module declaration with exports, better than snipmate one
 #   - `Either` patterns
 #   - Perhaps some common `do` IO patterns
-#   - Cabal config snippets, syntax
+#   - Cabal config snippets, syntax - see vim2hs plugin
+#   - Maybe make all the snippet descriptions the proper type signatures?
+
+# Lots of people like to use these to separate functions or logical groups of
+# them. If you're one of them or conforming to code style on such a project,
+# here ya go.
+snippet --- "--- Section separator" b
+------------------------------------------------------------------------------
+$0
+endsnippet
+
 
 snippet datar "ADT definition (record syntax)" b
 data ${1:Person} = ${2:$1}
@@ -28,4 +38,39 @@ case ${1:expression} of
 	Nothing -> ${2:expression}
 	Just ${3:binding} -> ${4:expression}
 endsnippet
+
+
+# Overrides vim-snippets/UltiSnips version to make `in` removable, since it's
+# not required e.g. in `do` blocks.
+snippet let "let ... [in ...]" b
+let ${1:name} = ${2:expression}${3:
+in ${4:expression}}
+endsnippet
+
+# ------------------------------------------------------------------------------
+# Control.Monad {{{1
+# ------------------------------------------------------------------------------
+
+snippet when "when ... do (Control.Monad)"
+when ${1:(${2:Boolean expr})} $ do
+	$0
+endsnippet
+
+
+snippet forM "forM"
+forM ${1:m} (\\${2:param} ->
+	${3:expr}${4:
+	return ${5:value}}
+endsnippet
+
+# ------------------------------------------------------------------------------
+# System.IO {{{1 
+# ------------------------------------------------------------------------------
+
+snippet withFile "withFile :: FilePath -> IOMode -> (Handle -> IO a) IO a" b
+withFile "${1:FilePath}" ${2:ReadMode} (\\${3:handle} -> do
+	${4:contents <- hGetContents $3}$5)
+endsnippet
+
+# vim: foldmethod=marker
 

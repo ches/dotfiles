@@ -1,0 +1,7 @@
+currentProjectIncluded: true
+hackagePath: /Users/ches/.cabal/packages/hackage.haskell.org/
+tagsFileHeader: true
+tagsFileName: codex.tags
+tagsFileSorted: true
+tagsCmd: hasktags --ctags --extendedctag --ignore-close-implementation --tags-absolute --output='$TAGS' '$SOURCES'
+

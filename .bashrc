@@ -87,6 +87,9 @@ export EVENT_NOKQUEUE=1
 # OCaml OPAM configuration
 [[ -r ~/.opam/opam-init/init.sh ]] && source ~/.opam/opam-init/init.sh
 
+# Haskell Cabal
+[[ -d ~/.cabal/bin ]] && export PATH=~/.cabal/bin:$PATH
+
 # Ruby Version Switching
 # brew install chruby ruby-install
 # Well put: http://pbrisbin.com/posts/chruby

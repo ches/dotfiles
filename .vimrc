@@ -408,8 +408,11 @@ if has("autocmd")
     autocmd BufNewFile,BufRead jquery.*.js set ft=javascript syntax=jquery
     autocmd BufNewFile,BufRead *.j2 set ft=jinja
     autocmd BufNewFile,BufRead *.mako set ft=mako
-    " Keep the multiplying zombie virus-infected fugitive buffer hoard at bay
-    autocmd BufReadPost fugitive://* set bufhidden=delete
+
+    " Remove for https://github.com/dag/vim-cabal -- it's WIP for
+    " modularization of https://github.com/dag/vim2hs
+    autocmd BufRead,BufNewFile *.cabal,*/.cabal/config,cabal{.sandbox,}.config setfiletype cabal
+    autocmd BufRead cabal.sandbox.config setlocal readonly
   augroup END "}}}
 
   augroup OmniCompletion "{{{
@@ -518,6 +521,9 @@ if has("autocmd")
   augroup END
 
 
+  " Haskell
+  let g:necoghc_enable_detailed_browse = 1
+
   " Vimerl for Erlang
   "
   " Overwriting any existing buffer content is too surprising.
@@ -553,7 +559,7 @@ if has("autocmd")
   " The plugin's jump mappings conflict with Unimpaired's tag nav
   let g:TagmaTasksJumpKeys = 0
   " Defaults to <Leader>t, which would make CommandT slow
-  let g:TagmaTasksPrefix = '<LocalLeader>t'
+  let g:TagmaTasksPrefix = '<C-t>'
   " Plugin is buggy, supposed to set this to empty but does so too late.
   let g:TagmaTasksRegexp = ''
 
@@ -766,6 +772,10 @@ if has('python')
   " overloading Tab and it wasn't worth it.
   let g:ycm_key_list_select_completion   = []
   let g:ycm_key_list_previous_completion = []
+
+  " The documented default value of this appears to be a lie
+  let g:ycm_semantic_triggers = {}
+  let g:ycm_semantic_triggers.haskell = ['.']
 
   " Enable using tags. Off by default "because it's slow if your tags file is
   " on a network directory". lolwut.

@@ -24,6 +24,13 @@ endif
 
 " Always-on {{{2
 
+NeoBundle 'Shougo/vimproc.vim', {
+\ 'build' : {
+\     'mac' : 'make -f make_mac.mak',
+\     'linux' : 'make',
+\    },
+\ }
+
 NeoBundle 'AndrewRadev/splitjoin.vim'
 NeoBundle 'bling/vim-airline', { 'augroup' : 'airline' }
 NeoBundle 'eiginn/netrw', { 'augroup' : 'FileExplorer' }
@@ -79,6 +86,7 @@ NeoBundle 'xolox/vim-session', {
 " --------------
 
 " Global - Oft-used, but heavy {{{3
+" ---------------------------------
 NeoBundleLazy 'scrooloose/nerdtree', {
 \ 'autoload' : { 'commands' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFind'] },
 \ 'explorer' : 1
@@ -98,6 +106,26 @@ NeoBundleLazy 'gregsexton/gitv', {
 NeoBundleLazy 'mattn/gist-vim', {
 \ 'autoload' : { 'commands' : 'Gist' },
 \ 'depends'  : 'mattn/webapi-vim'
+\ }
+
+" Haskell {{{3
+" ------------
+" Keep an eye on https://github.com/dag/vim2hs/issues/45
+" Alternative indent/syntax: https://github.com/raichoo/haskell-vim
+NeoBundleLazy 'dag/vim2hs', {
+\ 'autoload' : { 'filetypes' : ['haskell', 'cabal'] },
+\ }
+" $ cabal install ghc-mod
+NeoBundleLazy 'eagletmt/ghcmod-vim', {
+\ 'autoload' : { 'filetypes' : 'haskell' },
+\ 'depends'  : 'Shougo/vimproc.vim',
+\ 'external_commands' : 'ghc-mod'
+\ }
+" Uses either YouCompleteMe or neocomplete/neocomplcache
+NeoBundleLazy 'eagletmt/neco-ghc', {
+\ 'autoload' : { 'filetypes' : 'haskell' },
+\ 'depends'  : 'Valloric/YouCompleteMe',
+\ 'external_commands' : 'ghc-mod'
 \ }
 
 " Python {{{3

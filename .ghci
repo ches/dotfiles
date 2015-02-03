@@ -1,0 +1,22 @@
+-- Do the leet hacker thing and change the long default prompt to a λ.
+--
+-- Trying out loaded modules on their own line, might ditch it -- :show imports
+:set prompt "\n\ESC[1;34m%s\n\ESC[0;34mλ> \ESC[m"
+:set prompt2 "\ESC[0;34m | \ESC[m"
+
+-- Behave like a modern REPL with multi-line support, mmk?
+:set +m
+
+-- Hoogle convenience
+-- See: https://wiki.haskell.org/Hoogle#GHCi_Integration
+-- $ cabal install hoogle
+-- $ hoogle data
+
+-- Hoogle search showing all matches
+:def hoogle \x -> return $ ":!hoogle --count=15 \"" ++ x ++ "\""
+
+-- Haddock documentation for first match
+:def doc \x -> return $ ":!hoogle --info \"" ++ x ++ "\""
+
+-- vim:set filetype=haskell:
+
