@@ -1,9 +1,14 @@
 #!/bin/sh
+set -e
+
+# Work with submodules
+GITDIR=$(git rev-parse --git-dir)
+TAGSFILE=tags.$$
 
 # http://tbaggery.com/2011/08/08/effortless-ctags-with-git.html
-mkdir .git/tags_lock 2>/dev/null || exit 0
-trap "rmdir .git/tags_lock; rm .git/tags.$$" EXIT
+mkdir $GITDIR/tags_lock 2>/dev/null || exit 0
+trap "rmdir $GITDIR/tags_lock; rm $GITDIR/$TAGSFILE" EXIT
 
-ctags --tag-relative -R -f .git/tags.$$ --exclude=.git --languages=-sql
-mv .git/tags.$$ .git/tags
+ctags --tag-relative -R -f "$GITDIR/$TAGSFILE" --exclude="$GITDIR" --languages=-sql
+mv "$GITDIR/$TAGSFILE" "$GITDIR/tags"
 
