@@ -12,7 +12,7 @@ setlocal iskeyword+=.,'
 
 " Check out lushtags, but it needs a pull request for cabal stuff merged:
 "   https://github.com/bitc/lushtags
-if executable('hasktags')
+if executable('codex')
   " TODO: consider git ctags hook .git/tags
   setlocal tags=tags;/,codex.tags;/
   nmap <buffer> <LocalLeader>gt :!codex update<CR>
@@ -24,12 +24,12 @@ if executable('pointfree')
 endif
 
 if neobundle#is_installed('ghcmod-vim')
-  nmap <buffer> <LocalLeader>t  :GhcModType<CR>
-  nmap <buffer> <LocalLeader>T  :GhcModTypeInsert<CR>
-  nmap <buffer> <LocalLeader>c  :GhcModTypeClear<CR>
-  nmap <buffer> <LocalLeader>i  :GhcModInfo<CR>
-  nmap <buffer> <LocalLeader>I  :GhcModInfoPreview<CR>
-  nmap <buffer> <LocalLeader>es :GhcModExpand<CR>
+  nmap <buffer><silent> <LocalLeader>t  :GhcModType<CR>
+  nmap <buffer><silent> <LocalLeader>T  :GhcModTypeInsert<CR>
+  nmap <buffer><silent> <LocalLeader>c  :GhcModTypeClear<CR>
+  nmap <buffer><silent> <LocalLeader>i  :GhcModInfo<CR>
+  nmap <buffer><silent> <LocalLeader>I  :GhcModInfoPreview<CR>
+  nmap <buffer><silent> <LocalLeader>es :GhcModExpand<CR>
 endif
 
 " neco-ghc integrates with YouCompleteMe through its omnifunc support.

@@ -1,4 +1,9 @@
 " I hate having these ugly hash literals in my main vimrc.
+"
+" CtrlP sometimes needs custom types too, and it borrowed heavily from TagBar
+" so the config is similar and kept here. See g:ctrlp_buftag_types
+
+let g:ctrlp_buftag_types = {}
 
 " Alternatively, this probably works better than regex defs in ~/.ctags:
 "   https://github.com/lukaszkorecki/CoffeeTags
@@ -100,6 +105,11 @@ if executable('hasktags')
       \ 'data'   : 'd',
       \ 'type'   : 't'
     \ }
+  \ }
+
+  let g:ctrlp_buftag_types.haskell = {
+    \ 'bin'  : 'hasktags',
+    \ 'args' : '--ctags --extendedctag --output=-',
   \ }
 endif
 
