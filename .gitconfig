@@ -66,6 +66,8 @@
 	port = 8000
 [init]
 	templatedir = ~/.git_template
+[rebase]
+	autosquash = true
 [rerere]
 	enabled = true
 [push]
