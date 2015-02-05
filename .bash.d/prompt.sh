@@ -14,7 +14,7 @@ LIGHT_GREEN="\[\033[0;32m\]"
  LIGHT_GRAY="\[\033[0;37m\]"
  COLOR_NONE="\[\033[0m\]"
 
-function parse_git_branch {
+function git_prompt_info {
     git_status="$(git status 2> /dev/null)"
     if [ -x git_status ]; then exit; fi
     git_stash="$(git stash list 2> /dev/null)"
@@ -88,12 +88,32 @@ function ruby_version {
     echo "${ruby}${COLOR_NONE}"
 }
 
+# Simply reminds us we're in a sandbox. Could do more shell tricks, for some
+# inspiration see:
+#
+#   - http://www.edsko.net/2013/02/10/comprehensive-haskell-sandboxes/
+#   - zsh project: https://github.com/calvinchengx/cabalenv
+function cabal_prompt_info {
+    if [ ! -r *.cabal ]; then exit; fi
+
+    declare state
+
+    if [ -f cabal.sandbox.config ]; then
+        state="sandboxed"
+    else
+        state="not sandboxed"
+    fi
+
+    echo " ${GREEN}(${WHITE}λ ${state}${GREEN})${COLOR_NONE}"
+}
+
 function prompt_func {
     local previous_exit_code=$?
 
     local prompt="${GREEN}\w${COLOR_NONE}"
-    prompt+="$(parse_git_branch)"
+    prompt+="$(git_prompt_info)"
     prompt+="$(hg_prompt_info)"
+    prompt+="$(cabal_prompt_info)"
     prompt+="$(ruby_version)"
     prompt+="\n[\u@\h]"
 
@@ -108,5 +128,6 @@ function prompt_func {
 }
 
 # Would be best to call original first, but that breaks last exit status sniffing. Hmm.
+# TODO: anything PIPESTATUS-like for this situation?
 export PROMPT_COMMAND="prompt_func; $PROMPT_COMMAND"
 
