@@ -1,16 +1,36 @@
 syntax: glob
 
-# Editor swap/backup junk
+.DS_Store
+
+# Tools- / editor- / IDE-specific settings, caches, detritus
 *~
 .*.sw?
-
-*.py[co]
-
 .agignore
-.DS_Store
+.classpath
 .env
+.git-wtfrc
 .idea
 .lvimrc
+.project
+.pydevproject
+.ropeproject
+*.tmproj
+.tm_properties
+.tmtags
+tags
+*.tags
+
+# Generated object/byte code
+*.py[co]
+
+# Project Types
+# Version/lock files should be forcefully tracked on private projects.
+
+# Haskell projects
+cabal.config
+
+# Ruby projects
+.bundle/
 .pryrc
 .rvmrc
 .ruby-version
