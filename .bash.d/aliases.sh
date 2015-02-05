@@ -37,7 +37,8 @@ alias gt='vim -g --remote-tab'
 alias p=$PAGER
 
 # External IP
-alias myip='curl ifconfig.me'
+# ifcfg.me has some handy features, but this is faster and more reliable.
+alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
 
 # Current time in ISO-8601
 alias nowiso='date "+%Y-%m-%dT%H:%M:%S%z"'
@@ -88,10 +89,10 @@ if [ "$(uname -s)" == "Darwin" ]; then
     alias minissh='sshfs ches@kodama.local:/Users/ches /Volumes/sshfs/ches -oauto_cache,reconnect,volname="ches on kodama"'
     alias mediassh='sshfs ches@nausicaamedia.dyndns.org:/Volumes/Media /Volumes/sshfs/Media -oauto_cache,reconnect,volname="Media on kodama"'
 
-    # Leopard Quick Look:
+    # Quick Look file:
     alias ql='qlmanage -p "$@" >& /dev/null'
 
-    #alias top="top -X"  # the stupidly named 'compatibility mode' --
-                         # DON'T mimic Jaguar, because Jaguar's top was stupid
+    # Options are not equivalent, but 90% use case is just find by file path
+    alias locate='mdfind -name'
 fi
 
