@@ -1,0 +1,57 @@
+#!/bin/sh
+#/ Opens Bitbucket page for the Mercurial repository that the current working
+#/ directory resides in.
+#/
+#/ Just call it, no args or options.
+
+# TODO: Bitbucket supports Git these days! Allow that too.
+# TODO: Support current branch/bookmark.
+
+set -e
+
+OS="$(uname -s)"
+
+die () {
+    echo "Aborting: $@" && exit 1
+}
+
+usage () {
+    echo "Usage: $(basename $0)\n"
+    grep '^#/' "$0" | cut -c4-
+    exit 2
+}
+
+installed () {
+    local cmd=$1
+    command -v ${cmd} >/dev/null
+}
+
+# Man, portability, amirite
+sed () {
+    if [ "$OS" = "Darwin" ]; then
+        gsed $*
+    else
+        sed $*
+    fi
+}
+
+[ $# -ne 0 ] && usage
+installed hg || die "Mercurial must be installed for bb!"
+
+if [ "$OS" = "Darwin" ]; then
+    installed gsed || die "Must install GNU sed as gsed."
+fi
+
+declare -r repo=$(hg paths | sed -rn "s%^(.+) = (.+)bitbucket.org/(.+)/(.+)%\3/\4%p")
+declare -r url="https://bitbucket.org/$repo"
+
+if [ "$OS" = "Darwin" ]; then
+    open "$url"
+elif installed xdg-open; then
+    xdg-open "$url"
+elif [ -z "$BROWSER" ]; then
+    "$BROWSER" "$URL"
+else
+    die 'Please set $BROWSER to a web launcher to use bb.'
+fi
+

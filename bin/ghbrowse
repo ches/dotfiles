@@ -1,0 +1,69 @@
+#!/bin/sh
+#/ Opens Github page for the project and branch of the CWD.
+#/ Somewhat obsoleted by `hub browse`, but this tries to be a little smarter.
+#/
+#/ Just call it, no args or options.
+
+# TODO: Is this POSIX-compliant sh?
+
+set -e
+
+OS="$(uname -s)"
+
+die () {
+    echo "Aborting: $@" && exit 1
+}
+
+usage () {
+    echo "Usage: $(basename $0)\n"
+    grep '^#/' "$0" | cut -c4-
+    exit 2
+}
+
+# Check if a command is installed. For some reason that I can't remember, this
+# is deemed superior to `which`.
+installed () {
+    local cmd=$1
+    command -v ${cmd} >/dev/null
+}
+
+# Man, portability, amirite
+sed () {
+    if [ "$OS" = "Darwin" ]; then
+        gsed $*
+    else
+        sed $*
+    fi
+}
+
+[ $# -ne 0 ] && usage
+installed git || die "You need Git installed, yo."
+
+if [ "$OS" = "Darwin" ]; then
+    installed gsed || die "Must install GNU sed as gsed."
+fi
+
+declare branch=$(git branch --contains HEAD | cut -f 2 -d ' ')
+declare -r remote=$(git remote -v | awk '{ print $2 }' | head -1)
+
+# Extract the user/repo part
+declare -r repo=$(echo "$remote" | sed -rn 's~git(@|://)(github.com)(:|/)(.+/.+).git~\4~p')
+
+# Use master if current branch is local-only
+# TODO: prefer a remote that verifiably contains current branch
+if ! git ls-remote . | grep -q -e "refs/remotes/.*/${branch}"; then
+    branch="master"
+fi
+
+declare -r url="https://github.com/$repo/tree/$branch"
+
+if [ "$OS" = "Darwin" ]; then
+    open "$url"
+elif installed xdg-open; then
+    xdg-open "$url"
+elif [ -z "$BROWSER" ]; then
+    "$BROWSER" "$URL"
+else
+    die 'Please set $BROWSER to a web launcher to use ghbrowse.'
+fi
+

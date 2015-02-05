@@ -76,13 +76,6 @@ fi
 # OS X
 #
 if [ "$(uname -s)" == "Darwin" ]; then
-    # Open Bitbucket page for the Mercurial repository the current working directory resides in
-    alias bb='open $(hg paths | sed -En "s%^(.+) = (.+)bitbucket.org/(.+)/(.+)%https://bitbucket.org/\3/\4%p")'
-
-    # Open Github page for the project and branch of the CWD
-    # I use 'ghub' so avoid conflict with the handy github gem
-    alias ghub='br=$(git branch --contains HEAD | sed -En "s/^\* //p"); if ! git ls-remote . | grep -q -e "refs/remotes/.*/${br}"; then br="master"; fi; open $(git config -l | sed -En "s%remote.origin.url=git(@|://)(github.com)(:|/)(.+/.+).git%https://\2/\4/tree/${br}%p")'
-
     #
     # Remote Access
     #
