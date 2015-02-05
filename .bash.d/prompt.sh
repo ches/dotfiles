@@ -15,12 +15,15 @@ LIGHT_GREEN="\[\033[0;32m\]"
  COLOR_NONE="\[\033[0m\]"
 
 function git_prompt_info {
-    git_status="$(git status 2> /dev/null)"
+    local git_status="$(git status 2> /dev/null)"
     if [ -x git_status ]; then exit; fi
-    git_stash="$(git stash list 2> /dev/null)"
-    branch_pattern="^On branch ([^${IFS}]*)"
-    remote_pattern="Your branch is (.*) of"
-    diverge_pattern="Your branch and (.*) have diverged"
+
+    local state stash remote branch
+
+    local git_stash="$(git stash list 2> /dev/null)"
+    local branch_pattern="^On branch ([^${IFS}]*)"
+    local remote_pattern="Your branch is (.*) of"
+    local diverge_pattern="Your branch and (.*) have diverged"
 
     if [[ ! ${git_status} =~ "working directory clean" ]]; then
         state="${RED}⚡"
@@ -48,23 +51,25 @@ function git_prompt_info {
 # TODO: for speed, make only one `hg prompt` call and massage data
 function hg_prompt_info {
     # Because my home dir is an hg repo for dotfiles...
-    hg_root="$(hg root 2> /dev/null)"
+    local hg_root="$(hg root 2> /dev/null)"
     if [ -z ${hg_root} ] || [[ ${hg_root} = $HOME ]]; then exit; fi
 
+    local state shelf
+
     # Override the hg-prompt extensions status characters
-    hg_status="$(hg prompt '{status}')"
+    local hg_status="$(hg prompt '{status}')"
     if [[ -n $hg_status ]]; then
         state="${RED}⚡"
     fi
 
     # TODO: the hamburger would also be appropriate for mq patches
-    hg_shelf="$(hg shelve --list 2> /dev/null)"
+    local hg_shelf="$(hg shelve --list 2> /dev/null)"
     if [[ -n $hg_shelf ]]; then
         shelf="${RED}☰"
     fi
 
     # Imperfect, but I almost always want to have a 'master' bookmark
-    hg_prompt="$(hg prompt '{{branch|quiet}:}{{bookmark}}{:{patch}}')"
+    local hg_prompt="$(hg prompt '{{branch|quiet}:}{{bookmark}}{:{patch}}')"
     echo " ${GREEN}(${WHITE}☿ ${hg_prompt} ${shelf}${state}${GREEN})${COLOR_NONE}"
 }
 
