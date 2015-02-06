@@ -29,10 +29,9 @@ installed () {
 
 # Man, portability, amirite
 sed () {
-    if [ "$OS" = "Darwin" ]; then
-        gsed $*
-    else
-        sed $*
+    if [ "$OS" = "Darwin" ]
+        then gsed $*
+        else sed $*
     fi
 }
 
@@ -43,11 +42,11 @@ if [ "$OS" = "Darwin" ]; then
     installed gsed || die "Must install GNU sed as gsed."
 fi
 
-declare branch=$(git branch --contains HEAD | cut -f 2 -d ' ')
+declare branch=$(git branch --contains HEAD | awk '{ print $2 }')
 declare -r remote=$(git remote -v | awk '{ print $2 }' | head -1)
 
 # Extract the user/repo part
-declare -r repo=$(echo "$remote" | sed -rn 's~git(@|://)(github.com)(:|/)(.+/.+).git~\4~p')
+declare -r repo=$(echo "$remote" | sed -rn 's~git(@|://)github.com[:/](.+/.+).git~\2~p')
 
 # Use master if current branch is local-only
 # TODO: prefer a remote that verifiably contains current branch
@@ -62,7 +61,7 @@ if [ "$OS" = "Darwin" ]; then
 elif installed xdg-open; then
     xdg-open "$url"
 elif [ -z "$BROWSER" ]; then
-    "$BROWSER" "$URL"
+    "$BROWSER" "$url"
 else
     die 'Please set $BROWSER to a web launcher to use ghbrowse.'
 fi

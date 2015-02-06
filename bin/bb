@@ -28,10 +28,9 @@ installed () {
 
 # Man, portability, amirite
 sed () {
-    if [ "$OS" = "Darwin" ]; then
-        gsed $*
-    else
-        sed $*
+    if [ "$OS" = "Darwin" ]
+        then gsed $*
+        else sed $*
     fi
 }
 
@@ -42,7 +41,7 @@ if [ "$OS" = "Darwin" ]; then
     installed gsed || die "Must install GNU sed as gsed."
 fi
 
-declare -r repo=$(hg paths | sed -rn "s%^(.+) = (.+)bitbucket.org/(.+)/(.+)%\3/\4%p")
+declare -r repo=$(hg paths | sed -rn "s%^.+ = .+bitbucket.org/(.+)/(.+)%\1/\2%p")
 declare -r url="https://bitbucket.org/$repo"
 
 if [ "$OS" = "Darwin" ]; then
@@ -50,7 +49,7 @@ if [ "$OS" = "Darwin" ]; then
 elif installed xdg-open; then
     xdg-open "$url"
 elif [ -z "$BROWSER" ]; then
-    "$BROWSER" "$URL"
+    "$BROWSER" "$url"
 else
     die 'Please set $BROWSER to a web launcher to use bb.'
 fi
