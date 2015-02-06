@@ -33,6 +33,7 @@ NeoBundle 'Shougo/vimproc.vim', {
 
 NeoBundle 'AndrewRadev/splitjoin.vim'
 NeoBundle 'bling/vim-airline', { 'augroup' : 'airline' }
+NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'eiginn/netrw', { 'augroup' : 'FileExplorer' }
 NeoBundle 'embear/vim-localvimrc'
 NeoBundle 'godlygeek/tabular'
@@ -42,7 +43,6 @@ NeoBundle 'jgdavey/vim-turbux'
 NeoBundle 'jiangmiao/auto-pairs'
 NeoBundle 'kana/vim-textobj-indent', { 'depends' : 'kana/vim-textobj-user' }
 NeoBundle 'kana/vim-textobj-user'
-NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'kshenoy/vim-signature'
 NeoBundle 'LStinson/TagmaTasks'
 NeoBundle 'mhinz/vim-signify'

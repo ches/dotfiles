@@ -506,7 +506,7 @@ if has("autocmd")
           \ if &makeprg !~# 'bundle' | setl makeprg^=bundle\ exec\  | endif
   augroup END "}}}
 
-  augroup Cursorline
+  augroup Cursorline "{{{
     autocmd!
 
     " Turn on cursorline only on active window. Reduces clutter, easier to
@@ -518,8 +518,7 @@ if has("autocmd")
     "   https://code.google.com/p/vim/issues/detail?id=282
     autocmd WinLeave * setlocal nocursorline
     autocmd WinEnter,BufRead * setlocal cursorline
-  augroup END
-
+  augroup END "}}}
 
   " Haskell
   let g:necoghc_enable_detailed_browse = 1
@@ -745,10 +744,11 @@ let g:localvimrc_persistence_file = expand('$HOME') . '/.backup/vim/localvimrc_p
 " NERD tree - double-leader
 map <Leader><Leader> :NERDTreeToggle<cr>
 
-" Mnemonic: [f]iles, with a shared key. I use <Leader>b for LustyJuggler.
-nnoremap <Leader>f :CtrlP<CR>
-nnoremap <Leader>F :CtrlPBuffer<CR>
-nnoremap <Leader><C-f> :CtrlPTag<CR>
+" Mnemonic: [f]iles or [f]unctions, with a shared key. <Leader>b is LustyJuggler.
+nnoremap <Leader>f      :CtrlP<CR>
+nnoremap <Leader>F      :CtrlPBuffer<CR>
+nnoremap <LocalLeader>f :CtrlPBufTag<CR>
+nnoremap <Leader><C-f>  :CtrlPTag<CR>
 
 " Ready for tab-completion of named Tabular patterns
 " Choosing 'gq' since it's similar function to the format command
@@ -764,7 +764,6 @@ if has('python')
   let g:UltiSnipsJumpForwardTrigger  = "<tab>"
   let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
   let g:UltiSnipsEditSplit           = "horizontal"
-  nmap <Leader>rs :py UltiSnips_Manager.reset()<CR>
 
   " YouCompleteMe
   " Wipe out the default Tab completions to stay out of the way of UltiSnips--
@@ -782,7 +781,6 @@ if has('python')
   let g:ycm_collect_identifiers_from_tags_files = 1
 
   " I haven't built YCM's Clang magic initially, big slow download/build
-  let g:ycm_register_as_syntastic_checker = 0
   let g:ycm_collect_identifiers_from_tags_files = 1
 
   " If MacVim is installed from downloaded binary instead of built with
