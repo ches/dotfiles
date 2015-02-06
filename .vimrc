@@ -557,10 +557,17 @@ if has("autocmd")
   let g:TagmaTasksJumpTask = 0
   " The plugin's jump mappings conflict with Unimpaired's tag nav
   let g:TagmaTasksJumpKeys = 0
-  " Defaults to <Leader>t, which would make CommandT slow
-  let g:TagmaTasksPrefix = '<C-t>'
   " Plugin is buggy, supposed to set this to empty but does so too late.
   let g:TagmaTasksRegexp = ''
+
+  " Defaults to <Leader>t, which would make CommandT slow.
+  " Everything that seems more natural conflicts: <Leader>t with test runs;
+  " <LocalLeader>t with type checks in typed langs; <C-t> with tag navigation.
+  if has('mac') && has('gui_running')
+    let g:TagmaTasksPrefix = '<M-t>'
+  else
+    let g:TagmaTasksPrefix = '<Esc>t'
+  endif
 
   " Open the YankRing window
   if has('mac') && has('gui_running')
