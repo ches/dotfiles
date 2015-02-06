@@ -694,13 +694,9 @@ let g:ackhighlight = 1
 
 " If The Silver Searcher is available, use it.
 "
-" The --noheading option to ag should more probably be ack's -H, it currently
-" results in some extra newlines but Vim quickfix deals with it well enough.
-" See:
-"
-"   https://github.com/ggreer/the_silver_searcher/issues/361
+" TODO: maybe use as 'grepprg' too
 if executable('ag')
-  let g:ackprg = 'ag --nogroup --nocolor --noheading --column'
+  let g:ackprg = 'ag --vimgrep'
 
   " ag is fast enough to just eschew caching altogether. Hot damn.
   let g:ctrlp_user_command = 'ag --nocolor -g "" %s'
