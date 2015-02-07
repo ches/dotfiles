@@ -1,3 +1,6 @@
+# Enabled by default in ag, be consistent
+--smart-case
+
 --pager=less
 --ignore-dir=coverage
 --ignore-dir=doc
