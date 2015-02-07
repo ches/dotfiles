@@ -100,9 +100,9 @@ set splitbelow splitright
 " threshold for reporting number of lines changed
 set report=0
 
-" For modern standards in :TOhtml output
-let html_use_css=1
-let use_html=1
+" For (sort of) modern standards in :TOhtml output
+let g:html_use_css   = 1
+let g:html_use_xhtml = 0
 
 " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
 " let &guioptions = substitute(&guioptions, "t", "", "g")
@@ -270,6 +270,8 @@ let maplocalleader = "\\"
 " Edit vimrc. Use <leader><space> mapping (when active buffer) to source it.
 nnoremap <leader>ev :split  $MYVIMRC<CR>
 nnoremap <leader>eV :vsplit $MYVIMRC<CR>
+" Search runtime files -- warning: slow!
+nnoremap <leader>eR :CtrlPRTS<CR>
 
 " Omni completion shortcut
 imap <M-space> <C-x><C-o><C-p>
@@ -436,6 +438,9 @@ if has("autocmd")
     " Rails.vim defaults to 2 for traditional JS, I prefer 4
     autocmd User Rails.javascript* setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
     autocmd User Rails.javascript.coffee* setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+
+    " Comment continuation
+    autocmd FileType sh setlocal formatoptions+=roj
 
     " Use leader+space to write and execute
     autocmd FileType vim map <buffer> <leader><space> :w!<cr>:source %<cr>
@@ -693,9 +698,10 @@ endif " has("autocmd")
 " Plugin Mappings {{{2
 
 " Ack Search
-map <Leader>a :Ack!<space>
-map <Leader>A :AckWindow!<space>
-map <Leader>n :AckFromSearch!<CR>
+map <Leader>a  :Ack! ''<Left>
+map <Leader>A  :AckWindow! ''<Left>
+map <Leader>n  :AckFromSearch!<CR>
+map <Leader>hs :AckHelp! ''<Left>
 
 let g:ackhighlight = 1
 
