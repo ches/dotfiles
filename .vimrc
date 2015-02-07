@@ -521,6 +521,9 @@ if has("autocmd")
   augroup END "}}}
 
   " Haskell
+  "
+  " gf to buffer-local filetype settings at:
+  "    ~/.vim/after/ftplugin/haskell.vim
   let g:necoghc_enable_detailed_browse = 1
 
   " Vimerl for Erlang
@@ -674,6 +677,10 @@ if has("autocmd")
   "
   if neobundle#is_installed('merlin')
     let g:syntastic_ocaml_checkers = ['merlin']
+
+    " Semantic text objects based on AST
+    let g:merlin_textobject_grow   = 'm'
+    let g:merlin_textobject_shrink = 'M'
 
     " See the above TODO for java patterns
     " let g:neocomplete#force_omni_input_patterns.ocaml = '[^. *\t]\.\w*\|\h\w*|#'

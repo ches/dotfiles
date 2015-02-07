@@ -15,7 +15,12 @@ setlocal iskeyword+=.,'
 if executable('codex')
   " TODO: consider git ctags hook .git/tags
   setlocal tags=tags;/,codex.tags;/
-  nmap <buffer> <LocalLeader>gt :!codex update<CR>
+
+  if exists(':Start')  " vim-dispatch background execution
+    nmap <buffer> <LocalLeader>gt :Start! codex update<CR>
+  else
+    nmap <buffer> <LocalLeader>gt :!codex update<CR>
+  endif
 endif
 
 " Take a look at stylish-haskell stuff in haskell-vim-now too.
