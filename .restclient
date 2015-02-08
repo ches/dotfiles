@@ -1,4 +1,0 @@
-sinatra:
-  url: http://localhost:4567
-rack:
-  url: http://localhost:9292
