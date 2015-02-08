@@ -30,6 +30,7 @@ hgext.extdiff =
 hgext.fetch =
 hgext.hgk =
 hgext.highlight =
+hgext.histedit =
 hgext.mq =
 hgext.pager =
 # git-style ancestor references, e.g. foo^, foo~3:
@@ -42,7 +43,6 @@ hgext.shelve =
 hgext.transplant =
 hgext.zeroconf =
 prompt = ~/.hglib/hg-prompt/prompt.py
-histedit = ~/.hglib/histedit/hg_histedit.py
 #qct=/usr/local/lib/hg/qct.py
 hggit =
 
