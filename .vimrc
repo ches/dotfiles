@@ -129,7 +129,8 @@ if &t_Co > 2 || has("gui_running")
   if &diff
     colorscheme xoria256          " The best diff highlighting I've found
   else
-    colorscheme customtwilight
+    set background=dark
+    colorscheme base16-default
   endif
 endif
 
@@ -738,7 +739,7 @@ let g:airline#extensions#whitespace#enabled = 0
 
 if !has('gui_running')
   " Many unfortunately look poor in the console, molokai almost works
-  let g:airline_theme = 'ubaryd'
+  let g:airline_theme = 'base16'
 endif
 
 " AutoPairs
