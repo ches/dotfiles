@@ -1,0 +1,343 @@
+*my-notes.txt* Ches's Personal Vim Quickref
+*my-notes* *ches-notes*
+
+                              ,---.                              ~
+     ,--.   ,--.,--.          |   |                              ~
+      \  `.'  / `--',--,--,--.|  .'      Ches Martin             ~
+       \     /  ,--.|        ||  |       http://chesmart.in      ~
+        \   /   |  ||  |  |  |`--'                               ~
+         `-'    `--'`--`--`--'.--.                               ~
+                              '--'                               ~
+
+==============================================================================
+CONTENTS                                                   *my-notes-contents*
+
+    1. Intro.......................................|my-notes-intro|
+    2. Setup.......................................|my-notes-setup|
+        2.1 OS X Setup.............................|my-notes-os-x-setup|
+    3. Vim Features................................|my-notes-vim-features|
+        3.1 Digraphs...............................|my-notes-digraphs|
+        3.2 Folds..................................|my-notes-folds|
+        3.3 Vim Plugin Dev.........................|my-notes-vim-plugin-dev|
+    4. Filetypes...................................|my-notes-filetypes|
+        4.1 General Conventions....................|my-notes-ft-conventions|
+            4.1.1 Type Info........................|my-notes-ft-type-info|
+            4.1.2 Build & Test.....................|my-notes-ft-build-test|
+            4.1.3 Go To Definition.................|my-notes-ft-gotodef|
+            4.1.4 Autocompletion...................|my-notes-ft-completion|
+        4.2 Erlang.................................|my-notes-ft-erlang|
+        4.2 Haskell................................|my-notes-ft-haskell|
+        4.3 Help...................................|my-notes-ft-help|
+        4.4 Go.....................................|my-notes-ft-golang|
+        4.5 OCaml..................................|my-notes-ft-ocaml|
+        4.6 Ruby...................................|my-notes-ft-ruby|
+        4.7 Scala..................................|my-notes-ft-scala|
+    5. Credits.....................................|my-notes-credits|
+        5.1 Do It Yourself.........................|my-notes-diy|
+    6. License.....................................|my-notes-license|
+
+==============================================================================
+INTRO                                                         *my-notes-intro*
+
+This is a quick reference for useful features of plugins I use and how they
+are mapped in my config, plus an index of core Vim features that I often need
+terse reminders of, with an organization scheme that suits me.
+
+I encourage anyone to maintain such a doc for their own Vim setup, and create
+mappings to make it fast to edit and browse. See |my-notes-diy| for some tips.
+
+==============================================================================
+SETUP                                                         *my-notes-setup*
+
+Clone dotfiles and start Vim, |:NeoBundleCheck| takes care of pretty much
+everything from there.
+
+My rc usually degrades gracefully if something isn't available, but for real
+daily work the following system-level tools should be installed for the best
+experience:
+
+  - `ag` (the_silver_searcher) preferably, or `ack,` more portably.
+  - Exuberant ctags
+  - tmux
+  - Vim built with Python and Ruby support.
+    Build YouCompleteMe manually, until NeoBundle can deal with its Git
+    submodules correctly (`cd ~/.vim/bundle/YouCompleteMe && ./install.sh`).
+
+TODO: try to drop Ruby requirement, for neovim? LustyJuggler.~
+
+OS X Setup                                               *my-notes-os-x-setup*
+----------
+>
+    $ brew install macvim --override-system-vim --with-lua --with-luajit
+    $ brew install the_silver_searcher ctags tmux
+<
+Note: Lua is for neocomplete which isn't currently configured, though I've
+been giving it a try (see `~/.vim/include/neocompl.vim` for WIP).
+
+==============================================================================
+VIM FEATURES                                           *my-notes-vim-features*
+
+TODO:~
+
+- vimdiff
+
+------------------------------------------------------------------------------
+Digraphs                                                   *my-notes-digraphs*
+
+The digraph system allows inserting many special and Unicode characters.
+<C-k> in insert mode is the main chord to remember, to trigger digraph entry.
+Entering two characters following this inserts the associated character. These
+often have good mnemonics, for instance here are some common digraphs with
+their codes: >
+
+    © - Co
+    ® - Rg
+    ¢ - Ct
+    £ - Pd
+    → - ->
+    ⇒ - =>
+    ö - o:
+    é - e'
+
+Em dash and en dash are `-M` and `-N`, respectively.
+
+Sometimes Vim may not be able to display a character correctly in the chosen
+font. The `ga` normal mode command will echo info to clarify the character
+under cursor.
+
+Some special characters short-circuit digraph entry, such as <C-k><Tab>
+inserting a literal tab character (useful when writing UltiSnips snippets!).
+
+------------------------------------------------------------------------------
+Folds                                                         *my-notes-folds*
+
+See |fold-commands|, this is a quick summary: >
+
+    zf#j        creates a fold from cursor down # lines.
+                Visual selection works too, naturally.
+    zf/string   creates a fold from cursor to string.
+    zd          deletes the fold at cursor.
+    zD          deletes nested folds recursively.
+    zo          opens a fold at cursor.
+    zO          opens all nested folds at cursor.
+    zc          closes a fold at cursor.
+    zC          closes all nested folds at cursor.
+    zm          fold more (increases foldlevel by one).
+    zM          closes all folds (sets foldlevel to zero).
+    zr          reduce folding (decreases foldlevel by one).
+    zR          opens all folds (sets foldlevel to max).
+    zx          resets folds (reapplies configured foldlevel).
+
+    zj          moves cursor to the next fold.
+    zk          moves cursor to the previous fold.
+    [z          moves to start of open fold.
+    ]z          moves to end of open fold.
+
+When 'foldmethod' is "marker", creation/deletion commands insert/remove
+comments (using 'commentstring' and 'foldmarker'). These are ugly noise for
+most languages but great for VimL where you can be pretty certain that anyone
+bothering to read and edit it is a Vim user.
+
+------------------------------------------------------------------------------
+Vim Plugin Development                               *my-notes-vim-plugin-dev*
+
+Step One~
+
+http://learnvimscriptthehardway.stevelosh.com/
+
+- A "standard library" of VimL. Impressive, or insane?
+  https://github.com/vim-jp/vital.vim
+
+Useful core doc sections~
+
+    - |vimfiles| - Runtime path layout
+    - |write-plugin|
+    - |write-filetype-plugin|
+    - |write-local-help|
+
+==============================================================================
+FILETYPES                                                 *my-notes-filetypes*
+
+These are filetypes that my configuration has gone to some particular care to
+support well, beyond rudimentary syntax support, etc.
+
+No, I am not an expert in all of these languages, but I did take a sabbatical
+recently where I went on a survey learning spree.
+
+    4.1 General Conventions....................|my-notes-ft-conventions|
+    4.2 Erlang.................................|my-notes-ft-erlang|
+    4.2 Haskell................................|my-notes-ft-haskell|
+    4.3 Help...................................|my-notes-ft-help|
+    4.4 Go.....................................|my-notes-ft-golang|
+    4.5 OCaml..................................|my-notes-ft-ocaml|
+    4.6 Ruby...................................|my-notes-ft-ruby|
+    4.7 Scala..................................|my-notes-ft-scala|
+
+TODO:~
+
+- JavaScript? Needs updating/cleanup.
+- Python? Needs updating/cleanup.
+- Shell?
+- I'm not much of a markup guy, but Emmet is there, ragtag, etc.
+
+------------------------------------------------------------------------------
+General Conventions                                  *my-notes-ft-conventions*
+
+Filetype-specific stuff is generally what <LocalLeader> is designed for. I
+try to honor this fact with my filetype mappings, and apply some conventions
+across them.
+                                                       *my-notes-ft-type-info*
+Type Information (when supported)~
+
+<LocalLeader>t          Display type information about an identifier or
+                        expression under the cursor.
+
+<LocalLeader>i          Display extended type information about an identifier
+                        or expression under the cursor, such as derivations,
+                        interfaces implemented, etc.
+
+                                                      *my-notes-ft-build-test*
+Running Tests and Builds~
+
+TODO: Dispatch, etc.
+
+                                                         *my-notes-ft-gotodef*
+Navigating to Definitions~
+
+Favor Vim's built-in ctags support whenever possible, but if a filetype
+plugin offers go-to-definition support, it usually has enhanced semantic
+awareness.
+
+In these cases, I map <LocalLeader> + Vim's standard ctags jump mappings that
+are appropriate for what the plugin's function supports (split, preview
+window, etc.).
+
+See |tag-commands|, |window-tag|.
+
+                                                      *my-notes-ft-completion*
+Completion~
+
+|youcompleteme| hooks into 'omnifunc' when one is defined, so <C-Space>
+generally works everywhere that semantic completion is available.
+
+Sometimes completions are suggested automatically, in others <C-Space> may
+need to be invoked explicitly. This is either due do a setting needed for
+|g:ycm_semantic_triggers| or the ftplugin's 'omnifunc' not behaving exactly
+as YouCompleteMe expects.
+
+------------------------------------------------------------------------------
+Erlang                                                    *my-notes-ft-erlang*
+
+TODO
+
+------------------------------------------------------------------------------
+Haskell                                                  *my-notes-ft-haskell*
+
+TODO
+
+------------------------------------------------------------------------------
+Help                                                        *my-notes-ft-help*
+
+That's right, I've done a few cool things for Vim help files.
+TODO
+
+------------------------------------------------------------------------------
+Go, a.k.a golang                                          *my-notes-ft-golang*
+
+I haven't written much Go yet, but fortunately Fatih Arslan's |vim-go| is a
+very well-built and comprehensive plugin with good help, so it's really the
+only thing to look at.
+
+See: `~/.vim/after/ftplugin/go.vim`
+
+Mappings of interest:                               *my-notes-golang-mappings*
+
+<LocalLeader>t          Display type information for word under cursor.
+                        See |(go-info)|.
+
+<LocalLeader>i          Show interfaces that type under the cursor
+                        implements. See |(go-implements)|.
+
+<LocalLeader>r          Rename identifier under cursor. See |(go-rename)|.
+
+Enhanced semantic go-to-definition is available and uses the standard mappings
+in |my-notes-ft-conventions|. A few additional ones that don't have native
+equivalents in Vim:
+
+<LocalLeader><C-v>]     Go to definition in vertical split.
+                        See |(go-def-vertical)|.
+
+<LocalLeader><C-t>]     Go to definition in new tab. See |(go-def-tab)|.
+
+------------------------------------------------------------------------------
+OCaml                                                      *my-notes-ft-ocaml*
+
+TODO
+
+------------------------------------------------------------------------------
+Ruby (and Rails)                                            *my-notes-ft-ruby*
+
+TODO
+
+------------------------------------------------------------------------------
+Scala                                                      *my-notes-ft-scala*
+
+TODO
+
+==============================================================================
+CREDITS                                                     *my-notes-credits*
+
+Starting this doc was primarily inspired by Dr. Mike Henry's excellent
+example:
+
+    https://github.com/drmikehenry/vimfiles/blob/master/doc/notes.txt
+
+Thanks of course to Bram for Vim and plugin authors for making it so fun and
+productive to use, especially the prolific Tim Pope, Shougo Matsushita, and
+others.
+
+Do It Yourself                                                  *my-notes-diy*
+--------------
+
+It's easy to end up with a pile of Vim plugins and forget how things work, or
+lose track of how to keep consistency between the filetypes you work with.
+
+I encourage anyone to maintain a doc like this for their own Vim setup, and create
+mappings to make it fast to edit and browse. It's easy, Vim's help format is
+low-ceremony and not strict.
+
+I used to dump things like this in a personal knowledgebase somewhere, like
+Vimwiki, when it occurred to me that making it available in Vim's own help
+system is the most natural place.
+
+Feel free to use this file as a starting template, and see |write-local-help|
+and UltiSnips's snippets for help files. Here are some example mappings you
+might like: >
+
+    " Edit your notes.
+    nnoremap <Leader>en :split  ~/.vim/doc/my-notes.txt<CR>
+    nnoremap <Leader>eN :vsplit ~/.vim/doc/my-notes.txt<CR>
+
+    " Browse your notes. Leaves you ready for Tab completion.
+    nnoremap <Leader>hh :help my-notes-
+
+    " Easy helptags regeneration and internal tag navigation while editing.
+    autocmd BufRead ~/.vim/doc/my-notes.txt
+          \ setlocal modifiable iskeyword=!-~,^*,^\|,^\",192-255 |
+          \ map <buffer> <Leader><space> :w!<CR>:helptags ~/.vim/doc<CR>
+
+    " Make help navigation easier on your hands, Vimwiki-style.
+    autocmd FileType help
+          \ nnoremap <buffer> <CR> <C-]> |
+          \ nnoremap <buffer> <BS> <C-t>
+
+==============================================================================
+LICENSE                                                     *my-notes-license*
+
+The original contents of this document may be used under the terms of the
+Creative Commons Non-Commercial Share-Alike license.
+
+http://creativecommons.org/licenses/by-nc-sa/4.0/
+
+------------------------------------------------------------------------------
+ vim:tw=78:ts=8:ft=help:norl:

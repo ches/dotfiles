@@ -1,0 +1,34 @@
+# Overrides of defaults from vim-snippets: I like to format my sub-sections a
+# little differently.
+
+global !p
+def tag_namespace(snip):
+	return snip.fn.split('.')[0]
+
+def tag_section(txt):
+	return txt.strip("1234567890. ").lower().replace(' ', '-')
+
+def tag(txt, snip):
+	return "*%s-%s*" % (tag_namespace(snip), tag_section(txt))
+
+def inline_tag(snip, t):
+	return tag(t[1], snip).rjust(78-len(t[1]))
+
+def leading_tag(snip, t):
+	return tag(t[1], snip).rjust(78)
+endglobal
+
+snippet ssec "Sub section marker" b
+------------------------------------------------------------------------------
+${1:Subsection}`!p snip.rv = inline_tag(snip, t)`
+
+$0
+endsnippet
+
+snippet sssec "Subsub Section marker" b
+`!p snip.rv = leading_tag(snip, t)`
+${1:SubSubsection}~
+
+$0
+endsnippet
+

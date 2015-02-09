@@ -14,6 +14,9 @@ if v:progname =~? "evim" | finish | endif
 " Runtime + Plugin System Bootstrap {{{1
 " --------------------------------------
 
+" Vim sets $MYVIMRC, make it easy to get to stuff in ~/.vim too.
+let $MYVIMRUNTIME = expand('<sfile>:p:h') . '/.vim'
+
 if has('vim_starting')
   " Use Vim sauce, you can't do anything fun in Vi mode.
   " This must be first, because it changes other options as a side effect.
@@ -233,6 +236,14 @@ if has("autocmd")
     endfunction
     "}}}
 
+    " Easy helptags regeneration when editing my personal Vim notes
+    autocmd BufRead ~/.vim/doc/my-notes.txt
+          \ setlocal modifiable iskeyword=!-~,^*,^\|,^\",192-255 |
+          \ map <buffer> <Leader><space> :w!<CR>:helptags ~/.vim/doc<CR>
+
+    " Almost never want to remain in paste mode after insert
+    autocmd InsertLeave * if &paste | set nopaste paste? | endif
+
     " Skeletons {{{
     autocmd BufNewFile build.sbt silent 0read ~/.vim/skeleton/build.sbt| normal ggf"
     autocmd BufNewFile .lvimrc silent 0read ~/.vim/skeleton/lvimrc.vim | normal }j
@@ -271,8 +282,17 @@ let maplocalleader = "\\"
 " Edit vimrc. Use <leader><space> mapping (when active buffer) to source it.
 nnoremap <leader>ev :split  $MYVIMRC<CR>
 nnoremap <leader>eV :vsplit $MYVIMRC<CR>
-" Search runtime files -- warning: slow!
-nnoremap <leader>eR :CtrlPRTS<CR>
+nnoremap <leader>er :split  $MYVIMRUNTIME/
+nnoremap <leader>eR :vsplit $MYVIMRUNTIME/
+nnoremap <leader>en :split  ~/.vim/doc/my-notes.txt<CR>
+nnoremap <leader>eN :vsplit ~/.vim/doc/my-notes.txt<CR>
+
+" Search runtime files (plugins) -- warning: slow!
+nnoremap <leader>eP :CtrlPRTS<CR>
+
+" TODO: make this a command, something like this but proper completions:
+" command -bar -nargs=? -complete=help Help help my-notes-<args>
+nnoremap <leader>hh :help my-notes-
 
 " Omni completion shortcut
 imap <M-space> <C-x><C-o><C-p>
@@ -702,7 +722,7 @@ endif " has("autocmd")
 map <Leader>a  :Ack! ''<Left>
 map <Leader>A  :AckWindow! ''<Left>
 map <Leader>n  :AckFromSearch!<CR>
-map <Leader>hs :AckHelp! ''<Left>
+map <Leader>hg :AckHelp! ''<Left>
 
 let g:ackhighlight = 1
 
