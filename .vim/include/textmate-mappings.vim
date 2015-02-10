@@ -8,12 +8,6 @@
 
 scriptencoding utf-8
 
-" Toggle line wrapping
-" TextMate uses Opt-Cmd-w but that closes all windows in MacVim...
-map <silent> <C-M-w> :set invwrap<CR>
-imap <silent> <C-M-w> <C-o>:set invwrap<CR>
-vmap <silent> <C-M-w> :<C-u>:set invwrap<CR>gv
-
 " Change double-quoting to single; requires surround.vim
 " In reality this should cycle through quoting styles including language-
 " specific styles like %Q{} in Ruby.
@@ -57,7 +51,6 @@ if has('autocmd')
 endif
 
 if has('mac') && has('gui_running')
-
   " Option key as meta
   set macmeta
 
@@ -83,19 +76,7 @@ if has('mac') && has('gui_running')
   nmap <M-D-[> ==
   vmap <M-D-[> =
   imap <M-D-[> <C-f>
-
-  " Toggle line numbers with Cmd-Opt-l
-  nmap <silent> <D-M-l> :set invnumber<CR>
-  imap <silent> <D-M-l> <C-o>:set invnumber<CR>
-  vmap <silent> <D-M-l> :<C-u>:set invnumber<CR>gv
-
-  " Toggle showing invisibles
-  nmap <silent> <D-M-i> :set invlist<CR>
-  imap <silent> <D-M-i> <C-o>:set invlist<CR>
-  vmap <silent> <D-M-i> :<C-u>:set invlist<CR>gv
-
 else
-
   " These don't match up as closely since modifier key handling portability on
   " the console is a slippery slope... see `:help :map-alt-keys` for instance.
   "
@@ -132,20 +113,5 @@ else
   " nmap <M-C-[> ==
   " vmap <M-C-[> =
   " imap <M-C-[> <C-f>
-
-  " Toggle line numbers with Shift-Alt-l
-  nmap <silent> <Esc><S-l> :set invnumber<CR>
-  imap <silent> <Esc><S-l> <C-o>:set invnumber<CR>
-  vmap <silent> <Esc><S-l> :<C-u>:set invnumber<CR>gv
-
-  " Toggle showing invisibles
-  map <silent> <Esc><S-i> :set invlist<CR>
-  imap <silent> <Esc><S-i> <C-o>:set invlist<CR>
-  vmap <silent> <Esc><S-i> :<C-u>:set invlist<CR>gv
-
-  " Toggle line wrapping
-  map <silent> <Esc><S-w> :set invwrap<CR>
-  imap <silent> <Esc><S-w> <C-o>:set invwrap<CR>
-  vmap <silent> <Esc><S-w> :<C-u>:set invwrap<CR>gv
 endif
 
