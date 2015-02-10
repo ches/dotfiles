@@ -1,6 +1,6 @@
 changeset = 'changeset: \033[0;33m{rev}\033[0m:\033[0;33m{node|short} \033[0;34m[{phase}]\033[0m\033[0m{branches}{bookmarks}{tags}\nauthor:    {author}\ndate:      {date|rfc822date} ({date|age})\nsummary:   {desc|firstline|strip}\n\n{file_mods}{file_adds}{file_dels}\n\n'
 
-changeset_verbose = 'changeset: \033[0;33m{rev}\033[0m:\033[0;33m{node|short} \033[0;34m[{phase}]\033[0m\033[0m{branches}{bookmarks}{tags}\nauthor:    {author}\ndate:      {date|rfc822date} ({date|age})\n\n{desc}\n\n{file_mods}{file_adds}{file_dels}\n\n'
+changeset_verbose = 'changeset: \033[0;33m{rev}\033[0m:\033[0;33m{node} \033[0;34m[{phase}]\033[0m\033[0m{branches}{bookmarks}{tags}\nauthor:    {author}\ndate:      {date|rfc822date} ({date|age})\n\n{desc}\n\n{file_mods}{file_adds}{file_dels}\n\n'
 
 start_file_adds = ''
 file_add = '\033[0;32mA {file_add}\033[0m\n'
