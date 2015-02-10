@@ -65,6 +65,7 @@ set nowrap          " Default to no visual line
 let &showbreak='↪  '
 set number          " line numbers
 set numberwidth=5   " a little bit of buffer is prettier
+set lazyredraw      " Smoother display on complex ops (plugins)
 
 " wildmenu does shell-style completion AND tab-through
 set wildmode=list:longest,full
@@ -243,6 +244,11 @@ if has("autocmd")
 
     " Almost never want to remain in paste mode after insert
     autocmd InsertLeave * if &paste | set nopaste paste? | endif
+
+    " Try to detect `fc` where `:q!` will surprisingly result in shell execution
+    autocmd BufRead */bash-fc-* echohl WarningMsg |
+          \ echo "Use :cquit to abandon fc changes without executing!!" |
+          \ echohl None
 
     " Skeletons {{{
     autocmd BufNewFile build.sbt silent 0read ~/.vim/skeleton/build.sbt| normal ggf"
@@ -513,6 +519,18 @@ if has("autocmd")
     autocmd FileType text,markdown,gitcommit,vimwiki setlocal spell
     autocmd FileType help,man,qf nnoremap <silent><buffer> q :q<CR>
   augroup END "}}}
+
+  " Fun with some goodies hidden in vim-git ftplugins.
+  augroup GitTricks
+    autocmd!
+    autocmd FileType gitrebase
+          \ nnoremap <buffer> P :Pick   |
+          \ nnoremap <buffer> S :Squash |
+          \ nnoremap <buffer> E :Edit   |
+          \ nnoremap <buffer> R :Reword |
+          \ nnoremap <buffer> F :Fixup  |
+          \ nnoremap <buffer> C :Cycle
+  augroup END
 
   " With regards to tpope. See his vimrc for more ideas.
   " TODO: consolidate with dispatch.vim
@@ -865,16 +883,36 @@ map <Leader>vl :VCSLog<CR>
 map <Leader>vR :VCSReview<CR>
 map <Leader>vs :VCSStatus<CR>
 
-" Fugitive
+" Fugitive {{{
 noremap <C-g>s :Gstatus<CR>
 noremap <C-g>c :Gcommit<CR>
 noremap <C-g>d :Gdiff<CR>
+noremap <C-g>D :Gvdiff<CR>
 noremap <C-g>l :Glog<CR>
 noremap <C-g>w :Gwrite<CR>
 noremap <C-g>b :Gblame<CR>
 
+noremap <C-g>ap :GstageFile<CR>
+
+" Run any git command with output going to a git-smart temp buffer.
+" Good for `diff` just to see unified instead of vimdiff, `show`, stash, etc.
+noremap <C-g>gs :Gsplit!<Space>
+noremap <C-g>gv :Gvsplit!<Space>
+
 noremap <C-g>v :Gitv<CR>
 noremap <C-g>V :Gitv!<CR>
+
+" Open a new tab for current file in :Gdiff mode -- `dp` puts hunks to the
+" index, i.e. it's basically `git add --patch`.
+"
+" Original file is left in leftmost window, so move there and remove it,
+" leaving only the side-by-side diff.
+"
+" Originally snagged this from Gary Bernhardt, I think, with tweaks.
+if has(':Gdiff')
+  command! GstageFile tabedit % | vsplit | Gvdiff | wincmd t | wincmd q
+endif
+" }}}
 
 " Signify - VCS changes in the gutter with signs
 let g:signify_vcs_list = ['git', 'hg', 'bzr']
