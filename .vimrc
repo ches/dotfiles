@@ -54,6 +54,7 @@ endif
 set history=500     " keep more command line history
 set ruler           " show the cursor position all the time
 set showcmd         " display commands as they're being entered
+set nomodeline      " use securemodelines
 set incsearch       " do incremental searching
 set ignorecase      " Do case insensitive matching
 set smartcase       " But if search contains capitals, be sensitive
