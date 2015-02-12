@@ -32,9 +32,10 @@ CONTENTS                                                   *my-notes-contents*
         4.5 OCaml..................................|my-notes-ft-ocaml|
         4.6 Ruby...................................|my-notes-ft-ruby|
         4.7 Scala..................................|my-notes-ft-scala|
-    5. Credits.....................................|my-notes-credits|
-        5.1 Do It Yourself.........................|my-notes-diy|
-    6. License.....................................|my-notes-license|
+    5. Other Vim Plugins...........................|my-notes-other-plugins|
+    6. Credits.....................................|my-notes-credits|
+        6.1 Do It Yourself.........................|my-notes-diy|
+    7. License.....................................|my-notes-license|
 
 ==============================================================================
 INTRO                                                         *my-notes-intro*
@@ -238,19 +239,45 @@ TODO
 ------------------------------------------------------------------------------
 Help                                                        *my-notes-ft-help*
 
+See: `~/.vim/after/ftplugin/help.vim`
+
 That's right, I've done a few cool things for Vim help files.
-TODO
+
+Mappings~
+
+<Enter> is mapped to |CTRL-W_]| for following tags, and <BS> to the |CTRL-T|
+"go back" mapping. Like |vimwiki| navigation, and less chords = less RSI.
+Others: >
+
+    ]o, [o : Go forward/back to next Vim option tag in the text.
+    ]s, [s : Go forward/back to next subject tag in the text.
+
+    <Tab>, <S-Tab> : Same as ]s, [s
+
+Snippets~
+
+There are some custom UltiSnips snippets for how I like to format help
+sections, etc. Try `sec`, `ssec`, `sssec` triggers.
 
 ------------------------------------------------------------------------------
 Go, a.k.a golang                                          *my-notes-ft-golang*
+
+See: `~/.vim/after/ftplugin/go.vim`
 
 I haven't written much Go yet, but fortunately Fatih Arslan's |vim-go| is a
 very well-built and comprehensive plugin with good help, so it's really the
 only thing to look at.
 
-See: `~/.vim/after/ftplugin/go.vim`
+FWIW I'm not too fond of the language, but it's a necessity for some systems
+I need to work on.
 
-Mappings of interest:                               *my-notes-golang-mappings*
+Installing the Tools~
+
+A bunch of standard Go tools need to be installed in order for vim-go's
+features to work. Fortunately the plugin can help: just run
+|:GoInstallBinaries|.
+                                                    *my-notes-golang-mappings*
+Mappings~
 
 <LocalLeader>t          Display type information for word under cursor.
                         See |(go-info)|.
@@ -285,6 +312,41 @@ Scala                                                      *my-notes-ft-scala*
 TODO
 
 ==============================================================================
+OTHER PLUGINS                                         *my-notes-other-plugins*
+
+Notes and tips on global plugins or some that apply to many filetypes.
+
+------------------------------------------------------------------------------
+greplace                                                   *my-notes-greplace*
+
+"Global" search and replace. See |greplace|. Lacks help tags for the commands.
+
+Search across multiple files, collecting results into a buffer which you can
+edit interactively and persist the changes back to the files.
+
+Invoke with `:Gsearch` and apply changes when ready with `:Greplace`. Add bang
+to forego confirmations. Doesn't save buffers, use |:wall|. >
+
+    :Gsearch [<grep-option(s)>] [[<pattern>] [<filename(s)>]]
+    :Gbuffersearch [<grep-option(s)>] <pattern>
+    :Gargsearch [grep opts] mypattern
+
+The latter two use the buffer list and |arglist|, predictably. `:Gqfopen`
+loads an existing |quickfix| list into the replace buffer.
+
+If pattern isn't given to `:Gsearch` it will be interactively prompted for --
+use this for patterns containing spaces. Completion is available for
+selecting file/directory names, in either form.
+
+Uses 'grepprg' and can set `g:grep_cmd_opts` to customize for specific tools
+like `ag` and `ack`.
+
+------------------------------------------------------------------------------
+Vimwiki                                                     *my-notes-vimwiki*
+
+TODO |vimwiki|
+
+==============================================================================
 CREDITS                                                     *my-notes-credits*
 
 Starting this doc was primarily inspired by Dr. Mike Henry's excellent
@@ -302,9 +364,9 @@ Do It Yourself                                                  *my-notes-diy*
 It's easy to end up with a pile of Vim plugins and forget how things work, or
 lose track of how to keep consistency between the filetypes you work with.
 
-I encourage anyone to maintain a doc like this for their own Vim setup, and create
-mappings to make it fast to edit and browse. It's easy, Vim's help format is
-low-ceremony and not strict.
+I encourage anyone to maintain a doc like this for their own Vim setup, and
+create mappings to make it fast to edit and browse. It's easy, Vim's help
+format is low-ceremony and not strict.
 
 I used to dump things like this in a personal knowledgebase somewhere, like
 Vimwiki, when it occurred to me that making it available in Vim's own help
@@ -335,7 +397,7 @@ might like: >
 LICENSE                                                     *my-notes-license*
 
 The original contents of this document may be used under the terms of the
-Creative Commons Non-Commercial Share-Alike license.
+Creative Commons Attribution Non-Commercial Share-Alike license.
 
 http://creativecommons.org/licenses/by-nc-sa/4.0/
 

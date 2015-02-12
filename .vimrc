@@ -518,7 +518,7 @@ if has("autocmd")
     autocmd FileType vimwiki map <buffer> <Leader>w/ :VimwikiSearch<space>/
 
     autocmd FileType text,markdown,gitcommit,vimwiki setlocal spell
-    autocmd FileType help,man,qf nnoremap <silent><buffer> q :q<CR>
+    autocmd FileType man,qf nnoremap <silent><buffer> q :q<CR>
   augroup END "}}}
 
   " Fun with some goodies hidden in vim-git ftplugins.
