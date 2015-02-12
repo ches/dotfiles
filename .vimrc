@@ -906,13 +906,18 @@ noremap <C-g>V :Gitv!<CR>
 " Open a new tab for current file in :Gdiff mode -- `dp` puts hunks to the
 " index, i.e. it's basically `git add --patch`.
 "
-" Original file is left in leftmost window, so move there and remove it,
+" Original buffer is left in leftmost window, so move there and remove it,
 " leaving only the side-by-side diff.
 "
 " Originally snagged this from Gary Bernhardt, I think, with tweaks.
-if has(':Gdiff')
-  command! GstageFile tabedit % | vsplit | Gvdiff | wincmd t | wincmd q
-endif
+"
+" TODO: take a file as optional argument, support file of current line in
+" :Gstatus buffer
+command! -bar GstageFile tabedit % | vsplit | Gvdiff | wincmd t | wincmd q
+
+" Simple variation with status window at bottom, so you can easily `dv`
+" other files from there to diff and stage them.
+command! -bar Gstage GstageFile | Gstatus | wincmd J
 " }}}
 
 " Signify - VCS changes in the gutter with signs
