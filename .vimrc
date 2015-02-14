@@ -448,7 +448,7 @@ if has("autocmd")
   augroup OmniCompletion "{{{
     autocmd!
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType html setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
     autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
     autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
@@ -508,16 +508,12 @@ if has("autocmd")
     autocmd FileType javascript let javascript_enable_domhtmlcss=1
     autocmd FileType xml let xml_use_xhtml = 1 " default xml to self-closing tags
 
-    autocmd FileType markdown nnoremap <buffer> <leader>1 yypVr=
-    autocmd FileType markdown nnoremap <buffer> <leader>2 yypVr-
-    autocmd FileType markdown setlocal linebreak
-
     autocmd FileType vimwiki setlocal foldlevel=2 textwidth=78 linebreak
     autocmd FileType vimwiki map <buffer> <M-Space> <Plug>VimwikiToggleListItem
     autocmd FileType vimwiki map <buffer> <Leader>wg :VimwikiGoto<space>
     autocmd FileType vimwiki map <buffer> <Leader>w/ :VimwikiSearch<space>/
 
-    autocmd FileType text,markdown,gitcommit,vimwiki setlocal spell
+    autocmd FileType text,gitcommit,vimwiki setlocal spell
     autocmd FileType man,qf nnoremap <silent><buffer> q :q<CR>
   augroup END "}}}
 

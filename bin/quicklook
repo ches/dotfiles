@@ -1,0 +1,98 @@
+#!/usr/bin/env bash
+#/ quicklook <file | ->
+#/
+#/ Open Quick Look for the given file. If "-" is given, standard input will be
+#/ used with an attempt to guess its content type.
+#/
+#/ You may need to build mime2uti and place it on your path. View the contents
+#/ of this script for the source.
+#
+# qlmanage doesn't provide usage with stdin, and process substitution fails
+# because it wants to do sandboxing security on a file that doesn't actually
+# exist. So I found this script when I googled about this problem to simply
+# feed it a temp file.
+#
+# Authors:
+#   Original:
+#     Vladimir Perekladov, http://perekladov.ru/
+#   Mods by Ches Martin, http://chesmart.in/
+#     - OS check
+#     - Explicit "-" for STDIN
+#     - Usage, dug up mime2uti source
+
+usage () {
+    echo -n 'Usage: '
+    grep '^#/' "$0" | cut -c4-
+    echo
+    exit 2
+}
+
+[ $# -ne 1  ] && usage
+[ "$1" = "-h" -o "$1" = "--help" ] && usage
+
+if [ $(uname -s) != "Darwin" ]; then
+    echo Quick Look only works on OS X!
+    exit 1
+fi
+
+# If using stdin, create a temp file with it
+if [ "$1" == "-" ]; then
+    TEMPFILE=`mktemp /private/tmp/quicklook.XXXXXXXXXXXXXXXXXXXX`
+    cat "${1:-/dev/stdin}" > $TEMPFILE
+else
+    TEMPFILE="$1"
+fi
+
+# Detect file content
+MIME=`file --mime-type -b $TEMPFILE`
+UTI=`mime2uti $MIME`
+
+qlmanage -p -c "$UTI" $TEMPFILE > /dev/null
+
+# Delete tempfile if stdin
+if [ "$1" == "-" ]; then
+    rm $TEMPFILE
+fi
+
+# Exit cleanly so we can paste non-bash raw C code below :-)
+exit 0
+
+
+/*
+ * This is the source of mime2ui, by Grant Hollingworth:
+ *
+ * http://comments.gmane.org/gmane.mail.sup.general/262
+ * https://www.mail-archive.com/sup-talk@rubyforge.org/msg00257/mime2uti.m
+ *
+ * Build it with:
+ * gcc -g -Wall -framework CoreServices -o mime2uti mime2uti.m
+ */
+
+#import <CoreServices/CoreServices.h>
+
+int main (int argc, const char * argv[]) {
+
+    if (argc != 2) {
+        printf("usage: %s <MIME type>\n", argv[0]);
+        return(1);
+    }
+
+    CFStringRef mime_type = CFStringCreateWithCString(
+        kCFAllocatorDefault,
+        argv[1],
+        kCFStringEncodingUTF8);
+    CFStringRef uti = UTTypeCreatePreferredIdentifierForTag(
+        kUTTagClassMIMEType,
+        mime_type,
+        NULL);
+
+    int length = CFStringGetLength(uti);
+    int size = sizeof(UniChar)*(length+1);
+    char* buffer = (char*)NewPtrClear(size);
+    if (CFStringGetCString(uti, buffer, size, kCFStringEncodingUTF8)) {
+        printf("%s\n", buffer);
+    }
+
+    return (0);
+}
+
