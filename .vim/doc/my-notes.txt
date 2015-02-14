@@ -18,7 +18,8 @@ CONTENTS                                                   *my-notes-contents*
     3. Vim Features................................|my-notes-vim-features|
         3.1 Digraphs...............................|my-notes-digraphs|
         3.2 Folds..................................|my-notes-folds|
-        3.3 Vim Plugin Dev.........................|my-notes-vim-plugin-dev|
+        3.3 Tags & Includes........................|my-notes-tags|
+        3.4 Vim Plugin Dev.........................|my-notes-vim-plugin-dev|
     4. Filetypes...................................|my-notes-filetypes|
         4.1 General Conventions....................|my-notes-ft-conventions|
             4.1.1 Type Info........................|my-notes-ft-type-info|
@@ -104,7 +105,7 @@ Em dash and en dash are `-M` and `-N`, respectively.
 
 Sometimes Vim may not be able to display a character correctly in the chosen
 font. The `ga` normal mode command will echo info to clarify the character
-under cursor.
+under cursor. The `vim-characterize` plugin (installed) enhances this.
 
 Some special characters short-circuit digraph entry, such as <C-k><Tab>
 inserting a literal tab character (useful when writing UltiSnips snippets!).
@@ -140,6 +141,22 @@ most languages but great for VimL where you can be pretty certain that anyone
 bothering to read and edit it is a Vim user.
 
 ------------------------------------------------------------------------------
+Tags and Includes                         *my-notes-tags*  *my-notes-includes*
+
+Commit |window-tag| stuff to memory.
+
+|[_CTRL-I| jumps to first line that contains keyword under cursor, useful to
+get to a variable definition or import. |[i| just echoes the line instead.
+These are aware of the 'include' setting for searching in includes. |[I| lists
+all occurrences. Also there is |gd|, the "go to declaration" normal mode
+command. See |include-search|.
+
+|CTRL-W_z| is a synonym for |:pclose|, closing any preview window for the
+current tab page. This is useful e.g. for previewing a function def from
+Tagbar with the "P" mapping, or for a tag under cursor using |CTRL-W_}|. Move
+to the preview window with |CTRL-W_P|. See |preview-window|.
+
+------------------------------------------------------------------------------
 Vim Plugin Development                               *my-notes-vim-plugin-dev*
 
 Step One~
@@ -148,6 +165,8 @@ http://learnvimscriptthehardway.stevelosh.com/
 
 - A "standard library" of VimL. Impressive, or insane?
   https://github.com/vim-jp/vital.vim
+- From Google!
+  https://github.com/google/vim-maktaba
 
 Useful core doc sections~
 
@@ -155,6 +174,36 @@ Useful core doc sections~
     - |write-plugin|
     - |write-filetype-plugin|
     - |write-local-help|
+    - |autocommand-events|
+
+Best Practices~
+
+<Plug> mappings: http://whileimautomaton.net/2008/09/27022735
+
+Google has a Vimscript style guide!
+   http://google-styleguide.googlecode.com/svn/trunk/vimscriptguide.xml
+
+API documentation generation: https://github.com/google/vimdoc
+
+Debugging~
+
+Standard invocation for bare-vim testing, vim mode but no rc file: >
+
+    $ vim -u NONE -N
+
+Syntax Definitions~
+
+Useful debugging of current word's group matching: >
+
+    nnoremap <F9> call HilightInfo()<CR>
+
+    function HilightInfo()
+      echo "hi<" . synIDattr(synID(line("."), col("."), 1), "name") .
+        \ '> trans<' . synIDattr(synID(line("."), col("."), 0), "name") .
+        \ "> lo<" . synIDattr(synIDtrans(synID(line("."), col("."), 1)), "name") . ">"<CR>
+    endfunction
+
+See also |scriptease-zS| from tpope's |scriptease|.
 
 ==============================================================================
 FILETYPES                                                 *my-notes-filetypes*
@@ -234,7 +283,54 @@ TODO
 ------------------------------------------------------------------------------
 Haskell                                                  *my-notes-ft-haskell*
 
-TODO
+See: `~/.vim/after/ftplugin/haskell.vim`
+
+Installing the Tools~
+
+The ghc-mod package enables all the type awareness magic in |ghcmod| to work.
+The codex package generates ctags (with hasktags) for all the dependencies in
+your Cabal project sandboxes.
+>
+    $ cabal install --user ghc-mod codex hasktags pointfree
+<
+                                                   *my-notes-haskell-mappings*
+Mappings~
+
+<LocalLeader>t          Display type information for word under cursor.
+                        See |:GhcModType|.
+
+<LocalLeader>T          Insert type of the expression under the cursor on the
+                        line above. This is to automatically enter function
+                        headers. See |:GhcModTypeInsert|.
+
+<LocalLeader>i          Show extended type information for word under cursor,
+                        like type class instances. See |:GhcModInfo|.
+
+<LocalLeader>I          Same as above, using |preview-window|.
+                        See |:GhcModInfoPreview|.
+
+<LocalLeader>c          Clear highlighting left by the above type information
+                        commands. See |:GhcModTypeClear|.
+
+<LocalLeader>es         Show expansions of slices in |quickfix|. These are
+                        Template Haskell metaprogramming macros.
+                        See |:GhcModExpand|.
+
+<LocalLeader>gt         Generate project ctags using `codex`, which runs
+                        `haskell-tags` on all dependencies in a Cabal project.
+                        Runs in the background with |dispatch-:Start|.
+
+                                                    *my-notes-haskell-options*
+Options~
+
+'formatprg'
+        Set to the `pointfree` program which will try to reformat to
+        point-free style. Sometimes this becomes excessively cryptic. Worth
+        looking at `stylish-haskell` for other reformatting ideas.
+
+'omnifunc'
+        Set to use ghc-mod backed semantic completion through the `neco-ghc`
+        plugin.
 
 ------------------------------------------------------------------------------
 Help                                                        *my-notes-ft-help*
@@ -299,7 +395,37 @@ equivalents in Vim:
 ------------------------------------------------------------------------------
 OCaml                                                      *my-notes-ft-ocaml*
 
-TODO
+See: `~/.vim/after/ftplugin/ocaml.vim`
+
+Installing the Tools~
+
+The `opam` tool is the de facto standard package and compiler version manager
+for OCaml.
+
+The merlin OPAM package enables all the type awareness magic in |merlin| to
+work, and it actually includes the Vim plugin which we load from its
+installed path when available. For OS X:
+>
+    $ brew install objective-caml opam
+    $ opam install merlin
+
+See https://github.com/the-lambda-church/merlin/wiki/vim-from-scratch
+
+                                                     *my-notes-ocaml-mappings*
+Mappings~
+
+<LocalLeader>t          Display type information for word under cursor.
+                        See |:TypeOf|.
+
+<LocalLeader>r          Rename identifier under cursor. See |:Rename|.
+
+Enhanced semantic go-to-definition is available and uses the standard mappings
+in |my-notes-ft-conventions|. Additionally, there is semantic support of
+finding occurrences of identifiers (|:Occurrences|); the following mappings
+take after Vim's:
+
+<LocalLeader>*          Find next and previous occurrence of <cword>.
+<LocalLeader>#
 
 ------------------------------------------------------------------------------
 Ruby (and Rails)                                            *my-notes-ft-ruby*
