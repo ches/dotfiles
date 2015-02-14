@@ -1,0 +1,11 @@
+#!/bin/sh
+# This serves as an alias for the old `brew dirty` command which annoyingly
+# was removed.
+
+if ! command -v brew >/dev/null; then
+    echo "brew not found. You don't have a Homebrew installation here?"
+    exit 1
+fi
+
+exec brew list --multiple --versions
+
