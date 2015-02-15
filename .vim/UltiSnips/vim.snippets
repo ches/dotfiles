@@ -1,0 +1,42 @@
+# UltiSnips one uses abbreviated "fun" and non-bang, ugh.
+# And regex because I'm likely to try any one of these when memory is rusty.
+# Finally, grabbed the namespace# scope cleverness from snipmate version.
+snippet 'f(unc?)?' "function" br
+function! ${1:`!v expand('%') =~ 'autoload' ? substitute(matchstr(expand('%:p'), 'autoload/\zs.*\ze.vim'), '[/\\]', '#', 'g') . '#' : ''`}${2:function_name}(${3})
+	${4:" code}
+endf
+endsnippet
+
+
+# Original has no scope on the var. Also adding more tab stops.
+# Could be smarter by sniffing if directory is autoload/, plugin/, ftplugin/
+snippet guard "script reload guard" b
+if exists('${1:g}:${2:loaded_`!p snip.rv = snip.fn.replace('.', '_')`}')${3: || &cp${4: || version < 700}}
+	finish
+endif
+let $1:$2 = 1${5}
+endsnippet
+
+
+# snipmate trigger is "t" which my fingers will never remember
+snippet try "try ... catch statement" b
+try
+	${1}${2:
+catch ${3}
+	${4}}${5:
+finally
+	${6}}
+endtry
+endsnippet
+
+
+snippet bun "NeoBundle Plugin definition" b
+NeoBundle '${1}'${2:, '${3:version}'}
+endsnippet
+
+snippet bunl "NeoBundleLazy Plugin definition" b
+NeoBundleLazy '${1}', {
+\ 'autoload' : { '${2:filetypes}' : $3 }
+\ }
+endsnippet
+
