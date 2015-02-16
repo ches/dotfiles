@@ -16,10 +16,11 @@ CONTENTS                                                   *my-notes-contents*
     2. Setup.......................................|my-notes-setup|
         2.1 OS X Setup.............................|my-notes-os-x-setup|
     3. Vim Features................................|my-notes-vim-features|
-        3.1 Digraphs...............................|my-notes-digraphs|
-        3.2 Folds..................................|my-notes-folds|
-        3.3 Tags & Includes........................|my-notes-tags|
-        3.4 Vim Plugin Dev.........................|my-notes-vim-plugin-dev|
+        3.1 Diff Mode..............................|my-notes-diff-mode|
+        3.2 Digraphs...............................|my-notes-digraphs|
+        3.3 Folds..................................|my-notes-folds|
+        3.4 Tags & Includes........................|my-notes-tags|
+        3.5 Vim Plugin Dev.........................|my-notes-vim-plugin-dev|
     4. Filetypes...................................|my-notes-filetypes|
         4.1 General Conventions....................|my-notes-ft-conventions|
             4.1.1 Type Info........................|my-notes-ft-type-info|
@@ -79,14 +80,40 @@ been giving it a try (see `~/.vim/include/neocompl.vim` for WIP).
 ==============================================================================
 VIM FEATURES                                           *my-notes-vim-features*
 
-TODO:~
+Summaries of core Vim features that I sometimes need to jog my memory about.
 
-- vimdiff
+                                                          *my-notes-diff-mode*
+Diff Mode~
+
+Full details at |diff|. The bare essentials: >
+
+    ]c   move to next change
+    [c   move to previous change
+    do   "diff obtain": select hunk from other buffer, updating current one
+    dp   "diff put": select hunk from current buffer, updating other one
+
+    :diffget      Ex mode equivalents of `do` and `dp`, you'll want to use
+    :diffput      these with visual selections of only part of a hunk.
+    :diffupdate   Re-sync highlighting after moving some hunks.
+    :diffoff      Switch off diff mode for current window, resetting buffer
+                  opts. With bang, turn off diff for the entire tab page.
+
+In a three-way merge, we must specify "other" with a bufspec argument to the
+|:diffget| or |:diffput| commands (a buffer number or substring name match).
+This can be eased by turning off 'modifiable' for all but the "result" buffer,
+then |dp| will target that buffer automatically.
+
+`:cq` quits Vim with an error code, causing SCMs to fail a merge when you want
+to bail on it. Also useful for the bash `fc` command editor, where `:q!` with
+unwanted changes will still execute.
+
+From within Vim, as opposed to starting as `vimdiff` or `vim -d`, start a
+(vertical split) diff with `:vert diffsplit <other file>`.
 
 ------------------------------------------------------------------------------
 Digraphs                                                   *my-notes-digraphs*
 
-The digraph system allows inserting many special and Unicode characters.
+The |digraph| system allows inserting many special and Unicode characters.
 <C-k> in insert mode is the main chord to remember, to trigger digraph entry.
 Entering two characters following this inserts the associated character. These
 often have good mnemonics, for instance here are some common digraphs with
