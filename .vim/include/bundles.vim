@@ -33,6 +33,7 @@ NeoBundle 'Shougo/vimproc.vim', {
 
 NeoBundle 'AndrewRadev/splitjoin.vim'
 NeoBundle 'bling/vim-airline', { 'augroup' : 'airline' }
+NeoBundle 'ciaranm/securemodelines'
 NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'eiginn/netrw', { 'augroup' : 'FileExplorer' }
 NeoBundle 'embear/vim-localvimrc'
@@ -75,7 +76,7 @@ NeoBundle 'Valloric/YouCompleteMe', {
 \    'linux' : './install.sh'
 \  }
 \ }
-NeoBundle 'vimwiki/vimwiki'
+NeoBundle 'vimwiki/vimwiki', 'dev'
 NeoBundle 'xolox/vim-session', {
 \ 'depends' : 'xolox/vim-misc',
 \ 'augroup' : 'PluginSession'
@@ -223,7 +224,7 @@ NeoBundleLazy 'jimenezrick/vimerl', {
 \ 'autoload' : { 'filetypes' : 'erlang' }
 \ }
 NeoBundleLazy 'kchmck/vim-coffee-script', {
-\ 'autoload' : { 'filename_patterns' : ['\.coffee$', 'Cakefile$'] }
+\ 'autoload' : { 'filetypes' : ['coffee', 'markdown'] }
 \ }
 NeoBundleLazy 'mattn/emmet-vim', {
 \ 'autoload' : { 'filetypes' : ['html', 'css', 'haml', 'slim', 'sass', 'scss', 'less', 'htmldjango'] }
