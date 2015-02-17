@@ -2,7 +2,7 @@ set guioptions-=T       " Toolbar off
 set guioptions-=L       " No left hand scrollbars
 
 " Font
-" I can't really be bothered with automating all this special setup :-/
+" I can't really be bothered with automating installation of this...
 set guifont=Inconsolata\ for\ Powerline:h14
 
 colorscheme base16-default
@@ -28,24 +28,7 @@ else
 end
 
 if has('mac')
-
   " Transparency
   set transp=4
-
-  " Use full horizontal width on fullscreen
-  " I really wish this could be toggled without entering and leaving fs mode --
-  " I like the Writeroom-style central editor column when not using a vsplit
-  set fuoptions+=maxhorz
-  function! ToggleMaxhorz()
-    if &fuoptions =~ 'maxhorz'
-      set fuoptions-=maxhorz
-      echo 'maxhorz off'
-    else
-      set fuoptions+=maxhorz
-      echo 'maxhorz on'
-    endif
-  endfunction
-  map <M-F2> :call ToggleMaxhorz()<CR>
-
 endif
 

@@ -561,6 +561,35 @@ if has("autocmd")
     autocmd WinEnter,BufRead * setlocal cursorline
   augroup END "}}}
 
+  " Goyo: distraction-free writing {{{
+  " This was VimRoom's default mapping:
+  nnoremap <Leader>V :Goyo<CR>
+
+  function! s:GoyoEnter()
+    let s:goyo_scrolloff_save = &scrolloff
+    set scrolloff=999
+    set guioptions-=r
+
+    if !empty($TMUX) && !has('gui_running')
+      silent !tmux set status off
+    endif
+  endfunction
+
+  function! s:GoyoLeave()
+    let &scrolloff = s:goyo_scrolloff_save
+    set guioptions+=r
+
+    if !empty($TMUX) && !has('gui_running')
+      silent !tmux set status on
+    endif
+  endfunction
+
+  autocmd! User GoyoEnter
+  autocmd! User GoyoLeave
+  autocmd  User GoyoEnter nested call <SID>GoyoEnter()
+  autocmd  User GoyoLeave nested call <SID>GoyoLeave()
+  " }}}
+
   " Haskell
   "
   " gf to buffer-local filetype settings at:

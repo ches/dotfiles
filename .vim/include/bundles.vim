@@ -223,6 +223,9 @@ NeoBundleLazy 'hspec/hspec.vim', {
 NeoBundleLazy 'jimenezrick/vimerl', {
 \ 'autoload' : { 'filetypes' : 'erlang' }
 \ }
+NeoBundleLazy 'junegunn/goyo.vim', {
+\ 'autoload' : { 'commands' : 'Goyo' }
+\ }
 NeoBundleLazy 'kchmck/vim-coffee-script', {
 \ 'autoload' : { 'filetypes' : ['coffee', 'markdown'] }
 \ }
