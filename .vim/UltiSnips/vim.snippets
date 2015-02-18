@@ -4,7 +4,7 @@
 snippet 'f(unc?)?' "function" br
 function! ${1:`!v expand('%') =~ 'autoload' ? substitute(matchstr(expand('%:p'), 'autoload/\zs.*\ze.vim'), '[/\\]', '#', 'g') . '#' : ''`}${2:function_name}(${3})
 	${4:" code}
-endf
+endfunction
 endsnippet
 
 
