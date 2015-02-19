@@ -9,6 +9,13 @@ if [ -f /etc/bash_completion ]; then
     source /etc/bash_completion
 elif [ -f /usr/local/etc/bash_completion ]; then # OS X Homebrew
     source /usr/local/etc/bash_completion
+
+    # Complete pushd like cd: CDPATH completion from bash_completion
+    if shopt -q cdable_vars; then
+        complete -v -F _cd -o nospace pushd
+    else
+        complete -F _cd -o nospace pushd
+    fi
 fi
 
 for f in ~/.bash.d/completion-*.sh; do

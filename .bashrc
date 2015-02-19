@@ -28,7 +28,7 @@ export VISUAL=vim
 [ -z "$PS1" ] && return
 
 # 'cd' to children of a host of directories, as if they were always in CWD
-export CDPATH=:~:~/src
+export CDPATH=:~:~/src/work:~/src
 
 # Directory listings in Technicolor
 export CLICOLOR='true'

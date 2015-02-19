@@ -4,6 +4,10 @@ set completion-ignore-case on
 # Hyphen can be used to complete underscores
 set completion-map-case on
 
+# Automatically complete directory symlinks with ending /
+# Also offers them for `complete -d` like cd & pushd
+set mark-symlinked-directories on
+
 # Show completions immediately if multiple matches
 set show-all-if-ambiguous on
 set show-all-if-unmodified on
