@@ -82,8 +82,9 @@ if [ "$(uname -s)" == "Darwin" ]; then
     alias minissh='sshfs ches@kodama.local:/Users/ches /Volumes/sshfs/ches -oauto_cache,reconnect,volname="ches on kodama"'
     alias mediassh='sshfs ches@nausicaamedia.dyndns.org:/Volumes/Media /Volumes/sshfs/Media -oauto_cache,reconnect,volname="Media on kodama"'
 
-    # Quick Look file:
-    alias ql='qlmanage -p "$@" >& /dev/null'
+    # Quick Look file
+    # The wrapper script to qlmanage (in ~/bin) deals with stdin usage.
+    alias ql='quicklook "$@"'
 
     # Options are not equivalent, but 90% use case is just find by file path
     alias locate='mdfind -name'

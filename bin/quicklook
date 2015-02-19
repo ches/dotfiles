@@ -19,6 +19,10 @@
 #     - OS check
 #     - Explicit "-" for STDIN
 #     - Usage, dug up mime2uti source
+#     - Use mdls on real files instead of MIME
+#     - Cleanup: quoting, portability (no == with single [)
+
+set -e
 
 usage () {
     echo -n 'Usage: '
@@ -35,23 +39,33 @@ if [ $(uname -s) != "Darwin" ]; then
     exit 1
 fi
 
-# If using stdin, create a temp file with it
-if [ "$1" == "-" ]; then
-    TEMPFILE=`mktemp /private/tmp/quicklook.XXXXXXXXXXXXXXXXXXXX`
-    cat "${1:-/dev/stdin}" > $TEMPFILE
-else
-    TEMPFILE="$1"
+
+declare using_stdin=false
+
+if [ "$1" = "-" ]; then
+    using_stdin=true
 fi
 
-# Detect file content
-MIME=`file --mime-type -b $TEMPFILE`
-UTI=`mime2uti $MIME`
+# If using stdin, create a temp file with it
+if [ "$using_stdin" = true ]; then
+    FILE=$(mktemp /private/tmp/quicklook.XXXXXXXXXXXXXXXXXXXX)
+    cat /dev/stdin > $FILE
 
-qlmanage -p -c "$UTI" $TEMPFILE > /dev/null
+    # Detect file content
+    MIME=$(file --mime-type -b "$FILE")
+    UTI=$(mime2uti "$MIME")
+else
+    FILE="$1"
+
+    # Files tend to have richer UTI data already than MIME
+    UTI=$(mdls -name kMDItemContentType -raw "$FILE")
+fi
+
+qlmanage -p -c "$UTI" "$FILE" >& /dev/null
 
 # Delete tempfile if stdin
-if [ "$1" == "-" ]; then
-    rm $TEMPFILE
+if [ "$using_stdin" = true ]; then
+    rm "$FILE"
 fi
 
 # Exit cleanly so we can paste non-bash raw C code below :-)
