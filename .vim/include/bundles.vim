@@ -96,6 +96,9 @@ NeoBundleLazy 'majutsushi/tagbar', {
 \ 'autoload' : { 'commands' : 'TagbarToggle' },
 \ 'augroup' : 'TagbarAutoCmds'
 \ }
+NeoBundleLazy 'sjbach/lusty', {
+\ 'autoload' : { 'commands' : 'LustyJuggler' }
+\ }
 " Look at mbbill/undotree as a pure VimL alternative:
 NeoBundleLazy 'sjl/gundo.vim', {
 \ 'autoload' : { 'commands' : 'GundoToggle' }
@@ -263,7 +266,6 @@ NeoBundleLazy 'wting/rust.vim', {
 " TODO: change all to vim-scripts GitHub account
 NeoBundle 'dbext.vim'
 NeoBundle 'jQuery'
-NeoBundle 'LustyJuggler'
 NeoBundle 'TailMinusF'
 NeoBundle 'word_complete.vim'
 NeoBundle 'YankRing.vim', { 'augroup' : 'YankRing' }
