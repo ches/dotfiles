@@ -209,7 +209,7 @@ NeoBundleLazy 'derekwyatt/vim-sbt', {
 \ 'autoload' : { 'filename_patterns' : '\.sbt$' }
 \ }
 NeoBundleLazy 'derekwyatt/vim-scala', {
-\ 'autoload' : { 'filetypes' : 'scala' }
+\ 'autoload' : { 'filetypes' : ['help', 'scala'] }
 \ }
 NeoBundleLazy 'elixir-lang/vim-elixir', {
 \ 'autoload' : { 'filetypes' : 'elixir' }
@@ -256,6 +256,13 @@ NeoBundleLazy 'tpope/vim-cucumber', {
 \ }
 NeoBundleLazy 'tpope/vim-haml', {
 \ 'autoload' : { 'filetypes' : 'haml' }
+\ }
+NeoBundleLazy 'tpope/vim-scriptease', {
+\ 'autoload' : {
+\   'filetypes' : ['vim', 'help'],
+\   'commands' : ['Disarm', 'PP', 'Scriptnames', 'Verbose',
+\                 'Vedit', 'Vopen', 'Vsplit', 'Vvsplit']
+\  }
 \ }
 NeoBundleLazy 'wting/rust.vim', {
 \ 'autoload' : { 'filetypes' : 'rust' }
