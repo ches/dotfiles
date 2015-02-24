@@ -68,27 +68,36 @@ elif [ -f ~/.bash.d/platform-linux.sh ]; then
     . ~/.bash.d/platform-linux.sh
 fi
 
-#
-# Startup file for Python's interactive interpreter.
-# Sets up history and completion
-#
+# AWS credential management and env vars that the API tools want
+[[ -r ~/.aws/setup.sh ]] && source ~/.aws/setup.sh
+
+# Travis CI CLI
+[[ -r ~/.travis/travis.sh ]] && source ~/.travis/travis.sh
+
+#-------------------------------------------------------------------------------
+# Language packaging, sandboxes, and stuff
+#-------------------------------------------------------------------------------
+
+# Go default workspace
+export GOPATH=$HOME/src/go
+# Because of this godoc crap: https://github.com/Homebrew/homebrew/issues/23281
+export GOROOT=$(go env GOROOT)
+export PATH=$PATH:$GOPATH/bin:$GOROOT/bin
+
+# Haskell Cabal
+[[ -d ~/.cabal/bin ]] && export PATH=~/.cabal/bin:$PATH
+
+# OCaml OPAM configuration
+[[ -r ~/.opam/opam-init/init.sh ]] && source ~/.opam/opam-init/init.sh
+
+# Python REPL startup file. Sets up history and completion.
 export PYTHONSTARTUP=$HOME/.pythonrc
+
 # virtualenv & wrapper
 export VIRTUALENV_USE_DISTRIBUTE=true
 export WORKON_HOME=$HOME/.virtualenvs
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
 export PIP_RESPECT_VIRTUALENV=true
-
-#
-# Memcached
-#
-export EVENT_NOKQUEUE=1
-
-# OCaml OPAM configuration
-[[ -r ~/.opam/opam-init/init.sh ]] && source ~/.opam/opam-init/init.sh
-
-# Haskell Cabal
-[[ -d ~/.cabal/bin ]] && export PATH=~/.cabal/bin:$PATH
 
 # Ruby Version Switching
 # brew install chruby ruby-install
@@ -98,13 +107,9 @@ if [ -x /usr/local/opt/chruby ]; then
     source /usr/local/opt/chruby/share/chruby/auto.sh
 fi
 
-# AWS credential management and env vars that the Java API tools want
-[[ -r ~/.aws/setup.sh ]] && source ~/.aws/setup.sh
-
-# Travis gem
-[[ -r ~/.travis/travis.sh ]] && source ~/.travis/travis.sh
-
+#-------------------------------------------------------------------------------
 # Machine-specific stuff, creds kept out of SCM, etc.
+#-------------------------------------------------------------------------------
 if [ -d ~/.local ]; then
     for f in ~/.local/*.sh; do
         . "$f"

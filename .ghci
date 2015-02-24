@@ -13,7 +13,7 @@
 -- $ hoogle data
 
 -- Hoogle search showing all matches
-:def hoogle \x -> return $ ":!hoogle --count=15 \"" ++ x ++ "\""
+:def hoogle \x -> return $ ":!hoogle --color --count=15 \"" ++ x ++ "\""
 
 -- Haddock documentation for first match
 :def doc \x -> return $ ":!hoogle --info \"" ++ x ++ "\""

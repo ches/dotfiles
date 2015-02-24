@@ -320,6 +320,13 @@ your Cabal project sandboxes.
 >
     $ cabal install --user ghc-mod codex hasktags pointfree
 <
+|syntastic| has built-in checker support for HLint, which is quite useful,
+especially as a learner. HLint is installed as a dependency of ghc-mod.
+
+TODO: mappings for |:GhcModCheck|, |:GhcModLint| because their quickfix output
+is much more readable with the detailed output of GHC and HLint. Or can
+Syntastic be configured to use these instead of its default checkers?
+
                                                    *my-notes-haskell-mappings*
 Mappings~
 
@@ -398,7 +405,25 @@ Installing the Tools~
 
 A bunch of standard Go tools need to be installed in order for vim-go's
 features to work. Fortunately the plugin can help: just run
-|:GoInstallBinaries|.
+|:GoInstallBinaries|. This will install to `$GOPATH/bin` or `$GOBIN` unless an
+explicit *'g:go_bin_path'* is set.
+
+Go has a "workspace" convention for development which basically allows for
+directories to serve as package sandboxes for projects. That's pretty much
+what `$GOPATH` amounts to. The `direnv` tool has built-in support to help
+manage many independent Go projects this way, but you'll want one default
+workspace for just playing around. Here's the short on how I set that up: >
+
+    $ mkdir -p ~/src/go/{bin,pkg,src/github.com/ches}
+
+And add the following to `~/.bashrc`: >
+
+    export GOPATH=$HOME/src/go
+    export GOROOT=$(go env GOROOT)
+    export PATH=$PATH:$GOPATH/bin:$GOROOT/bin
+
+For full info see: http://golang.org/doc/code.html
+
                                                     *my-notes-golang-mappings*
 Mappings~
 
