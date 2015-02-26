@@ -264,7 +264,7 @@ NeoBundleLazy 'tpope/vim-scriptease', {
 \                 'Vedit', 'Vopen', 'Vsplit', 'Vvsplit']
 \  }
 \ }
-NeoBundleLazy 'wting/rust.vim', {
+NeoBundleLazy 'rust-lang/rust.vim', {
 \ 'autoload' : { 'filetypes' : 'rust' }
 \ }
 
