@@ -7,11 +7,6 @@ if [ -d ~/.awsenv/bin ]; then
     eval "$(awsenv init -)"
 fi
 
-# pip install awscli -- http://aws.amazon.com/cli/
-if [ -f ~/.aws/awscli.ini ]; then
-    export AWS_CONFIG_FILE="$HOME/.aws/awscli.ini"
-fi
-
 # The huge legacy Java tools. awscli is rather complete now, has good shell
 # completion, and is self-documenting. Use that, really.
 # if [[ "$(uname -s)" = "Darwin" ]]; then
