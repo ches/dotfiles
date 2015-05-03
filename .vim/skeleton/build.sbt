@@ -6,7 +6,7 @@ version := "0.1-SNAPSHOT"
 
 homepage := Some(url("https://github.com/ches/project-name"))
 
-scalaVersion := "2.11.4"
+scalaVersion := "2.11.6"
 
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature")
 
@@ -37,5 +37,6 @@ libraryDependencies ++= {
   , "com.typesafe.scala-logging" %% "scala-logging"            % "3.1.0"
     // -- Testing --
   , "org.scalatest"              %% "scalatest"                % "2.2.2"       % "test"
+  , "org.scalacheck"             %% "scalacheck"               % "1.12.2"      % "test"
   )
 }
