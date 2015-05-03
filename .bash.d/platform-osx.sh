@@ -1,16 +1,9 @@
 BREW=`brew --prefix`
 
-export EDITOR='mvim -f'
 export VISUAL='mvim -f'
 
-export FCEDIT=vim
-
-# Nix flow control keys so readline inc search, emacs, etc. can have them
-stty stop undef
-stty start undef
-
 # https://github.com/joelthelion/autojump/wiki
-if [ -f $BREW/etc/autojump.sh ]; then
+if [ -r $BREW/etc/autojump.sh ]; then
     . $BREW/etc/autojump.sh
 fi
 
@@ -45,10 +38,6 @@ export PYTHONPATH=$BREW/lib/python2.7/site-packages
 # Put the penultimate and current directory 
 # in the iterm tab
 # \[\e]1;\]$(basename $(dirname $PWD))/\W\[\a\]
-
-# Make a simple command-line prompt:  bash-$
-
-# PS1=$'\[\e]2;[bash]   \h::\]$PWD\[\a\]\[\e]1;\]$(basename "$(dirname "$PWD")")/\W\[\a\]\u-\$ '
 
 unset BREW
 

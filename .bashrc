@@ -10,14 +10,15 @@ export HISTCONTROL=erasedups
 export HISTSIZE=5000
 export PROMPT_COMMAND='history -a'  # Append immediately so new shells can use it
 
-# for the love of god don't offer to autocomplete this shit
+# Please don't autocomplete these thx
 export FIGNORE="#:~:DS_Store:.pyc:.swp:.swo"
 
 #
 # I think I'm a convert.
 #
 export EDITOR=vim
-export VISUAL=vim
+export VISUAL=gvim
+export FCEDIT=vim
 
 # PATH Settings, clearly
 # Don't need any additions at the moment
@@ -26,6 +27,10 @@ export VISUAL=vim
 # Simple check for an interactive shell -- don't do anything else if not.
 # So, make PATH additions and stuff before this.
 [ -z "$PS1" ] && return
+
+# Nix flow control to free the keys for readline inc search, vim, etc.
+stty stop undef
+stty start undef
 
 # 'cd' to children of a host of directories, as if they were always in CWD
 export CDPATH=:~:~/src/work:~/src
@@ -59,9 +64,6 @@ fi
 # =         App- and Platform-specific Bits          =
 # ====================================================
 
-#
-# Choose your flava
-#
 if [ "$(uname -s)" == "Darwin" ] && [ -f ~/.bash.d/platform-osx.sh ]; then
     . ~/.bash.d/platform-osx.sh
 elif [ -f ~/.bash.d/platform-linux.sh ]; then
@@ -93,6 +95,12 @@ export PATH=$PATH:$GOPATH/bin:$GOROOT/bin
 # Python REPL startup file. Sets up history and completion.
 export PYTHONSTARTUP=$HOME/.pythonrc
 
+# Python Version Switching & virtualenvs
+# brew install pyenv pyenv-virtualenv
+which pyenv > /dev/null && eval "$(pyenv init -)"
+which pyenv-virtualenv-init > /dev/null && eval "$(pyenv virtualenv-init -)"
+
+# TODO: migrate virtualenvwrapper envs and then ditch this stuff
 # virtualenv & wrapper
 export VIRTUALENV_USE_DISTRIBUTE=true
 export WORKON_HOME=$HOME/.virtualenvs

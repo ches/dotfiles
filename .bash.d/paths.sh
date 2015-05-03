@@ -7,6 +7,8 @@
 #     echo $PATH | /bin/egrep -q "(^|:)$1($|:)" || PATH=$1:$PATH
 # }
 
+# [[ -d ~/.cabal/bin ]] && path_prepend "$HOME/.cabal/bin"
+
 # Not used for now with Leopard's path_helper thing...
 # if [ "$(uname -s)" == "Darwin" ]; then
 #     path_prepend "/Library/Frameworks/Python.framework/Versions/Current/bin"
