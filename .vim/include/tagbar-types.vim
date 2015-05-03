@@ -49,9 +49,9 @@ let g:tagbar_type_go = {
 let g:tagbar_type_markdown = {
   \ 'ctagstype' : 'markdown',
   \ 'kinds' : [
-    \ 'h:Heading1',
-    \ 'i:Heading2',
-    \ 'k:Heading3'
+    \ 'h:Heading 1',
+    \ 'i:Heading 2',
+    \ 'k:Heading 3'
   \ ]
 \ }
 
@@ -96,6 +96,20 @@ let g:tagbar_type_rspec = {
   \ 'kinds' : [
     \ 'd:describe',
     \ 'C:context'
+  \ ]
+\ }
+
+let g:tagbar_type_rust = {
+  \ 'ctagstype' : 'rust',
+  \ 'kinds' : [
+    \'T:types',
+    \'f:functions',
+    \'g:enumerations',
+    \'s:structures',
+    \'m:modules',
+    \'c:constants',
+    \'t:traits',
+    \'i:trait implementations',
   \ ]
 \ }
 

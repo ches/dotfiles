@@ -265,8 +265,12 @@ NeoBundleLazy 'tpope/vim-scriptease', {
 \  }
 \ }
 NeoBundleLazy 'rust-lang/rust.vim', {
-\ 'autoload' : { 'filetypes' : 'rust' }
+\ 'autoload' : { 'filetypes' : 'rust', 'filename_patterns' : '\.rs$' }
 \ }
+NeoBundleLazy 'cespare/vim-toml', {
+\ 'autoload' : { 'filename_patterns' : ['\.toml$', 'Cargo.lock'] }
+\ }
+" }}}
 
 
 " From vim-scripts GitHub account (vimscripts.org mirrors)
