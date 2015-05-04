@@ -58,6 +58,24 @@ endsnippet
 #  Matchers - by no means exhaustive  #
 #######################################
 
+# Equality
+
+snippet she "shouldEqual" b
+${1:subject} shouldEqual ${2:expected}
+endsnippet
+
+snippet shne "should not equal (expected)" b
+${1:subject} should not equal (${2:expected})
+endsnippet
+
+snippet sh= "should ===" b
+${1:subject} should === (${2:expected})
+endsnippet
+
+snippet sh! "should !==" b
+${1:subject} should !== (${2:expected})
+endsnippet
+
 # Booleans
 
 snippet shb "shouldBe" b
