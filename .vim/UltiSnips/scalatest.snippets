@@ -133,7 +133,7 @@ endsnippet
 # Exceptions
 
 snippet intercept "intercept [Exception]" b
-intercept [${2:Exception}] {
+intercept [${1:Exception}] {
 	$2
 }
 endsnippet
@@ -316,3 +316,12 @@ ${2:Detailed Markdown documentation for test report output.}
 """ }
 endsnippet
 
+#############
+#  Futures  #
+#############
+
+snippet whenr "whenReady(future) {}" b
+whenReady(${1:future}) { value =>
+	$2
+}
+endsnippet

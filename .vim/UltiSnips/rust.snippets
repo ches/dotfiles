@@ -1,0 +1,14 @@
+snippet '\.tos' "to_string()" ri
+.to_string()
+endsnippet
+
+snippet '(^|\s|[^.]+)tos' "to_string()" ri
+`!p snip.rv = match.group(1)`"$1".to_string()
+endsnippet
+
+# Override Snipmate snippet with regex and better nested snippet support
+snippet 'mat(ch)?' "match pattern" ri
+match ${1} {
+	case${2}
+}
+endsnippet

@@ -369,8 +369,14 @@ File.dirname(__FILE__)
 endsnippet
 
 # TODO
-snippet do "do |obj| .. end (doo)" w
+snippet doo "do |obj| .. end (doo)" w
 do${1/(^(?<var>\s*[a-z_][a-zA-Z0-9_]*\s*)(,\g<var>)*,?\s*$)|.*/(?1: |)/}${1:variable}${1/(^(?<var>\s*[a-z_][a-zA-Z0-9_]*\s*)(,\g<var>)*,?\s*$)|.*/(?1:|)/}
+	$0
+end
+endsnippet
+
+snippet do "do |obj| .. end" w
+do |${1:arg}|
 	$0
 end
 endsnippet

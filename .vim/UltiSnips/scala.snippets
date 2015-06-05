@@ -9,9 +9,7 @@
 
 # See http://www.scala-lang.org/node/166
 snippet '^#!' "Scala shell script shebang" r
-#!/bin/sh
-exec scala "\$0" "\$@"
-!#
+#!/usr/bin/env scala
 
 endsnippet
 
@@ -70,7 +68,7 @@ var ${1:name}${2:: ${3:T}} = ${4:value}
 endsnippet
 
 
-snippet l "Anonymous Function (mnemonic: lambda)"
+snippet l "Anonymous Function (mnemonic: lambda)" w
 ${1:(${2:x: Int})} => ${3:x + 1}
 endsnippet
 
