@@ -607,12 +607,22 @@ if has("autocmd")
 
   let python_highlight_all = 1
 
-  " TagBar
+  " Chapa provides nice mnemonic movement, selection
+  " and commenting for Python and JavaScript.
+  let g:chapa_default_mappings   = 1
+  let g:chapa_no_repeat_mappings = 1
+
+  " Rust {{{
+  " For Racer to go to definition, autocomplete
+  let $RUST_SRC_PATH = expand('~/src/rust/rust/src/')
+  " }}}
+
+  " Tagbar {{{
+  nnoremap <Leader>. :TagbarToggle<CR>
+
   runtime include/tagbar-types.vim
   let g:tagbar_autoclose = 1
-
-  " Shifted version of NERDTree toggle
-  map <Leader>< :TagbarToggle<CR>
+  " }}}
 
   " NERDTree
   let NERDTreeWinPos          = 'right'
