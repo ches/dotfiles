@@ -1,0 +1,18 @@
+{
+    "src/main/scala/*.scala": {
+        "alternate": "src/test/scala/{}Spec.scala",
+        "type": "source"
+    },
+    "src/test/scala/*Spec.scala": {
+        "alternate": "src/main/scala/{}.scala",
+        "type": "spec",
+        "dispatch": "sbt 'testOnly *{}*'"
+    },
+    "src/it/scala/*ISpec.scala": {
+        "alternate": "src/main/scala/{}.scala",
+        "type": "integrationspec",
+        "dispatch": "sbt 'it:testOnly *{}*'"
+    },
+    "*": { "start": "sbt run", "make": "sbt", "dispatch": "sbt test" }
+}
+

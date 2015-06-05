@@ -257,6 +257,8 @@ if has("autocmd")
     autocmd BufNewFile *.ino silent 0read ~/.vim/skeleton/skeleton.ino | normal 2G
     autocmd BufNewFile *.py silent 0read ~/.vim/skeleton/skeleton.py   | normal G
     autocmd BufNewFile *.sh silent 0read ~/.vim/skeleton/skeleton.sh   | normal G
+    autocmd BufNewFile .projections.json
+          \ silent 0read ~/.vim/skeleton/projections.json | normal 2G
     "}}}
 
     " Auto file perms {{{
