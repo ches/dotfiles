@@ -44,11 +44,20 @@ NeoBundleCheck
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
+" One place for backup and swap files, but we'll try a project-local .backup
+" directory first if it exists.
+if !isdirectory($HOME . '/.autosave/vim/swap')
+  silent !mkdir -p ~/.autosave/vim/swap > /dev/null 2>&1
+endif
+
+" // make swap files unique based on path
+set directory=./.backup//,~/.autosave/vim/swap//
+
 if has("vms")
-  set nobackup                  " do not keep a backup file, use versions instead
+  set nobackup      " do not keep a backup file, use versions instead
 else
-  set backup                    " keep a backup file
-  set backupdir=~/.autosave/vim " leave all the droppings in one place
+  set backup        " keep a backup file
+  set backupdir=./.backup,~/.autosave/vim
 endif
 
 set history=500     " keep more command line history
@@ -837,7 +846,7 @@ let g:localvimrc_sandbox    = 0  " We ask before loading, this is too restrictiv
 let g:localvimrc_ask        = 1  " Default, but be paranoid since we don't sandbox
 let g:localvimrc_persistent = 2  " Always store/restore decisions
 
-let g:localvimrc_persistence_file = expand('$HOME') . '/.backup/vim/localvimrc_persistent'
+let g:localvimrc_persistence_file = $MYVIMRUNTIME . '/localvimrc_persistent'
 
 " NERD tree - double-leader
 map <Leader><Leader> :NERDTreeToggle<cr>
