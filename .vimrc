@@ -951,6 +951,9 @@ noremap <C-g>ap :GstageFile<CR>
 noremap <C-g>gs :Gsplit!<Space>
 noremap <C-g>gv :Gvsplit!<Space>
 
+" Selectively restored in ~/.vim/after/ftplugin/gitv.vim
+let g:Gitv_DoNotMapCtrlKey = 1
+
 noremap <C-g>v :Gitv<CR>
 noremap <C-g>V :Gitv!<CR>
 
