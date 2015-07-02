@@ -118,18 +118,12 @@ set report=0
 let g:html_use_css   = 1
 let g:html_use_xhtml = 0
 
-" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
-" let &guioptions = substitute(&guioptions, "t", "", "g")
-
 " Don't use Ex mode, use Q for formatting
-map Q gq
+vnoremap Q gq
+nnoremap Q gqap
 
-" This is an alternative that also works in block mode, but the deleted
-" text is lost and it only works for putting the current register.
-"vnoremap p "_dp
-
-" Silence CSApprox's gripes if running a vim without gui support
-if !has('gui')
+" Silence CSApprox's gripes if running a vim without gui support. nvim is fine
+if !has('gui') && !has('nvim')
   let g:CSApprox_loaded = 1
 endif
 
@@ -148,24 +142,6 @@ if &t_Co > 2 || has("gui_running")
   endif
 endif
 
-" Only do this part when compiled with support for autocommands.
-if has("autocmd")
-
-  " Put these in an autocmd group, so that we can delete them easily.
-  augroup vimrcEx
-  au!
-
-  " For all text files set 'textwidth' to 78 characters.
-  autocmd FileType text setlocal textwidth=78
-
-  augroup END
-
-else
-
-  set autoindent        " always set autoindenting on
-
-endif " has("autocmd")
-
 if has("viminfo")
 
   " Allow some global variables to persist between sessions
@@ -177,7 +153,10 @@ endif
 
 " Indentation {{{2
 
-" no-longer skinny tabs!
+" use previous line's indentation
+set autoindent
+
+" true Tabs display as 8 columns in most tools, but that just looks too wide
 set tabstop=4
 
 " set to the same as tabstop (see #4 in :help tabstop)
@@ -205,9 +184,6 @@ set matchtime=2
 " figure out indent when ; is pressed
 set cinkeys+=;
 
-" align break with case in a switch
-"set cinoptions+=b1
-
 " Use attractive characters to show tabs & trailing spaces
 set listchars=tab:»·,trail:·,eol:¬,nbsp:␣
 
@@ -218,14 +194,6 @@ set foldlevelstart=99   " default to all folds open when opening a buffer
 set foldnestmax=4       " don't be absurd about how deeply to nest syntax folding
 "set foldclose=all      " close a fold when I leave it
 set foldopen-=block     " drives me nuts that moving with ] opens folds
-
-" Colors {{{2
-
-" These might be desired depending on colorscheme
-"highlight LineNr  term=underline    ctermfg=grey    guifg=grey
-"highlight CursorLine    guibg=Grey10
-" No hideous pink default autocomplete menu
-"highlight PMenu gui=bold guibg=#CECECE guifg=#444444
 
 " Autocommands {{{2
 if has("autocmd")
@@ -240,7 +208,7 @@ if has("autocmd")
     function! SetCursorPosition()
       if &filetype !~ 'commit\c'
         if line("'\"") > 0 && line("'\"") <= line("$")
-          exe "normal g`\""
+          exe 'normal g`"'
           normal! zz
         endif
       end
@@ -282,12 +250,6 @@ if has("autocmd")
           \ unlet b:chmod_new|
           \ endif
     "}}}
-
-    " Automatically distribute my vimrc to the servers I use {{{
-    "autocmd BufWritePost ~/.vimrc !scp ~/.vimrc valleyofwind.dyndns.org:.
-    "autocmd BufWritePost ~/.vim/skeletons/* !scp % valleyofwind.dyndns.org:.vim/skeletons/
-    "}}}
-
   augroup END
 
 endif " has("autocmd")
@@ -406,7 +368,6 @@ nmap <leader>` :set invwinfixheight winfixheight?<CR>
 " the MMD QuickLook plugin, this sure beats browser-based Markdown preview.
 if has('mac')
   nnoremap <Leader>ql :write<CR>:sil !qlmanage -p % >& /dev/null &<CR>:redraw!<CR>
-  nnoremap <Leader>qlk :sil !killall qlmanage >& /dev/null<CR>
 
   " dash.vim
   nmap <silent> <leader>k <Plug>DashSearch
@@ -471,8 +432,12 @@ if has("autocmd")
   " in after/ftplugin files :-)
   augroup FToptions "{{{
     autocmd!
+
+    " Default text files to 78 characters.
+    autocmd FileType text setlocal textwidth=78
+
     autocmd FileType html,xhtml,xml,htmldjango,htmljinja,eruby,mako,cucumber setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-    autocmd FileType coffee,ruby,scala,vim,yaml setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType coffee,ruby,vim,yaml setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
     autocmd FileType javascript setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
 
     " Rails.vim defaults to 2 for traditional JS, I prefer 4
@@ -514,7 +479,6 @@ if has("autocmd")
 
     " Make pydoc.vim's doc window close easier
     autocmd BufNewFile __doc__ nmap <silent> <buffer> q :q<CR>
-    autocmd FileType python nnoremap <silent> <buffer> <F5> :call Pep8()<CR>
     " autocmd FileType python setlocal cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 
     autocmd FileType javascript let javascript_enable_domhtmlcss=1
@@ -533,12 +497,12 @@ if has("autocmd")
   augroup GitTricks
     autocmd!
     autocmd FileType gitrebase
-          \ nnoremap <buffer> P :Pick   |
-          \ nnoremap <buffer> S :Squash |
-          \ nnoremap <buffer> E :Edit   |
-          \ nnoremap <buffer> R :Reword |
-          \ nnoremap <buffer> F :Fixup  |
-          \ nnoremap <buffer> C :Cycle
+          \ nnoremap <buffer> P :Pick<CR>   |
+          \ nnoremap <buffer> S :Squash<CR> |
+          \ nnoremap <buffer> E :Edit<CR>   |
+          \ nnoremap <buffer> R :Reword<CR> |
+          \ nnoremap <buffer> F :Fixup<CR>  |
+          \ nnoremap <buffer> C :Cycle<CR>
   augroup END
 
   " With regards to tpope. See his vimrc for more ideas.
@@ -655,7 +619,6 @@ if has("autocmd")
   " Plugin is buggy, supposed to set this to empty but does so too late.
   let g:TagmaTasksRegexp = ''
 
-  " Defaults to <Leader>t, which would make CommandT slow.
   " Everything that seems more natural conflicts: <Leader>t with test runs;
   " <LocalLeader>t with type checks in typed langs; <C-t> with tag navigation.
   if has('mac') && has('gui_running')
@@ -879,15 +842,11 @@ if has('python')
   let g:ycm_key_list_select_completion   = []
   let g:ycm_key_list_previous_completion = []
 
-  " The documented default value of this appears to be a lie
   let g:ycm_semantic_triggers = {}
   let g:ycm_semantic_triggers.haskell = ['.']
 
   " Enable using tags. Off by default "because it's slow if your tags file is
   " on a network directory". lolwut.
-  let g:ycm_collect_identifiers_from_tags_files = 1
-
-  " I haven't built YCM's Clang magic initially, big slow download/build
   let g:ycm_collect_identifiers_from_tags_files = 1
 
   " If MacVim is installed from downloaded binary instead of built with
