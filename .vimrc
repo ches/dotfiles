@@ -232,7 +232,6 @@ if has("autocmd")
     autocmd BufNewFile build.sbt silent 0read ~/.vim/skeleton/build.sbt| normal ggf"
     autocmd BufNewFile .lvimrc silent 0read ~/.vim/skeleton/lvimrc.vim | normal }j
     autocmd BufNewFile *.ino silent 0read ~/.vim/skeleton/skeleton.ino | normal 2G
-    autocmd BufNewFile *.py silent 0read ~/.vim/skeleton/skeleton.py   | normal G
     autocmd BufNewFile *.sh silent 0read ~/.vim/skeleton/skeleton.sh   | normal G
     autocmd BufNewFile .projections.json
           \ silent 0read ~/.vim/skeleton/projections.json | normal 2G
