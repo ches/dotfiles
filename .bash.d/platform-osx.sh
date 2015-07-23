@@ -20,10 +20,6 @@ export NODE_PATH="/usr/local/lib/node_modules"
 
 [[ -r /usr/local/bin/virtualenvwrapper.sh ]] && source /usr/local/bin/virtualenvwrapper.sh
 
-# Tell system Python 2.7 where Homebrew Python's modules are. This gets
-# Mercurial plugins like hg-git installed with brew's pip to work.
-export PYTHONPATH=$BREW/lib/python2.7/site-packages
-
 #
 # Custom Shake path
 #
