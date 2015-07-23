@@ -16,7 +16,7 @@ LIGHT_GREEN="\[\033[0;32m\]"
 
 function git_prompt_info {
     local git_status="$(git status 2> /dev/null)"
-    if [ -x git_status ]; then exit; fi
+    if [[ -z ${git_status} ]]; then exit; fi
 
     local state stash remote branch
 
@@ -93,6 +93,12 @@ function ruby_version {
     echo "${ruby}${COLOR_NONE}"
 }
 
+function python_version {
+    if [[ -z "$PYENV_VERSION" ]] || [[ "$PYENV_VERSION" == "system" ]]; then exit; fi
+
+    echo " ${LIGHT_GREEN}🐍  ${PYENV_VERSION}${COLOR_NONE}"
+}
+
 # Simply reminds us we're in a sandbox. Could do more shell tricks, for some
 # inspiration see:
 #
@@ -120,6 +126,7 @@ function prompt_func {
     prompt+="$(hg_prompt_info)"
     prompt+="$(cabal_prompt_info)"
     prompt+="$(ruby_version)"
+    prompt+="$(python_version)"
     prompt+="\n[\u@\h]"
 
     # Dirty the $ on end of prompt if last exit code was a failure
