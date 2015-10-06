@@ -1,0 +1,10 @@
+# Usage: use ruby <version>
+#
+# Loads the specified ruby version into the environent
+#
+# See: http://direnv.net/#/docs/ruby
+use_ruby() {
+  local ruby_dir=$HOME/.rubies/$1
+  load_prefix $ruby_dir
+  layout ruby
+}

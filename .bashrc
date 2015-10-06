@@ -80,11 +80,14 @@ fi
 # Language packaging, sandboxes, and stuff
 #-------------------------------------------------------------------------------
 
+# Localized environment variable automation -- http://direnv.net/
+# brew install direnv
+# TODO: consider dropping all the other lang-specific env tools that this obviates!
+which direnv > /dev/null && eval "$(direnv hook bash)"
+
 # Go default workspace
 export GOPATH=$HOME/src/go
-# Because of this godoc crap: https://github.com/Homebrew/homebrew/issues/23281
-export GOROOT=$(go env GOROOT)
-export PATH=$PATH:$GOPATH/bin:$GOROOT/bin
+export PATH=$PATH:$GOPATH/bin
 
 # Haskell Cabal
 [[ -d ~/.cabal/bin ]] && export PATH=~/.cabal/bin:$PATH
