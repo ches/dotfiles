@@ -217,6 +217,9 @@ NeoBundleLazy 'elixir-lang/vim-elixir', {
 NeoBundleLazy 'fatih/vim-go', {
 \ 'autoload' : { 'filetypes' : 'go' }
 \ }
+NeoBundleLazy 'gevans/vim-ginkgo', {
+\ 'autoload' : { 'filetypes' : ['go', 'ginkgo'] }
+\ }
 NeoBundleLazy 'honza/dockerfile.vim', {
 \ 'autoload' : { 'filename_patterns' : 'Dockerfile$' }
 \ }

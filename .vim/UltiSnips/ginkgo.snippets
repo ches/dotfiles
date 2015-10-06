@@ -1,0 +1,107 @@
+# Snippets for the Golang BDD testing framework Ginkgo, largely borrowed from
+# the author's Sublime snippets for consistency:
+#
+#   https://github.com/onsi/ginkgo-sublime-completions
+#
+# I also have gevans/vim-ginkgo which includes snippets, but I may drop them as
+# they are Snipmate snippets (no descriptions) and I don't much like the
+# triggers, and it ought to use dotted filetypes for ginkgo.go.
+#
+# TODO: more of the Gomega matchers/assertions
+# TODO: By, PMeasure
+# TODO: SynchronizedBefore/AfterSuite
+
+extends go
+
+snippet des "Ginkgo Describe" b
+Describe("${1:subject}", func() {
+	$0
+})
+endsnippet
+
+snippet con "Ginkgo Context" b
+Context("${1:condition}", func() {
+	$0
+})
+endsnippet
+
+snippet it "Ginkgo It Specification" b
+It("${1:specification}", func() {
+	$0
+})
+endsnippet
+
+snippet bef "Ginkgo BeforeEach" b
+BeforeEach(func() {
+	$0
+})
+endsnippet
+
+snippet jus "Ginkgo JustBeforeEach" b
+JustBeforeEach(func() {
+	$0
+})
+endsnippet
+
+snippet aft "Ginkgo AfterEach" b
+AfterEach(func() {
+	$0
+})
+endsnippet
+
+snippet befs "Ginkgo BeforeSuite" b
+BeforeSuite(func() {
+	$0
+})
+endsnippet
+
+snippet afts "Ginkgo AfterSuite" b
+AfterSuite(func() {
+	$0
+})
+endsnippet
+
+snippet meas "Ginkgo Measure" b
+Measure("${1:subject}, func(b Benchmarker) {
+	$0
+})
+endsnippet
+
+snippet pdes "Ginkgo Pending Describe" b
+PDescribe("${1:subject}", func() {
+	$0
+})
+endsnippet
+
+snippet pcon "Ginkgo Pending Context" b
+PContext("${1:condition}", func() {
+	$0
+})
+endsnippet
+
+snippet pit "Ginkgo Pending It Specification" b
+PIt("${1:specification}", func() {
+	$0
+})
+endsnippet
+
+#-----------------------------------------------------------------------
+#-                           Gomega Matchers                           -
+#-----------------------------------------------------------------------
+
+snippet ex "Gomega Expect" b
+Expect(${1:subject}).To(${2:Equal(${3:expected})})
+endsnippet
+
+snippet exn "Gomega Expect Not" b
+Expect(${1:subject}).NotTo(${2:Equal(${3:expected})})
+endsnippet
+
+snippet exnerr "Gomega Expect No Error" b
+Expect(${1:err}).NotTo(HaveOccurred())
+endsnippet
+
+snippet ev "Gomega Eventually Should Equal" b
+Eventually(${1:subject}).Should(${2:Equal(${3:expected})})
+endsnippet
+
