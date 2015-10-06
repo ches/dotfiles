@@ -1,0 +1,50 @@
+snippet fea "Feature" b
+Feature: ${1:`!p snip.rv = re.sub("_", " ", snip.basename)`}
+	In order to ${2:achieve some goal}
+	As ${3:a stakeholder role}
+	I want to ${4:take some behavior action}
+endsnippet
+
+snippet b "Background" b
+Background:
+	Given ${1:context}
+endsnippet
+
+snippet sce "Scenario" b
+Scenario: ${1:terse description of what's different}
+	Given ${2:the bare-minimum context/state}
+	${3:When ${4:some kind of action happens}
+	}Then ${5:some result should occur}
+endsnippet
+
+snippet sco "Scenario Outline" b
+Scenario Outline: ${1:title}
+	Given ${2:context with a <placeholder>}
+	When ${3:event}
+	Then ${4:outcome}
+
+	Examples:
+		|${0:placeholder}|
+endsnippet
+
+snippet g "Given" b
+Given ${1:context}
+endsnippet
+
+snippet w "When" b
+When ${1:action}
+endsnippet
+
+snippet t "Then" b
+Then ${1:outcome}
+endsnippet
+
+snippet a "And" b
+And ${1:supplement}
+endsnippet
+
+snippet defs "Step Definitions" b
+Using step definitions from: '${1:steps}'${2:, '${3:relative-path}'}
+$0
+endsnippet
+

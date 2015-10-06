@@ -1,0 +1,125 @@
+# BDD testing framework for PHP: http://peridot-php.github.io/
+
+extends php
+
+snippet bef "beforeEach (Peridot)" b
+beforeEach(function () {
+	$1
+});
+endsnippet
+
+snippet aft "afterEach (Peridot)" b
+afterEach(function () {
+	$1
+});
+endsnippet
+
+snippet con "context (Peridot)" b
+context('${1:subject}', function () {
+	$2
+});
+endsnippet
+
+snippet des "describe (Peridot)" b
+describe('${1:subject}', function () {
+	$2
+});
+endsnippet
+
+snippet it "it (Peridot)" b
+it('${1:specification}', function () {
+	$2
+});
+endsnippet
+
+snippet pit "pending it (Peridot)" b
+it('${1:specification}');
+endsnippet
+
+###########################################
+#  Leo Matchers - by no means exhaustive  #
+###########################################
+
+# TODO: matchers from https://github.com/peridot-php/leo-http-foundation
+
+# Equality
+
+snippet ee "expect()->to->equal (Leo)" b
+expect(${1:subject})->to->equal(${2:expected});
+endsnippet
+
+snippet ene "expect()->not->to->equal (Leo)" b
+expect(${1:subject})->not->to->equal(${2:expected});
+endsnippet
+
+# Booleans
+
+snippet etrue "expect()->to->be->true (Leo)" b
+expect(${1:subject})->to->be->true;
+endsnippet
+
+snippet eok "expect()->to->be->ok (Leo)" b
+expect(${1:subject})->to->be->ok;
+endsnippet
+
+snippet efalse "expect()->to->be->false (Leo)" b
+expect(${1:subject})->to->be->false;
+endsnippet
+
+snippet esat "expect()->to->satisfy (Leo)" b
+expect(${1:subject})->to->satisfy(${2:predicateCallable});
+endsnippet
+
+snippet eem "expect()->to->be->empty (Leo)" b
+expect(${1:subject})->to->be->empty;
+endsnippet
+
+snippet enem "expect()->not->to->be->empty (Leo)" b
+expect(${1:subject})->not->to->be->empty;
+endsnippet
+
+# Type/instance identity
+
+snippet ebt "expect()->to->be->a('type') (Leo)" b
+expect(${1:subject})->to->be->a('${2:type}');
+endsnippet
+
+snippet eio "expect()->to->be->an->instanceof (Leo)" b
+expect(${1:subject})->to->be->an->instanceof('${2:type}');
+endsnippet
+
+snippet enn "expect()->not->to->be->null (Leo)" b
+expect(${1:subject})->not->to->be->null;
+endsnippet
+
+# Strings
+
+snippet ehs "expect()->to->have->string (Leo)" b
+expect(${1:subject})->to->have->string('${2:needle}');
+endsnippet
+
+snippet shin "string should include" b
+${1:string} should include ("${2:substring}")
+endsnippet
+
+snippet shsw "string should startWith" b
+${1:string} should startWith ("${2:substring}")
+endsnippet
+
+snippet shew "string should endWith" b
+${1:string} should endWith ("${2:substring}")
+endsnippet
+
+snippet shm "string should match regex" b
+${1:string} should ${2:fullyMatch} ("""${3:regex}""")
+endsnippet
+
+# Exceptions
+
+snippet ethrow "expect()->to->throw (Leo)" b
+expect(${1:anonFunc})->to->throw('${2:Exception}');
+endsnippet
+
+snippet enthrow "expect()->not->to->throw (Leo)" b
+expect(${1:anonFunc})->not->to->throw('${2:Exception}');
+endsnippet
