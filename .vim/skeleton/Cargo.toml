@@ -1,0 +1,10 @@
+# Basic build configuration example for building Rust projects with Cargo.
+#
+# Cargo expects source code to live inside a src/ directory, or customized with
+# [[lib]] or [[bin]] keys below (for a library or executable, respectively).
+
+[package]
+
+name = "package_name"
+version = "0.1.0"
+authors = ["Ches Martin <ches@whiskeyandgrits.net>"]
