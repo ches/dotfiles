@@ -4,10 +4,14 @@
 
 #umask 022
 
-# include .bashrc if it exists
-if [ -f ~/.bashrc ]; then
-    . ~/.bashrc
-fi
+# If this is an interactive shell, include .bashrc if it exists. OS X doesn't
+# like to do this unless invoked with `bash -i`.
+case $- in
+    *i*)
+        if [ -f ~/.bashrc ]; then
+            . ~/.bashrc
+        fi
+esac
 
 # set PATH so it includes user's private bin if it exists
 if [ -d ~/bin ] ; then
