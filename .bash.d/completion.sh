@@ -82,3 +82,13 @@ __complete_chruby() {
 }
 complete -F __complete_chruby chruby
 
+#
+# Aliases - apply bash_completion stuff for some shortened aliases I use
+#
+if installed _docker-compose; then
+    complete -F _docker-compose fig
+fi
+
+if installed _docker-machine; then
+    complete -F _docker-machine dm
+fi
