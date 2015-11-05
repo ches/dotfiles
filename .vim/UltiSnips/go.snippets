@@ -18,8 +18,20 @@ if ${1:binding} := ${2:expression}; ${3:$1} {
 }
 endsnippet
 
+snippet ifer: "if err := expr; err != nil { ... }" b
+if ${1:err} := ${2:expression}; $1 != nil {
+	${0:${VISUAL}}
+}
+endsnippet
+
 snippet ifok "if binding, ok := expr; ok { ... }" b
 if ${1:binding}, ok := ${2:expresssion}; ok {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet ifert "if error of type (type assertion)" b
+if ${1:newerr}, ok := ${2:err}.(${3:ErrType}); ok {
 	${0:${VISUAL}}
 }
 endsnippet
