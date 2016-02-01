@@ -7,10 +7,15 @@
 .agignore
 .classpath
 .env
+.envrc
+.direnv/
 .git-wtfrc
 .idea
 .lvimrc
+# Indexes from Vim completion plugin
+.padawan/
 .project
+.projections.json
 .pydevproject
 .ropeproject
 *.tmproj
@@ -18,6 +23,12 @@
 .tmtags
 /tags
 /*.tags
+
+# Lots of crap from this srclib thing I'm playing with:
+# https://srclib.org/
+.srclib-cache/
+.srclib-store/
+.srclib-gopath/
 
 # Generated object/byte code
 *.py[co]
