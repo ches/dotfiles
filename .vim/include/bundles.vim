@@ -48,6 +48,7 @@ NeoBundle 'kshenoy/vim-signature'
 NeoBundle 'LStinson/TagmaTasks'
 NeoBundle 'mhinz/vim-signify'
 NeoBundle 'mileszs/ack.vim'
+NeoBundle 'rking/ag.vim'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'SirVer/ultisnips'
 NeoBundle 'skwp/greplace.vim'
@@ -72,8 +73,8 @@ NeoBundle 'Valloric/YouCompleteMe', {
 \ 'augroup' : 'youcompletemeStart',
 \ 'build_commands' : 'cmake',
 \ 'build' : {
-\    'mac'   : './install.sh',
-\    'linux' : './install.sh'
+\    'mac'   : './install.py',
+\    'linux' : './install.py'
 \  }
 \ }
 NeoBundle 'vimwiki/vimwiki', 'dev'
@@ -93,7 +94,7 @@ NeoBundleLazy 'scrooloose/nerdtree', {
 \ 'explorer' : 1
 \ }
 NeoBundleLazy 'majutsushi/tagbar', {
-\ 'autoload' : { 'commands' : 'TagbarToggle' },
+\ 'autoload' : { 'commands' : 'TagbarToggle', 'functions' : 'tagbar#currenttag' },
 \ 'augroup' : 'TagbarAutoCmds'
 \ }
 NeoBundleLazy 'sjbach/lusty', {
