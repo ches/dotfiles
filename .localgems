@@ -1,7 +1,0 @@
-LocalGem.setup_config(nil) do |conf|
-  # You can pass arrays here if a gem needs to add multiple load paths
-  conf.gems = {
-    'octopi' => "#{ENV['HOME']}/src/ruby/octopi/lib",
-    'github' => "#{ENV['HOME']}/src/ruby/github-gem/lib"
-  }
-end
