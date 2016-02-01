@@ -35,10 +35,10 @@ hgext.mq =
 hgext.pager =
 # git-style ancestor references, e.g. foo^, foo~3:
 hgext.parentrevspec =
-hgext.progress =
 hgext.purge =
 hgext.rebase =
 hgext.record =
+hgext.schemes =
 hgext.shelve =
 hgext.transplant =
 hgext.zeroconf =
