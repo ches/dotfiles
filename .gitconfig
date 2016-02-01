@@ -68,7 +68,7 @@
 	httpd = webrick
 	port = 8000
 [init]
-	templatedir = ~/.git_template
+	templatedir = ~/.config/git/templates
 [rebase]
 	autosquash = true
 [rerere]
