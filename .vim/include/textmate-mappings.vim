@@ -25,12 +25,20 @@ if has('autocmd')
     autocmd FileType ruby   imap <buffer> <C-l> <Space>=><Space>
     autocmd FileType coffee imap <buffer> <C-l> <Space>->
     autocmd FileType coffee imap <buffer> <C-L> <Space>=>
+    autocmd FileType cpp    imap <buffer> <C-l> ->
+    autocmd FileType go     imap <buffer> <C-l> <-
+    autocmd FileType haskell imap <buffer> <C-l> <Space>-><Space>
+    autocmd FileType haskell imap <buffer> <C-L> <Space>=><Space>
+    autocmd FileType haskell imap <buffer> <M-l> <Space><-<Space>
     autocmd FileType erlang imap <buffer> <C-l> <Space>->
+    autocmd FileType erlang imap <buffer> <C-L> <Space>=>
+    autocmd FileType php    imap <buffer> <C-l> ->
     autocmd FileType scala  imap <buffer> <C-l> <Space>=><Space>
     autocmd FileType scala  imap <buffer> <C-L> <Space>-><Space>
     autocmd FileType scala  imap <buffer> <M-l> <Space>⇒<Space>
     autocmd FileType scala  imap <buffer> <M-L> <Space>→<Space>
 
+    " TODO: dispatch.vim?
     if has('mac') && has('gui_running')
       " Run tests/specs in Ruby/Rails apps
       autocmd User Rails,Rake nmap <buffer> <D-r> :Rake<CR>
