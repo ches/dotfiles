@@ -35,8 +35,12 @@ NeoBundle 'AndrewRadev/splitjoin.vim'
 NeoBundle 'bling/vim-airline', { 'augroup' : 'airline' }
 NeoBundle 'ciaranm/securemodelines'
 NeoBundle 'ctrlpvim/ctrlp.vim'
+NeoBundle 'direnv/direnv.vim'
 NeoBundle 'eiginn/netrw', { 'augroup' : 'FileExplorer' }
 NeoBundle 'embear/vim-localvimrc'
+NeoBundle 'fisadev/vim-ctrlp-cmdpalette'
+" NeoBundle 'gcmt/wildfire.vim'
+NeoBundle 'glts/vim-textobj-comment'
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'honza/vim-snippets'
 NeoBundle 'jgdavey/tslime.vim'
@@ -266,6 +270,9 @@ NeoBundleLazy 'tpope/vim-scriptease', {
 \  }
 \ }
 NeoBundleLazy 'rust-lang/rust.vim', {
+\ 'autoload' : { 'filetypes' : 'rust', 'filename_patterns' : '\.rs$' }
+\ }
+NeoBundleLazy 'racer-rust/vim-racer', {
 \ 'autoload' : { 'filetypes' : 'rust', 'filename_patterns' : '\.rs$' }
 \ }
 NeoBundleLazy 'cespare/vim-toml', {
