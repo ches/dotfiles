@@ -89,8 +89,9 @@ which direnv > /dev/null && eval "$(direnv hook bash)"
 export GOPATH=$HOME/src/go
 export PATH=$PATH:$GOPATH/bin
 
-# Haskell Cabal
+# Haskell Cabal & Stack
 [[ -d ~/.cabal/bin ]] && export PATH=~/.cabal/bin:$PATH
+[[ -d ~/.local/bin ]] && export PATH=~/.local/bin:$PATH
 
 # OCaml OPAM configuration
 [[ -r ~/.opam/opam-init/init.sh ]] && source ~/.opam/opam-init/init.sh
@@ -117,6 +118,9 @@ if [ -x /usr/local/opt/chruby ]; then
     source /usr/local/opt/chruby/share/chruby/chruby.sh
     source /usr/local/opt/chruby/share/chruby/auto.sh
 fi
+
+# Rust cargo install binaries
+[[ -d ~/.cargo/bin ]] && export PATH=~/.cargo/bin:$PATH
 
 #-------------------------------------------------------------------------------
 # Machine-specific stuff, creds kept out of SCM, etc.
