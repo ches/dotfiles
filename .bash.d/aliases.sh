@@ -47,6 +47,13 @@ alias nowiso='date "+%Y-%m-%dT%H:%M:%S%z"'
 # =         App- and Platform-specific Bits          =
 # ====================================================
 
+if installed docker-machine; then
+    alias dm='docker-machine'
+fi
+if installed docker-compose; then
+    alias fig='docker-compose'
+fi
+
 #
 # Version Control
 #
