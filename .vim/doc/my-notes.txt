@@ -32,8 +32,10 @@ CONTENTS                                                   *my-notes-contents*
         4.3 Help...................................|my-notes-ft-help|
         4.4 Go.....................................|my-notes-ft-golang|
         4.5 OCaml..................................|my-notes-ft-ocaml|
-        4.6 Ruby...................................|my-notes-ft-ruby|
-        4.7 Scala..................................|my-notes-ft-scala|
+        4.6 PHP....................................|my-notes-ft-php|
+        4.7 Python.................................|my-notes-ft-python|
+        4.8 Ruby...................................|my-notes-ft-ruby|
+        4.9 Scala..................................|my-notes-ft-scala|
     5. Other Vim Plugins...........................|my-notes-other-plugins|
     6. Credits.....................................|my-notes-credits|
         6.1 Do It Yourself.........................|my-notes-diy|
@@ -247,13 +249,14 @@ recently where I went on a survey learning spree.
     4.3 Help...................................|my-notes-ft-help|
     4.4 Go.....................................|my-notes-ft-golang|
     4.5 OCaml..................................|my-notes-ft-ocaml|
-    4.6 Ruby...................................|my-notes-ft-ruby|
-    4.7 Scala..................................|my-notes-ft-scala|
+    4.6 PHP....................................|my-notes-ft-php|
+    4.7 Python.................................|my-notes-ft-python|
+    4.8 Ruby...................................|my-notes-ft-ruby|
+    4.9 Scala..................................|my-notes-ft-scala|
 
 TODO:~
 
 - JavaScript? Needs updating/cleanup.
-- Python? Needs updating/cleanup.
 - Shell?
 - I'm not much of a markup guy, but Emmet is there, ragtag, etc.
 
@@ -263,6 +266,12 @@ General Conventions                                  *my-notes-ft-conventions*
 Filetype-specific stuff is generally what <LocalLeader> is designed for. I
 try to honor this fact with my filetype mappings, and apply some conventions
 across them.
+
+TODO: <LocalLeader>b for build, or just set Dispatch?
+TODO: make <LocalLeader>gt a convention for ctags generation?
+TODO: debugger conventions, e.g. set breakpoint, step, etc. Look at Eclim's
+      Java debugging, vim-lldb, vebugger, etc.
+
                                                        *my-notes-ft-type-info*
 Type Information (when supported)~
 
@@ -272,6 +281,9 @@ Type Information (when supported)~
 <LocalLeader>i          Display extended type information about an identifier
                         or expression under the cursor, such as derivations,
                         interfaces implemented, etc.
+
+<LocalLeader>r          Rename identifier under cursor, where semantic
+                        awareness is supported.
 
                                                       *my-notes-ft-build-test*
 Running Tests and Builds~
@@ -287,7 +299,7 @@ awareness.
 
 In these cases, I map <LocalLeader> + Vim's standard ctags jump mappings that
 are appropriate for what the plugin's function supports (split, preview
-window, etc.).
+window, etc.). The |gd| command is also commonly overridden.
 
 See |tag-commands|, |window-tag|.
 
@@ -305,7 +317,7 @@ as YouCompleteMe expects.
 ------------------------------------------------------------------------------
 Erlang                                                    *my-notes-ft-erlang*
 
-TODO
+TODO: |vimerl|
 
 ------------------------------------------------------------------------------
 Haskell                                                  *my-notes-ft-haskell*
@@ -326,6 +338,8 @@ especially as a learner. HLint is installed as a dependency of ghc-mod.
 TODO: mappings for |:GhcModCheck|, |:GhcModLint| because their quickfix output
 is much more readable with the detailed output of GHC and HLint. Or can
 Syntastic be configured to use these instead of its default checkers?
+
+TODO: look into codex-like support for Stack instead of cabal sandboxes.
 
                                                    *my-notes-haskell-mappings*
 Mappings~
@@ -354,6 +368,20 @@ Mappings~
                         `haskell-tags` on all dependencies in a Cabal project.
                         Runs in the background with |dispatch-:Start|.
 
+gf                      Has awareness of Haskell modules and imports for
+                        navigating to them, courtesy of |vim2hs|.
+
+                                                   *my-notes-haskell-commands*
+Commands~
+
+Both |ghcmod| and |vim2hs| provide some additional utility commands, like
+|:LPaste| for submitting to the lpaste.net pastebin preferred by the
+`#haskell` IRC channel.
+
+vim2hs also includes several |tabular| presets for alignments
+(|vim2hs-tabular|) -- try autocompleting the `:Tabular` command with
+`haskell_`.
+
                                                     *my-notes-haskell-options*
 Options~
 
@@ -362,9 +390,42 @@ Options~
         point-free style. Sometimes this becomes excessively cryptic. Worth
         looking at `stylish-haskell` for other reformatting ideas.
 
+        Note also that |vim2hs| includes |:PointFree| commands to suggest or
+        replace selections.
+
 'omnifunc'
         Set to use ghc-mod backed semantic completion through the `neco-ghc`
         plugin.
+
+Alternatives and More~
+
+Too many Haskell plugins for Vim do too much, unfortunately -- often they have
+some good ideas that I want, but I don't want everything. I chose |vim2hs| to
+get started, but eventually I may want to steal ideas from others.
+
+A perfect example is haskell-vim-now, which incorporates a lot of good ideas,
+but is far too invasive (it aims to take someone with no existing Vim setup to
+productive Haskell use): https://github.com/begriffs/haskell-vim-now. Check
+how it uses hscope for showing uses of a symbol.
+
+haskellmode-vim is a comprehensive but rather outdated plugin with many
+features, some probably worth stealing and updating:
+https://github.com/lukerandall/haskellmode-vim
+
+haskell-vim has alternative syntax and indentation definitions that I might
+prefer, I'm not crazy about vim2hs's indentation:
+https://github.com/neovimhaskell/haskell-vim
+
+I'd like to have a Haskell tool like `goimports` to aid with automatically
+adding imports to files. vim-hsimport almost gets there, but is a little more
+manual so far: https://github.com/dan-t/vim-hsimport. Also, it relies on
+hdevtools (see https://github.com/bitc/vim-hdevtools) which is less active
+than ghc-mod. (Maybe not? https://github.com/hdevtools/hdevtools)
+
+Nice and simple plugin for Hoogle lookup, I tend to do it in ghci but might be
+convenient in Vim too: https://github.com/Twinside/vim-hoogle
+
+Keep an eye on https://github.com/haskell/haskell-ide-engine
 
 ------------------------------------------------------------------------------
 Help                                                        *my-notes-ft-help*
@@ -399,7 +460,7 @@ very well-built and comprehensive plugin with good help, so it's really the
 only thing to look at.
 
 FWIW I'm not too fond of the language, but it's a necessity for some systems
-I need to work on.
+I need to work on. I have to admit it has good tooling.
 
 Installing the Tools~
 
@@ -444,6 +505,12 @@ equivalents in Vim:
 
 <LocalLeader><C-t>]     Go to definition in new tab. See |(go-def-tab)|.
 
+TODO~
+
+- Simple plugin to compile/run the buffer on the Go Playground and echo the
+  output: https://github.com/mattn/goplayground-vim
+- Add notes about `gb` projects: lvimrc, projectionist
+
 ------------------------------------------------------------------------------
 OCaml                                                      *my-notes-ft-ocaml*
 
@@ -480,19 +547,244 @@ take after Vim's:
 <LocalLeader>#
 
 ------------------------------------------------------------------------------
+PHP                                                          *my-notes-ft-php*
+
+See: `~/.vim/after/ftplugin/php.vim`
+
+I recently had to write some PHP for the first time in a decade. The language
+has actually gotten a lot better :-)
+
+Installing the Tools~
+
+The `composer` tool is the modern community standard package manager for PHP,
+and the autoloading standards that it embraces lend support for tooling like
+autocompleters. I'm trying the Padawan client/server completer after finding
+`phpcomplete_extended` to be unstable memory bloat, and unmaintained.
+
+On OS X:
+>
+    $ brew tap homebrew/php
+    $ brew install php56 composer
+    $ composer global require mkusher/padawan
+
+This integrates with |youcompleteme| through its *'omnifunc'* support.
+Unfortunately unlike `phpcomplete_extended` it doesn't have go-to-definition
+support yet, but hopefully that's coming. Ctags can still do wonders.
+
+Initialize an index once per project, then it will be kept up to date:
+>
+    :PadawanGenerateIndex
+    :PadawanStartServer
+
+See https://github.com/mkusher/padawan.php.
+
+TODO: Padawan needs vimdoc, let's give it that.
+TODO: I dunno, this may actually be worse on resource usage than the old
+      plugin -- bloated PHP process and huge Python one for YCM... But it's a
+      young project, keep watch.
+
+Snippets~
+
+I have written some UltiSnips snippets for the Peridot BDD testing library
+DSL. To use them:
+>
+    :set filetype=peridot.php
+
+------------------------------------------------------------------------------
+Python                                                    *my-notes-ft-python*
+
+See: `~/.vim/after/ftplugin/python.vim`
+
+Installing the Tools~
+
+TODO: rebuild brew macvim `--with-python3`, check YouCompleteMe status
+
+No system-level dependency installations are required, as long as
+|youcompleteme| has been installed according to |my-notes-setup| since it
+includes a copy of the Jedi library used by |jedi-vim|. This enables semantic
+completion and other static analysis-based features such as go-to-definition,
+finding usages, renaming, and documentation lookup.
+
+This may not work in Python 3 environments, try installing Jedi with pip.
+
+|syntastic| has built-in support for all popular linters, pep8, etc. Be sure
+the desired pip packages are installed for the Python version & virtualenv in
+question and then the error and style checking should Just Work.
+
+|vim-pyenv| supports switching Python versions and virtualenvs. It can switch
+Jedi between Python 2 and 3 modes within a running session, but I haven't
+configured this yet.
+
+TODO: make airline report pyenv~
+                                                    *my-notes-python-mappings*
+Mappings~
+
+<LocalLeader>r          Rename identifier under cursor.
+                        See |g:jedi#rename_command|.
+
+<LocalLeader>u          Show all usages of the object referred to by the
+                        identifier under the cursor in the quickfix list.
+                        See |g:jedi#usages_command|.
+
+gd                      Approximately equivalent to Vim's standard |gd|, but
+                        with greater semantic awareness.
+                        See |g:jedi#goto_assignments_command|.
+
+K                       Shows Pydoc for the item under the cursor.
+                        See |g:jedi#documentation_command|.
+
+Enhanced semantic go-to-definition is available and uses the standard mappings
+in |my-notes-ft-conventions|.
+
+                                                      *my-notes-python-extras*
+Extras~
+
+|chapa| provides handy movement, selection, commenting, and folding in Python.
+As a brief reminder of the mapping conventions: >
+
+    fnf, fpf : Find next/previous function.
+    fnm, fpm : Same, for methods.
+    fnc, fpc : Same, for classes.
+    vim      : Visually select this method. n and p work also.
+    cim      : Toggle commenting of this method. n and p work also.
+    zim      : Fold this method. n and p work also.
+
+TODO: define custom chapa repeat mappings
+
+                                                     *my-notes-python-ipython*
+IPython~
+
+TODO: Customize mappings
+TODO: It's pretty janky and crusty, explore alternatives or enhancements
+
+The vim-ipython plugin has no proper vimdoc, so here's the skinny:
+
+    1. Start `ipython kernel` or `ipython console` in a shell.
+       There is an :IPythonNew command but it seems busted.
+
+    2. Run :IPython to connect to the kernel.
+
+    3. Hit <C-s> on a line or visual range to execute it. <M-s> if the code
+       has leading whitespace.
+
+<F5>                    Execute entire file with IPython's `%run` magic.
+
+<LocalLeader>d          Shows documentation like the IPython `object?`
+                        feature.
+                        FIXME: clash with jedi-vim mapping
+
+<LocalLeader>s          Show the "subchannel" monitor window, if you've closed
+                        it. You might turn off monitoring if you're executing
+                        plot rendering, etc. outside of Vim?
+
+Alternatives and More~
+
+https://github.com/klen/python-mode
+https://github.com/python-rope/ropevim
+
+python-mode is a fairly good all-in-one, but has some unneeded functionality
+better served by other plugins like Syntastic, and it uses Rope (see below).
+
+Rope has more refactoring capabilities than Jedi but it's annoying that it has
+to generate project metadata. Still, it's potentially worth using just for
+advanced refactoring uses.
+
+vim-virtualenv works well for virtualenvwrapper, but with pyenv vim-pyenv is
+the clear choice.
+
+Possibly more powerful/integrated with true text objects than Chapa:
+
+https://github.com/bps/vim-textobj-python
+https://github.com/michaeljsmith/vim-indent-object
+
+Worth a look for debugger integration:
+
+https://github.com/joonty/vdebug
+https://github.com/idanarye/vim-vebugger
+http://pyclewn.sourceforge.net/
+https://github.com/gotcha/vimpdb
+
+------------------------------------------------------------------------------
 Ruby (and Rails)                                            *my-notes-ft-ruby*
 
-TODO
+TODO: |vim-ruby| |rails|
+
+------------------------------------------------------------------------------
+Rust                                                        *my-notes-ft-rust*
+
+See: `~/.vim/after/ftplugin/rust.vim`
+
+The officially-maintained |rust| plugin provides basic filetype support like
+syntax and indentation definitions, compiler plugins for `rustc` and `cargo`,
+etc. It also provides some Vim commands summarized below.
+
+Installing the Tools~
+
+The `racer` tool enables autocompletion and semantic go-to-definition support.
+>
+    brew install rust
+    cargo install racer
+    cargo install rustfmt
+
+|syntastic| support for syntax checking with `rustc` is also included in the
+|rust| plugin.
+
+                                                      *my-notes-rust-mappings*
+Mappings~
+
+gd                      Approximately equivalent to Vim's standard |gd|, but
+                        with greater semantic awareness.
+
+gD                      Same as |gd| but opens in a vertical split.
+
+Enhanced semantic go-to-definition is available and uses the standard mappings
+in |my-notes-ft-conventions|.
+
+TODO: racer-vim lacks vimdoc.
+
+                                                      *my-notes-rust-commands*
+Commands~
+
+The |rust| plugin provides several documented utility commands for building
+and running, formatting, expanding macros, outputting LLVM IR or assembly,
+etc. Some of the most interesting are |:RustRun|, |:RustFmt|, and |:RustPlay|
+for pasting to the Rust playpen.
+
+TODO: Consider https://github.com/Chiel92/vim-autoformat for auto-rustfmt.
 
 ------------------------------------------------------------------------------
 Scala                                                      *my-notes-ft-scala*
 
-TODO
+TODO: |scala|, Eclim
 
 ==============================================================================
 OTHER PLUGINS                                         *my-notes-other-plugins*
 
 Notes and tips on global plugins or some that apply to many filetypes.
+
+TODO: yankring
+TODO: signature, `m/` mapping is handy
+TODO: TagmaTasks, needs more memorable mapping prefix, or alternative plugin?
+TODO: Custom commands: GstageFile, Gstage for fugitive
+
+------------------------------------------------------------------------------
+Goyo Distraction-free Writing                                  *my-notes-goyo*
+
+Goyo is a distraction-free writing plugin that can be quickly toggled to make
+Vim appear similar to the WriteRoom application: minimal interface elements,
+just the text, generously padded and centered. It is robust about restoring
+layout when being toggled off, resizing if windows resize, etc.
+
+Goyo lacks vimdoc.
+
+Mappings~
+
+<Leader>V               Toggles distraction-free mode.
+                        Default mapping of the similar VimRoom plugin, so I
+                        kept it.
+
+I have configured Goyo with hooks to also hide tmux status bar chrome, if
+running in a tmux session.
 
 ------------------------------------------------------------------------------
 greplace                                                   *my-notes-greplace*
@@ -520,9 +812,52 @@ Uses 'grepprg' and can set `g:grep_cmd_opts` to customize for specific tools
 like `ag` and `ack`.
 
 ------------------------------------------------------------------------------
+tslime Tmux Integration                                 *my-notes-tmux-tslime*
+
+tslime is named in reference to Emacs SLIME mode for Lisp development, but it
+is really only focused at sending code to a REPL running in a configurable
+tmux pane. This is still pretty handy though, since it is useful for many
+languages.
+
+tslime annoyingly lacks vimdoc. The self-explanatory default mappings are: >
+
+    vmap <C-c><C-c> <Plug>SendSelectionToTmux
+    nmap <C-c><C-c> <Plug>NormalModeSendToTmux
+    nmap <C-c>r <Plug>SetTmuxVars
+
+It also has a `:Tmux` command to send arbitrary lines to the configured pane.
+
+tslime can also be helpful for executing test runners in a separate pane. See
+|turbux| which was initially focused on Ruby test runners, but has generalized
+support for custom runners now. It is probably best used with |dispatch|
+instead though, especially if an 'errorformat' is available for parsing the
+runner's failure/error output.
+
+TODO: maybe try sjl's tslime fork that has vimdoc~
+
+------------------------------------------------------------------------------
 Vimwiki                                                     *my-notes-vimwiki*
 
 TODO |vimwiki|
+
+Global:
+
+<Leader>ww              Open wiki index
+<Leader>wt              Open wiki index in new tab
+<Leader>ws              UI selection of multiple wikis in configured list
+<Leader>wi              Open diary index
+<Leader>w<Leader>w      Open diary wiki page for today
+<Leader>w<Leader>t      Open diary wiki page for today in new tab
+
+Vimwiki Buffer-local:
+
+<C-Space>               Toggles to-do list item checkboxes.
+                        See |vimwiki-list-manipulation| for a bunch more.
+
+Custom additions:
+
+<Leader>wg              |:VimwikiGoto|, jump to page name with autocompletion.
+<Leader>w/              |:VimwikiSearch|
 
 ==============================================================================
 CREDITS                                                     *my-notes-credits*
