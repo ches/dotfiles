@@ -3,7 +3,7 @@ set guioptions-=L       " No left hand scrollbars
 
 " Font
 " I can't really be bothered with automating installation of this...
-set guifont=Inconsolata\ for\ Powerline:h14
+set guifont=Inconsolata-dz\ for\ Powerline:h12
 
 colorscheme base16-default
 
@@ -28,7 +28,6 @@ else
 end
 
 if has('mac')
-  " Transparency
-  set transp=4
+  set transparency=3
 endif
 
