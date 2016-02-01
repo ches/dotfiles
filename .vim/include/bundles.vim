@@ -132,14 +132,19 @@ NeoBundleLazy 'eagletmt/neco-ghc', {
 \ 'external_commands' : 'ghc-mod'
 \ }
 
-" Python {{{3
+" PHP {{{2
+NeoBundle 'mkusher/padawan.vim', {
+\ 'autoload' : { 'filetypes' : 'php' }
+\ }
+
+" Python {{{2
 NeoBundleLazy 'alfredodeza/chapa.vim', {
 \ 'autoload' : { 'filetypes' : ['python', 'javascript'] }
 \ }
 NeoBundleLazy 'alfredodeza/konira.vim', {
 \ 'autoload' : { 'filetypes' : 'python' }
 \ }
-NeoBundleLazy 'fs111/pydoc.vim', {
+NeoBundleLazy 'davidhalter/jedi-vim', {
 \ 'autoload' : { 'filetypes' : 'python' }
 \ }
 NeoBundleLazy 'Glench/Vim-Jinja2-Syntax', {
@@ -151,17 +156,9 @@ NeoBundleLazy 'hdima/python-syntax', {
 NeoBundleLazy 'ivanov/vim-ipython', {
 \ 'autoload' : { 'filetypes' : 'python' }
 \ }
-NeoBundleLazy 'jmcantrell/vim-virtualenv', {
-\ 'autoload' : { 'filetypes' : 'python' }
-\ }
-NeoBundleLazy 'klen/rope-vim', {
-\ 'autoload' : { 'filetypes' : 'python' }
-\ }
-NeoBundleLazy 'nvie/vim-pep8', {
-\ 'autoload' : { 'filetypes' : 'python' }
-\ }
-NeoBundleLazy 'rygwdn/rope-omni', {
-\ 'autoload' : { 'filetypes' : 'python' }
+NeoBundleLazy 'lambdalisue/vim-pyenv', {
+\ 'autoload' : { 'filetypes' : ['python', 'python3'] },
+\ 'depends' : 'davidhalter/jedi-vim'
 \ }
 
 " Ruby {{{3
