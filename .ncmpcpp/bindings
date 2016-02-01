@@ -1,0 +1,45 @@
+#############################################################################
+# See the example "bindings" file distributed with ncmpcpp for explanations #
+# and defaults. This matches my settings for the older ~/.ncmpcpp/keys      #
+# format, modulo some new defaults. The aim is primarily to be Vim-like.    #
+#############################################################################
+
+def_key "k"
+  scroll_up
+def_key "j"
+  scroll_down
+
+# Movement in the browser.
+def_key "h"
+  previous_column
+def_key "l"
+  next_column
+
+def_key "ctrl_b"
+  page_up
+def_key "ctrl_f"
+  page_down
+
+def_key "N"
+  previous_found_item
+def_key "n"
+  next_found_item
+
+# We've shadowed a default 'n' binding
+def_key "O"
+  move_selected_items_up
+def_key "o"
+  move_selected_items_down
+
+def_key "M"
+  jump_to_playing_song
+def_key "m"
+  move_selected_items_to
+
+def_key "d"
+  delete_playlist_items
+
+# This might be useful when using mopidy which doesn't handle native MPD
+# database refresh request yet...
+# def_command "update_database" [deferred]
+#   run_external_command "curl -d '{\"jsonrpc\": \"2.0\", \"id\": 1, \"method\": \"core.library.refresh\"}' http://mini.local:6680/mopidy/rpc"
