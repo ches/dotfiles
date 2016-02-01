@@ -1,8 +1,7 @@
 " TODO: hook up :RustRun to Dispatch?
-" TODO: Cargo-based makeprg instead of rustc?
 
-" Autocomplete and semantic go-to-definition: https://github.com/phildawes/racer
-if neobundle#is_installed('racer')
+" Autocomplete and semantic go-to-definition: https://github.com/racer-rust/vim-racer
+if neobundle#is_installed('vim-racer')
   " Go to definition that is likely smarter than ctags
   " TODO: should use Vim's tag stack
   nnoremap <buffer> <LocalLeader><C-]>      :call RacerGoToDefinition()<CR>
