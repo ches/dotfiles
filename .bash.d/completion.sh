@@ -30,6 +30,11 @@ if installed sake; then
     complete -W "$(sake -T | awk {'print $2'})" sake
 fi
 
+# Stack build tool for Haskell
+if installed stack; then
+    eval "$(stack --bash-completion-script stack)"
+fi
+
 #
 # Rake
 #
