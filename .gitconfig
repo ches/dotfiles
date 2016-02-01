@@ -25,6 +25,8 @@
 	last = log -1 -p HEAD
 	recent = log --relative --abbrev-commit --date=local --pretty=format:'%C(white)%h %C(cyan)%cr %C(green)by %cn %Creset%n%C(yellow)%cd%n%s' --stat -5
 	info = remote show origin
+	remotes = remote -v
+	tags = tag -l
 
 	k = !gitk
 	edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; $EDITOR `f`"
@@ -34,6 +36,7 @@
 	ignore = update-index --assume-unchanged
 	unignore = update-index --no-assume-unchanged
 	ignored = !git ls-files -v | grep \"^[[:lower:]]\"
+	ls-ignored = ls-files --ignored --exclude-standard
 [branch]
 	autosetupmerge = true
 [core]
@@ -75,3 +78,5 @@
 [web]
 	browser = open
 
+[status]
+	submodulesummary = 1
