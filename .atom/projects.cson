@@ -1,0 +1,29 @@
+"buyagain-saasbuilders":
+  title: "buyagain"
+  group: "SaasBuilders"
+  icon: "icon-gift"
+  paths: [
+    "/Volumes/saasbuilders/buyagain"
+  ]
+  settings:
+    "atom-ctags":
+      cmd: "gotags"
+      cmdArgs: "-tag-relative -R -f .git/tags"
+      extraTagFiles: ".git/tags"
+    "go-plus":
+      goPath: "/Volumes/saasbuilders/buyagain:/Volumes/saasbuilders/buyagain/vendor:~/src/go"
+    "go-oracle":
+      goPath: "/Volumes/saasbuilders/buyagain:/Volumes/saasbuilders/buyagain/vendor"
+    "sourcegraph-atom":
+      goPath: "/Volumes/saasbuilders/buyagain:/Volumes/saasbuilders/buyagain/vendor:~/src/go"
+    "atom-ctags":
+      cmd: "gotags"
+      cmdArgs: "-tag-relative -R -f .git/tags"
+      extraTagFiles: ".git/tags"
+haskellkoans:
+  title: "HaskellKoans"
+  group: "Haskell"
+  icon: "icon-steps"
+  paths: [
+    "~/src/koans/HaskellKoans"
+  ]

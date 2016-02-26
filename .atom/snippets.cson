@@ -1,0 +1,47 @@
+# Your snippets
+#
+# Atom snippets allow you to enter a simple prefix in the editor and hit tab to
+# expand the prefix into a larger code block with templated values.
+#
+# You can create a new snippet in this file by typing "snip" and then hitting
+# tab.
+#
+# An example CoffeeScript snippet to expand log to console.log:
+#
+# '.source.coffee':
+#   'Console log':
+#     'prefix': 'log'
+#     'body': 'console.log $1'
+#
+# Each scope (e.g. '.source.coffee' above) can only be declared once.
+#
+# This file uses CoffeeScript Object Notation (CSON).
+# If you are unfamiliar with CSON, you can read more about it in the
+# Atom Flight Manual:
+# https://atom.io/docs/latest/using-atom-basic-customization#cson
+
+#-------------------------------------------------------------------------------
+# Scala
+#-------------------------------------------------------------------------------
+'.source.scala':
+
+  # Override language-scala's method trigger with my fancier one that includes return type
+  'Method Declaration':
+    'prefix': 'def'
+    'body': 'def ${1:name}${2:(${3:arg})}${4:: ${5:ReturnType}} = ${6:{\n\t$7\n}}'
+
+  # This recursive nesting is janky in Atom... or else it's partly the fault of
+  # the custom non-autocomplete-plus completion in the ensime package
+  'Method Arguments':
+    'prefix': 'arg'
+    'body': '${1:a}: ${2:T}${3:, arg}'
+
+  #
+  # ScalaTest Equality
+  #
+  # TODO: need to figure out how to create custom scopes, e.g. scalatest as a
+  # subcategory of scala
+  #
+  'shouldEqual':
+    'prefix': 'she'
+    'body': '${1:subject} shouldEqual ${2:expected}'
