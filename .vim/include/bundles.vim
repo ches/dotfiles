@@ -213,6 +213,9 @@ NeoBundleLazy 'derekwyatt/vim-sbt', {
 NeoBundleLazy 'derekwyatt/vim-scala', {
 \ 'autoload' : { 'filetypes' : ['help', 'scala'] }
 \ }
+NeoBundleLazy 'ensime/ensime-vim', {
+\ 'autoload' : { 'filetypes' : 'scala' }
+\ }
 NeoBundleLazy 'elixir-lang/vim-elixir', {
 \ 'autoload' : { 'filetypes' : 'elixir' }
 \ }

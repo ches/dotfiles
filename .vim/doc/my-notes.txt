@@ -722,9 +722,9 @@ Installing the Tools~
 
 The `racer` tool enables autocompletion and semantic go-to-definition support.
 >
-    brew install rust
-    cargo install racer
-    cargo install rustfmt
+    $ brew install rust
+    $ cargo install racer
+    $ cargo install rustfmt
 
 |syntastic| support for syntax checking with `rustc` is also included in the
 |rust| plugin.
@@ -755,7 +755,53 @@ TODO: Consider https://github.com/Chiel92/vim-autoformat for auto-rustfmt.
 ------------------------------------------------------------------------------
 Scala                                                      *my-notes-ft-scala*
 
-TODO: |scala|, Eclim
+See: `~/.vim/after/ftplugin/scala.vim`
+
+The |scala| plugin provides basic filetype support plus a few utilities like
+import sorting. IDE-like features for Scala are by virtue of |ensime-vim| and
+the ENSIME server that it talks to.
+
+Installing the Tools~
+
+Generally all that is needed is a JDK and one of the build tools supported by
+ENSIME plugins: https://ensime.github.io/build_tools/. Then the build tool
+will be able to install the ENSIME server and `ensime-vim` can then start it
+automatically. For OS X: >
+
+    $ brew cask install java
+    $ brew install sbt
+
+If the project builds with `sbt`, for example, install the ENSIME plugin by
+adding the following to `~/.sbt/0.13/plugins/plugins.sbt`: >
+
+    addSbtPlugin("org.ensime" % "ensime-sbt" % "0.4.0")
+
+Then run "sbt gen-ensime" for the project.
+
+                                                     *my-notes-scala-mappings*
+Mappings~
+
+gd                      Approximately equivalent to Vim's standard |gd|, but
+                        with greater semantic awareness.
+
+<LocalLeader>e          Generates project classpath and starts ENSIME server.
+                        See |:EnClasspath|.
+
+<LocalLeader>t          Display type information for word under cursor.
+                        See |:EnType|.
+
+<LocalLeader>i          Show interfaces that type under the cursor
+                        implements. See |:EnInspectType|.
+
+<LocalLeader>I          Presents selection list of possible needed imports.
+                        Selecting one inserts it. See |:EnSuggestImport|.
+
+<LocalLeader>r          Rename identifier under cursor. See |:EnRename|.
+
+Enhanced semantic go-to-definition is available and uses the standard mappings
+in |my-notes-ft-conventions|.
+
+TODO: Eclim?
 
 ==============================================================================
 OTHER PLUGINS                                         *my-notes-other-plugins*
