@@ -55,6 +55,30 @@ if executable('gotags')
   \ }
 endif
 
+let g:tagbar_type_gradle = {
+  \ 'ctagstype' : 'Gradle',
+  \ 'kinds'     : [
+    \ 't:tasks',
+    \ 'm:methods'
+  \ ]
+\ }
+
+let g:ctrlp_buftag_types.groovy = '--groovy-types=pcitemf'
+
+" TODO: scope nesting would be nice; requires C extension for Exuberant Ctags :-(
+let g:tagbar_type_groovy = {
+  \ 'ctagstype' : 'groovy',
+  \ 'kinds'     : [
+    \ 'p:package:1',
+    \ 'c:classes',
+    \ 'i:interfaces',
+    \ 't:traits',
+    \ 'e:enums',
+    \ 'm:methods',
+    \ 'f:fields:1'
+  \ ]
+\ }
+
 let g:tagbar_type_make = {
   \ 'kinds':[
     \ 'm:macros',

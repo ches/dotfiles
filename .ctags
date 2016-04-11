@@ -76,3 +76,23 @@
 --regex-Rust=/^[ \t]*(pub[ \t]+)?impl([ \t\n]*<[^>]*>)?[ \t]+(([a-zA-Z0-9_:]+)[ \t]*(<[^>]*>)?[ \t]+(for)[ \t]+)?([a-zA-Z0-9_]+)/\4 \6 \7/i,impls,trait implementations/
 --regex-Rust=/^[ \t]*macro_rules![ \t]+([a-zA-Z0-9_]+)/\1/d,macros,macro definitions/
 
+--langdef=groovy
+--langmap=groovy:.groovy
+--regex-groovy=/^[ \t]*package[ \t]+([a-zA-Z0-9.-_]+)/\1/p,package/
+--regex-groovy=/^[ \t]*(private|public)?[ \t]*(abstract|final|static)?[ \t]*class[ \t]+([A-Za-z0-9_]+)/\3/c,class/
+--regex-groovy=/^[ \t]*(private|public)?[ \t]*interface[ \t]+([A-Za-z0-9_]+)/\2/i,interface/
+--regex-groovy=/^[ \t]*(private|public)?[ \t]*trait[ \t]+([A-Za-z0-9_]+)/\2/t,trait/
+--regex-groovy=/^[ \t]*(private|public)?[ \t]*enum[ \t]+([A-Za-z0-9_]+)/\2/e,enum/
+--regex-groovy=/^[ \t]*[(abstract|final|static) \t]*((def|void|byte|int|short|long|float|double|boolean|char|[A-Z][a-zA-Z0-9_]*)[ \t]+)?([a-zA-Z0-9_]+\(.*\))[ \t]+/~\3/m,package method/
+--regex-groovy=/^[ \t]*public[ \t]+[(abstract|final|static) \t]*((def|void|byte|int|short|long|float|double|boolean|char|[A-Z][a-zA-Z0-9_]*)[ \t]+)?([a-zA-Z0-9_]+\(.*\))[ \t]+/+\3/m,public method/
+--regex-groovy=/^[ \t]*protected[ \t]+[(abstract|final|static) \t]*((def|void|byte|int|short|long|float|double|boolean|char|[A-Z][a-zA-Z0-9_]*)[ \t]+)?([a-zA-Z0-9_]+\(.*\))[ \t]+/#\3/m,protected method/
+--regex-groovy=/^[ \t]*private[ \t]+[(abstract|final|static) \t]*((def|void|byte|int|short|long|float|double|boolean|char|[A-Z][a-zA-Z0-9_]*)[ \t]+)?([a-zA-Z0-9_]+\(.*\))[ \t]+/-\3/m,private method/
+--regex-groovy=/^[ \t]*[(final|static|synchronized) \t]*(def|byte|int|short|long|float|double|boolean|char|[A-Z][A-Za-z0-9_]*)[ \t]+([a-zA-Z0-9_]+)([ \t]*[\/]+.*)?/~\2/f,property/
+--regex-groovy=/^[ \t]*public[ \t]+[(final|static|synchronized) \t]*(def|byte|int|short|long|float|double|boolean|char|[A-Z][a-zA-Z0-9_]*)[ \t]+([a-zA-Z0-9_]+)([ \t]*[\/]+.*)?/+\2/f,public field/
+--regex-groovy=/^[ \t]*protected[ \t]+[(final|static|synchronized) \t]*(def|byte|int|short|long|float|double|boolean|char|[A-Z][a-zA-Z0-9_]*)[ \t]+([a-zA-Z0-9_]+)([ \t]*[\/]+.*)?/#\2/f,protected field/
+--regex-groovy=/^[ \t]*private[ \t]+[(final|static|synchronized) \t]*(def|byte|int|short|long|float|double|boolean|char|[A-Z][a-zA-Z0-9_]*)[ \t]+([a-zA-Z0-9_]+)([ \t]*[\/]+.*)?/-\2/f,private field/
+
+--langdef=Gradle
+--langmap=Gradle:.gradle
+--regex-Gradle=/^[ \t]*task[ \t]+([a-zA-Z0-9]+)/\1/t,task/
+--regex-Gradle=/^[ \t]*def[ \t]+([a-zA-Z0-9_]+\([A-Za-z0-9 _,]*\))[ \t]+/\1/m,method/
