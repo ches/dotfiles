@@ -46,6 +46,13 @@ let g:tagbar_type_go = {
   \ }
 \ }
 
+let g:tagbar_type_make = {
+  \ 'kinds':[
+    \ 'm:macros',
+    \ 't:targets'
+  \ ]
+\}
+
 let g:tagbar_type_markdown = {
   \ 'ctagstype' : 'markdown',
   \ 'kinds' : [

@@ -2,6 +2,8 @@
 
 --langmap=c++:.ino
 
+--regex-make=/^([^# \t]*):/\1/t,target/
+
 --langdef=js
 --langmap=js:.js
 --regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\{/\1/,object/
