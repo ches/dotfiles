@@ -18,33 +18,42 @@ let g:tagbar_type_coffee = {
   \ ]
 \ }
 
-let g:tagbar_type_go = {
-  \ 'ctagstype' : 'go',
-  \ 'ctagsbin'  : 'gotags',
-  \ 'ctagsargs' : '-sort -silent',
-  \ 'kinds'     : [
-    \ 'p:package',
-    \ 'i:imports:1',
-    \ 'c:constants',
-    \ 'v:variables',
-    \ 't:types',
-    \ 'n:interfaces',
-    \ 'w:fields',
-    \ 'e:embedded',
-    \ 'm:methods',
-    \ 'r:constructor',
-    \ 'f:functions'
-  \ ],
-  \ 'sro' : '.',
-  \ 'kind2scope' : {
-    \ 't' : 'ctype',
-    \ 'n' : 'ntype'
-  \ },
-  \ 'scope2kind' : {
-    \ 'ctype' : 't',
-    \ 'ntype' : 'n'
+if executable('gotags')
+  let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent',
+    \ 'kinds'     : [
+      \ 'p:package',
+      \ 'i:imports:1',
+      \ 'c:constants',
+      \ 'v:variables',
+      \ 't:types',
+      \ 'n:interfaces',
+      \ 'w:fields',
+      \ 'e:embedded',
+      \ 'm:methods',
+      \ 'r:constructor',
+      \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+      \ 't' : 'ctype',
+      \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+      \ 'ctype' : 't',
+      \ 'ntype' : 'n'
+    \ }
   \ }
-\ }
+
+  " FIXME: not working for :CtrlPBufTag because its parseline function wants
+  " regex match format of ctags output, and gotags only does line number
+  let g:ctrlp_buftag_types.go = {
+    \ 'bin'  : 'gotags',
+    \ 'args' : '-sort -silent',
+  \ }
+endif
 
 let g:tagbar_type_make = {
   \ 'kinds':[
@@ -53,12 +62,15 @@ let g:tagbar_type_make = {
   \ ]
 \}
 
+" Look at markdown2ctags for setext-style header support and scopes
 let g:tagbar_type_markdown = {
   \ 'ctagstype' : 'markdown',
   \ 'kinds' : [
     \ 'h:Heading 1',
     \ 'i:Heading 2',
-    \ 'k:Heading 3'
+    \ 'j:Heading 3',
+    \ 'k:Heading 4',
+    \ 'l:Heading 5'
   \ ]
 \ }
 

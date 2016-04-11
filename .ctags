@@ -60,7 +60,9 @@
 --langmap=markdown:.mkd.md.markdown
 --regex-markdown=/^#[ \t]+(.*)/\1/h,Heading1/
 --regex-markdown=/^##[ \t]+(.*)/\1/i,Heading2/
---regex-markdown=/^###[ \t]+(.*)/\1/k,Heading3/
+--regex-markdown=/^###[ \t]+(.*)/\1/j,Heading3/
+--regex-markdown=/^###[ \t]+(.*)/\1/k,Heading4/
+--regex-markdown=/^###[ \t]+(.*)/\1/l,Heading5/
 
 --langdef=Rust
 --langmap=Rust:.rs
