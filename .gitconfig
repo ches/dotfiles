@@ -1,7 +1,7 @@
 [user]
 	name = Ches Martin
 	email = ches@whiskeyandgrits.net
-	signingkey = AEADCEC6
+	signingkey = 23D618B53AB8209FF172C0706E5CD3ED8638EE95
 [alias]
 	br = branch
 	co = checkout
@@ -26,7 +26,7 @@
 	recent = log --relative --abbrev-commit --date=local --pretty=format:'%C(white)%h %C(cyan)%cr %C(green)by %cn %Creset%n%C(yellow)%cd%n%s' --stat -5
 	info = remote show origin
 	remotes = remote -v
-	tags = tag -l
+	tags = tag -l -n
 
 	k = !gitk
 	edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; $EDITOR `f`"

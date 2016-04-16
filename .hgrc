@@ -28,6 +28,7 @@ hgext.color =
 hgext.convert =
 hgext.extdiff =
 hgext.fetch =
+hgext.gpg =
 hgext.hgk =
 hgext.highlight =
 hgext.histedit =
@@ -82,6 +83,9 @@ track.current = True
 cmd.vdiff = fmdiff
 # cmd.vdiff = meld
 cmd.kdiff = kdiff3
+
+[gpg]
+key = 23D618B53AB8209FF172C0706E5CD3ED8638EE95
 
 [merge-tools]
 kdiff3.args = $base $local $other -o $output
