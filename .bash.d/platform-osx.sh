@@ -15,7 +15,8 @@ export DOCKER_HOST=tcp://192.168.59.103:2375  # for boot2docker
 export DOCKER_TLS_VERIFY=1
 export DOCKER_CERT_PATH=$HOME/.boot2docker/certs/boot2docker-vm
 
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.7.0)
+export GROOVY_HOME=/usr/local/opt/groovy/libexec
+export JAVA_HOME=$(/usr/libexec/java_home --version 1.8.0)
 export NODE_PATH="/usr/local/lib/node_modules"
 
 [[ -r /usr/local/bin/virtualenvwrapper.sh ]] && source /usr/local/bin/virtualenvwrapper.sh
