@@ -47,13 +47,13 @@ endsnippet
 # This avoids matching some other snippets ending in "{"
 # TODO: try to make this work if there's already text after the { ?
 snippet "(?<!(for|kup) ){" "Expand inline block" wr
-{ $1 }
+{ ${1:${VISUAL}} }
 endsnippet
 
 
 snippet } "Expand multi-line block" w
 {
-	$1
+	${1:${VISUAL}}
 }
 endsnippet
 
@@ -75,7 +75,7 @@ endsnippet
 
 snippet def "Method Declaration"
 def ${1:name}${2:(${3:arg})}${4:: ${5:ReturnType}} = ${6:\{
-	$7
+	${7:${VISUAL}}
 \}}
 endsnippet
 
@@ -94,7 +94,7 @@ endsnippet
 # This snippet could still be useful with equals sign and Unit return?
 snippet proc "Procedure (pure side-effect function)"
 def ${1:name}(${2:arg}$3) ${4:\{
-	$5
+	${5:${VISUAL}}
 \}}
 endsnippet
 
@@ -136,23 +136,23 @@ with ${1:That}${2: with}$3
 endsnippet
 
 
-snippet if "If Block/Inline" b
+snippet if "If Block/Inline"
 if (${1:condition}) ${2:\{
-	$3
+	${3:${VISUAL}}
 \}}
 endsnippet
 
 
-snippet else "Else Block/Inline" b
+snippet else "Else Block/Inline"
 else ${2:\{
 	$3
 \}}
 endsnippet
 
 
-snippet ife "If/Else Block/Inline" b
+snippet ife "If/Else Block/Inline"
 if (${1:condition}) ${2:\{
-	$3
+	${3:${VISUAL}}
 \}} else ${4:\{
 	$5
 \}}
@@ -208,7 +208,7 @@ endsnippet
 
 snippet main "Application Object main Method Declaration" b
 def main(args: Array[String]) {
-	$0
+	${0:${VISUAL}}
 }
 endsnippet
 

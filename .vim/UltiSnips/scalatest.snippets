@@ -162,6 +162,39 @@ test("${1:specification}") {
 }
 endsnippet
 
+####################
+#  FlatSpec Style  #
+####################
+
+snippet beof "behavior of (FlatSpec)" b
+behavior of "${1:subject}"
+endsnippet
+
+# First spec shorcut in place of `behavior of`
+snippet subs "Subject should ... in (FlatSpec)" b
+"${1:subject}" should "${2:specification}" in {
+	$3
+}
+endsnippet
+
+snippet subm "Subject must ... in (FlatSpec)" b
+"${1:subject}" must "${2:specification}" in {
+	$3
+}
+endsnippet
+
+snippet its "it should (FlatSpec)" b
+it should "${1:specification}" in {
+	$2
+}
+endsnippet
+
+snippet itm "it must (FlatSpec)" b
+it must "${1:specification}" in {
+	$2
+}
+endsnippet
+
 ###################
 #  FunSpec Style  #
 ###################
@@ -174,16 +207,6 @@ endsnippet
 
 snippet it "it (FunSpec)" b
 it("${1:specification}") {
-	$2
-}
-endsnippet
-
-# Trying to maintain some parity with RSpec snippets, but don't do this! A suite
-# full of passive voice is so tiresome to read.
-#
-# Maybe should use this trigger for FlatSpec `it should` anyway?
-snippet its "it should (FunSpec)" b
-it("should ${1:specification}") {
 	$2
 }
 endsnippet
@@ -237,6 +260,12 @@ endsnippet
 snippet int "in specification (WordSpec, tagged)" b
 "${1:specification}" taggedAs(${2:Tags}) in {
 	$3
+}
+endsnippet
+
+snippet which "which clause (WordSpec)" b
+"${1:common context}" which {
+	in$2
 }
 endsnippet
 

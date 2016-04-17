@@ -6,9 +6,9 @@ version := "0.1-SNAPSHOT"
 
 homepage := Some(url("https://github.com/ches/project-name"))
 
-scalaVersion := "2.11.6"
+scalaVersion := "2.11.8"
 
-scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature")
+scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Xlint")
 
 resolvers ++= Seq(
   // Resolver.typesafeRepo("releases")
