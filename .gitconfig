@@ -16,7 +16,7 @@
 	unstage = reset HEAD
 	df = diff
 	dc = diff --cached
-	vdiff = !git diff | $EDITOR
+	vdiff = !git diff | view -
 	who = shortlog -s --
 	lg = log -p
 	ll = log --graph --pretty=format:'%C(blue)%h %C(green)%d%Creset %s  %C(black bold)%an, %ar%Creset'
@@ -37,19 +37,37 @@
 	unignore = update-index --no-assume-unchanged
 	ignored = !git ls-files -v | grep \"^[[:lower:]]\"
 	ls-ignored = ls-files --ignored --exclude-standard
+
 [branch]
 	autosetupmerge = true
 [core]
 	whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
 	autocrlf = false
+[init]
+	templatedir = ~/.config/git/templates
+[push]
+	default = upstream
+[rebase]
+	autosquash = true
+[rerere]
+	enabled = true
+[status]
+	submodulesummary = 1
+
 [diff]
+	tool = vimdiff
 	guitool = gvimdiff
+[difftool]
+	prompt = false
 [merge]
 	summary = true
-	tool = kdiff3
+	tool = vimdiff
+[mergetool]
+	prompt = false
 [mergetool "kdiff3"]
 	trustExitCode = false
 	keepBackup = false
+
 [color]
 	ui = auto
 [color "branch"]
@@ -62,21 +80,13 @@
 	branch = cyan reverse
 [gui]
 	fontdiff = -family Monaco -size 11 -weight normal -slant roman -underline 0 -overstrike 0
+
 [github]
 	user = ches
 [instaweb]
 	httpd = webrick
 	port = 8000
-[init]
-	templatedir = ~/.config/git/templates
-[rebase]
-	autosquash = true
-[rerere]
-	enabled = true
-[push]
-	default = upstream
 [web]
 	browser = open
 
-[status]
-	submodulesummary = 1
+# vim:set noexpandtab sw=4 ts=4:

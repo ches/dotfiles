@@ -79,10 +79,14 @@ last = show .
 # instead of multiple if they are pointing to the same changeset
 track.current = True
 
+# Mercurial actually does directory diffs instead of file-by-file like git
+# difftool. Vim can't do this without a plugin; this is where meld and kdiff3
+# really earn their pay.
 [extdiff]
-cmd.vdiff = fmdiff
-# cmd.vdiff = meld
-cmd.kdiff = kdiff3
+vdiff = fmdiff
+meld =
+kdiff = kdiff3
+sdiff = colordiff -Nry
 
 [gpg]
 key = 23D618B53AB8209FF172C0706E5CD3ED8638EE95
@@ -91,6 +95,9 @@ key = 23D618B53AB8209FF172C0706E5CD3ED8638EE95
 kdiff3.args = $base $local $other -o $output
 kdiff3.fixeol=True
 kdiff3.gui=True
+
+# Needs testing for sensible order...
+meld.args = $base $local $other $output
 
 # See http://mercurial.selenic.com/wiki/MergingWithVim
 vimdiff.executable = mvim
@@ -108,7 +115,7 @@ filemerge.gui=True
 [pager]
 pager = LESS='FRX' less
 attend = help, status, qstatus, incoming, outgoing, diff, df, qdiff,
-         cat, annotate, shelve, shelf, last, show,
+         cat, annotate, shelve, shelf, last, show, sdiff,
          log, glog, lg, ll, gitlog, nlog, slog, sglog, vlog, vlg
 
 [mq]
