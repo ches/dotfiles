@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# The scala REPL doesn't have any config file, so this wrapper serves to set
+# some property values and load an init file of utilities when run without
+# arguments to enter REPL mode.
+#
+# If there are arguments, just assume we're running a .scala file in script
+# mode, a class or jar, etc., and execute normally.
+
+SCALA=${SCALA:-/usr/local/bin/scala}
+
+if [ "$#" -eq 0 ] && [ -r ~/.config/scala/replinit.scala ]; then
+    exec "$SCALA" -i ~/.config/scala/replinit.scala -Dscala.color
+else
+    exec "$SCALA" "$@"
+fi
