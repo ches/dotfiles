@@ -7,12 +7,26 @@
 /**
  * Quick-and-dirty profiling spot check helper.
  *
- * Hat tip: <http://stackoverflow.com/questions/9160001/how-to-profile-methods-in-scala>
+ * Hat tip: [[http://stackoverflow.com/questions/9160001/how-to-profile-methods-in-scala]]
  */
-def timeit[R](block: => R): R = {
-  val now = System.nanoTime
-  val result = block
-  val micros = (System.nanoTime - now) / 1000
-  println(s"Elapsed time: $micros µs")
-  result
+object profiling {
+  def timeit[R](block: => R): R = timeit(1)(block)
+
+  def timeit[R](iterations: Int)(block: => R): R = {
+    require(iterations > 0, "Must time at least one iteration")
+
+    val start = System.nanoTime
+    (1 to iterations) foreach (i => block)
+    val mean = (System.nanoTime - start) / iterations
+
+    if (iterations > 1) println(s"Mean time: ${mean / 1000} µs, $iterations iterations")
+    else println(s"Elapsed time: ${mean / 1000} µs")
+
+    // Produce result. Could fold above, sure, but that introduces collection ops
+    block
+  }
 }
+
+// The object is a hack to get the overloads into the same compilation unit,
+// otherwise the scala REPL can't deal with them (Ammonite can).
+import profiling._
