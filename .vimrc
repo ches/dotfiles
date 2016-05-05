@@ -27,10 +27,16 @@ endif
 " Register and load plugins.
 runtime include/bundles.vim
 
-" Built-ins
-runtime macros/editexisting.vim  " Bring forward existing session w/ open file
-runtime macros/matchit.vim       " More powerful % for if/fi, HTML tags, etc.
-runtime ftplugin/man.vim         " Sweet :Man command opens pages in split
+" Built-ins. Some things moved in recent Vim versions with package support.
+if has('packages')
+  packadd! editexisting            " Bring forward existing session w/ open file
+  packadd! matchit                 " More powerful % for if/fi, HTML tags, etc.
+else
+  runtime macros/editexisting.vim
+  runtime macros/matchit.vim
+endif
+
+runtime ftplugin/man.vim           " Sweet :Man command opens pages in split
 
 " Allow plugins to work their magic.
 filetype plugin indent on
