@@ -50,13 +50,13 @@ AfterEach(func() {
 endsnippet
 
 snippet befs "Ginkgo BeforeSuite" b
-BeforeSuite(func() {
+var _ = BeforeSuite(func() {
 	$0
 })
 endsnippet
 
 snippet afts "Ginkgo AfterSuite" b
-AfterSuite(func() {
+var _ = AfterSuite(func() {
 	$0
 })
 endsnippet

@@ -16,6 +16,14 @@ def inline_tag(snip, t):
 
 def leading_tag(snip, t):
 	return tag(t[1], snip).rjust(78)
+
+def command_tag(snip, t):
+	tag = "*:%s*" % t[1].replace(' ', '-')
+	return tag.rjust(78)
+
+def function_tag(snip, t):
+	tag = "*%s()*" % t[1]
+	return tag.rjust(78)
 endglobal
 
 snippet ssec "Sub section marker" b
@@ -32,3 +40,22 @@ ${1:SubSubsection}~
 $0
 endsnippet
 
+# Inspired by vim-go's formatting style, less fussy and cramped than trying to
+# emulate the more columnar style of Vim's built-in command docs.
+snippet comm "Command Description" b
+`!p snip.rv = command_tag(snip, t)`
+:${1:CommandSpec} ${2:[{arg}]}
+
+	${3:Description}
+
+$0
+endsnippet
+
+snippet func "Function Description" b
+`!p snip.rv = function_tag(snip, t)`
+:${1:function#Name}(${2:[{arg}]})
+
+	${3:Description}
+
+$0
+endsnippet
