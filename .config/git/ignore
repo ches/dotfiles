@@ -1,28 +1,32 @@
 .DS_Store
 
-# Tools- / editor- / IDE-specific settings, caches, detritus
+#-----------------------------------------------------------------------------
+# Tool- / editor- / IDE-specific settings, caches, detritus
+#-----------------------------------------------------------------------------
 *~
 # Stupid vim swap files...
 .*.sw?
 .agignore
-.classpath
-.env
-.envrc
-.direnv/
+.ensime*
 .git-wtfrc
-.idea
 .lvimrc
 # Indexes from Vim completion plugin
 .padawan/
-.project
 .projections.json
-.pydevproject
 .ropeproject
-*.tmproj
-.tm_properties
-.tmtags
 /tags
 /*.tags
+
+# Eclipse / Eclim
+.buildpath
+.classpath
+.project
+.pydevproject
+.settings/
+
+# IntelliJ
+.idea/
+*.iml
 
 # Lots of crap from this srclib thing I'm playing with:
 # https://srclib.org/
@@ -33,8 +37,16 @@
 # Generated object/byte code
 *.py[co]
 
-# Project Types
+#-----------------------------------------------------------------------------
+# Language-specific Project Bits
+#
 # Version/lock files should be forcefully tracked on private projects.
+#-----------------------------------------------------------------------------
+
+# Project-local env configs
+.env
+.envrc
+.direnv/
 
 # Haskell projects
 /cabal.config
