@@ -280,6 +280,10 @@ NeoBundleLazy 'racer-rust/vim-racer', {
 NeoBundleLazy 'cespare/vim-toml', {
 \ 'autoload' : { 'filename_patterns' : ['\.toml$', 'Cargo.lock'] }
 \ }
+NeoBundle 'xolox/vim-lua-ftplugin', {
+\ 'autoload' : { 'filetypes' : 'lua' },
+\ 'depends' : 'xolox/vim-misc'
+\ }
 " }}}
 
 
