@@ -45,8 +45,6 @@
 	autocrlf = false
 [init]
 	templatedir = ~/.config/git/templates
-[push]
-	default = upstream
 [rebase]
 	autosquash = true
 [rerere]
