@@ -16,7 +16,7 @@ if neobundle#is_installed('vim-ipython')
 endif
 
 " Allow setting pdb breakpoints. Run file with !python % (current file)
-" or substitute a path. F7 adds a breakpoint, Shift-F7 removes.
+" or substitute a path. F8 adds a breakpoint, Shift-F8 removes.
 python << EOF
 def SetBreakpoint():
     import re
