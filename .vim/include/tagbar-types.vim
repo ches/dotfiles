@@ -134,6 +134,28 @@ let g:tagbar_type_objc = {
   \ }
 \ }
 
+if executable('rst2ctags.py')
+  let g:tagbar_type_rst = {
+    \ 'ctagstype': 'rst',
+    \ 'ctagsbin' : 'rst2ctags.py',
+    \ 'ctagsargs' : '-f - --sort=yes',
+    \ 'kinds' : [
+      \ 's:sections',
+      \ 'i:images'
+    \ ],
+    \ 'sro' : '|',
+    \ 'kind2scope' : {
+      \ 's' : 'section',
+    \ },
+    \ 'sort': 0,
+  \ }
+
+  let g:ctrlp_buftag_types.rst = {
+    \ 'bin'  : 'rst2ctags.py',
+    \ 'args' : '-f - --sort=yes',
+  \ }
+endif
+
 let g:tagbar_type_rspec = {
   \ 'ctagstype' : 'ruby',
   \ 'kinds' : [
@@ -197,4 +219,3 @@ if executable('hasktags')
     \ 'args' : '--ctags --extendedctag --output=-',
   \ }
 endif
-
