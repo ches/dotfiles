@@ -44,12 +44,19 @@ function acton {
     fi
 
     if [[ "$searchtool" == "find" ]]; then
-        # Shell escaping is always lovely.
-        # TODO: is -E a POSIX/GNU-compatible option?
-        exec \
-            find -E . -type f -regex '.*'"$search"'.*' \
-                -not -path './.git/*' -not -path './.hg/*' \
-            | fpp
+        # Ugh, of course BSD and GNU find handle regex type differently.
+        if [[ "$(uname -s)" == "Darwin" ]]; then
+            # Shell escaping is always lovely.
+            exec \
+                find -E . -type f -regex '.*'"$search"'.*' \
+                    -not -path './.git/*' -not -path './.hg/*' \
+                | fpp
+        else # assume GNU
+            exec \
+                find . -type f -regextype posix-extended -regex '.*'"$search"'.*' \
+                    -not -path './.git/*' -not -path './.hg/*' \
+                | fpp
+        fi
     else
         exec "$searchtool" -g "$search" | fpp
     fi
