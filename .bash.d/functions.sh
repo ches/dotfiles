@@ -20,6 +20,41 @@ function mkbackup {
     cp ${filename} ${base}-${filetime}.${extension}
 }
 
+# This expects a file path substring as argument, and feeds matching files below
+# the current working directory into the fpp tool, which presents a selector UI
+# where you can choose one or many of them to either open in EDITOR or run
+# arbitrary commands on.
+#
+# Simple composition of good tools that do one thing well: ah, Unix.
+function acton {
+    if ! installed fpp; then
+        echo 'acton requires the fpp tool to be installed.'
+        exit 1
+    fi
+
+    local search=$1
+    declare searchtool
+
+    if installed ag; then
+        searchtool=ag
+    elif installed ack; then
+        searchtool=ack
+    else
+        searchtool=find
+    fi
+
+    if [[ "$searchtool" == "find" ]]; then
+        # Shell escaping is always lovely.
+        # TODO: is -E a POSIX/GNU-compatible option?
+        exec \
+            find -E . -type f -regex '.*'"$search"'.*' \
+                -not -path './.git/*' -not -path './.hg/*' \
+            | fpp
+    else
+        exec "$searchtool" -g "$search" | fpp
+    fi
+}
+
 #
 # OS X
 #
