@@ -15,7 +15,11 @@ if v:progname =~? "evim" | finish | endif
 " --------------------------------------
 
 " Vim sets $MYVIMRC, make it easy to get to stuff in ~/.vim too.
-let $MYVIMRUNTIME = expand('<sfile>:p:h') . '/.vim'
+if has('nvim')
+  let $MYVIMRUNTIME = expand('<sfile>:p:h')  " init.vim is child not sibling
+else
+  let $MYVIMRUNTIME = expand('<sfile>:p:h') . '/.vim'
+endif
 
 if has('vim_starting')
   " Use Vim sauce, you can't do anything fun in Vi mode.
@@ -133,6 +137,12 @@ if !has('gui') && !has('nvim')
   let g:CSApprox_loaded = 1
 endif
 
+if has('nvim')
+  " neovim can automatically switch to skinny cursor in insert mode
+  let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
+  let $NVIM_TUI_ENABLE_TRUE_COLOR   = 1
+endif
+
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
 if &t_Co > 2 || has("gui_running")
@@ -240,7 +250,6 @@ if has("autocmd")
     autocmd BufNewFile Makefile silent 0read ~/.vim/skeleton/Makefile  | /^targets
     autocmd BufNewFile .lvimrc silent 0read ~/.vim/skeleton/lvimrc.vim | normal }j
     autocmd BufNewFile *.ino silent 0read ~/.vim/skeleton/skeleton.ino | normal 2G
-    autocmd BufNewFile *.sh silent 0read ~/.vim/skeleton/skeleton.sh   | normal G
     autocmd BufNewFile .projections.json
           \ silent 0read ~/.vim/skeleton/projections.json | normal 2G
     "}}}
@@ -270,8 +279,8 @@ let maplocalleader = "\\"
 " Edit vimrc. Use <leader><space> mapping (when active buffer) to source it.
 nnoremap <leader>ev :split  $MYVIMRC<CR>
 nnoremap <leader>eV :vsplit $MYVIMRC<CR>
-nnoremap <leader>er :split  $MYVIMRUNTIME/
-nnoremap <leader>eR :vsplit $MYVIMRUNTIME/
+nnoremap <leader>er :split  $MYVIMRUNTIME/<CR>
+nnoremap <leader>eR :vsplit $MYVIMRUNTIME/<CR>
 nnoremap <leader>en :split  ~/.vim/doc/my-notes.txt<CR>
 nnoremap <leader>eN :vsplit ~/.vim/doc/my-notes.txt<CR>
 
