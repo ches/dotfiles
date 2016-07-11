@@ -73,10 +73,6 @@
 ;; (read-abbrev-file "~/.emacs.d/abbrev_defs")  ;read abbreviations
 ;;                                              ;file at startup
 
-;; Emacs Code Browser
-;(add-to-list 'load-path "~/.emacs.d/site-lisp/ecb-2.32")
-;(require 'ecb)
-
 ;; redefining the make-backup-file-name function in order to get
 ;; backup files in ~/.backups/ rather than scattered around all over
 ;; the filesystem. Note that you must have a directory ~/.backups/
