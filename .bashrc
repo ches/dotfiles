@@ -104,10 +104,6 @@ export PYTHONSTARTUP=$HOME/.pythonrc
 which pyenv > /dev/null && eval "$(pyenv init -)"
 which pyenv-virtualenv-init > /dev/null && eval "$(pyenv virtualenv-init -)"
 
-# TODO: migrate virtualenvwrapper envs and then ditch this stuff
-# virtualenv & wrapper
-export WORKON_HOME=$HOME/.virtualenvs
-
 # Ruby Version Switching
 # brew install chruby ruby-install
 # Well put: http://pbrisbin.com/posts/chruby

@@ -15,8 +15,6 @@ export GROOVY_HOME=/usr/local/opt/groovy/libexec
 export JAVA_HOME=$(/usr/libexec/java_home --version 1.8.0)
 export NODE_PATH="/usr/local/lib/node_modules"
 
-[[ -r /usr/local/bin/virtualenvwrapper.sh ]] && source /usr/local/bin/virtualenvwrapper.sh
-
 #
 # Custom Shake path
 #
