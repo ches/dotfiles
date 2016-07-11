@@ -106,10 +106,7 @@ which pyenv-virtualenv-init > /dev/null && eval "$(pyenv virtualenv-init -)"
 
 # TODO: migrate virtualenvwrapper envs and then ditch this stuff
 # virtualenv & wrapper
-export VIRTUALENV_USE_DISTRIBUTE=true
 export WORKON_HOME=$HOME/.virtualenvs
-export PIP_VIRTUALENV_BASE=$WORKON_HOME
-export PIP_RESPECT_VIRTUALENV=true
 
 # Ruby Version Switching
 # brew install chruby ruby-install
