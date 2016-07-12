@@ -163,12 +163,12 @@ if &t_Co > 2 || has("gui_running")
 endif
 
 if has("viminfo")
-
   " Allow some global variables to persist between sessions
   " Plugins sometimes use this to retain useful things
   " % saves and restores buffer list when started with no args
   set viminfo^=!,%
-
+elseif has('shada')  " Neovim
+  set shada^=!,%
 endif
 
 " Indentation {{{2
