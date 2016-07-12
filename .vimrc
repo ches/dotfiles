@@ -32,7 +32,7 @@ endif
 runtime include/bundles.vim
 
 " Built-ins. Some things moved in recent Vim versions with package support.
-if has('packages')
+if has('packages') && !has('nvim') " Neovim hasn't moved them yet
   packadd! editexisting            " Bring forward existing session w/ open file
   packadd! matchit                 " More powerful % for if/fi, HTML tags, etc.
 else
@@ -140,7 +140,11 @@ endif
 if has('nvim')
   " neovim can automatically switch to skinny cursor in insert mode
   let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
-  let $NVIM_TUI_ENABLE_TRUE_COLOR   = 1
+endif
+
+" TODO: What is the conditional to check for terminal support? Also requires tmux 2.2
+if has('termguicolors') && !has('gui_running')
+  set termguicolors
 endif
 
 " Switch syntax highlighting on, when the terminal has colors
