@@ -145,6 +145,14 @@ endif
 " TODO: What is the conditional to check for terminal support? Also requires tmux 2.2
 if has('termguicolors') && !has('gui_running')
   set termguicolors
+
+  " Sigh. Needed for tmux where an xterm profile should not be used. Not
+  " needed by Neovim because it left all the termcap stuff behind. See
+  " :help xterm-true-color. Fuck terminals.
+  if $TERM !~ 'xterm' && !has('nvim')
+    set t_8f=[38;2;%lu;%lu;%lum
+    set t_8b=[48;2;%lu;%lu;%lum
+  endif
 endif
 
 " Switch syntax highlighting on, when the terminal has colors
