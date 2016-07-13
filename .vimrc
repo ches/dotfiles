@@ -602,6 +602,18 @@ if has("autocmd")
   autocmd  User GoyoLeave nested call <SID>GoyoLeave()
   " }}}
 
+  " Built-in cruft I never use -- don't bother loading it {{{
+  let g:loaded_getscriptPlugin = 1
+  let g:loaded_gzip            = 1
+  let g:loaded_logipat         = 1
+  let g:loaded_tarPlugin       = 1
+  let g:loaded_tar             = 1
+  let g:loaded_vimballPlugin   = 1
+  let g:loaded_vimball         = 1
+  let g:loaded_zipPlugin       = 1
+  let g:loaded_zip             = 1
+  " }}}
+
   " Haskell
   "
   " gf to buffer-local filetype settings at:
