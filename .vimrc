@@ -398,7 +398,13 @@ if has('mac')
   nnoremap <Leader>ql :write<CR>:sil !qlmanage -p % >& /dev/null &<CR>:redraw!<CR>
 
   " dash.vim
-  nmap <silent> <leader>k <Plug>DashSearch
+  nmap <silent> <Leader>k <Plug>DashSearch
+
+  " netrw won't delete non-empty directories by default, which is annoying
+  " TODO: Safe Linux equivalent to trash since this can be easy to fat-finger
+  if executable('trash')
+    let g:netrw_localrmdir = 'trash'  " brew install trash
+  endif
 endif
 
 " Terminal Function key hackery {{{
