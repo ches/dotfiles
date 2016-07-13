@@ -567,8 +567,10 @@ if has("autocmd")
     "   http://briancarper.net/blog/590/cursorcolumn--cursorline-slowdown
     "   https://gist.github.com/pera/2624765
     "   https://code.google.com/p/vim/issues/detail?id=282
-    autocmd WinLeave * setlocal nocursorline
     autocmd WinEnter,BufRead * setlocal cursorline
+    autocmd WinLeave * setlocal nocursorline
+    autocmd InsertEnter * setlocal nocursorline
+    autocmd InsertLeave * setlocal cursorline
   augroup END "}}}
 
   " Goyo: distraction-free writing {{{
