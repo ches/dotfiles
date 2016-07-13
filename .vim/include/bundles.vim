@@ -33,6 +33,7 @@ NeoBundle 'Shougo/vimproc.vim', {
 
 NeoBundle 'AndrewRadev/splitjoin.vim'
 NeoBundle 'bling/vim-airline', { 'augroup' : 'airline' }
+NeoBundle 'vim-airline/vim-airline-themes'
 NeoBundle 'ciaranm/securemodelines'
 NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'direnv/direnv.vim'

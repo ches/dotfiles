@@ -800,17 +800,22 @@ elseif executable('ack')
   let g:ctrlp_user_command = 'ack -k --nocolor -g "" %s'
 endif
 
-"
-" Airline status bar
-"
-
+" Airline status bar {{{
 " TODO: detect availability
 let g:airline_powerline_fonts = 1
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_symbols.maxlinenr = ''  " Default hamburger is clutter.
+
 let g:airline#extensions#hunks#enabled = 0
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#show_splits = 0
 let g:airline#extensions#tabline#show_tab_type = 0
 let g:airline#extensions#tabline#tab_min_count = 2
+let g:airline#extensions#tabline#ignore_bufadd_pat = '\c\vgundo|tagbar|nerd_tree'
 
 " Trailing whitespace bugs me alright, but not this much.
 let g:airline#extensions#whitespace#enabled = 0
@@ -821,7 +826,7 @@ let g:airline#extensions#whitespace#enabled = 0
 if !has('gui_running')
   " Many unfortunately look poor in the console, molokai almost works
   let g:airline_theme = 'base16'
-endif
+endif " }}}
 
 " AutoPairs
 " Meta mappings use Esc for comfortable Option-as-Esc in iTerm
