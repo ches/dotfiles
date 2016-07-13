@@ -63,12 +63,8 @@ endif
 " // make swap files unique based on path
 set directory=./.backup//,~/.autosave/vim/swap//
 
-if has("vms")
-  set nobackup      " do not keep a backup file, use versions instead
-else
-  set backup        " keep a backup file
-  set backupdir=./.backup,~/.autosave/vim
-endif
+set backup          " keep a backup file
+set backupdir=./.backup,~/.autosave/vim
 
 set history=500     " keep more command line history
 set ruler           " show the cursor position all the time
