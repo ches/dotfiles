@@ -345,6 +345,7 @@ cnoremap <C-A>      <Home>
 cnoremap <C-B>      <Left>
 cnoremap <C-E>      <End>
 cnoremap <C-F>      <Right>
+" Always use the smarter history prefix matching.
 cnoremap <C-N>      <Down>
 cnoremap <C-P>      <Up>
 cnoremap <C-D>      <Del>
@@ -360,6 +361,10 @@ else
   cnoremap <ESC><BS>  <C-W>
   cnoremap <ESC><C-H> <C-W>
 endif
+
+" The defaults for these can be useful, keep them available. See also rsi.vim
+cnoremap   <C-X><C-A> <C-A>
+cnoremap   <C-X><C-D> <C-D>
 
 " Default is Ctrl-F but we've just remapped it
 set cedit=<C-y>
