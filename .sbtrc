@@ -1,0 +1,2 @@
+alias ls = projects
+alias cd = project
