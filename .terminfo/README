@@ -1,0 +1,11 @@
+Mods for Ctrl-H/Backspace handling, because the legacy of terminfo and
+workaround hacks is a goddamn disgrace.
+
+https://github.com/neovim/neovim/issues/2048#issuecomment-78045837
+
+In short,
+
+    $ infocmp $TERM | sed 's/kbs=^[hH]/kbs=\\177/' > $TERM.ti
+    $ tic $TERM.ti
+
+For both xterm-256color for and screen-256color, for iTerm2 and tmux.
