@@ -1084,6 +1084,51 @@ function! VimwikiWeblinkHandler(weblink) " {{{
   call OpenURL(a:weblink)
 endfunction " }}}
 
+" Quickfix utilities {{{2
+" Courtesy of Dr. Mike Henry's vimfiles:
+" https://github.com/drmikehenry/vimfiles
+" See also: https://github.com/Valloric/ListToggle
+
+" Return 1 if current window is the QuickFix window.
+function! IsQuickFixWin()
+  if &buftype == "quickfix"
+    " This is either a QuickFix window or a Location List window.
+    " Try to open a location list; if this window *is* a location list,
+    " then this will succeed and the focus will stay on this window.
+    " If this is a QuickFix window, there will be an exception and the
+    " focus will stay on this window.
+    try
+      lopen
+    catch /E776:/
+      " This was a QuickFix window.
+      return 1
+    endtry
+  endif
+  return 0
+endfunction
+
+" Toggle quickfix window.
+function! QuickFixWinToggle()
+  let numOpenWindows = winnr("$")
+  " Move to previous window before closing QuickFix window.
+  if IsQuickFixWin() | wincmd p | endif
+  cclose
+  " Window was already closed, so open it.
+  if numOpenWindows == winnr("$") | copen | endif
+endfunction
+
+" Toggle location list window.
+function! LocListWinToggle()
+  let numOpenWindows = winnr("$")
+  lclose
+  " Window was already closed, so open it.
+  if numOpenWindows == winnr("$") | lopen | endif
+endfunction
+
+" TODO: make sure <C-q> working with flow control disabled; maybe use Leader?
+nnoremap <silent> <C-q><C-q> :call QuickFixWinToggle()<CR>
+nnoremap <silent> <C-q><C-l> :call LocListWinToggle()<CR>
+
 " Commands {{{1
 " -------------
 
