@@ -754,6 +754,7 @@ if has("autocmd")
   vmap <C-c><C-c> <Plug>SendSelectionToTmux
   nmap <C-c><C-c> <Plug>NormalModeSendToTmux
   nmap <C-c>r <Plug>SetTmuxVars
+  " }}}
 
   " Opt-in for fenced code block highlighting
   let g:markdown_fenced_languages = [
@@ -763,7 +764,6 @@ if has("autocmd")
     \ 'ruby', 'erb=eruby',
     \ 'scala'
   \ ]
-  " }}}
 
   " Vimwiki {{{
   " My custom functions below define a web link handler
@@ -1104,6 +1104,10 @@ if has("eval")
         \ if v:errmsg == ""|
         \   call delete(expand("#"))|
         \ endif
+
+  command! -bar -nargs=? -complete=help Vhelp vertical help <args>
+  cabbrev vhelp Vhelp
+  cabbrev vh Vhelp
 endif "}}}
 
 " vim:foldmethod=marker foldlevel=0 foldclose=all commentstring="%s
