@@ -206,7 +206,7 @@ endif
 
 if has("autocmd")
 
-  augroup BufActions
+  augroup BufActions " {{{2
     autocmd!
 
     " When editing a file, always jump to the last known cursor position. {{{
@@ -257,7 +257,12 @@ if has("autocmd")
           \ unlet b:chmod_new|
           \ endif
     "}}}
-  augroup END
+    " Automatically make scripts their own :Make/:Start runner for Dispatch
+	autocmd BufReadPost *
+          \ if getline(1) =~# '^#!' |
+          \   let b:dispatch = getline(1)[2:-1] . ' %' | let b:start = b:dispatch |
+          \ endif
+  augroup END "}}}
 
 endif " has("autocmd")
 
