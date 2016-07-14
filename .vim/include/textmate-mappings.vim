@@ -22,38 +22,40 @@ if has('autocmd')
     " TODO: Meta versions don't work in terminal when mapping Option to Escape
     " in order to make many other mappings more functional. At least the
     " digraphs are intuitive to remember, e.g. <C-k>=> and <C-k>->
-    autocmd FileType ruby   imap <buffer> <C-l> <Space>=><Space>
-    autocmd FileType coffee imap <buffer> <C-l> <Space>->
-    autocmd FileType coffee imap <buffer> <C-L> <Space>=>
-    autocmd FileType cpp    imap <buffer> <C-l> ->
-    autocmd FileType go     imap <buffer> <C-l> <-
-    autocmd FileType haskell imap <buffer> <C-l> <Space>-><Space>
-    autocmd FileType haskell imap <buffer> <C-L> <Space>=><Space>
-    autocmd FileType haskell imap <buffer> <M-l> <Space><-<Space>
-    autocmd FileType erlang imap <buffer> <C-l> <Space>->
-    autocmd FileType erlang imap <buffer> <C-L> <Space>=>
-    autocmd FileType php    imap <buffer> <C-l> ->
-    autocmd FileType scala  imap <buffer> <C-l> <Space>=><Space>
-    autocmd FileType scala  imap <buffer> <C-L> <Space>-><Space>
-    autocmd FileType scala  imap <buffer> <M-l> <Space>⇒<Space>
-    autocmd FileType scala  imap <buffer> <M-L> <Space>→<Space>
+    autocmd FileType ruby    inoremap <buffer> <C-l> <Space>=><Space>
+    autocmd FileType coffee  inoremap <buffer> <C-l> <Space>->
+    autocmd FileType coffee  inoremap <buffer> <C-L> <Space>=>
+    autocmd FileType cpp     inoremap <buffer> <C-l> ->
+    autocmd FileType go      inoremap <buffer> <C-l> <-
+    autocmd FileType haskell inoremap <buffer> <C-l> <Space>-><Space>
+    autocmd FileType haskell inoremap <buffer> <C-L> <Space>=><Space>
+    autocmd FileType haskell inoremap <buffer> <M-l> <Space><-<Space>
+    autocmd FileType erlang  inoremap <buffer> <C-l> <Space>->
+    autocmd FileType erlang  inoremap <buffer> <C-L> <Space>=>
+    autocmd FileType php     inoremap <buffer> <C-l> ->
+    autocmd FileType scala   inoremap <buffer> <C-l> <Space>=><Space>
+    autocmd FileType scala   inoremap <buffer> <C-L> <Space>-><Space>
+    autocmd FileType scala   inoremap <buffer> <M-l> <Space>⇒<Space>
+    autocmd FileType scala   inoremap <buffer> <M-L> <Space>→<Space>
 
+    " NOTE: The MacVim GUI may map Cmd-B to a menu item for :make. Might need
+    " to override this for some cases below.
     " TODO: dispatch.vim?
     if has('mac') && has('gui_running')
       " Run tests/specs in Ruby/Rails apps
-      autocmd User Rails,Rake nmap <buffer> <D-r> :Rake<CR>
-      autocmd User Rails,Rake nmap <buffer> <D-R> :.Rake<CR>
+      autocmd User Rails,Rake nnoremap <buffer> <D-r> :Rake<CR>
+      autocmd User Rails,Rake nnoremap <buffer> <D-R> :.Rake<CR>
 
       " 'Run' some filetypes the way TM would
-      autocmd FileType coffee nmap <buffer> <D-r> :CoffeeRun<CR>
+      autocmd FileType coffee nnoremap <buffer> <D-r> :CoffeeRun<CR>
       " The 'build' mapping in TM does compile-and-display
-      autocmd FileType coffee nmap <buffer> <D-b> :CoffeeCompile<CR>
+      autocmd FileType coffee nnoremap <buffer> <D-b> :CoffeeCompile<CR>
     else
       " Left Option as Esc in iTerm2
-      autocmd User Rails,Rake nmap <buffer> <Esc>r :Rake<CR>
-      autocmd User Rails,Rake nmap <buffer> <Esc>R :.Rake<CR>
-      autocmd FileType coffee nmap <buffer> <Esc>r :CoffeeRun<CR>
-      autocmd FileType coffee nmap <buffer> <Esc>b :CoffeeCompile<CR>
+      autocmd User Rails,Rake nnoremap <buffer> <Esc>r :Rake<CR>
+      autocmd User Rails,Rake nnoremap <buffer> <Esc>R :.Rake<CR>
+      autocmd FileType coffee nnoremap <buffer> <Esc>r :CoffeeRun<CR>
+      autocmd FileType coffee nnoremap <buffer> <Esc>b :CoffeeCompile<CR>
     endif
   augroup END
 endif
@@ -69,21 +71,21 @@ if has('mac') && has('gui_running')
 
   " New line conveniences
   " FIXME: shifted CR -- see above
-  nmap <D-CR> o
-  nmap <S-D-CR> O
-  imap <D-CR> <Esc>o
-  imap <S-D-CR> <Esc>A;<CR>
+  nnoremap <D-CR> o
+  nnoremap <S-D-CR> O
+  inoremap <D-CR> <Esc>o
+  inoremap <S-D-CR> <Esc>A;<CR>
 
   " Cmd-bracket Indenting
-  nmap <D-[> <<
-  vmap <D-[> <
-  imap <D-[> <C-d>
-  nmap <D-]> >>
-  vmap <D-]> >
-  imap <D-]> <C-t>
-  nmap <M-D-[> ==
-  vmap <M-D-[> =
-  imap <M-D-[> <C-f>
+  nnoremap <D-[> <<
+  vnoremap <D-[> < gv
+  inoremap <D-[> <C-d>
+  nnoremap <D-]> >>
+  vnoremap <D-]> > gv
+  inoremap <D-]> <C-t>
+  nnoremap <M-D-[> ==
+  vnoremap <M-D-[> =
+  inoremap <M-D-[> <C-f>
 else
   " These don't match up as closely since modifier key handling portability on
   " the console is a slippery slope... see `:help :map-alt-keys` for instance.
@@ -102,24 +104,24 @@ else
 
   " New line conveniences
   " Shifted versions don't seem to work due to same keycodes...
-  nmap <Esc><CR> o
-  nmap <Esc><S-CR> O
-  imap <Esc><CR> <Esc>o
-  imap <Esc><S-CR> <Esc>A;<CR>
+  nnoremap <Esc><CR> o
+  nnoremap <Esc><S-CR> O
+  inoremap <Esc><CR> <Esc>o
+  inoremap <Esc><S-CR> <Esc>A;<CR>
 
   " Meta-bracket Indenting Using Ctrl to parallel Cmd from other TM commands
   " conflicts with Ctrl-[ as an Escape alternative, and Ctrl-] as tag jumping
   "
   " NOTE: something about my old visual mode mappings using <M-]>, etc. breaks
   " UltiSnips snippet expansion with Tab when running vim in console -- weird.
-  nmap <Esc>[ <<
-  vmap <Esc>[ < gv
-  imap <Esc>[ <C-d>
-  nmap <Esc>] >>
-  vmap <Esc>] > gv
-  imap <Esc>] <C-t>
-  " nmap <M-C-[> ==
-  " vmap <M-C-[> =
-  " imap <M-C-[> <C-f>
+  nnoremap <Esc>[ <<
+  vnoremap <Esc>[ < gv
+  inoremap <Esc>[ <C-d>
+  nnoremap <Esc>] >>
+  vnoremap <Esc>] > gv
+  inoremap <Esc>] <C-t>
+  " nnoremap <M-C-[> ==
+  " vnoremap <M-C-[> =
+  " inoremap <M-C-[> <C-f>
 endif
 
