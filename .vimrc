@@ -8,7 +8,8 @@
 "                              '--'
 "
 
-" When started as "evim", evim.vim will already have done these settings.
+" In the extreme unlikelihood that anyone runs evim on my system,
+" it will ignore all of this anyway.
 if v:progname =~? "evim" | finish | endif
 
 " Runtime + Plugin System Bootstrap {{{1
@@ -22,8 +23,7 @@ else
 endif
 
 if has('vim_starting')
-  " Use Vim sauce, you can't do anything fun in Vi mode.
-  " This must be first, because it changes other options as a side effect.
+  " Vim, not Vi. This should be set first.
   set nocompatible
   set runtimepath+=~/.vim/bundle/neobundle.vim
 endif
@@ -48,7 +48,8 @@ filetype plugin indent on
 " Check and prompt for any plugins pending installation.
 NeoBundleCheck
 
-" General options {{{1
+" Options {{{1
+" ------------
 " Miscellaneous and Display {{{2
 
 " allow backspacing over everything in insert mode
@@ -92,41 +93,22 @@ set wildignore=*.swp,*.bak,*.pyc,*.o,*.class
 " Only insert up to longest common autocomplete match
 set completeopt+=longest
 
-" General omnicompletion
-set omnifunc=syntaxcomplete#Complete
-
 " Basically the default statusline when ruler is enabled, with fugitive
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
 " Ensure Airline is always on, instead of only appearing when there's a split.
 set laststatus=2
 set noshowmode
+set ttimeout
 set ttimeoutlen=30
 
-" automatically flush to disk when using :make, changing buffers, etc.
-" Alternatively, set hidden to allow moving around and leaving dirty files be
-"set autowrite
-set hidden
+set hidden                  " Allow changing buffers when a file is unwritten
+set autoread                " If file changed outside vim but not inside, just read it
+set switchbuf=useopen       " Use existing window if I try to open an already-open buffer
+set splitbelow splitright   " New h/v split windows show up on bottom/right
 
-" If file changed outside vim but not inside, just read it
-set autoread
-
-" use existing window if I try to open an already-open buffer
-set switchbuf=useopen
-
-" New h/v split window show up on bottom/right
-set splitbelow splitright
-
-" threshold for reporting number of lines changed
-set report=0
-
-" For (sort of) modern standards in :TOhtml output
-let g:html_use_css   = 1
-let g:html_use_xhtml = 0
-
-" Don't use Ex mode, use Q for formatting
-vnoremap Q gq
-nnoremap Q gqap
+set mouse=a    " Try to use mouse in console, for scrolling, etc.
+set report=0   " Threshold for reporting number of lines changed
 
 " Silence CSApprox's gripes if running a vim without gui support. nvim is fine
 if !has('gui') && !has('nvim')
@@ -166,10 +148,9 @@ if &t_Co > 2 || has("gui_running")
   endif
 endif
 
-if has("viminfo")
-  " Allow some global variables to persist between sessions
-  " Plugins sometimes use this to retain useful things
-  " % saves and restores buffer list when started with no args
+" Allow global variables, marks, etc. to persist between sessions.
+" % saves and restores buffer list when started with no args
+if has('viminfo')
   set viminfo^=!,%
 elseif has('shada')  " Neovim
   set shada^=!,%
@@ -177,49 +158,52 @@ endif
 
 " Indentation {{{2
 
-" use previous line's indentation
-set autoindent
+" Defaults. Overridden appropriately for conventions of many filetypes.
 
-" true Tabs display as 8 columns in most tools, but that just looks too wide
-set tabstop=4
+set autoindent      " use previous line's indentation
+set smarttab        " use shiftwidth for indent when at beginning of line
+set tabstop=4       " true Tabs display as 8 columns in most tools, but that
+                    " just looks too wide
+set shiftwidth=4    " set to the same as tabstop (see #4 in :help tabstop)
+set softtabstop=4   " if it looks like a tab, we can delete it like a tab
+set expandtab       " no tabs! spaces only
+set shiftround      " < and > will hit indentation levels instead of always -4/+4
+set textwidth=0     " do not break lines when line length increases
+set cinkeys+=;      " figure out C indent when ; is pressed
 
-" set to the same as tabstop (see #4 in :help tabstop)
-set shiftwidth=4
-
-" if it looks like a tab, we can delete it like a tab
-set softtabstop=4
-
-" no tabs! spaces only..
-set expandtab
-
-" do not break lines when line length increases
-set textwidth=0
-
-" < and > will hit indentation levels instead of always -4/+4
-set shiftround
-
-" braces affect autoindentation
-set smartindent
-
-" Show matching brackets.
-set showmatch
+set showmatch       " Show matching brackets.
 set matchtime=2
-
-" figure out indent when ; is pressed
-set cinkeys+=;
 
 " Use attractive characters to show tabs & trailing spaces
 set listchars=tab:»·,trail:·,eol:¬,nbsp:␣
+
+if has('patch-7.3.541')
+  set formatoptions+=j   " Remove comment leader when joining lines
+endif
 
 " Folding {{{2
 
 set foldmethod=syntax   " try to fold in an intelligent manner based on ftplugins
 set foldlevelstart=99   " default to all folds open when opening a buffer
 set foldnestmax=4       " don't be absurd about how deeply to nest syntax folding
-"set foldclose=all      " close a fold when I leave it
 set foldopen-=block     " drives me nuts that moving with ] opens folds
 
-" Autocommands {{{2
+" Search {{{2
+
+set grepprg=grep\ -rnH\ --exclude='.*.swp'\ --exclude='*~'\ --exclude=tags
+
+" Enhance :grep
+if executable('ag')
+  set grepprg=ag\ --vimgrep\ $*
+  set grepformat=%f:%l:%c:%m
+elseif executable('ack')
+  set grepprg=ack\ --column\ --noheading\ $*
+  set grepformat=%f:%l:%c:%m
+endif
+
+" Autocommands {{{1
+" -----------------
+
 if has("autocmd")
 
   augroup BufActions
@@ -236,8 +220,7 @@ if has("autocmd")
           normal! zz
         endif
       end
-    endfunction
-    "}}}
+    endfunction "}}}
 
     " Easy helptags regeneration when editing my personal Vim notes
     autocmd BufRead ~/.vim/doc/my-notes.txt
@@ -278,7 +261,8 @@ if has("autocmd")
 
 endif " has("autocmd")
 
-" General Mappings {{{1
+" Mappings {{{1
+" -------------
 
 " I'm drinkin' the comma-as-leader kool aid
 let mapleader = ","
@@ -331,6 +315,10 @@ vmap <silent> <F11> :<C-u>set invhlsearch<CR>gv
 " It's a fast-moving world these days -- does your scrolling keep up?
 noremap <C-y> 2<C-y>
 noremap <C-e> 2<C-e>
+
+" Don't use Ex mode, use Q for formatting
+vnoremap Q gw
+nnoremap Q gwap
 
 " Yank from cursor to end of line, to be consistent with C and D.
 nnoremap Y y$
@@ -396,16 +384,11 @@ nmap <leader>` :set invwinfixheight winfixheight?<CR>
 " QuickLook the current file. With Brett Terpstra's awesome CSS fork of
 " the MMD QuickLook plugin, this sure beats browser-based Markdown preview.
 if has('mac')
+  " Warning: OS X since Lion or so has fucked up qlmanage :-/
   nnoremap <Leader>ql :write<CR>:sil !qlmanage -p % >& /dev/null &<CR>:redraw!<CR>
 
   " dash.vim
   nmap <silent> <Leader>k <Plug>DashSearch
-
-  " netrw won't delete non-empty directories by default, which is annoying
-  " TODO: Safe Linux equivalent to trash since this can be easy to fat-finger
-  if executable('trash')
-    let g:netrw_localrmdir = 'trash'  " brew install trash
-  endif
 endif
 
 " Terminal Function key hackery {{{
@@ -416,6 +399,8 @@ endif
 "
 " http://stackoverflow.com/questions/3519532/mapping-function-keys-in-vim
 " http://stackoverflow.com/questions/9950944/binding-special-keys-as-vim-shortcuts
+"
+" NOTE: Neovim ends a lot of the pain.
 if has('mac') && ($TERM == 'xterm-256color' || $TERM == 'screen-256color')
   map <Esc>OP <F1>
   map <Esc>OQ <F2>
@@ -435,10 +420,21 @@ if has('mac') && ($TERM == 'xterm-256color' || $TERM == 'screen-256color')
 endif
 "}}}
 
+" Ellipsis. Mac Opt-; doesn't work in console.
+if has('digraphs')
+  digraph ./ 8230
+endif
+
 " Lotsa TextMate-inspired Mappings
 runtime include/textmate-mappings.vim
 
 " Language- and plugin-specific Preferences {{{1
+" ----------------------------------------------
+
+" For (sort of) modern standards in :TOhtml output
+let g:html_use_css   = 1
+let g:html_use_xhtml = 0
+
 if has("autocmd")
 
   augroup FiletypeSets "{{{
@@ -488,7 +484,7 @@ if has("autocmd")
     autocmd FileType ruby map <buffer> <leader><space> :w!<cr>:!ruby %<cr>
     autocmd FileType python map <buffer> <leader><space> :w!<cr>:!python %<cr>
 
-    " Be trusting about Ruby code being evaluated for autocompletion
+    " Be trusting about Ruby code being evaluated for autocompletion...
     autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
     autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
     autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
@@ -528,7 +524,7 @@ if has("autocmd")
     autocmd FileType man,qf nnoremap <silent><buffer> q :q<CR>
   augroup END "}}}
 
-  " Fun with some goodies hidden in vim-git ftplugins.
+  " Fun with some goodies hidden in vim-git ftplugins. {{{
   augroup GitTricks
     autocmd!
     autocmd FileType gitrebase
@@ -538,7 +534,7 @@ if has("autocmd")
           \ nnoremap <buffer> R :Reword<CR> |
           \ nnoremap <buffer> F :Fixup<CR>  |
           \ nnoremap <buffer> C :Cycle<CR>
-  augroup END
+  augroup END " }}}
 
   " With regards to tpope. See his vimrc for more ideas.
   " TODO: consolidate with dispatch.vim
@@ -557,6 +553,12 @@ if has("autocmd")
     autocmd User Bundler
           \ if &makeprg !~# 'bundle' | setl makeprg^=bundle\ exec\  | endif
   augroup END "}}}
+
+  augroup BaselineCompletion " {{{
+    autocmd!
+    autocmd FileType * if exists("+omnifunc") && &omnifunc == "" | setlocal omnifunc=syntaxcomplete#Complete | endif
+    autocmd FileType * if exists("+completefunc") && &completefunc == "" | setlocal completefunc=syntaxcomplete#Complete | endif
+  augroup END " }}}
 
   augroup Cursorline "{{{
     autocmd!
@@ -715,6 +717,7 @@ if has("autocmd")
     let g:gist_clip_command                   = 'pbcopy'
   endif "}}}
 
+  " Tslime {{{
   " Tslime provides a simple means of sending text to a tmux pane, most
   " usefully a REPL.
   "
@@ -747,6 +750,7 @@ if has("autocmd")
     \ 'ruby', 'erb=eruby',
     \ 'scala'
   \ ]
+  " }}}
 
   " Vimwiki {{{
   " My custom functions below define a web link handler
@@ -774,6 +778,12 @@ if has("autocmd")
       \ 'python' : 'py',
       \ 'javascript' : 'js'
     \ }
+
+    " netrw won't delete non-empty directories by default, which is annoying
+    " TODO: Safe Linux equivalent to trash since this can be easy to fat-finger
+    if executable('trash')
+      let g:netrw_localrmdir = 'trash'  " brew install trash
+    endif
   endif
 
   " Merlin - Semantic completion for OCaml
@@ -804,13 +814,12 @@ endif " has("autocmd")
 map <Leader>a  :Ack! ''<Left>
 map <Leader>A  :AckWindow! ''<Left>
 map <Leader>n  :AckFromSearch!<CR>
+" Mnemonic: helpgrep, but consider making this a prefix for Lawrencium...
 map <Leader>hg :AckHelp! ''<Left>
 
 let g:ackhighlight = 1
 
 " If The Silver Searcher is available, use it.
-"
-" TODO: maybe use as 'grepprg' too
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 
@@ -889,7 +898,7 @@ if has('python')
   let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
   let g:UltiSnipsEditSplit           = "horizontal"
 
-  " YouCompleteMe
+  " YouCompleteMe {{{
   " Wipe out the default Tab completions to stay out of the way of UltiSnips--
   " it's comfortable to just use Ctrl-n for YCM completion. Tried hacks for
   " overloading Tab and it wasn't worth it.
@@ -907,6 +916,7 @@ if has('python')
   " Homebrew Python installed, you might need to `brew unlink python` when
   " building YCM, and then set this:
   " let g:ycm_path_to_python_interpreter = '/usr/bin/python'
+  " }}}
 
   " Gundo
   nnoremap <F7> :GundoToggle<CR>
@@ -1010,10 +1020,14 @@ let g:speckyWindowType = 1      " Horizontal split
 let g:splitjoin_normalize_whitespace = 1
 let g:splitjoin_align = 1
 
-" Custom Functions {{{1
+" Functions {{{1
+" --------------
 
+" Preserve -- restore cursor position after an operation {{{
+"
 " Generalized function to execute the given command while preserving cursor
 " position, etc. Hat tip: http://vimcasts.org/episodes/tidying-whitespace/
+" TODO: cleanse jumplist?
 function! Preserve(command)
   " Preserve cursor position and last search
   let _s=@/
@@ -1024,19 +1038,21 @@ function! Preserve(command)
   " Restore the saved bits
   let @/=_s
   call cursor(l, c)
-endfunction
+endfunction " }}}
 
-function! StripTrailingWhitespace()
+function! StripTrailingWhitespace()  " {{{
+  " TODO: support ranges
   call Preserve("%s/\\s\\+$//e")
-endfunction
+endfunction " }}}
 
-function! ReformatFile()
+function! ReformatFile()  " {{{
   call Preserve("normal gg=G")
-endfunction
+endfunction " }}}
 
 nmap _$ :call StripTrailingWhitespace()<CR>
 nmap _= :call ReformatFile()<CR>
 
+" OpenURL {{{
 " Rails.vim and others call this by naming convention for various
 " browser-opening functions
 function! OpenURL(url)
@@ -1044,32 +1060,37 @@ function! OpenURL(url)
     let g:browser = 'open '
   endif
   exec 'silent !'.g:browser.' '.a:url
-endfunction
-command! -nargs=1 OpenURL :call OpenURL(<q-args>)
+endfunction " }}}
 
+" open URL under cursor in browser
+nnoremap gb :OpenURL <cfile><CR>
 nnoremap gG :OpenURL http://www.google.com/search?q=<cword><CR>
 nnoremap gW :OpenURL http://en.wikipedia.org/wiki/Special:Search?search=<cword><CR>
 
-function! VimwikiWeblinkHandler(weblink)
+function! VimwikiWeblinkHandler(weblink) " {{{
   call OpenURL(a:weblink)
-endfunction
+endfunction " }}}
 
 " Commands {{{1
+" -------------
 
-" Stolen shamelessly from tpope
 if has("eval")
+  command! -nargs=1 OpenURL :call OpenURL(<q-args>)
+
+  " Bits stolen shamelessly from tpope
+  " :edit with filename:lineno style supported
   command! -bar -nargs=1 -complete=file E :exe "edit ".substitute(<q-args>,'\(.*\):\(\d\+\):\=$','+\2 \1','')
   command! -bar -nargs=0 SudoW   :setl nomod|silent exe 'write !sudo tee % >/dev/null'|let &mod = v:shell_error
   command! -bar -nargs=* -bang W :write<bang> <args>
-  command! -bar -nargs=0 -bang Scratch :silent edit<bang> \[Scratch]|set buftype=nofile bufhidden=hide noswapfile buflisted
   command! -bar -count=0 RFC     :e http://www.ietf.org/rfc/rfc<count>.txt|setl ro noma
+  command! -bar -nargs=0 -bang Scratch :silent edit<bang> \[Scratch] |
+        \ set buftype=nofile bufhidden=hide noswapfile buflisted
   command! -bar -nargs=* -bang -complete=file Rename :
         \ let v:errmsg = ""|
         \ saveas<bang> <args>|
         \ if v:errmsg == ""|
         \   call delete(expand("#"))|
         \ endif
-endif
+endif "}}}
 
-" vim:foldmethod=marker commentstring="%s
-
+" vim:foldmethod=marker foldlevel=0 foldclose=all commentstring="%s
