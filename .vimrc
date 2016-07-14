@@ -541,22 +541,30 @@ if has("autocmd")
           \ nnoremap <buffer> C :Cycle<CR>
   augroup END " }}}
 
-  " With regards to tpope. See his vimrc for more ideas.
-  " TODO: consolidate with dispatch.vim
   augroup Compilers "{{{
+    " With regards to tpope. See his vimrc for more ideas.
     autocmd!
+
     " TODO: Focused tests a la :.Rake, try to use spin, etc. when available
-    autocmd FileType cucumber compiler cucumber | setl makeprg=cucumber\ \"%:p\"
+    autocmd FileType cucumber let b:dispatch = 'cucumber %'
     autocmd FileType ruby
+          \ let b:start = executable('pry') ? 'pry -r "%:p"' : 'irb -r "%:p"' |
           \ if expand('%') =~# '_test\.rb$' |
-          \   compiler rubyunit | setl makeprg=testrb\ \"%:p\" |
+          \   let b:dispatch = 'testrb %' |
           \ elseif expand('%') =~# '_spec\.rb$' |
-          \   compiler rspec | setl makeprg=rspec\ \"%:p\" |
+          \   let b:dispatch = 'rspec %' |
           \ else |
-          \   compiler ruby | setl makeprg=ruby\ -wc\ \"%:p\" |
+          \   let b:dispatch = 'ruby -wc %' |
           \ endif
     autocmd User Bundler
           \ if &makeprg !~# 'bundle' | setl makeprg^=bundle\ exec\  | endif
+    autocmd FileType vim
+          \ if exists(':Runtime') |
+          \   let b:dispatch = ':Runtime' |
+          \   let b:start = ':Runtime|PP' |
+          \ else |
+          \   let b:dispatch = ":unlet! g:loaded_{expand('%:t:r')}|source %" |
+          \ endif
   augroup END "}}}
 
   augroup BaselineCompletion " {{{
