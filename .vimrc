@@ -539,8 +539,10 @@ if has("autocmd")
     autocmd User Rails.javascript* setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
     autocmd User Rails.javascript.coffee* setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 
-    " Comment continuation
+    " Comment continuation, joining
     autocmd FileType sh setlocal formatoptions+=roj
+    " Auto-wrap comments to a nicely-readable width, assuming formatoptions+=c
+    autocmd FileType go setlocal textwidth=80
 
     " Folding by indentation works relatively well for whitespace-significant langs
     autocmd FileType coffee,python setlocal foldmethod=indent nofoldenable
@@ -588,7 +590,8 @@ if has("autocmd")
     autocmd FileType vimwiki map <buffer> <Leader>w/ :VimwikiSearch<space>/
 
     autocmd FileType text,gitcommit,vimwiki setlocal spell
-    autocmd FileType man,qf nnoremap <silent><buffer> q :q<CR>
+    autocmd FileType godoc,man,qf nnoremap <silent><buffer> q :q<CR>
+    autocmd FileType man setlocal nocursorline nomodifiable
   augroup END "}}}
 
   " Fun with some goodies hidden in vim-git ftplugins. {{{
@@ -710,6 +713,17 @@ if has("autocmd")
   " and commenting for Python and JavaScript.
   let g:chapa_default_mappings   = 1
   let g:chapa_no_repeat_mappings = 1
+
+  " Go (golang) {{{
+  " Tell vim-go to use goimports instead of gofmt on save
+  let g:go_fmt_command = 'goimports'
+
+  " Make things prettier -- unfortunately this is slow as balls
+  " let g:go_highlight_functions = 1
+  " let g:go_highlight_methods = 1
+  " let g:go_highlight_structs = 1
+  " let g:go_highlight_operators = 1
+  " }}}
 
   " Rust {{{
   " For Racer to go to definition, autocomplete
@@ -968,7 +982,7 @@ if has('python')
   let g:ycm_key_list_select_completion   = []
   let g:ycm_key_list_previous_completion = []
 
-  " These extend the plugin's defaults.
+  " These extend the plugin's defaults. Values can be Python regexen.
   let g:ycm_semantic_triggers = {}
   let g:ycm_semantic_triggers.haskell  = ['.']
   let g:ycm_semantic_triggers.markdown = ['<']    " Using HTML omnicompletion
