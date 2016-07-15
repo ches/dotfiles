@@ -225,7 +225,7 @@ if has("autocmd")
     " Easy helptags regeneration when editing my personal Vim notes
     autocmd BufRead ~/.vim/doc/my-notes.txt
           \ setlocal modifiable iskeyword=!-~,^*,^\|,^\",192-255 |
-          \ map <buffer> <Leader><space> :w!<CR>:helptags ~/.vim/doc<CR>
+          \ map <buffer> <Leader>. :w!<CR>:helptags ~/.vim/doc<CR>
 
     " Almost never want to remain in paste mode after insert
     autocmd InsertLeave * if &paste | set nopaste paste? | endif
@@ -269,17 +269,60 @@ endif " has("autocmd")
 " Mappings {{{1
 " -------------
 
-" I'm drinkin' the comma-as-leader kool aid
-let mapleader = ","
-let maplocalleader = "\\"
+" Because two hands are better than one.
+let mapleader = "\<Space>"
+let maplocalleader = "\\"  " Try comma or Tab? (alas, Ctrl-i interference, damn)
 
-" Edit vimrc. Use <leader><space> mapping (when active buffer) to source it.
+" In and out of command mode quickly, less pain.
+noremap <CR> :
+
+" Leader Mappings {{{2
+
+" Lots of great ideas for fewer Shift reaches from:
+" http://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
+nnoremap <Leader>w :w<CR>
+nnoremap <Leader>x :xit<CR>
+
+" Navigation with fewer chords
+nnoremap <Leader><Space> <C-f>
+nnoremap <Leader><BS>    <C-b>
+nnoremap <Left>  {
+nnoremap <Right> }
+nnoremap <Up>    <C-u>
+nnoremap <Down>  <C-d>
+
+" New trial for NERDtree and Tagbar: <Leader>[ and <Leader>]; or :pop and
+" :tag for these? Or <C-i>/<C-o> opening up Tab for LocalLeader...
+" nnoremap <Leader>, :NERDTreeToggle<CR>
+" nnoremap <Leader>. :TagbarToggle<CR>
+nnoremap <Leader>[ :NERDTreeToggle<CR>
+nnoremap <Leader>] :TagbarToggle<CR>
+
+" Mnemonic: [o]pen files or [f]unctions. <Leader>b is LustyJuggler, change or drop it?
+nnoremap <Leader>o      :CtrlP<CR>
+nnoremap <Leader><C-o>  :CtrlPBuffer<CR>
+nnoremap <Leader>f      :CtrlPBufTag<CR>
+nnoremap <Leader><C-f>  :CtrlPTag<CR>
+nnoremap <Leader>m      :CtrlPMRUFiles<CR>
+nnoremap <Leader><CR>   :CtrlPCmdPalette<CR>
+
+" Copy and paste to/from system clipboard with ease
+vnoremap <Leader>y "+y
+vnoremap <Leader>d "+d
+nnoremap <Leader>p "+p
+nnoremap <Leader>P "+P
+vnoremap <Leader>p "+p
+vnoremap <Leader>P "+P
+
+" Edit vimrc. Use <leader>. mapping (when active buffer) to source it.
 nnoremap <leader>ev :split  $MYVIMRC<CR>
 nnoremap <leader>eV :vsplit $MYVIMRC<CR>
 nnoremap <leader>er :split  $MYVIMRUNTIME/<CR>
 nnoremap <leader>eR :vsplit $MYVIMRUNTIME/<CR>
 nnoremap <leader>en :split  ~/.vim/doc/my-notes.txt<CR>
 nnoremap <leader>eN :vsplit ~/.vim/doc/my-notes.txt<CR>
+nnoremap <leader>ef :exec 'split '  . join([$MYVIMRUNTIME, 'after', 'ftplugin', &ft . '.vim'], '/')<CR>
+nnoremap <leader>eF :exec 'vsplit ' . join([$MYVIMRUNTIME, 'after', 'ftplugin', &ft . '.vim'], '/')<CR>
 
 " Search runtime files (plugins) -- warning: slow!
 nnoremap <leader>eP :CtrlPRTS<CR>
@@ -287,6 +330,16 @@ nnoremap <leader>eP :CtrlPRTS<CR>
 " TODO: make this a command, something like this but proper completions:
 " command -bar -nargs=? -complete=help Help help my-notes-<args>
 nnoremap <leader>hh :help my-notes-
+
+" Ready for tab-completion of named Tabular patterns
+" Choosing 'gq' since it's similar function to the format command
+nnoremap <Leader>gq :Tabularize<space>
+nnoremap <Leader>q= :Tabularize assignment<CR>
+nnoremap <Leader>q<Bar> :Tabularize bars<CR>
+" }}}2
+
+" Tried this in after/ftplugin/help.vim, let's try it globally
+nnoremap <BS> <C-t>
 
 " Omni completion shortcut
 imap <M-space> <C-x><C-o><C-p>
@@ -309,6 +362,9 @@ nnoremap <Leader><F4> :lnext<CR>
 nnoremap <LocalLeader><F2> :Copen<CR>
 nnoremap <LocalLeader><F3> :Start<CR>
 
+" Clever tpope
+nnoremap <silent> <F9> :if &previewwindow<Bar>pclose<Bar>elseif exists(':Gstatus')<Bar>exe 'Gstatus'<Bar>else<Bar>ls<Bar>endif<CR>
+
 " Easy paste mode toggling
 set pastetoggle=<F6>
 
@@ -327,6 +383,9 @@ nnoremap Q gwap
 
 " Yank from cursor to end of line, to be consistent with C and D.
 nnoremap Y y$
+
+" Select what was just pasted
+noremap gV `[v`]
 
 " Why so much hand lifting pain for command editing?
 " Allow Emacs/readline-like keys.
@@ -483,11 +542,14 @@ if has("autocmd")
     " Comment continuation
     autocmd FileType sh setlocal formatoptions+=roj
 
-    " Use leader+space to write and execute
-    autocmd FileType vim map <buffer> <leader><space> :w!<cr>:source %<cr>
-    autocmd FileType sh map <buffer> <leader><space> :w!<cr>:!/bin/sh %<cr>
-    autocmd FileType ruby map <buffer> <leader><space> :w!<cr>:!ruby %<cr>
-    autocmd FileType python map <buffer> <leader><space> :w!<cr>:!python %<cr>
+    " Folding by indentation works relatively well for whitespace-significant langs
+    autocmd FileType coffee,python setlocal foldmethod=indent nofoldenable
+
+    " Use Leader-. to write and execute. Prefer :Dispatch if shebanged though.
+    autocmd FileType vim    map <buffer> <Leader>. :w!<CR>:source %<CR>
+    autocmd FileType sh     map <buffer> <Leader>. :w!<CR>:!/bin/sh %<CR>
+    autocmd FileType ruby   map <buffer> <Leader>. :w!<CR>:!ruby %<CR>
+    autocmd FileType python map <buffer> <Leader>. :w!<CR>:!python %<CR>
 
     " Be trusting about Ruby code being evaluated for autocompletion...
     autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
@@ -655,8 +717,6 @@ if has("autocmd")
   " }}}
 
   " Tagbar {{{
-  nnoremap <Leader>. :TagbarToggle<CR>
-
   runtime include/tagbar-types.vim
   let g:tagbar_autoclose = 1
   " }}}
@@ -766,6 +826,10 @@ if has("autocmd")
   \ ]
 
   " Vimwiki {{{
+
+  " Using <Space>w to write files now, need to keep the old home for this.
+  let g:vimwiki_map_prefix = ',w'
+
   " My custom functions below define a web link handler
   let g:vimwiki_menu      = 'Plugin.Vimwiki'
   let g:vimwiki_use_mouse = 1  " A rare case where I may actually use the mouse :-)
@@ -886,20 +950,6 @@ let g:localvimrc_ask        = 1  " Default, but be paranoid since we don't sandb
 let g:localvimrc_persistent = 2  " Always store/restore decisions
 
 let g:localvimrc_persistence_file = $MYVIMRUNTIME . '/localvimrc_persistent'
-
-" NERD tree - double-leader
-map <Leader><Leader> :NERDTreeToggle<cr>
-
-" Mnemonic: [f]iles or [f]unctions, with a shared key. <Leader>b is LustyJuggler.
-nnoremap <Leader>f      :CtrlP<CR>
-nnoremap <Leader>F      :CtrlPBuffer<CR>
-nnoremap <LocalLeader>f :CtrlPBufTag<CR>
-nnoremap <Leader><C-f>  :CtrlPTag<CR>
-
-" Ready for tab-completion of named Tabular patterns
-" Choosing 'gq' since it's similar function to the format command
-map <Leader>gq :Tabularize<space>
-map <Leader>q= :Tabularize assignments<CR>
 
 " Set up neocomplete/neocomplcache, instead of YouCompleteMe.
 " runtime include/neocompl.vim
