@@ -491,10 +491,19 @@ Mappings~
 <LocalLeader>t          Display type information for word under cursor.
                         See |(go-info)|.
 
-<LocalLeader>i          Show interfaces that type under the cursor
+<LocalLeader>i          Show detailed properties for type/declaration/value
+                        under the cursor. See |(go-describe)|.
+
+<LocalLeader>I          Show interfaces that type under the cursor
                         implements. See |(go-implements)|.
 
 <LocalLeader>r          Rename identifier under cursor. See |(go-rename)|.
+
+<LocalLeader>f          Loads CtrlP with definitions in current file. See
+                        |:GoDecls|.
+
+<LocalLeader><C-f>      Loads CtrlP with definitions under the current
+                        directory. See |:GoDeclsDir|.
 
 Enhanced semantic go-to-definition is available and uses the standard mappings
 in |my-notes-ft-conventions|. A few additional ones that don't have native
