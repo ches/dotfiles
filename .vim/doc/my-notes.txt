@@ -157,6 +157,7 @@ See |fold-commands|, this is a quick summary: >
     zM          closes all folds (sets foldlevel to zero).
     zr          reduce folding (decreases foldlevel by one).
     zR          opens all folds (sets foldlevel to max).
+    zv          opens just enough folds to reveal the cursor.
     zx          resets folds (reapplies configured foldlevel).
 
     zj          moves cursor to the next fold.
@@ -624,7 +625,6 @@ question and then the error and style checking should Just Work.
 Jedi between Python 2 and 3 modes within a running session, but I haven't
 configured this yet.
 
-TODO: make airline report pyenv~
                                                     *my-notes-python-mappings*
 Mappings~
 
@@ -648,17 +648,30 @@ in |my-notes-ft-conventions|.
                                                       *my-notes-python-extras*
 Extras~
 
-|chapa| provides handy movement, selection, commenting, and folding in Python.
-As a brief reminder of the mapping conventions: >
+|braceless| attempts to enhance indentation, folding, and text object-based
+motions for indentation-based languages, particularly Python. The key text
+object is `P`, selecting block bodies and entire blocks with `iP` and `aP`.
+These are repeatable, which is very handy.
 
-    fnf, fpf : Find next/previous function.
-    fnm, fpm : Same, for methods.
-    fnc, fpc : Same, for classes.
-    vim      : Visually select this method. n and p work also.
-    cim      : Toggle commenting of this method. n and p work also.
-    zim      : Fold this method. n and p work also.
+Braceless has different semantics for motions than the default Python
+ftplugin:
+>
+    ]], [[ : Go to next/previous block head, including if, while, try, etc.
+    ]m, [m : Go to next/previous class or def declaration.
+    ]M, [M : Go to end of next/previous class or def declaration.
+    g], g[ : Go forward/backward an in/decreased indent level.
+<
+You can also re-indent with |<| and |>| -- contiguous blocks will be affected
+by `>iP` for example.
 
-TODO: define custom chapa repeat mappings
+Braceless also adds some line continuation smarts, and formatting like
+collection literals that is PEP8-compliant.
+
+|textobj-indent| is also useful, but Braceless's objects are better at
+understanding nested Python block structures, docstrings, etc.
+
+|splitjoin| also has some support for Python like collection literals, see
+|splitjoin-python|.
 
                                                      *my-notes-python-ipython*
 IPython~
@@ -701,10 +714,8 @@ advanced refactoring uses.
 vim-virtualenv works well for virtualenvwrapper, but with pyenv vim-pyenv is
 the clear choice.
 
-Possibly more powerful/integrated with true text objects than Chapa:
-
+A simpler text object option than Braceless:
 https://github.com/bps/vim-textobj-python
-https://github.com/michaeljsmith/vim-indent-object
 
 Worth a look for debugger integration:
 

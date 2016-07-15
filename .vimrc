@@ -183,7 +183,6 @@ endif
 
 " Folding {{{2
 
-set foldmethod=syntax   " try to fold in an intelligent manner based on ftplugins
 set foldlevelstart=99   " default to all folds open when opening a buffer
 set foldnestmax=4       " don't be absurd about how deeply to nest syntax folding
 set foldopen-=block     " drives me nuts that moving with ] opens folds
@@ -518,9 +517,11 @@ if has("autocmd")
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType html setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
     autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+    " Hide completion doc hints automatically after no longer needed
+    autocmd InsertLeave *.py pclose
   augroup END "}}}
 
   " TODO: might soon want to start organizing this ballooning group of stuff
@@ -544,8 +545,8 @@ if has("autocmd")
     " Auto-wrap comments to a nicely-readable width, assuming formatoptions+=c
     autocmd FileType go setlocal textwidth=80
 
-    " Folding by indentation works relatively well for whitespace-significant langs
-    autocmd FileType coffee,python setlocal foldmethod=indent nofoldenable
+    " Enhancements for whitespace-significant langs. Folding still a bit slow.
+    autocmd FileType coffee,python BracelessEnable +indent +fold
 
     " Use Leader-. to write and execute. Prefer :Dispatch if shebanged though.
     autocmd FileType vim    map <buffer> <Leader>. :w!<CR>:source %<CR>
@@ -576,10 +577,6 @@ if has("autocmd")
     " Use fancier man.vim version instead of keywordprg
     autocmd FileType c,sh nnoremap K :Man <cword><CR>
     autocmd FileType vim setlocal keywordprg=:help
-
-    " Make pydoc.vim's doc window close easier
-    autocmd BufNewFile __doc__ nmap <silent> <buffer> q :q<CR>
-    " autocmd FileType python setlocal cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 
     autocmd FileType javascript let javascript_enable_domhtmlcss=1
     autocmd FileType xml let xml_use_xhtml = 1 " default xml to self-closing tags
@@ -707,12 +704,23 @@ if has("autocmd")
   let erlang_skel_replace = 0
   let erlang_skel_header = { "author": "Ches Martin" }
 
+  " Python -- see also ~/.vim/after/ftplugin/python.vim {{{
   let python_highlight_all = 1
 
-  " Chapa provides nice mnemonic movement, selection
-  " and commenting for Python and JavaScript.
-  let g:chapa_default_mappings   = 1
-  let g:chapa_no_repeat_mappings = 1
+  " The way jedi-vim handles mappings with variable assignments is annoying --
+  " like so many plugins, it ought to have a <Plug> map approach... I'm
+  " leaving the (intrusive) default mappings for now, because it's a pain to
+  " manually do all the other stuff that auto_initialization does if I turn it
+  " off. The plugin at least needs an option to only skip its mappings.
+  " let g:jedi#auto_initialization = 0
+
+  let g:jedi#auto_close_doc = 0       " Overly jerky, spastic UI layout shifts
+  let g:jedi#completions_enabled = 0  " We get jedi already with YouCompleteMe
+
+  " vim-ipython - it's crusty but still fairly useful. Give it some love.
+  let g:ipy_completefunc = 'none'  " Don't bother with completion, we have YCM/jedi
+  let g:ipy_perform_mappings = 0   " Lots of intrusive mappings I'm not fond of
+  " }}}
 
   " Go (golang) {{{
   " Tell vim-go to use goimports instead of gofmt on save
@@ -740,7 +748,7 @@ if has("autocmd")
   let NERDTreeShowBookmarks   = 1
   let NERDTreeQuitOnOpen      = 1      " hide after opening a file
   let NERDTreeHijackNetrw     = 0      " I like netrw when I `:e somedir`
-  let NERDTreeIgnore          = ['\.git','\.hg','\.svn','\.DS_Store']
+  let NERDTreeIgnore          = ['\.git', '\.hg', '\.svn', '\.DS_Store', '\.pyc']
 
   " NERDCommenter
   let NERDSpaceDelims         = 1      " use a space after comment chars
