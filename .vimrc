@@ -144,7 +144,7 @@ if &t_Co > 2 || has("gui_running")
     colorscheme xoria256          " The best diff highlighting I've found
   else
     set background=dark
-    colorscheme base16-default
+    colorscheme base16-default-dark
   endif
 endif
 

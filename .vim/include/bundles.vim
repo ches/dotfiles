@@ -143,10 +143,10 @@ NeoBundle 'mkusher/padawan.vim', {
 \ }
 
 " Python {{{2
-NeoBundleLazy 'alfredodeza/chapa.vim', {
-\ 'autoload' : { 'filetypes' : ['python', 'javascript'] }
-\ }
 NeoBundleLazy 'alfredodeza/konira.vim', {
+\ 'autoload' : { 'filetypes' : 'python' }
+\ }
+NeoBundleLazy 'alfredodeza/pytest.vim', {
 \ 'autoload' : { 'filetypes' : 'python' }
 \ }
 NeoBundleLazy 'davidhalter/jedi-vim', {
@@ -164,6 +164,9 @@ NeoBundleLazy 'ivanov/vim-ipython', {
 NeoBundleLazy 'lambdalisue/vim-pyenv', {
 \ 'autoload' : { 'filetypes' : ['python', 'python3'] },
 \ 'depends' : 'davidhalter/jedi-vim'
+\ }
+NeoBundleLazy 'tweekmonster/braceless.vim', {
+\ 'autoload' : { 'filetypes' : ['python', 'coffee'] }
 \ }
 
 " Ruby {{{3
