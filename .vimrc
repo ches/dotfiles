@@ -968,8 +968,12 @@ if has('python')
   let g:ycm_key_list_select_completion   = []
   let g:ycm_key_list_previous_completion = []
 
+  " These extend the plugin's defaults.
   let g:ycm_semantic_triggers = {}
-  let g:ycm_semantic_triggers.haskell = ['.']
+  let g:ycm_semantic_triggers.haskell  = ['.']
+  let g:ycm_semantic_triggers.markdown = ['<']    " Using HTML omnicompletion
+  let g:ycm_semantic_triggers.vimwiki  = ['[[']
+  let g:ycm_semantic_triggers.php = ['->', '::', '(', 'use ', 'namespace ', '\']
 
   " Enable using tags. Off by default "because it's slow if your tags file is
   " on a network directory". lolwut.
