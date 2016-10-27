@@ -6,6 +6,7 @@
     cmd: "ctags"
     cmdArgs: "--tag-relative --recurse -f .git/tags --exclude=.git"
     extraTagFiles: ".git/tags"
+  "atom-typescript": {}
   "autocomplete-erlang":
     elixirPath: "/usr/local/bin/elixir"
   "autocomplete-php": {}
@@ -113,3 +114,9 @@
 ".scala.source":
   editor:
     tabLength: 2
+".source.ts":
+  editor:
+    tabLength: 4
+".source.tsx":
+  editor:
+    tabLength: 4

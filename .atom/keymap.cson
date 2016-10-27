@@ -155,6 +155,19 @@
   'ctrl-]': 'racer:find-definition'
   'ctrl-t': 'last-cursor-position:previous'
 
+# TypeScript
+'atom-text-editor[data-grammar^="source ts"].vim-mode.normal-mode':
+  # atom-typescript has symbols integration
+  'space f': 'symbols-view:toggle-file-symbols'
+  'space ctrl-f': 'symbols-view:toggle-project-symbols'
+  'space ]': 'typescript:toggle-semantic-view'
+
+  'g d': 'typescript:go-to-declaration'
+  'ctrl-]': 'typescript:go-to-declaration'
+  'ctrl-t': 'last-cursor-position:previous'
+
+  '\\ t': 'typescript:show-type'
+
 '.tree-view':
   # The foil to the Vim normal mode mapping above
   'space [': 'tree-view:toggle'
