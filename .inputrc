@@ -4,6 +4,10 @@ set completion-ignore-case on
 # Hyphen can be used to complete underscores
 set completion-map-case on
 
+# Completion when in middle of word doesn't duplicate existing input.
+# Like many useful things, seems unsupported in OS X editline.
+set skip-completed-text On
+
 # Automatically complete directory symlinks with ending /
 # Also offers them for `complete -d` like cd & pushd
 set mark-symlinked-directories on
@@ -21,7 +25,7 @@ set completion-prefix-display-length 2
 # Cycle through available completions
 "\ej": menu-complete
 # "\ek": menu-complete-backward
-# For OS X :-/
+# For OS X / bash < 4  :-/
 "\ek": "\e-1\ej"
 
 # Default Ctrl-w to stop at punctuation
