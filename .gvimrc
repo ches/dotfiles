@@ -5,7 +5,7 @@ set guioptions-=L       " No left hand scrollbars
 " I can't really be bothered with automating installation of this...
 set guifont=Inconsolata-dz\ for\ Powerline:h12
 
-colorscheme base16-default
+colorscheme base16-default-dark
 
 " Many Airline themes are not at all 256-color friendly for console,
 " fortunately much better in GUI Vim.
