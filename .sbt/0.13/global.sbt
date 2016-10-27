@@ -8,7 +8,7 @@
 
 // Use test:console for a far superior REPL experience:
 // http://lihaoyi.github.io/Ammonite/#Ammonite-REPL
-libraryDependencies += "com.lihaoyi" % "ammonite-repl" % "0.6.2" % "test" cross CrossVersion.full
+libraryDependencies += "com.lihaoyi" % "ammonite-repl" % "0.7.8" % "test" cross CrossVersion.full
 initialCommands in (Test, console) := """ammonite.repl.Main.run()"""
 
 // Automatically clear the console on each triggered execution run
