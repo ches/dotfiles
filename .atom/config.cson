@@ -1,9 +1,10 @@
 "*":
   Ensime:
-    sbtExec: "~/bin/sbt"
+    sbtExec: "/Users/ches/bin/sbt"
     typecheckWhen: "save"
   "atom-ctags":
-    cmdArgs: "--tag-relative --recurse -f .git/tags"
+    cmd: "ctags"
+    cmdArgs: "--tag-relative --recurse -f .git/tags --exclude=.git"
     extraTagFiles: ".git/tags"
   "autocomplete-erlang":
     elixirPath: "/usr/local/bin/elixir"
@@ -25,11 +26,13 @@
       "platformio-ide"
       "linter-scalac"
       "symbols-view"
+      "tabs"
     ]
     packagesWithKeymapsDisabled: [
       "racer"
     ]
     projectHome: "~/src"
+    telemetryConsent: "limited"
     themes: [
       "nucleus-dark-ui"
       "gruvbox"
@@ -44,6 +47,7 @@
   editor:
     fontFamily: "Inconsolata"
     invisibles: {}
+    lineHeight: 1.4
     scrollPastEnd: true
     softWrapAtPreferredLineLength: true
     tabLength: 4
@@ -89,11 +93,12 @@
   "symbols-tree-view": {}
   tabs:
     alwaysShowTabBar: false
+    enableVcsColoring: true
   "terminal-plus":
     core: {}
+    style: {}
   "tool-bar":
     position: "Right"
-    visible: false
   "tree-view":
     hideVcsIgnoredFiles: true
   "vim-mode":
@@ -102,6 +107,9 @@
     surroundCommand: "S"
   welcome:
     showOnStartup: false
+".lua.source.tts":
+  editor:
+    tabLength: 4
 ".scala.source":
   editor:
     tabLength: 2

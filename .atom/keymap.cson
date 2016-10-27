@@ -49,6 +49,13 @@
   # TODO: just move all of ctrl-h, etc. here too?
   'ctrl-w w': 'window:focus-next-pane'
   'ctrl-w ctrl-w': 'window:focus-next-pane'
+  'ctrl-w ;': 'window:focus-previous-pane'
+
+ # Main fuzzy finder; sadly not working in symbols-view?
+ '.select-list':
+  'ctrl-g': 'core:cancel'
+  'ctrl-v': 'pane:split-right'
+  'ctrl-s': 'pane:split-down'
 
 #-------------------------------------------------------------------------------
 # Vim Normal + Visual Modes
@@ -94,8 +101,8 @@
   'c o w': 'editor:toggle-soft-wrap'
 
   # Some of my most essential Leader mappings (Space as Leader)
-  'space ,': 'tree-view:toggle'
-  'space .': 'symbols-tree-view:toggle'
+  'space [': 'tree-view:toggle'
+  'space ]': 'symbols-tree-view:toggle'
   'space enter': 'command-palette:toggle'
   'space o': 'fuzzy-finder:toggle-file-finder'
   'space ctrl-o': 'fuzzy-finder:toggle-buffer-finder'
@@ -150,7 +157,7 @@
 
 '.tree-view':
   # The foil to the Vim normal mode mapping above
-  'space ,': 'tree-view:toggle'
+  'space [': 'tree-view:toggle'
 
 # 'atom-workspace':
 #   '': 'ide-haskell:toggle-output'
