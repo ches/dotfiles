@@ -5,7 +5,8 @@
  */
 
 /**
- * Quick-and-dirty profiling spot check helper.
+ * Quick-and-dirty profiling spot check helper. Have a look at ScalaMeter for
+ * more principled perf tests, including its inline feature for ad hoc work.
  *
  * Hat tip: [[http://stackoverflow.com/questions/9160001/how-to-profile-methods-in-scala]]
  */
@@ -28,5 +29,7 @@ object profiling {
 }
 
 // The object is a hack to get the overloads into the same compilation unit,
-// otherwise the scala REPL can't deal with them (Ammonite can).
+// otherwise the scala REPL can't deal with them (Ammonite can). The scala REPL
+// probably can if an intermediate file is used to load this one that contains
+// `:paste path/to/this/file`, but the namespacing is probably a good idea anyway.
 import profiling._
