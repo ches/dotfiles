@@ -1,14 +1,11 @@
-name := "project-name"
-
+name         := "project-name"
 organization := "net.whiskeyandgrits"
+version      := "0.1-SNAPSHOT"
+homepage     := Some(url("https://github.com/ches/project-name"))
 
-version := "0.1-SNAPSHOT"
-
-homepage := Some(url("https://github.com/ches/project-name"))
-
-scalaVersion := "2.11.8"
-
-scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Xlint")
+scalaVersion       := "2.11.8"
+crossScalaVersions := Seq("2.10.6", scalaVersion.value)
+scalacOptions     ++= Seq("-unchecked", "-deprecation", "-feature", "-Xlint")
 
 resolvers ++= Seq(
   // Resolver.typesafeRepo("releases")
@@ -40,3 +37,7 @@ libraryDependencies ++= {
   , "org.scalacheck"             %% "scalacheck"               % "1.12.2"      % "test"
   )
 }
+
+// console convenience, but skip in quick in case we've broken the build!
+initialCommands in console := "import my.package._"
+initialCommands in consoleQuick := ""
