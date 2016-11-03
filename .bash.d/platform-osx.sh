@@ -15,6 +15,11 @@ export GROOVY_HOME=/usr/local/opt/groovy/libexec
 export JAVA_HOME=$(/usr/libexec/java_home --version 1.8.0)
 export NODE_PATH="/usr/local/lib/node_modules"
 
+# Make paulp/sbt-extras pick up same default rc file as the `brew install sbt` runner.
+if [ -r $BREW/etc/sbtopts ]; then
+    export SBT_OPTS="@${BREW}/etc/sbtopts"
+fi
+
 #
 # Custom Shake path
 #
