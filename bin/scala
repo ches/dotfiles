@@ -10,7 +10,7 @@
 SCALA=${SCALA:-/usr/local/bin/scala}
 
 if [ "$#" -eq 0 ] && [ -r ~/.config/scala/replinit.scala ]; then
-    exec "$SCALA" -i ~/.config/scala/replinit.scala -Dscala.color -Xlint
+    exec "$SCALA" -i ~/.config/scala/replinit.scala -Dscala.color -Xlint -deprecation
 else
     exec "$SCALA" "$@"
 fi
