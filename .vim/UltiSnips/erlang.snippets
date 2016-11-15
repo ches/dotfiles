@@ -1,8 +1,116 @@
+# Erlang UltiSnips snippets in vim-snippets are pretty good. These are a few
+# additions.
+
+#-----------------------------------------------------------------------
+#-                               SYNTAX                                -
+#-----------------------------------------------------------------------
+
+# TODO: These could just be standard Vim abbreviations really.
+snippet == "Safe Equal To (=:=)"
+=:= 
+endsnippet
+
+snippet /= "Safe Not Equal To (=/=)"
+=/= 
+endsnippet
+
+snippet and "Short-circuiting Logical And (andalso)"
+andalso $0
+endsnippet
+
+snippet or "Short-circuiting Logical Or (orelse)"
+orelse $0
+endsnippet
+
+snippet l "Inline Fun Expression (lambda)" w
+fun (${1:pattern}) -> ${4:body} end
+endsnippet
+
+snippet %% "EDoc @doc Block" b
+%% @doc ${1:Summary}
+%%
+%% ${2:Extended description}
+%% @end
+endsnippet
+
+# Popularized by the OTP behavior templates, helpful if a project follows that convention
+snippet %%% "Comment Section Header" b
+%%%===================================================================
+%%% ${1:Section Title}
+%%%===================================================================
+$0
+endsnippet
+
+snippet %%- "Comment Separator Block" b
+%%--------------------------------------------------------------------
+%%$1
+%%--------------------------------------------------------------------
+$0
+endsnippet
+
+#-----------------------------------------------------------------------
+#-                             DIRECTIVES                              -
+#-----------------------------------------------------------------------
+
+snippet comp "Compile Directive" b
+-compile([${1:export_all}]).
+endsnippet
+
+snippet rect "Record Directive with Types" b
+-record(${1:name}, {
+	field$0
+}).
+endsnippet
+
+snippet field "Record Field with Type Specification" w
+${1:name}${2: = ${3:default}} :: ${4:type}
+endsnippet
+
+#-----------------------------------------------------------------------
+#-                         TYPE SPECIFICATIONS                         -
+#-----------------------------------------------------------------------
+
+snippet type "Type Declaration" b
+-type ${1:TypeName}() :: ${2:TypeDefinition}.
+endsnippet
+
+snippet opaque "Opaque Type Declaration" b
+-opaque ${1:TypeName}() :: ${2:TypeDefinition}.
+endsnippet
+
+# TODO: Try to make this cleverly inspect the function header being annotated?
+snippet spec "Function Type Specification" b
+-spec ${1:FunctionName}(${2:ArgTypes...}) -> ${3:ReturnType}.
+endsnippet
+
+snippet ext "Export Type Directive" b
+-export_type([${1:type}/${2:nargs}]).
+endsnippet
+
+#-----------------------------------------------------------------------
+#-                     LIBRARY FUNCTION SHORTCUTS                      -
+#-----------------------------------------------------------------------
+
 snippet iof "io:format/2 print"
 io:format("${1:~w~n}", [${2}])
 endsnippet
 
-snippet l "Inline Fun Expression (lambda)"
-fun (${1:pattern}) -> ${4:body} end
+snippet pal "Common Test print and log (ct:pal/2)"
+ct:pal("${1:~w~n}", [${2}])
 endsnippet
 
+snippet sp "spawn/1 (Fun)"
+spawn(${1:${2:fun ${3:function}/${4:arity}}})
+endsnippet
+
+snippet spa "spawn/3 (Arguments)"
+spawn(${1:Module}, ${2:Function}, [$3])
+endsnippet
+
+snippet spl "spawn_link/1 (Fun)"
+spawn_link(${1:${2:fun ${3:function}/${4:arity}}})
+endsnippet
+
+snippet spal "spawn_link/3 (Arguments)"
+spawn_link(${1:Module}, ${2:Function}, [$3])
+endsnippet

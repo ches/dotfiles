@@ -1,0 +1,195 @@
+snippet "im(port)?" "Import" br
+import ${1:packages}.${2:Member}${3: as ${4:alias}}
+endsnippet
+
+snippet pri "private Visibility" w
+private ${1:val}
+endsnippet
+
+snippet pro "protected Visibility" w
+protected ${1:val}
+endsnippet
+
+snippet int "internal Visibility" w
+internal ${1:val}
+endsnippet
+
+snippet { "Expand inline block" w
+{ ${1:${VISUAL}} }
+endsnippet
+
+snippet } "Expand multi-line block" w
+{
+	${1:${VISUAL}}
+}
+endsnippet
+
+snippet val "Value Declaration" b
+val ${1:name}${2:: ${3:T}} = ${4:value}
+endsnippet
+
+snippet var "Variable Declaration" b
+var ${1:name}${2:: ${3:T}} = ${4:value}
+endsnippet
+
+snippet l "Lambda Expression" w
+{ ${1:${2:arg$3} -> }${4:it}$5 }
+endsnippet
+
+snippet anon "Anonymous Function" i
+fun ${1:(${2:arg})}${3:: ${4:ReturnType}} ${5:\{
+	${6:${VISUAL}}
+\}}
+endsnippet
+
+snippet fun "Function/Method Declaration" w
+fun ${1:name}${2:(${3:arg})}${4:: ${5:ReturnType}} ${6:\{
+	${7:${VISUAL}}
+\}}
+endsnippet
+
+snippet arg "Method Arguments" i
+${1:a}: ${2:T}${3:, arg}
+endsnippet
+
+snippet vararg "Var arg" i
+vararg ${1:binding}: ${2:T}
+endsnippet
+
+# Scala deemed this syntax a misfeature, Kotlin still embraced it...
+snippet proc "Procedure (pure side-effect Unit function)"
+fun ${1:name}(${2:arg}$3) ${4:\{
+	${5:${VISUAL}}
+\}}
+endsnippet
+
+snippet class "Class Declaration"
+class ${1:Person}${2:(${3:arg})}${4: : ${5:Base}} {
+	$0
+}
+endsnippet
+
+# TODO: fancier substitution to fill secondary this() arg names dynamically
+snippet cons "Constructor Declaration" b
+constructor(arg$1)${2: : ${3:this}($4)} {
+	$0
+}
+endsnippet
+
+snippet 'obj(ect)?' "Object Declaration or Expression" r
+object ${1:${2:Name} }{
+	$0
+}
+endsnippet
+
+snippet trait "Trait Declaration"
+trait ${1:Name}${2: extends ${3:Other}${4: with ${5:Another}}} {
+	$0
+}
+endsnippet
+
+snippet data "Data Class (Product Type)"
+data class ${1:Name}(${2:arg}$3)
+endsnippet
+
+snippet with "with(object) Expression"
+with(${1:delegate}) {
+	${2:${VISUAL}}
+}
+endsnippet
+
+snippet use "use (try with resources)" i
+use { ${1:resource} ->
+	$2
+}
+endsnippet
+
+snippet if "If Block/Inline"
+if (${1:condition}) ${2:\{
+	${3:${VISUAL}}
+\}}
+endsnippet
+
+snippet else "Else Block/Inline"
+else ${2:\{
+	$3
+\}}
+endsnippet
+
+snippet ife "If/Else Block/Inline"
+if (${1:condition}) ${2:\{
+	${3:${VISUAL}}
+\}} else ${4:\{
+	$5
+\}}
+endsnippet
+
+snippet elif "else if Block"
+else if (${1:condition}) ${2:\{
+	$3
+\}}
+endsnippet
+
+snippet when "When Expression"
+when ${1:(${2:ob}) }{
+	${3:pattern} -> ${4:expression}$5
+}
+endsnippet
+
+snippet case "Case Clause in When Expr"
+${1:_} -> ${2:expression}
+endsnippet
+
+snippet for "For Loop" b
+for (${1:item}${2:: Type} in ${3:collection}) {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet while "While Loop" b
+while (${1:x > 0}) {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet dowh "Do/While Loop" b
+do {
+	${0:${VISUAL}}
+} while (${1:x > 0})
+endsnippet
+
+snippet kv "Key/Value Literal (Map)" w
+${1:key} -> ${2:value}${3:, kv}
+endsnippet
+
+snippet kvs "Key/Value Literal, String-Keyed (Map)" w
+"${1:key}" -> ${2:value}${3:, kvs}
+endsnippet
+
+snippet Map "Map[K, V]"
+Map[${1:K}, ${2:V}](${3:kv}$4)
+endsnippet
+
+snippet main "Application Object main Method Declaration" b
+def main(args: Array[String]) {
+	$0
+}
+endsnippet
+
+snippet "tos(tr)?" "toString Declaration" br
+override fun toString ${1:\{
+	$2
+\}}
+endsnippet
+
+snippet try "try/catch Expression"
+try {
+	$0
+} catch (${1:e}: ${2:Exception}) {
+	${3:throw IllegalStateException($1)}
+}
+endsnippet
+
+snippet throw "throw Exception"
+throw ${1:Exception}${2:("${3:message}")}
+endsnippet

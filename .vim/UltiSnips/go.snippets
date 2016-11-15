@@ -4,6 +4,11 @@ snippet ch "chan Type" w
 chan ${0:string}
 endsnippet
 
+# Ditto. TODO: also make this erase the second argument/comma intelligently.
+snippet map "map[Type]Type" w
+map[${1:string}]${0:int}
+endsnippet
+
 # Override snippet from vim-go that already overrides the better one from
 # vim-snippets/UltiSnips (automatically removes space for an infinite loop construct)
 snippet for "for ... { ... }"

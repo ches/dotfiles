@@ -121,7 +121,7 @@ endsnippet
 
 
 # "case" is overloaded with pattern matching, so use a completely different mnemonic
-snippet adt "Case Class (Algebraic Data Type)"
+snippet data "Case Class (Product Type)"
 case class ${1:Name}(${2:arg}$3)
 endsnippet
 
@@ -220,8 +220,35 @@ override def toString = ${1:\{
 endsnippet
 
 
-# TODO: try/catch, Try
 snippet throw "throw Exception"
 throw new ${1:Exception}${2:("${3:message}")}
 endsnippet
 
+# TODO: Try, maybe other scala.util.control.Exception stuff
+snippet try "try/catch"
+try {
+	${1:${VISUAL}}
+} catch {
+	case ${2:e}: ${3:Exception} => $4
+}
+endsnippet
+
+snippet tryf "try/finally"
+try {
+	${1:${VISUAL}}
+} finally {
+	$2
+}
+endsnippet
+
+snippet handling "handling ... by [control.Exception]"
+handling(classOf[${1:Exception}]) by ${2:recovery}${3: apply ${4:action}}
+endsnippet
+
+snippet catching "catching(handler) { ... } [control.Exception]"
+catching(${1:catcherHandler}) { ${2:action} }
+endsnippet
+
+snippet catching "catching(classOf[Exception]) ... [control.Exception]"
+catching(classOf[${1:Exception}]) ${2:withTry} ${3:action}
+endsnippet

@@ -31,6 +31,12 @@ It("${1:specification}", func() {
 })
 endsnippet
 
+snippet spec "Ginkgo Specify (It Specification Alias)" b
+Specify("${1:specification}", func() {
+	$0
+})
+endsnippet
+
 snippet bef "Ginkgo BeforeEach" b
 BeforeEach(func() {
 	$0
@@ -85,6 +91,12 @@ PIt("${1:specification}", func() {
 })
 endsnippet
 
+snippet pspec "Ginkgo Pending Specify (It Alias)" b
+PSpecify("${1:specification}", func() {
+	$0
+})
+endsnippet
+
 #-----------------------------------------------------------------------
 #-                           Gomega Matchers                           -
 #-----------------------------------------------------------------------
@@ -99,6 +111,18 @@ endsnippet
 
 snippet exnerr "Gomega Expect No Error" b
 Expect(${1:err}).NotTo(HaveOccurred())
+endsnippet
+
+snippet exsucc "Gomega Expect To Succeed" b
+Expect(${1:subject}).To(Succeed())
+endsnippet
+
+snippet exerr "Gomega Expect Error" b
+Expect(${1:err}).To(HaveOccurred())
+endsnippet
+
+snippet exmerr "Gomega Expect Matching Error" b
+Expect(${1:err}).To(MatchError(${2:Error}))
 endsnippet
 
 snippet ev "Gomega Eventually Should Equal" b
