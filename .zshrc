@@ -9,5 +9,9 @@ if [ -d /usr/share/zsh/5.0.5/help ]; then
     HELPDIR=/usr/share/zsh/5.0.5/help
 fi
 
+if [ -d /usr/local/share/zsh-completions ]; then
+    fpath=(/usr/local/share/zsh-completions $fpath)
+fi
+
 # added by travis gem
 [ -f /Users/ches/.travis/travis.sh ] && source /Users/ches/.travis/travis.sh
