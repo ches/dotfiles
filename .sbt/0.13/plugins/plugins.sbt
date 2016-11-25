@@ -1,5 +1,5 @@
 addSbtPlugin("com.kalmanb.sbt" % "sbt-ctags" % "0.3.0")
 addSbtPlugin("net.virtual-void" % "sbt-dependency-graph" % "0.8.2")
 addSbtPlugin("org.ensime" % "sbt-ensime" % "1.11.3")
-addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.1.10")
-addSbtPlugin("au.com.onegeek" %% "sbt-dotenv" % "1.0.24")
+addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.2.0")
+addSbtPlugin("au.com.onegeek" %% "sbt-dotenv" % "1.1.36")
