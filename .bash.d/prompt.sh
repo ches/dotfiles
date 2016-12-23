@@ -93,6 +93,7 @@ function ruby_version {
     echo "${ruby}${COLOR_NONE}"
 }
 
+# TODO: This doesn't work for project-local .python-version files.
 function python_version {
     if [[ -z "$PYENV_VERSION" ]] || [[ "$PYENV_VERSION" == "system" ]]; then exit; fi
 

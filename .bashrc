@@ -10,6 +10,8 @@ export HISTCONTROL=erasedups
 export HISTSIZE=5000
 export PROMPT_COMMAND='history -a'  # Append immediately so new shells can use it
 
+shopt -s checkwinsize   # update window size vars after each command
+
 # Please don't autocomplete these thx
 export FIGNORE="#:~:DS_Store:.pyc:.swp:.swo"
 
@@ -35,18 +37,9 @@ stty start undef
 # 'cd' to children of a host of directories, as if they were always in CWD
 export CDPATH=:~:~/src/work:~/src
 
-# Directory listings in Technicolor
-export CLICOLOR='true'
-export LSCOLORS="gxfxcxdxbxegedabagacad"
-
-#
-# 'less' is more
-#
+# 'less' is more. lesspipe is loaded per platform.
 export PAGER="/usr/bin/less"
 export LESS="-Ri"
-if command -v lesspipe.sh >/dev/null; then
-    export LESSOPEN="|lesspipe.sh %s"
-fi
 
 # A man's prompt is his castle, or something.
 [[ -r ~/.bash.d/prompt.sh ]] && source ~/.bash.d/prompt.sh
@@ -86,6 +79,7 @@ fi
 which direnv > /dev/null && eval "$(direnv hook bash)"
 
 # Go default workspace
+# $ mkdir -p ~/src/go/{bin,pkg,src}
 export GOPATH=$HOME/src/go
 export PATH=$PATH:$GOPATH/bin
 

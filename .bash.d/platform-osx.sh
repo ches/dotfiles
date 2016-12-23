@@ -2,6 +2,18 @@ BREW=`brew --prefix`
 
 export VISUAL='mvim -f'
 
+# Directory listings in Technicolor, the BSD/OS X way.
+# Geoff Greer made a cool preview/generator for BSD and Linux:
+# http://geoff.greer.fm/lscolors/
+export CLICOLOR='true'
+export LSCOLORS="gxfxcxdxbxegedabagacad"
+
+# brew install lesspipe --with-syntax-highlighting
+# It's a bit different from versions on common Linux distros
+if installed lesspipe.sh; then
+    export LESSOPEN="|lesspipe.sh %s"
+fi
+
 # https://github.com/joelthelion/autojump/wiki
 if [ -r $BREW/etc/autojump.sh ]; then
     . $BREW/etc/autojump.sh
@@ -36,4 +48,3 @@ fi
 # \[\e]1;\]$(basename $(dirname $PWD))/\W\[\a\]
 
 unset BREW
-

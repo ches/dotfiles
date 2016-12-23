@@ -1,5 +1,5 @@
-# Check if a command is installed. For some reason that I can't remember, this
-# is deemed superior to `which`.
+# Check if a command is installed. Supports shell functions, unlike `which`,
+# which can be handy for things like chruby.
 function installed {
     local cmd=$1
     command -v ${cmd} >/dev/null
@@ -26,6 +26,7 @@ function mkbackup {
 # arbitrary commands on.
 #
 # Simple composition of good tools that do one thing well: ah, Unix.
+# TODO: fzf instead!
 function acton {
     if ! installed fpp; then
         echo 'acton requires the fpp tool to be installed.'

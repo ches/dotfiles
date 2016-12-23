@@ -36,6 +36,12 @@ alias g='vim -g --remote-silent'
 alias gt='vim -g --remote-tab'
 alias p=$PAGER
 
+# For when a reattached tmux session loses ssh agent
+# Maybe avoid the need:
+# http://unix.stackexchange.com/questions/75681/why-do-i-have-to-re-set-env-vars-in-tmux-when-i-re-attach
+# http://blog.testdouble.com/posts/2016-11-18-reconciling-tmux-and-ssh-agent-forwarding.html
+alias fixssh='eval $(tmux showenv -s SSH_AUTH_SOCK)'
+
 # External IP
 # ifcfg.me has some handy features, but this is faster and more reliable.
 alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
@@ -52,6 +58,15 @@ if installed docker-machine; then
 fi
 if installed docker-compose; then
     alias fig='docker-compose'
+fi
+if installed docker-cloud; then
+    alias tutum='docker-cloud'
+fi
+
+if installed fpp; then
+    # This is simply wrong process behavior, switch to fzf and/or see:
+    # https://github.com/facebook/PathPicker/pull/222
+    alias fpp='fpp --non-interactive'
 fi
 
 #
@@ -73,6 +88,14 @@ fi
 # Create a simple .rvmrc in the current dir using the current Ruby and gemset
 if installed rvm; then
     alias mkrvmrc='echo "rvm `rvm-prompt i v g`" > .rvmrc'
+fi
+
+if installed chruby; then
+    alias mkrubyversion="echo $RUBY_VERSION > .ruby-version"
+fi
+
+if installed pyenv; then
+    alias mkpyversion='pyenv version-name > .python-version'
 fi
 
 if installed bundle; then

@@ -1,5 +1,5 @@
-# enable color support of ls and also add handy aliases
-if [ "$TERM" != "dumb" ]; then
+# Directory listings in Technicolor, the Linux way.
+if [ -x /usr/bin/dircolors ]; then
     eval "`dircolors -b`"
     alias ls='ls --color=auto'
     #alias dir='ls --color=auto --format=vertical'
@@ -13,7 +13,7 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
-eval $('lesspipe')
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # =================================
 # =       App-specific Bits       =
