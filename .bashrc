@@ -1,3 +1,6 @@
+# Simple check for an interactive shell -- don't do anything else if not.
+[ -z "$PS1" ] && return
+
 export LC_CTYPE=en_US.UTF-8
 export MANWIDTH=80
 
@@ -25,10 +28,6 @@ export FCEDIT=vim
 # PATH Settings, clearly
 # Don't need any additions at the moment
 # [[ -r ~/.bash.d/paths.sh ]] && source ~/.bash.d/paths.sh
-
-# Simple check for an interactive shell -- don't do anything else if not.
-# So, make PATH additions and stuff before this.
-[ -z "$PS1" ] && return
 
 # Nix flow control to free the keys for readline inc search, vim, etc.
 stty stop undef
