@@ -1,0 +1,8 @@
+set hostname=mini.local
+
+set mouse
+set scroll=relative
+
+bind i toggle-select
+bind d remove
+
