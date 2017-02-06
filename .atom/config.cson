@@ -12,10 +12,12 @@
   "autocomplete-php": {}
   "autocomplete-plus": {}
   "autocomplete-python":
+    useKite: false
     useSnippets: "required"
-  "autocomplete-ruby": {}
+  "autocomplete-ruby":
+    rsensePath: "~/.gem/ruby/2.3.1/bin/rsense"
   "base16-syntax":
-    scheme: "Eighties"
+    scheme: "Tomorrow"
   build:
     stealFocus: false
   "build-cargo": {}
@@ -28,6 +30,10 @@
       "linter-scalac"
       "symbols-view"
       "tabs"
+      "atom-typescript"
+      "linter-tslint"
+      "build-tsc"
+      "autocomplete-ruby"
     ]
     packagesWithKeymapsDisabled: [
       "racer"
@@ -56,12 +62,14 @@
     userId: "9f35f77d-b182-15f2-cad2-98458372d0e0"
   "git-diff":
     showIconsInEditorGutter: true
-  "git-plus":
-    wordDiff: false
+  "git-plus": {}
+  "go-config":
+    gopath: "~/src/go"
   "go-oracle":
     oraclePath: "~/src/go/bin/oracle"
   "go-plus":
-    goPath: "~/src/go"
+    config: {}
+    panelDisplayMode: "closed"
   "haskell-ghc-mod":
     additionalPathDirectories: [
       "~/.local/bin"
@@ -72,6 +80,9 @@
   "ide-haskell":
     cabalPath: "~/.cabal/bin/cabal"
     onCursorMove: "Show Tooltip"
+  "isotope-ui":
+    backgroundGradient: true
+    fontFamily: "Fira Sans"
   linter: {}
   "linter-gotype": {}
   "linter-pep8": {}
@@ -88,6 +99,8 @@
   racer:
     racerBinPath: "~/.cargo/bin/racer"
     rustSrcPath: "~/src/rust/rust/src/"
+  "seti-ui":
+    compactView: true
   "sourcegraph-atom":
     highlightReferencesInFile: false
   "status-bar": {}
@@ -108,6 +121,12 @@
     surroundCommand: "S"
   welcome:
     showOnStartup: false
+".erlang.html.text.yaws":
+  editor:
+    tabLength: 4
+".erlang.source":
+  editor:
+    tabLength: 4
 ".lua.source.tts":
   editor:
     tabLength: 4

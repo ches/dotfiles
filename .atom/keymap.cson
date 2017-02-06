@@ -56,6 +56,9 @@
   'ctrl-g': 'core:cancel'
   'ctrl-v': 'pane:split-right'
   'ctrl-s': 'pane:split-down'
+ '.advanced-open-file atom-text-editor':
+  'ctrl-v': 'pane:split-right'
+  'ctrl-s': 'pane:split-down'
 
 #-------------------------------------------------------------------------------
 # Vim Normal + Visual Modes
