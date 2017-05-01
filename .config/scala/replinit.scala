@@ -32,4 +32,7 @@ object profiling {
 // otherwise the scala REPL can't deal with them (Ammonite can). The scala REPL
 // probably can if an intermediate file is used to load this one that contains
 // `:paste path/to/this/file`, but the namespacing is probably a good idea anyway.
-import profiling._
+//
+// Not importing by default because it causes REPL completion to break :-(
+// https://github.com/scala/bug/issues/10297
+// import profiling._
