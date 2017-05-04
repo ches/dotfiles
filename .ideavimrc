@@ -57,13 +57,26 @@ nnoremap zO :action ExpandRegionRecursively<CR>
 "
 " Run :actionlist to get a list of these. mapleader isn't supported yet.
 " Look for a dismiss action for Ctrl-[
-" Vcs.QuickListPopupAction, Git.Menu
 
-nmap <Space><CR> :action GotoAction<CR>
-nmap <Space>o :action GotoFile<CR>
-nmap <Space>f :action GotoSymbol<CR>
-nmap <Space>[ :action ActivateProjectToolWindow<CR>
-nmap <Space>] :action ActivateStructureToolWindow<CR>
-nmap <Space>k :action DashLauncherAction<CR>
-nmap <Space>w :action SaveDocument<CR>
+nmap <Space><CR>  :action GotoAction<CR>
+nmap <Space>o     :action GotoFile<CR>
+nmap <Space><C-o> :action RecentFiles<CR>
+nmap <Space>f     :action FileStructurePopup<CR>
+nmap <Space><C-f> :action GotoSymbol<CR>
+nmap <Space>[     :action ActivateProjectToolWindow<CR>
+nmap <Space>]     :action ActivateStructureToolWindow<CR>
+nmap <Space>k     :action DashLauncherAction<CR>
+nmap <Space>w     :action SaveDocument<CR>
+" I prefer Git.Menu, but the action seems to have gotten broken :-(
+nmap <Space>g :action Git.Menu<CR>
+nmap <Space>v :action Vcs.QuickListPopupAction<CR>
 
+" unimpaired.vim mappings
+nmap col :action EditorToggleShowWhitespaces<CR>
+
+" Navigate by method
+" TODO: seems broken, even standard shortcuts don't work with IdeaVim active
+nmap [m :action EditorLookupUp<CR>
+nmap ]m :action EditorLookupDown<CR>
+
+nmap \t :action Scala.TypeInfo<CR>
