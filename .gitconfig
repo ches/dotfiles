@@ -29,14 +29,14 @@
 	tags = tag -l -n
 
 	k = !gitk
+	ctags = !.git/hooks/ctags
 	edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; $EDITOR `f`"
 	add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
-	up = !sh -c 'git pull && git log --pretty=format:"%Cred%ae %Creset- %C(yellow)%s %Creset(%ar)" HEAD@{1}..'
-	ctags = !.git/hooks/ctags
 	ignore = update-index --assume-unchanged
 	unignore = update-index --no-assume-unchanged
 	ignored = !git ls-files -v | grep \"^[[:lower:]]\"
-	ls-ignored = ls-files --ignored --exclude-standard
+	ls-ignored = ls-files --others --ignored --exclude-standard
+	up = !sh -c 'git pull && git log --pretty=format:"%Cred%ae %Creset- %C(yellow)%s %Creset(%ar)" HEAD@{1}..'
 
 [branch]
 	autosetupmerge = true
