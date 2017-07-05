@@ -1,3 +1,5 @@
+# vim:set noexpandtab sw=4 ts=4:
+
 [user]
 	name = Ches Martin
 	email = ches@whiskeyandgrits.net
@@ -87,4 +89,14 @@
 [web]
 	browser = open
 
-# vim:set noexpandtab sw=4 ts=4:
+# Settings for "avh" version of git-flow
+# https://github.com/petervanderdoes/gitflow-avh/wiki/Reference:-Configuration
+#
+# Deleting remote branches before pushing their merge makes GitHub fail
+# to indicate pull requests as merged instead of closed. So don't do that.
+[gitflow "feature.finish"]
+	keepremote = true
+[gitflow "release.finish"]
+	keepremote = true
+[gitflow "hotfix.finish"]
+	keepremote = true
