@@ -5,8 +5,8 @@
 repl.prompt() = "\n> "
 
 // Love the double negative... enable compiler warnings
-repl.compiler.settings.nowarnings.value = false
+interp.configureCompiler(_.settings.nowarnings.value = false)
 
 // Load utility definitions shared with default scala REPL
-try interp.load.exec(ammonite.ops.home/".config"/'scala/"replinit.scala")
+try repl.load.exec(ammonite.ops.home/".config"/'scala/"replinit.scala")
 catch { case _: Exception => println("=== replrc not loaded! ===") }
