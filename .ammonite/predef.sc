@@ -2,11 +2,15 @@
 // See http://www.lihaoyi.com/Ammonite/#Configuration
 
 // Not really digging the @ sign prompt.
-repl.prompt() = "\n> "
+repl.prompt() = "\namm> "
 
-// Love the double negative... enable compiler warnings
-interp.configureCompiler(_.settings.nowarnings.value = false)
+interp.configureCompiler { comp =>
+  // Love the double negative... enable compiler warnings
+  comp.settings.nowarnings.value = false
+  comp.settings.deprecation.value = true
+  comp.settings.unchecked.value = true
+}
 
 // Load utility definitions shared with default scala REPL
 try repl.load.exec(ammonite.ops.home/".config"/'scala/"replinit.scala")
-catch { case _: Exception => println("=== replrc not loaded! ===") }
+catch { case _: Exception => println("=== replinit defs not loaded! ===") }
