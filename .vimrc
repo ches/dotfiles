@@ -335,9 +335,9 @@ nnoremap <leader>hh :help my-notes-
 
 " Ready for tab-completion of named Tabular patterns
 " Choosing 'gq' since it's similar function to the format command
-nnoremap <Leader>gq :Tabularize<space>
-nnoremap <Leader>q= :Tabularize assignment<CR>
-nnoremap <Leader>q<Bar> :Tabularize bars<CR>
+vnoremap <Leader>gq :Tabularize<space>
+vnoremap <Leader>q= :Tabularize assignment<CR>
+vnoremap <Leader>q<Bar> :Tabularize bars<CR>
 " }}}2
 
 " Tried this in after/ftplugin/help.vim, let's try it globally
