@@ -56,9 +56,12 @@ NeoBundleCheck
 set backspace=indent,eol,start
 
 " One place for backup and swap files, but we'll try a project-local .backup
-" directory first if it exists.
-if !isdirectory($HOME . '/.autosave/vim/swap')
-  silent !mkdir -p ~/.autosave/vim/swap > /dev/null 2>&1
+" directory first if it exists. TODO: appropriate paths for Windows
+let s:my_backups_rootdir = $HOME . '/.autosave/vim'
+let s:my_swapfiles_dir = s:my_backups_rootdir . '/swap'
+
+if !isdirectory(s:my_swapfiles_dir)
+  call mkdir(s:my_swapfiles_dir, 'p')
 endif
 
 " // make swap files unique based on path
@@ -781,7 +784,7 @@ if has("autocmd")
     nnoremap <silent> <Esc>v :YRShow<CR>
   endif
 
-  let g:yankring_history_dir = '$HOME/.autosave/vim'
+  let g:yankring_history_dir = s:my_backups_rootdir
 
   " Make sure YankRing plays nice with custom remapping.
   " See `:h yankring-custom-maps`
@@ -789,7 +792,7 @@ if has("autocmd")
     nnoremap <silent> Y   :<C-U>YRYankCount 'y$'<CR>
   endfunction
 
-  let g:dbext_default_history_file = '$HOME/.autosave/vim'
+  let g:dbext_default_history_file = s:my_backups_rootdir . '/dbext_sql_history.txt'
 
   " Lusty Juggler buffer switcher
   let g:LustyJugglerShowKeys = 'a'
