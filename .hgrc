@@ -6,17 +6,14 @@ ignore = ~/.config/hg/ignore
 # Abort instead of trying to auto-commit when subrepos have changes
 commitsubrepos = no
 
-[defaults]
-#log = --limit 20
+[subrepos]
+
+git:allowed = true
 
 [web]
 style = monoblue
 allow_archive = bz2, gz, zip
 pygments_style = manni
-
-# Certificate Authority certs generated from OS X system roots
-# http://mercurial.selenic.com/wiki/CACertificates
-cacerts = /usr/local/etc/hg/ca-roots.pem
 
 [diff]
 # copy/rename support, permission bits, etc. See `hg help diffs`
@@ -24,7 +21,6 @@ git = True
 
 [extensions]
 hgext.bookmarks =
-hgext.color =
 hgext.convert =
 hgext.extdiff =
 hgext.fetch =
@@ -33,12 +29,10 @@ hgext.hgk =
 hgext.highlight =
 hgext.histedit =
 hgext.mq =
-hgext.pager =
 # git-style ancestor references, e.g. foo^, foo~3:
 hgext.parentrevspec =
 hgext.purge =
 hgext.rebase =
-hgext.record =
 hgext.schemes =
 hgext.shelve =
 hgext.transplant =
@@ -64,6 +58,7 @@ qstatus = status --rev -2:-1
 # empty current patch, but leave the diffs in the working copy:
 qclear = qrefresh -X re:.
 
+cherry-pick = graft
 shelf = shelve --list
 untrack = rm -Af
 
@@ -114,9 +109,6 @@ filemerge.gui=True
 
 [pager]
 pager = LESS='FRX' less
-attend = help, status, qstatus, incoming, outgoing, diff, df, qdiff,
-         cat, annotate, shelve, shelf, last, show, sdiff,
-         log, glog, lg, ll, gitlog, nlog, slog, sglog, vlog, vlg
 
 [mq]
 # Use the secret phase for mq changesets -- see `hg help phases`
