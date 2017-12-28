@@ -15,3 +15,6 @@ fi
 
 # added by travis gem
 [ -f /Users/ches/.travis/travis.sh ] && source /Users/ches/.travis/travis.sh
+eval $(/usr/libexec/path_helper -s)
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

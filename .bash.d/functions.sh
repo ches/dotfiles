@@ -20,6 +20,19 @@ function mkbackup {
     cp ${filename} ${base}-${filetime}.${extension}
 }
 
+# fbr - checkout git branch with fzf
+fbr() {
+    if ! installed fzf; then
+        echo 'fbr requires the fzf tool to be installed.'
+        exit 1
+    fi
+
+    local branches branch
+    branches=$(git branch -vv) &&
+        branch=$(echo "$branches" | fzf +m) &&
+        git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
+}
+
 # This expects a file path substring as argument, and feeds matching files below
 # the current working directory into the fpp tool, which presents a selector UI
 # where you can choose one or many of them to either open in EDITOR or run

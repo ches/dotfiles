@@ -102,6 +102,12 @@ if installed bundle; then
     alias be='bundle exec'
 fi
 
+# fzf Fuzzy Finder tricks
+if installed fzf; then
+    alias gbrowse="git log --oneline | fzf --multi --preview 'git show --color {+1}' --preview-window up:60%"
+    alias gbrowsev="git log --oneline | fzf --multi --preview 'git show --color {+1}'"
+fi
+
 #
 # OS X
 #
