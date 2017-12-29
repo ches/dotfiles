@@ -2,10 +2,13 @@
 --
 -- Trying out loaded modules on their own line, might ditch it -- :show imports
 :set prompt "\n\ESC[1;34m%s\n\ESC[0;34mλ> \ESC[m"
-:set prompt2 "\ESC[0;34m | \ESC[m"
+:set prompt-cont "\ESC[0;34m | \ESC[m"
 
 -- Behave like a modern REPL with multi-line support, mmk?
 :set +m
+
+-- Reload a project .ghci file or source macros from somewhere else
+:def source readFile
 
 -- Hoogle convenience
 -- See: https://wiki.haskell.org/Hoogle#GHCi_Integration
@@ -19,4 +22,3 @@
 :def doc \x -> return $ ":!hoogle --info \"" ++ x ++ "\""
 
 -- vim:set filetype=haskell:
-
