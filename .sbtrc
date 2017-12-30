@@ -1,2 +1,6 @@
+alias c = compile
+alias r = reload
+alias t = testQuick
+
 alias ls = projects
 alias cd = project
