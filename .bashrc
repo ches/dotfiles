@@ -49,9 +49,6 @@ export LESS="-Ri"
 # And aliases for all mankind
 [[ -r ~/.bash.d/aliases.sh ]] && source ~/.bash.d/aliases.sh
 
-# Completion
-[[ -r ~/.bash.d/completion.sh ]] && source ~/.bash.d/completion.sh
-
 # ====================================================
 # =         App- and Platform-specific Bits          =
 # ====================================================
@@ -110,7 +107,11 @@ if [ -x /usr/local/opt/chruby ]; then
     source /usr/local/opt/chruby/share/chruby/auto.sh
 fi
 
-# Rust cargo install binaries
+# Rust toolchain & cargo install binaries
+# Use rustup for man pages, etc. e.g. `rustup man rustc`
+# brew install rustup-init && rustup-init -y --no-modify-path
+# brew install cargo-completion rustc-completion
+# rustup completions bash > $(brew --prefix)/etc/bash_completion.d/rustup
 [[ -d ~/.cargo/bin ]] && export PATH=~/.cargo/bin:$PATH
 
 #-------------------------------------------------------------------------------
@@ -122,3 +123,5 @@ if [ -d ~/.local ]; then
     done
 fi
 
+# Completion - source late for scripts that check for commands added to PATH above
+[[ -r ~/.bash.d/completion.sh ]] && source ~/.bash.d/completion.sh
