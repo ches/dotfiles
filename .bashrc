@@ -88,6 +88,8 @@ export PATH=$PATH:$GOPATH/bin
 [[ -d ~/.cabal/bin ]] && export PATH=~/.cabal/bin:$PATH
 [[ -d ~/.local/bin ]] && export PATH=~/.local/bin:$PATH
 
+which jenv > /dev/null && eval "$(jenv init -)"
+
 # OCaml OPAM configuration
 [[ -r ~/.opam/opam-init/init.sh ]] && source ~/.opam/opam-init/init.sh
 
