@@ -62,11 +62,6 @@ fi
 # AWS credential management and env vars that the API tools want
 [[ -r ~/.aws/setup.sh ]] && source ~/.aws/setup.sh
 
-# CLI fuzzy finder - https://github.com/junegunn/fzf
-# brew install fzf
-# /usr/local/opt/fzf/install --completion --key-bindings
-[[ -r ~/.fzf.bash ]] && source ~/.fzf.bash
-
 # Travis CI CLI
 [[ -r ~/.travis/travis.sh ]] && source ~/.travis/travis.sh
 
@@ -127,3 +122,8 @@ fi
 
 # Completion - source late for scripts that check for commands added to PATH above
 [[ -r ~/.bash.d/completion.sh ]] && source ~/.bash.d/completion.sh
+
+# CLI fuzzy finder - https://github.com/junegunn/fzf
+# brew install fzf
+# /usr/local/opt/fzf/install --completion --key-bindings
+[[ -r ~/.fzf.bash ]] && source ~/.fzf.bash
