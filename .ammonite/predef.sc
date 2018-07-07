@@ -9,6 +9,8 @@ interp.configureCompiler { comp =>
   comp.settings.nowarnings.value = false
   comp.settings.deprecation.value = true
   comp.settings.unchecked.value = true
+  // For sake of cats and such
+  comp.settings.YpartialUnification.value = true
 }
 
 // Load utility definitions shared with default scala REPL
