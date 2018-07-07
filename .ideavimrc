@@ -71,12 +71,19 @@ nmap <Space>w     :action SaveDocument<CR>
 nmap <Space>g :action Git.Menu<CR>
 nmap <Space>v :action Vcs.QuickListPopupAction<CR>
 
+" More like quick definition -- shows source in pop-up
+nnoremap gD :action QuickImplementations<CR>
+
 " unimpaired.vim mappings
+" TODO: something for toggling IntelliJ's breadcrumbs
 nmap col :action EditorToggleShowWhitespaces<CR>
 
 " Navigate by method
 " TODO: seems broken, even standard shortcuts don't work with IdeaVim active
 nmap [m :action EditorLookupUp<CR>
 nmap ]m :action EditorLookupDown<CR>
+
+nmap [c :action VcsShowPrevChangeMarker<CR>
+nmap ]c :action VcsShowNextChangeMarker<CR>
 
 nmap \t :action Scala.TypeInfo<CR>
