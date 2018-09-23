@@ -27,3 +27,14 @@ if [ -d ~/bin ] ; then
     PATH=~/bin:"${PATH}"
 fi
 
+# In keeping with tradition.
+#
+# For a random cow. But coreutils on macOS, ugh.
+# cowsay -f `ls -1 /usr/local/share/cows/*.cow | sort -R | head -1`
+if installed fortune; then
+    if installed cowsay; then
+        fortune -s | cowthink -n
+    else
+        fortune -s
+    fi
+fi
