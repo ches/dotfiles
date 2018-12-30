@@ -13,13 +13,21 @@ NeoBundle 'ludovicchabant/vim-lawrencium', {
 \ 'disabled' : !executable('hg')
 \ }
 
-if executable('opam') && executable('ocamlmerlin') && has('python')
+if executable('opam') && executable('ocamlmerlin') && (has('python') || has('python3'))
   let g:opamshare = substitute(system('opam config var share'), '\n$', '', '''')
 
   NeoBundleLazy g:opamshare . '/merlin/vim', {
   \ 'name' : 'merlin',
   \ 'autoload' : { 'filetypes' : 'ocaml' }
   \ }
+
+  " opam install ocp-indent
+  if isdirectory(g:opamshare . '/ocp-indent/vim')
+    NeoBundleLazy g:opamshare . '/ocp-indent/vim', {
+    \ 'name' : 'ocp-indent',
+    \ 'autoload' : { 'filetypes' : 'ocaml' }
+    \ }
+  endif
 endif
 
 " Always-on {{{2

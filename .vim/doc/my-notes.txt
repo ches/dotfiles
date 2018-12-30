@@ -331,7 +331,7 @@ The ghc-mod package enables all the type awareness magic in |ghcmod| to work.
 The codex package generates ctags (with hasktags) for all the dependencies in
 your Cabal project sandboxes.
 >
-    $ cabal install --user ghc-mod codex hasktags pointfree
+    $ stack install ghc-mod codex hasktags pointfree
 <
 |syntastic| has built-in checker support for HLint, which is quite useful,
 especially as a learner. HLint is installed as a dependency of ghc-mod.
@@ -535,8 +535,8 @@ The merlin OPAM package enables all the type awareness magic in |merlin| to
 work, and it actually includes the Vim plugin which we load from its
 installed path when available. For OS X:
 >
-    $ brew install objective-caml opam
-    $ opam install merlin
+    $ brew install ocaml opam
+    $ opam install merlin ocp-indent
 
 See https://github.com/the-lambda-church/merlin/wiki/vim-from-scratch
 
@@ -544,17 +544,34 @@ See https://github.com/the-lambda-church/merlin/wiki/vim-from-scratch
 Mappings~
 
 <LocalLeader>t          Display type information for word under cursor.
-                        See |:TypeOf|.
+                        See |:MerlinTypeOf|.
 
-<LocalLeader>r          Rename identifier under cursor. See |:Rename|.
+<LocalLeader>r          Rename identifier under cursor. See |:MerlinRename|.
+
+<LocalLeader>f          Loads CtrlP with definitions in current file. See
+                        |:MerlinOutline|.
+
+<LocalLeader><C-f>      Loads CtrlP with definitions from the current Merlin
+                        project environment. See |:MerlinILocate|.
+
+<LocalLeader>u          Show all usages of the symbol under the cursor in the
+                        quickfix list. See |:MerlinOccurrences|.
 
 Enhanced semantic go-to-definition is available and uses the standard mappings
-in |my-notes-ft-conventions|. Additionally, there is semantic support of
-finding occurrences of identifiers (|:Occurrences|); the following mappings
-take after Vim's:
+in |my-notes-ft-conventions|. The following mappings take after Vim's:
 
 <LocalLeader>*          Find next and previous occurrence of <cword>.
 <LocalLeader>#
+
+Motions and text objects, via merlin.vim (see 'merlin_textobject_grow'):
+>
+    ]], [[ : Go to next/previous "phrase".
+
+    im, am : Inside/around OCaml AST nodes, e.g. `vim`.
+    iM, aM : Inside/around OCaml AST leaf node, e.g. `vaM`.
+<
+Repeatedly press 'm' or 'M' in visual mode to expand or contract the
+selection, respectively.
 
 ------------------------------------------------------------------------------
 PHP                                                          *my-notes-ft-php*
@@ -577,7 +594,7 @@ On OS X:
     $ brew install php56 composer
     $ composer global require mkusher/padawan
 
-This integrates with |youcompleteme| through its *'omnifunc'* support.
+This integrates with |youcompleteme| through its 'omnifunc' support.
 Unfortunately unlike `phpcomplete_extended` it doesn't have go-to-definition
 support yet, but hopefully that's coming. Ctags can still do wonders.
 

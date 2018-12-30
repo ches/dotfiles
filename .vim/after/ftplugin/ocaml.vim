@@ -1,22 +1,32 @@
 if neobundle#is_installed('merlin')
-  " <LocalLeader>t is bound to :TypeOf by default (show type of expr under cursor)
+  " let g:merlin_split_method = "vertical"
 
-  " Go to definition that is likely smarter than ctags
-  nnoremap <buffer> <LocalLeader><C-]> :Locate<CR>
+  nnoremap <buffer> <silent> K :MerlinDocument<CR>
+
+  " Show type of expr under cursor -- overrides mapping from Vim's ocaml runtime that doesn't work well
+  nnoremap <buffer> <LocalLeader>t :MerlinTypeOf<CR>
+
+  " Go to definition that is likely smarter than ctags; Merlin binds this to gd already
+  nnoremap <buffer> <LocalLeader><C-]> :MerlinLocate<CR>
+
+  " Similar to CtrlPTag for global symbols
+  nnoremap <buffer> <LocalLeader><C-f> :MerlinILocate<CR>
+  " And this is much like CtrlPBufTag
+  nnoremap <buffer> <LocalLeader>f :MerlinOutline<CR>
 
   " Yank last type shown with :TypeOf to "r register
-  nnoremap <buffer> <LocalLeader>yt :YankLatestType<CR> :echo 'Type copied to "r register'<CR>
+  nnoremap <buffer> <LocalLeader>yt :MerlinYankLatestType<CR> :echo 'Type copied to "r register'<CR>
 
   " Toggle a buffer of type lookups, useful for declaring interfaces
-  nnoremap <buffer> <LocalLeader>ht :ToggleTypeHistory<CR>
+  nnoremap <buffer> <LocalLeader>ht :MerlinToggleTypeHistory<CR>
 
   " Semantic identifier search
-  " To turn off automatic listing window (:Occurrences, seems broken?):
-  " let g:merlin_display_occurrence_list = 0
-  nnoremap <buffer> <silent> <LocalLeader>*  <Plug>(MerlinSearchOccurencesForward)
-  nnoremap <buffer> <silent> <LocalLeader>#  <Plug>(MerlinSearchOccurencesBackward)
+  nmap <buffer> <silent> <LocalLeader>*  <Plug>(MerlinSearchOccurrencesForward)
+  nmap <buffer> <silent> <LocalLeader>#  <Plug>(MerlinSearchOccurrencesBackward)
 
-  nnoremap <buffer> <silent> <LocalLeader>r  <Plug>(MerlinRename)
-  nnoremap <buffer> <silent> <LocalLeader>R  <Plug>(MerlinRenameAppend)
+  nmap <buffer> <silent> <LocalLeader>r  <Plug>(MerlinRename)
+  nmap <buffer> <silent> <LocalLeader>R  <Plug>(MerlinRenameAppend)
+
+  nnoremap <buffer> <silent> <LocalLeader>u :MerlinOccurrences<CR>
 end
 

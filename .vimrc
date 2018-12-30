@@ -904,9 +904,6 @@ if has("autocmd")
 
     " See the above TODO for java patterns
     " let g:neocomplete#force_omni_input_patterns.ocaml = '[^. *\t]\.\w*\|\h\w*|#'
-
-    " opam install ocp-indent
-    " autocmd FileType ocaml source g:opamshare . "/typerex/ocp-indent/ocp-indent.vim"
   endif
 endif " has("autocmd")
 
