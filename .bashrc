@@ -3,6 +3,7 @@
 
 export LC_CTYPE=en_US.UTF-8
 export MANWIDTH=80
+export GREP_OPTIONS='--color-auto'
 
 #
 # Bash history
@@ -18,9 +19,6 @@ shopt -s checkwinsize   # update window size vars after each command
 # Please don't autocomplete these thx
 export FIGNORE="#:~:DS_Store:.pyc:.swp:.swo"
 
-#
-# I think I'm a convert.
-#
 export EDITOR=vim
 export VISUAL=gvim
 export FCEDIT=vim

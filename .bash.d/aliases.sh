@@ -20,11 +20,6 @@ alias l='ls -CF'
 alias ..='cd ..'
 alias ...='cd ../..'
 
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
-alias pcregrep='pcregrep --color=auto'
-
 # History editing/repetition
 alias r='fc -s'
 
