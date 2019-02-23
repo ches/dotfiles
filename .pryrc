@@ -8,21 +8,17 @@
 #   - regex commands for extension are pretty cool:
 #        https://github.com/pry/pry/wiki/Command-system
 #
-# Some possibilities to check out for debugging with Pry:
-#
-#   https://github.com/mon-ouie/pry_debug
-#   https://github.com/AndrewO/ruby-debug-pry
-#
 # Some nifty ideas: http://rbjl.net/49-railsrc-rails-console-snippets
 
 VIM = '/Applications/MacVim.app/Contents/MacOS/Vim -f'
-Pry.editor = proc { |file, line| "#{VIM} #{file} +#{line}" }
+Pry.config.editor = proc { |file, line| "#{VIM} #{file} +#{line}" }
 
 # Example of custom prompt mucking
 # Pry.config.prompt = proc { |obj, nest_level| "#{obj}:#{obj.instance_eval('_pry_').instance_variable_get('@output_array').count}> " }
 # Pry.config.prompt = proc { |obj, nest_level| "#{obj}:#{obj.instance_eval('Pry').class_eval('@current_line')}> " }
 
-if Pry.plugins['debugger'].enabled
+# Short aliases for Byebug akin to most debuggers
+if defined?(PryByebug)
   Pry.commands.alias_command 'c', 'continue'
   Pry.commands.alias_command 's', 'step'
   Pry.commands.alias_command 'n', 'next'
@@ -89,12 +85,11 @@ end
 #
 # Random custom commands
 #
-Pry.commands.command(/!(\d+)/, "Replay a line of history, bash-style", :listing => "!hist") do |id|
+Pry::Commands.command(/!(\d+)/, "Replay a line of history, bash-style", :listing => "!hist") do |id|
   run "history --replay #{id}"
 end
 
-# Sed-style substitution for fixes in the current multi-line input buffer
-Pry.commands.command /s\/(.*?)\/(.*?)/ do |source, dest|
+Pry::Commands.command(/s\/(.*?)\/(.*?)/, 'Sed-style substitution for fixes in current multi-line buffer', :listing => 's/tyop/typo') do |source, dest|
   eval_string.gsub!(/#{source}/) { dest }
   run 'show-input'
 end
