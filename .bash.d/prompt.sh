@@ -25,7 +25,7 @@ function git_prompt_info {
     local remote_pattern="Your branch is (.*) of"
     local diverge_pattern="Your branch and (.*) have diverged"
 
-    if [[ ! ${git_status} =~ "working directory clean" ]]; then
+    if [[ ! ${git_status} =~ "working tree clean" ]]; then
         state="${RED}⚡"
     fi
     if [[ -n ${git_stash} ]]; then
