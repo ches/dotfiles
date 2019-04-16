@@ -76,6 +76,7 @@ nnoremap gD :action QuickImplementations<CR>
 
 " unimpaired.vim mappings
 " TODO: something for toggling IntelliJ's breadcrumbs
+nmap con :set number!<CR>
 nmap col :action EditorToggleShowWhitespaces<CR>
 
 " Navigate by method
