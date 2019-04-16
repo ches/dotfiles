@@ -3,7 +3,7 @@
 
 export LC_CTYPE=en_US.UTF-8
 export MANWIDTH=80
-export GREP_OPTIONS='--color-auto'
+export GREP_OPTIONS='--color=auto'
 
 #
 # Bash history
