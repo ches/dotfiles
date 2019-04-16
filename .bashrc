@@ -63,6 +63,8 @@ fi
 # Travis CI CLI
 [[ -r ~/.travis/travis.sh ]] && source ~/.travis/travis.sh
 
+export RIPGREP_CONFIG_PATH="$HOME/.config/rg/rc"
+
 #-------------------------------------------------------------------------------
 # Language packaging, sandboxes, and stuff
 #-------------------------------------------------------------------------------

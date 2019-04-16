@@ -1,0 +1,4 @@
+# This is configuration for ripgrep - https://github.com/BurntSushi/ripgrep
+# It's location must be the value of RIPGREP_CONFIG_PATH
+
+--smart-case
