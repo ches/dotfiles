@@ -1,0 +1,33 @@
+#!/bin/sh
+
+# The advice of Chrome docs [1] that I used to follow for macOS,
+#
+#    open -a "Google Chrome" --args --user-data-dir=/dev/null
+#
+# is now breaking with a security exception taskgated "MacOS error: -67062" --
+# a fresh temp dir instead of /dev/null seems to work around this.
+#
+# [1]: https://developer.chrome.com/devtools/docs/clean-testing-environment
+
+OS="$(uname -s)"
+SCRIPTNAME="$(basename $0)"
+
+function die() {
+    echo "Aborting: $@" && exit 1
+}
+
+function installed() {
+    local cmd=$1
+    command -v ${cmd} >/dev/null
+}
+
+if [ "$OS" == "Darwin" ]; then
+    declare -r CHROME=${CHROME:-"Google Chrome"}
+    declare -r PROFILEDIR=`mktemp -d -t ${SCRIPTNAME}`
+
+    exec open -a "$CHROME" --args --user-data-dir="$PROFILEDIR"
+elif installed google-chrome; then
+    exec google-chrome --user-data-dir=/dev/null
+else
+    die "Teach me how to launch on this platform!"
+fi
