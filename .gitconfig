@@ -38,6 +38,8 @@
 	unignore = update-index --no-assume-unchanged
 	ignored = !git ls-files -v | grep \"^[[:lower:]]\"
 	ls-ignored = ls-files --others --ignored --exclude-standard
+	# Restore a dropped stash by SHA https://stackoverflow.com/a/6455586/455009
+	restash = !git update-ref -m $(git log -1 --pretty=format:'%s' $1) refs/stash $1
 	up = !sh -c 'git pull && git log --pretty=format:"%Cred%ae %Creset- %C(yellow)%s %Creset(%ar)" HEAD@{1}..'
 
 [branch]
