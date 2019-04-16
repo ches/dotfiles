@@ -2,7 +2,7 @@
 // See http://www.lihaoyi.com/Ammonite/#Configuration
 
 // Not really digging the @ sign prompt.
-repl.prompt() = "\namm> "
+repl.prompt() = "amm> "
 
 interp.configureCompiler { comp =>
   // Love the double negative... enable compiler warnings
