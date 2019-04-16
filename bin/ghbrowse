@@ -1,13 +1,13 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #/ Opens Github page for the project and branch of the CWD.
 #/ Somewhat obsoleted by `hub browse`, but this tries to be a little smarter.
 #/
 #/ Just call it, no args or options.
 
-# TODO: Is this POSIX-compliant sh?
-
 set -e
 
+# Rudimentary GitHub Enterprise support, same as hub's var
+GITHUB_HOST=${GITHUB_HOST:-github.com}
 OS="$(uname -s)"
 
 die () {
@@ -15,38 +15,30 @@ die () {
 }
 
 usage () {
-    echo "Usage: $(basename $0)\n"
+    echo "Usage: $(basename $0)"
     grep '^#/' "$0" | cut -c4-
     exit 2
 }
 
-# Check if a command is installed. For some reason that I can't remember, this
-# is deemed superior to `which`.
+# Check if a command is installed.
 installed () {
     local cmd=$1
     command -v ${cmd} >/dev/null
 }
 
-# Man, portability, amirite
-sed () {
-    if [ "$OS" = "Darwin" ]
-        then gsed $*
-        else sed $*
-    fi
-}
-
 [ $# -ne 0 ] && usage
 installed git || die "You need Git installed, yo."
 
-if [ "$OS" = "Darwin" ]; then
-    installed gsed || die "Must install GNU sed as gsed."
-fi
-
 declare branch=$(git branch --contains HEAD | awk '{ print $2 }')
 declare -r remote=$(git remote -v | awk '{ print $2 }' | head -1)
+declare repo
 
 # Extract the user/repo part
-declare -r repo=$(echo "$remote" | sed -rn 's~git(@|://)github.com[:/](.+/.+).git~\2~p')
+if [[ $remote =~ ^git(@|://)$GITHUB_HOST[:/](.+/.+).git$ ]]; then
+    readonly repo="${BASH_REMATCH[2]}"
+else
+    die "Repository has no remote on $GITHUB_HOST"
+fi
 
 # Use master if current branch is local-only
 # TODO: prefer a remote that verifiably contains current branch
@@ -54,7 +46,7 @@ if ! git ls-remote . | grep -q -e "refs/remotes/.*/${branch}"; then
     branch="master"
 fi
 
-declare -r url="https://github.com/$repo/tree/$branch"
+declare -r url="https://$GITHUB_HOST/$repo/tree/$branch"
 
 if [ "$OS" = "Darwin" ]; then
     open "$url"
