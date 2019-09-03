@@ -1,0 +1,9 @@
+# bat, a cat clone with syntax highlighting and Git change awareness
+# https://github.com/sharkdp/bat
+
+--theme=base16
+
+# grid and header are a bit too much...
+# Invoke with --style=full to get it all, nice for multiple files.
+# Use --plain for copying, or pipe e.g. to pbcopy
+--style=changes,numbers
