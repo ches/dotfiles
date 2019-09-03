@@ -5,6 +5,12 @@ function installed {
     command -v ${cmd} >/dev/null
 }
 
+# Run something, piping output through $PAGER.
+# Nice for commands with --help and no man page, shell `help getotps`, etc.
+function page {
+    $* | $PAGER
+}
+
 # Run something, piping all output to null.
 function silent {
     $* &> /dev/null
