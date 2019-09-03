@@ -64,6 +64,15 @@ if installed fpp; then
     alias fpp='fpp --non-interactive'
 fi
 
+if installed fzf; then
+    # fzf is hard to type on QWERTY. "ff" for Fuzzy Finder
+    alias ff=fzf
+
+    # fzf tricks
+    alias gbrowse="git log --oneline | fzf --multi --preview 'git show --color {+1}' --preview-window up:60%"
+    alias gbrowsev="git log --oneline | fzf --multi --preview 'git show --color {+1}'"
+fi
+
 #
 # Version Control
 #
@@ -95,12 +104,6 @@ fi
 
 if installed bundle; then
     alias be='bundle exec'
-fi
-
-# fzf Fuzzy Finder tricks
-if installed fzf; then
-    alias gbrowse="git log --oneline | fzf --multi --preview 'git show --color {+1}' --preview-window up:60%"
-    alias gbrowsev="git log --oneline | fzf --multi --preview 'git show --color {+1}'"
 fi
 
 #

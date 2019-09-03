@@ -26,6 +26,18 @@ if installed aws_completer; then
     complete -C aws_completer aws
 fi
 
+# /usr/local/opt/fzf/install --completion --key-bindings
+if [[ -r ~/.fzf.bash ]]; then
+    source ~/.fzf.bash
+
+    # Enable fzf ** completion on more commands
+    complete -F _fzf_dir_completion -o default -o bashdefault tree
+fi
+
+if installed kubectl; then
+    source <(kubectl completion bash)
+fi
+
 if installed sake; then
     complete -W "$(sake -T | awk {'print $2'})" sake
 fi
@@ -84,4 +96,8 @@ fi
 
 if installed _docker_machine; then
     complete -F _docker_machine dm
+fi
+
+if installed _fzf_opts_completion; then
+    complete -F _fzf_opts_completion ff
 fi

@@ -63,6 +63,22 @@ fi
 # Travis CI CLI
 [[ -r ~/.travis/travis.sh ]] && source ~/.travis/travis.sh
 
+# CLI fuzzy finder - https://github.com/junegunn/fzf
+# brew install fzf
+if installed fzf; then
+    # ansi is slow, maybe not worth it for fd
+    export FZF_DEFAULT_OPTS="--ansi --border"
+
+    # fd is a fast, user-friendly alternative to find - https://github.com/sharkdp/fd
+    # brew install fd
+    if installed fd; then
+        # Enhance fzf (see below) to use fd
+        export FZF_DEFAULT_COMMAND='fd --type file --hidden --exclude .git --color=always'
+        export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    fi
+    # TODO: try ag and rg too if fd not available
+fi
+
 export RIPGREP_CONFIG_PATH="$HOME/.config/rg/rc"
 
 #-------------------------------------------------------------------------------
@@ -122,8 +138,3 @@ fi
 
 # Completion - source late for scripts that check for commands added to PATH above
 [[ -r ~/.bash.d/completion.sh ]] && source ~/.bash.d/completion.sh
-
-# CLI fuzzy finder - https://github.com/junegunn/fzf
-# brew install fzf
-# /usr/local/opt/fzf/install --completion --key-bindings
-[[ -r ~/.fzf.bash ]] && source ~/.fzf.bash

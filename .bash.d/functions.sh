@@ -27,16 +27,56 @@ function mkbackup {
 }
 
 # fbr - checkout git branch with fzf
-fbr() {
+function fbr {
     if ! installed fzf; then
         echo 'fbr requires the fzf tool to be installed.'
         exit 1
     fi
 
     local branches branch
-    branches=$(git branch -vv) &&
-        branch=$(echo "$branches" | fzf +m) &&
-        git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
+    branches=$(git branch -vv) \
+        && branch=$(echo "$branches" | fzf +m) \
+        && git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
+}
+
+# Install or open home page for the selected application using brew.
+# Displays an info quickview window for the currently marked application.
+function ffbrew () {
+    local token
+    token=$(brew search | fzf --query="$1" +m --preview 'brew info {}')
+
+    if [ -n "$token" ]
+    then
+        read -p "(i)nstall or open (h)omepage of $token: " input
+        if [[ $input =~ ^[Ii] ]]; then
+            brew install $token
+        fi
+        if [[ $input =~ ^[Hh] ]]; then
+            brew home $token
+        fi
+    fi
+}
+
+function ffpv {
+    fzf-tmux --preview-window right:70% \
+        --preview '[[ $(file --mime {}) =~ binary ]] &&
+                     echo {} is a binary file ||
+                     (bat --color always {} ||
+                      highlight -O ansi -l {} ||
+                      cat {}) 2> /dev/null | head -500'
+}
+
+# autojump fuzzy finding
+# normal autojump when used with arguments but invokes fzf prompt for plain `j`
+function ffj {
+    # TODO: maybe override default j function, move autojump setup so it isn't OS X-specific
+    # unset -f j
+
+    if [[ "$#" -ne 0 ]]; then
+        cd $(autojump $@)
+        return
+    fi
+    cd "$(autojump -s | gsed '/_____/Q; s/^[0-9,.:]*\s*//' |  fzf --height 40% --reverse --inline-info)"
 }
 
 # This expects a file path substring as argument, and feeds matching files below
