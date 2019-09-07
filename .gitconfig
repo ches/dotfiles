@@ -18,9 +18,10 @@
 	unstage = reset HEAD
 	df = diff
 	dc = diff --cached
+	ds = diff --staged  # Saner UX of the prior...
 	vdiff = !git diff | view -
 	who = shortlog -s --
-	lg = log -p
+	lg = log --patch
 	ll = log --graph --pretty=format:'%C(blue)%h %C(green)%d%Creset %s  %C(black bold)%an, %ar%Creset'
 	glog = log --graph --stat --decorate
 	# 'show' does the same, I just like to have a common alias with Mercurial
