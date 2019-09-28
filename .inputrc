@@ -1,24 +1,44 @@
+# inputrc configures line editing functionality provided by the readline
+# library, used by many interactive programs such as the bash shell. See:
+#    info '(bash)Readline Init File Syntax'
+# https://www.gnu.org/software/bash/manual/html_node/Readline-Init-File-Syntax.html
+#
+# BSDs and macOS use editline, with a readline compatibility layer at least in
+# the case of macOS. See `man editrc` and `man editline`.
+
+# Filetype colors in completion lists
+set colored-stats on
+
 # Case-insensitive filesystems be damned
 set completion-ignore-case on
 
 # Hyphen can be used to complete underscores
 set completion-map-case on
 
+# With multiple matches, only show the remaining part.
+# Unsupported in editline  >:-(
+set completion-prefix-display-length 2
+
+# Try to avoid accidental multi-line pastes being interpreted as commands
+set enable-bracketed-paste on
+
 # Completion when in middle of word doesn't duplicate existing input.
-# Like many useful things, seems unsupported in OS X editline.
+# Like many useful GNU things, seems unsupported in editline.
 set skip-completed-text On
 
 # Automatically complete directory symlinks with ending /
 # Also offers them for `complete -d` like cd & pushd
 set mark-symlinked-directories on
 
+# Don't mutate history entries, leaving things you never executed
+set revert-all-at-newline on
+
 # Show completions immediately if multiple matches
 set show-all-if-ambiguous on
 set show-all-if-unmodified on
 
-# With multiple matches, only show the remaining part.
-# Unsupported in OS X editline  >:-(
-set completion-prefix-display-length 2
+# -- Key Bindings -------------------------------------------------------------
+# Symbolic keynames like Esc-j appear unsupported by editline.
 
 "\C-x\C-r": re-read-init-file
 
@@ -40,6 +60,27 @@ set completion-prefix-display-length 2
 # Need to kill -9 a thing that didn't die? Grep directory when you forgot -r?
 # Hat tip: http://www.ukuug.org/events/linux2003/papers/bash_tips/
 "\eo": "\C-p\C-a\ef "
+
+# Using Esc-i as a prefix that's more comfortable to me than the commonly used
+# Ctrl-x (on qwerty with left Option as Esc in iTerm). Other Ctrl combinations
+# have useful or unusable bindings. (mnemonic: "input")
+
+# Pairs; C-v (quoted-insert) avoids recursion when auto-pairs are in effect
+"\ei\"": "\C-v\"\C-v\"\C-b"
+"\ei\'": "\C-v\'\C-v\'\C-b"
+"\ei(": "\C-v()\C-b"
+"\ei9": "\ei("
+# Quote current or previous word
+"\eiq": "\eb\C-v\"\ef\C-v\""
+
+$if Bash
+    # Auto-pairs -- let's try if this is more convenient than annoying...
+    "\"": "\C-v\"\C-v\"\C-b"
+    "\'": "\C-v\'\C-v\'\C-b"
+    "(": "\C-v()\C-b"
+    # Surround current line with $()
+    "\ei$": "\C-a$\C-v(\C-e)"
+$endif
 
 # Call method in IRB. See .irbrc
 $if Ruby
