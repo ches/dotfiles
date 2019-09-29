@@ -37,7 +37,6 @@ hgext.schemes =
 hgext.shelve =
 hgext.transplant =
 hgext.zeroconf =
-prompt = ~/.hglib/hg-prompt/prompt.py
 #qct=/usr/local/lib/hg/qct.py
 hggit =
 

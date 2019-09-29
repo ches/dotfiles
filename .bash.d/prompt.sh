@@ -48,32 +48,6 @@ function git_prompt_info {
     fi
 }
 
-# TODO: for speed, make only one `hg prompt` call and massage data
-function hg_prompt_info {
-    # Because my home dir is an hg repo for dotfiles...
-    local hg_root="$(hg root 2> /dev/null)"
-    if [ -z ${hg_root} ] || [[ ${hg_root} = $HOME ]]; then exit; fi
-
-    local state shelf
-
-    # Override the hg-prompt extensions status characters
-    local hg_status="$(hg prompt '{status}')"
-    if [[ -n $hg_status ]]; then
-        state="${RED}⚡"
-    fi
-
-    # TODO: the hamburger would also be appropriate for mq patches
-    local hg_shelf="$(hg shelve --list 2> /dev/null)"
-    if [[ -n $hg_shelf ]]; then
-        shelf="${RED}☰"
-    fi
-
-    # Imperfect, but I almost always want to have a 'master' bookmark
-    local hg_prompt="$(hg prompt '{{branch|quiet}:}{{bookmark}}{:{patch}}')"
-    echo " ${GREEN}(${WHITE}☿ ${hg_prompt} ${shelf}${state}${GREEN})${COLOR_NONE}"
-}
-
-
 # chruby 0.4.0 is said to add $RUBY_PATCHLEVEL
 # https://twitter.com/postmodern_mod3/status/288985963559022592
 #
@@ -124,7 +98,6 @@ function prompt_func {
 
     local prompt="${GREEN}\w${COLOR_NONE}"
     prompt+="$(git_prompt_info)"
-    prompt+="$(hg_prompt_info)"
     prompt+="$(cabal_prompt_info)"
     prompt+="$(ruby_version)"
     prompt+="$(python_version)"
