@@ -5,6 +5,7 @@
 set history=500
 set number
 set hlsearch
+set ideajoin
 set ignorecase
 set smartcase
 set gdefault
