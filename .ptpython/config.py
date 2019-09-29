@@ -8,7 +8,10 @@ Some reminders:
 """
 from __future__ import unicode_literals
 from prompt_toolkit.filters import ViInsertMode
-from prompt_toolkit.key_binding.input_processor import KeyPress
+try:
+    from prompt_toolkit.key_binding.key_processor import KeyPress
+except ImportError:
+    from prompt_toolkit.key_binding.input_processor import KeyPress
 from prompt_toolkit.keys import Keys
 from pygments.token import Token
 
