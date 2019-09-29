@@ -14,6 +14,7 @@ export HISTCONTROL=erasedups
 export HISTSIZE=5000
 export PROMPT_COMMAND='history -a'  # Append immediately so new shells can use it
 
+shopt -s cdable_vars    # bash-completion gives pushd CDPATH completion like cd
 shopt -s checkwinsize   # update window size vars after each command
 
 # Please don't autocomplete these thx

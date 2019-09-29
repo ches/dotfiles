@@ -5,17 +5,13 @@
 # enable command and file completion after sudo
 complete -f -c sudo
 
+# Linux, or Homebrew on macOS, possibly with bash-completion@2 formula & bash 4+ ...
 if [ -f /etc/bash_completion ]; then
     source /etc/bash_completion
-elif [ -f /usr/local/etc/bash_completion ]; then # OS X Homebrew
+elif [ -f /usr/local/etc/bash_completion ]; then
     source /usr/local/etc/bash_completion
-
-    # Complete pushd like cd: CDPATH completion from bash_completion
-    if shopt -q cdable_vars; then
-        complete -v -F _cd -o nospace pushd
-    else
-        complete -F _cd -o nospace pushd
-    fi
+elif [ "${BASH_VERSINFO}" -ge 4 ] && [ -f /usr/local/share/bash-completion/bash_completion ]; then
+    source /usr/local/share/bash-completion/bash_completion
 fi
 
 for f in ~/.bash.d/completion-*.sh; do
