@@ -26,6 +26,37 @@ function mkbackup {
     cp ${filename} ${base}-${filetime}.${extension}
 }
 
+# Colorize source code paging with less. Use bat or highlight if available, else
+# fall back to less, hopefully with lesspipe coloring.
+#
+# Being super lazy about option handling here -- give options to less AFTER the
+# file name positionally, e.g. `lessc somefile -N` for line numbering.
+#
+# Args:
+#   filename (str): file to read with less
+#   [lessopts]: optional options for less
+#
+# TODO:
+#   Try to make lesspipe support this itself:
+#   https://github.com/wofr06/lesspipe/issues/3
+function lessc {
+    local -r filename="$1"
+    shift
+
+    if installed bat; then
+        bat --plain --paging=always --pager="less $@" "$filename"
+    elif installed highlight; then
+        highlight --force --out-format xterm256 --style xoria256 "$filename" | less "$@"
+    elif installed pygmentize; then
+        # lesspipe can use pygmentize, but not with options:
+        # https://github.com/wofr06/lesspipe/issues/5
+        # Also it's slow to enable as a default for plain `less`
+        pygmentize -f terminal256 -P style=monokai -g "$filename" | less "$@"
+    else
+        less "$@" "$filename"
+    fi
+}
+
 # fbr - checkout git branch with fzf
 function fbr {
     if ! installed fzf; then
