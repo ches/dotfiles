@@ -7,3 +7,5 @@
 # Invoke with --style=full to get it all, nice for multiple files.
 # Use --plain for copying, or pipe e.g. to pbcopy
 --style=changes,numbers
+
+--map-syntax sc:scala
