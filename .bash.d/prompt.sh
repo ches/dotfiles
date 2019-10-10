@@ -22,7 +22,7 @@ function git_prompt_info {
 
     local git_stash="$(git stash list 2> /dev/null)"
     local branch_pattern="^On branch ([^${IFS}]*)"
-    local remote_pattern="Your branch is (.*) of"
+    local remote_pattern="Your branch is (.*)"
     local diverge_pattern="Your branch and (.*) have diverged"
 
     if [[ ! ${git_status} =~ "working tree clean" ]]; then
