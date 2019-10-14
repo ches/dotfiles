@@ -18,6 +18,10 @@
     rsensePath: "~/.gem/ruby/2.3.1/bin/rsense"
   "base16-syntax":
     scheme: "Tomorrow"
+  "better-git-blame":
+    colorScale: "ChocolateMint"
+    searchInLayerEnabled: false
+    sendUsageStatistics: false
   build:
     stealFocus: false
   "build-cargo": {}
@@ -34,6 +38,11 @@
       "linter-tslint"
       "build-tsc"
       "autocomplete-ruby"
+      "ginkgo-and-gomega-snippets"
+      "Ensime"
+      "git-blame"
+      "vim-mode"
+      "vim-surround"
     ]
     packagesWithKeymapsDisabled: [
       "racer"
@@ -58,8 +67,16 @@
     scrollPastEnd: true
     softWrapAtPreferredLineLength: true
     tabLength: 4
+  "ex-mode":
+    gdefault: true
+    splitbelow: true
+    splitright: true
   "exception-reporting":
     userId: "9f35f77d-b182-15f2-cad2-98458372d0e0"
+  "git-blame":
+    colorCommitAuthors: true
+    columnWidth: 205
+    showLastNames: false
   "git-diff":
     showIconsInEditorGutter: true
   "git-plus": {}
@@ -76,6 +93,7 @@
       "~/.cabal/bin"
     ]
   "highlight-line":
+    enableBackgroundColor: false
     underline: "dotted"
   "ide-haskell":
     cabalPath: "~/.cabal/bin/cabal"
@@ -87,13 +105,17 @@
   "linter-gotype": {}
   "linter-pep8": {}
   "linter-phpcs": {}
+  "linter-ui-default":
+    panelHeight: 96
+    showPanel: true
   "markdown-preview": {}
   "merge-conflicts":
     gitPath: "/usr/local/bin/git"
   "one-dark-ui": {}
   "platformio-ide":
     useBuiltinPlatformIO: false
-  "platformio-ide-terminal": {}
+  "platformio-ide-terminal":
+    core: {}
   "project-manager":
     sortBy: "group"
   racer:
@@ -103,6 +125,9 @@
     compactView: true
   "sourcegraph-atom":
     highlightReferencesInFile: false
+  "split-diff":
+    colors: {}
+    hideDocks: true
   "status-bar": {}
   "symbols-tree-view": {}
   tabs:
@@ -116,6 +141,13 @@
   "tree-view":
     hideVcsIgnoredFiles: true
   "vim-mode":
+    useSmartcaseForSearch: true
+  "vim-mode-plus":
+    defaultScrollRowsOnMiniScroll: 2
+    hideCommandsFromCommandPalette: true
+    sequentialPaste: true
+    sequentialPasteMaxHistory: 6
+    statusBarModeStringStyle: "long"
     useSmartcaseForSearch: true
   "vim-surround":
     surroundCommand: "S"

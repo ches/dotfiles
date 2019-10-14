@@ -53,17 +53,17 @@
 
  # Main fuzzy finder; sadly not working in symbols-view?
  '.select-list':
-  'ctrl-g': 'core:cancel'
-  'ctrl-v': 'pane:split-right'
-  'ctrl-s': 'pane:split-down'
+   'ctrl-g': 'core:cancel'
+   'ctrl-v': 'pane:split-right'
+   'ctrl-s': 'pane:split-down'
  '.advanced-open-file atom-text-editor':
-  'ctrl-v': 'pane:split-right'
-  'ctrl-s': 'pane:split-down'
+   'ctrl-v': 'pane:split-right'
+   'ctrl-s': 'pane:split-down'
 
 #-------------------------------------------------------------------------------
 # Vim Normal + Visual Modes
 #-------------------------------------------------------------------------------
-'atom-text-editor.vim-mode:not(.insert-mode)':
+'atom-text-editor.vim-mode-plus:not(.insert-mode)':
   'enter': 'ex-mode:open'
 
   # Use last-cursor-position package like Vim's jump stack
@@ -80,13 +80,13 @@
   'ctrl-w ;': 'window:focus-previous-pane'
 
   # Switch mark movements as I do in Vim -- exact column easier to reach
-  '\'': 'vim-mode:move-to-mark-literal'
-  '`': 'vim-mode:move-to-mark'
+  '\'': 'vim-mode-plus:move-to-mark'
+  '`': 'vim-mode-plus:move-to-mark-line'
 
 #-------------------------------------------------------------------------------
 # Vim Normal Mode defaults
 #-------------------------------------------------------------------------------
-'atom-text-editor.vim-mode.normal-mode':
+'atom-text-editor.vim-mode-plus.normal-mode':
   # TODO: Why aren't ctrl-e / ctrl-y scrolling working sometimes?
   # TODO: [-space empty line insertion
   # TODO: make ctrl-d / ctrl-t change indentation in insert mode
@@ -131,7 +131,7 @@
 #-------------------------------------------------------------------------------
 # Filetype-specific Overrides
 #-------------------------------------------------------------------------------
-'atom-text-editor[data-grammar~=haskell].vim-mode.normal-mode':
+'atom-text-editor[data-grammar~=haskell].vim-mode-plus.normal-mode':
   # haskell-hoogle:lookup; make it support current word if no range highlight
   'space f': 'ide-haskell-hasktags:show-file-tags'
   'space ctrl-f': 'ide-haskell-hasktags:show-tags'
@@ -148,18 +148,18 @@
   '\ i': 'haskell-ghc-mod:show-info'
   '\ T': 'haskell-ghc-mod:insert-type'
 
-'atom-text-editor[data-grammar~=python].vim-mode.normal-mode':
+'atom-text-editor[data-grammar~=python].vim-mode-plus.normal-mode':
   'g d': 'autocomplete-python:go-to-definition'
   'ctrl-]': 'autocomplete-python:go-to-definition'
   'ctrl-t': 'last-cursor-position:previous'
 
-'atom-text-editor[data-grammar~=rust].vim-mode.normal-mode':
+'atom-text-editor[data-grammar~=rust].vim-mode-plus.normal-mode':
   'g d': 'racer:find-definition'
   'ctrl-]': 'racer:find-definition'
   'ctrl-t': 'last-cursor-position:previous'
 
 # TypeScript
-'atom-text-editor[data-grammar^="source ts"].vim-mode.normal-mode':
+'atom-text-editor[data-grammar^="source ts"].vim-mode-plus.normal-mode':
   # atom-typescript has symbols integration
   'space f': 'symbols-view:toggle-file-symbols'
   'space ctrl-f': 'symbols-view:toggle-project-symbols'
