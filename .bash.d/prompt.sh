@@ -22,7 +22,7 @@ function git_prompt_info {
 
     local git_stash="$(git stash list 2> /dev/null)"
     local branch_pattern="^On branch ([^${IFS}]*)"
-    local remote_pattern="Your branch is (.*)"
+    local remote_pattern="Your branch is (ahead|behind|up to date)"
     local diverge_pattern="Your branch and (.*) have diverged"
 
     if [[ ! ${git_status} =~ "working tree clean" ]]; then
@@ -31,13 +31,11 @@ function git_prompt_info {
     if [[ -n ${git_stash} ]]; then
         stash="${RED}☰"
     fi
-    # add an else if or two here if you want to get more specific
     if [[ ${git_status} =~ ${remote_pattern} ]]; then
-        if [[ ${BASH_REMATCH[1]} == "ahead" ]]; then
-            remote="${YELLOW}↑"
-        else
-            remote="${YELLOW}↓"
-        fi
+        case ${BASH_REMATCH[1]} in
+             ahead) remote="${YELLOW}↑" ;;
+            behind) remote="${YELLOW}↓" ;;
+        esac
     fi
     if [[ ${git_status} =~ ${diverge_pattern} ]]; then
         remote="${YELLOW}↕"
