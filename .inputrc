@@ -52,10 +52,10 @@ set show-all-if-unmodified on
 "\C-w": unix-filename-rubout
 "\C-x\C-w": unix-word-rubout
 
-# Up/Down will use history search for what's typed so far.
-# Ctrl-p/n still cycle dumbly.
-"\e[A": history-search-backward
-"\e[B": history-search-forward
+# Ctrl-p/n will use history search for what's typed so far.
+# Up/Down still cycle dumbly. (previous-history / next-history)
+"\C-p": history-search-backward
+"\C-n": history-search-forward
 
 # Need to kill -9 a thing that didn't die? Grep directory when you forgot -r?
 # Hat tip: http://www.ukuug.org/events/linux2003/papers/bash_tips/
