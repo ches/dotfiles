@@ -467,7 +467,7 @@ endif
 " http://stackoverflow.com/questions/9950944/binding-special-keys-as-vim-shortcuts
 "
 " NOTE: Neovim ends a lot of the pain.
-if has('mac') && ($TERM == 'xterm-256color' || $TERM == 'screen-256color')
+if has('mac') && (index(['alacritty', 'xterm-256color', 'screen-256color'], $TERM) >= 0)
   map <Esc>OP <F1>
   map <Esc>OQ <F2>
   map <Esc>OR <F3>
