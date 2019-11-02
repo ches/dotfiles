@@ -74,6 +74,11 @@ set show-all-if-unmodified on
 "\eiq": "\eb\C-v\"\ef\C-v\""
 
 $if Bash
+    # Alias for C-xC-e that matches fish
+    "\ee": edit-and-execute-command
+    # Append pager, fish-inspired
+    "\ep": "\C-e | less"
+
     # Auto-pairs -- let's try if this is more convenient than annoying...
     "\"": "\C-v\"\C-v\"\C-b"
     "\'": "\C-v\'\C-v\'\C-b"
