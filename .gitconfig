@@ -92,6 +92,13 @@
 [web]
 	browser = open
 
+# Git Large File Support
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+
 # Settings for "avh" version of git-flow
 # https://github.com/petervanderdoes/gitflow-avh/wiki/Reference:-Configuration
 #
@@ -103,3 +110,6 @@
 	keepremote = true
 [gitflow "hotfix.finish"]
 	keepremote = true
+
+[includeIf "gitdir:~/src/agoda/"]
+	path = ~/src/agoda/.gitconfig

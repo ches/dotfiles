@@ -9,6 +9,8 @@
 .agignore
 .ensime*
 .git-wtfrc
+# Supported by ag, rg, fd
+.ignore
 .lvimrc
 # Indexes from Vim completion plugin
 .padawan/
@@ -16,6 +18,7 @@
 .ropeproject
 /tags
 /*.tags
+.vscode/
 
 # Eclipse / Eclim
 .buildpath
@@ -27,6 +30,10 @@
 # IntelliJ
 .idea/
 *.iml
+
+# Scala Metals language server -- https://scalameta.org/metals/
+.bloop/
+.metals/
 
 # Lots of crap from this srclib thing I'm playing with:
 # https://srclib.org/
@@ -50,6 +57,8 @@
 
 # Haskell projects
 /cabal.config
+
+.python-version
 
 # Ruby projects
 .bundle/
