@@ -69,8 +69,8 @@ if installed fzf; then
     alias ff=fzf
 
     # fzf tricks
-    alias gbrowse="git log --oneline | fzf --multi --preview 'git show --color {+1}' --preview-window up:60%"
-    alias gbrowsev="git log --oneline | fzf --multi --preview 'git show --color {+1}'"
+    alias gbrowse="git log --oneline --color=always | fzf --multi --preview 'git show --color {+1}' --preview-window up:60%"
+    alias gbrowsev="git log --oneline --color=always | fzf --multi --preview 'git show --color {+1}'"
 fi
 
 #
@@ -122,5 +122,7 @@ if [ "$OSNAME" == "Darwin" ]; then
 
     # Options are not equivalent, but 90% use case is just find by file path
     alias locate='mdfind -name'
+
+    alias lsjvm='/usr/libexec/java_home -V'
 fi
 

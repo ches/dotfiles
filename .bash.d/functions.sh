@@ -72,9 +72,10 @@ function fbr {
 
 # Install or open home page for the selected application using brew.
 # Displays an info quickview window for the currently marked application.
+# It's too bad brew is so slow these days.
 function ffbrew () {
     local token
-    token=$(brew search | fzf --query="$1" +m --preview 'brew info {}')
+    token=$(brew search | fzf --query="$1" +m --preview 'HOMEBREW_COLOR=true brew info {}')
 
     if [ -n "$token" ]
     then
