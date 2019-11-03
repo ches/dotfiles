@@ -109,7 +109,7 @@ fi
 #
 # OS X
 #
-if [ "$(uname -s)" == "Darwin" ]; then
+if [ "$OSNAME" == "Darwin" ]; then
     #
     # Remote Access
     #

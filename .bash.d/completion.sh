@@ -18,6 +18,7 @@ for f in ~/.bash.d/completion-*.sh; do
     source $f
 done
 
+# From awscli
 if installed aws_completer; then
     complete -C aws_completer aws
 fi
@@ -28,14 +29,11 @@ if [[ -r ~/.fzf.bash ]]; then
 
     # Enable fzf ** completion on more commands
     complete -F _fzf_dir_completion -o default -o bashdefault tree
+    complete -F _fzf_path_completion -o default -o bashdefault bat
 fi
 
 if installed kubectl; then
     source <(kubectl completion bash)
-fi
-
-if installed sake; then
-    complete -W "$(sake -T | awk {'print $2'})" sake
 fi
 
 # Stack build tool for Haskell
@@ -58,17 +56,6 @@ complete -C ~/.bash.d/completion-rake.rb -o default rake
 #   return 0
 # }
 # complete -o default -o nospace -F _rakecomplete rake
-
-#
-# Thor
-#
-# FIXME: this isn't quite working -- a control char is being choked on or something
-_thorcomplete() {
-    COMPREPLY=($(compgen -W "`thor -T | pcregrep -v -M "^.+\n^\-+|^$" | grep -v "*" | \
-        awk '{{print $1}}'`" -- ${COMP_WORDS[COMP_CWORD]}))
-    return 0
-}
-complete -o default -o nospace -F _thorcomplete thor
 
 # chruby allows fuzzy matching, but the listing is convenient.
 # See evolution: https://github.com/postmodern/chruby/issues/27

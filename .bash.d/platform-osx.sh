@@ -1,7 +1,5 @@
 BREW=`brew --prefix`
 
-export VISUAL='mvim -f'
-
 # Directory listings in Technicolor, the BSD/OS X way.
 # Geoff Greer made a cool preview/generator for BSD and Linux:
 # http://geoff.greer.fm/lscolors/
@@ -19,16 +17,19 @@ if installed lesspipe.sh; then
 fi
 
 # https://github.com/joelthelion/autojump/wiki
-if [ -r $BREW/etc/autojump.sh ]; then
-    . $BREW/etc/autojump.sh
+# NOTE: edit the script to make "check custom install" location an `elif`, or
+#   else it sources itself twice, and it's pretty slow. Should send fix upstream
+#   https://github.com/wting/autojump/issues/590
+if [ -r $BREW/etc/profile.d/autojump.sh ]; then
+    . $BREW/etc/profile.d/autojump.sh
 fi
 
 # =================================
 # =       App-specific Bits       =
 # =================================
 
+# NOTE: Set JAVA_HOME via `jenv enable-plugin export`
 export GROOVY_HOME=/usr/local/opt/groovy/libexec
-export JAVA_HOME=$(/usr/libexec/java_home --version 1.8.0)
 export NODE_PATH="/usr/local/lib/node_modules"
 
 # Make paulp/sbt-extras pick up same default rc file as the `brew install sbt` runner.

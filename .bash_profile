@@ -2,39 +2,41 @@
 # see /usr/share/doc/bash/examples/startup-files for examples.
 # the files are located in the bash-doc package.
 
-#umask 022
+# The way things are supposed to work:
+#   1) bash loads this for login shells
+#      a) we delegate to .profile for that
+#   2) we load .bashrc, for when the login shell is interactive. bash only does
+#      it for NON-login interactive shells.
+#   3) .bashrc guards if shell is non-interactive, so if we source it here from
+#      a non-interactive login shell, it just skips.
+#
+# Beware, though, that macOS is weird and Terminal.app starts login shells by
+# default with login(1), so iTerm and others followed suit. That is the case for
+# tmux too, since sessions may be re-attached across different logins.
+#
+# Some Linux distros are known to build bash with options that cause it to load
+# .bashrc for non-interactive shells by default. Ugh.
+#
+# https://superuser.com/a/789465/79564
+#
+# Helpful for startup profiling: https://stackoverflow.com/a/5015179/455009
 
-# OS X's PATH/MANPATH management with /etc/{man,}paths.d directories, which are
-# often augmented by Homebrew Cask packages that include CLI tools. Needs to act
-# before bashrc loads so that my personal path prepends like version managers
-# take precedence.
-if [ -x /usr/libexec/path_helper ]; then
-    export MANPATH=${MANPATH:-} # path_helper won't adjust MANPATH unless one exists
-    eval $(/usr/libexec/path_helper -s)
-fi
+# Load common stuff for a login shell.
+[ -r ~/.profile ] && . ~/.profile
 
-# If this is an interactive shell, include .bashrc if it exists. OS X doesn't
-# like to do this unless invoked with `bash -i`.
-case $- in
-    *i*)
-        if [ -f ~/.bashrc ]; then
-            . ~/.bashrc
-        fi
-esac
-
-# set PATH so it includes user's private bin if it exists
-if [ -d ~/bin ] ; then
-    PATH=~/bin:"${PATH}"
-fi
+# Also load stuff for interactive (login) shells.
+[ -r ~/.bashrc ] && . ~/.bashrc
 
 # In keeping with tradition.
 #
 # For a random cow. But coreutils on macOS, ugh.
 # cowsay -f `ls -1 /usr/local/share/cows/*.cow | sort -R | head -1`
-if installed fortune; then
-    if installed cowsay; then
-        fortune -s | cowthink -n
-    else
-        fortune -s
+if [[ $- == *i* ]]; then  # is interactive
+    if installed fortune; then
+        if installed cowsay; then
+            fortune -s | cowthink -n
+        else
+            fortune -s
+        fi
     fi
 fi

@@ -2,7 +2,7 @@
 # Author: Avishai Ish-Shalom <avishai@fewbytes.com>
 
 # We need to specify GNU sed for OS X, BSDs, etc.
-if [[ "$(uname -s)" == "Darwin" ]]; then
+if [[ "$OSNAME" == "Darwin" ]]; then
     SED=gsed
 else
     SED=sed

@@ -136,7 +136,7 @@ function acton {
 
     if [[ "$searchtool" == "find" ]]; then
         # Ugh, of course BSD and GNU find handle regex type differently.
-        if [[ "$(uname -s)" == "Darwin" ]]; then
+        if [[ "$OSNAME" == "Darwin" ]]; then
             # Shell escaping is always lovely.
             exec \
                 find -E . -type f -regex '.*'"$search"'.*' \
@@ -156,7 +156,11 @@ function acton {
 #
 # OS X
 #
-if [ "$(uname -s)" == "Darwin" ]; then
+if [ "$OSNAME" == "Darwin" ]; then
+
+    # Run a query in Dash.app
+    function dash() { open dash://$*; }
+
     # Mounts encrypted disk image containing bank statements, then creates a
     # new one including a new statement for a chosen account.
     #
@@ -230,4 +234,3 @@ if [ "$(uname -s)" == "Darwin" ]; then
         fi
     }
 fi
-
