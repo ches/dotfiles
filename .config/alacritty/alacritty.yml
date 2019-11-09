@@ -170,21 +170,50 @@ fonts:
       family: Consolas for Powerline
     size: 13.0
 
-  consolas: &fira-code
+  fira-code: &fira-code
     <<: *font-defaults
     normal:
       family: Fira Code Light
     size: 12.0
 
-  inconsolata: &inconsolata
+  fira-nerd: &fira-nerd
+    <<: *font-defaults
+    normal:
+      family: FuraCode Nerd Font
+      style: Light
+    size: 12.0
+    offset:
+      y: 3
+
+  hack: &hack # Has italic
+    <<: *font-defaults
+    normal:
+      family: Hack Nerd Font
+      style: Regular
+    size: 12.0
+    offset:
+      y: 5
+
+  inconsolata-dz: &inconsolata-dz
     <<: *font-defaults
     normal:
       family: Inconsolata-dz for Powerline
     size: 12.0
 
+  inconsolata: &inconsolata # Has italic
+    <<: *font-defaults
+    normal:
+      family: InconsolataLGC Nerd Font
+      style: Medium
+    size: 12.0
+    offset:
+      y: 3
+
 # Font configuration (changes require restart)
 # font: *consolas
 # font: *fira-code
+# font: *fira-nerd
+# font: *hack
 font: *inconsolata
 
 # If `true`, bold text is drawn using the bright color variants.
