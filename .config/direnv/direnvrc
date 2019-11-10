@@ -1,12 +1,68 @@
+# Per-directory shell environment modifications -- http://direnv.net/
+
+# Usage: use ruby
+# Loads Ruby version from a `.ruby-version`.
+#
 # Usage: use ruby <version>
+# Loads specified Ruby version.
 #
-# Loads the specified ruby version into the environent
+# This does NOT enable a project-local gem sandbox, for that you should also
+# subsequently use `layout ruby`.
 #
-# See: http://direnv.net/#/docs/ruby
+# Environment Variables:
+#
+# - $RUBIES (optional)
+#   Path to installed Ruby versions. If not set, ~/.rubies is tried by default
+#   as with postmodern/ruby-install and chruby.
+#
+# This largely mimics the direnv stdlib's `use_node`.
+# See also: https://github.com/direnv/direnv/wiki/Ruby
 use_ruby() {
-  local ruby_dir=$HOME/.rubies/$1
-  load_prefix $ruby_dir
-  layout ruby
+  local version=$1; shift
+  local rubies="${RUBIES:-$HOME/.rubies}"
+  local ruby_prefix
+
+  if [[ -z $version ]] && [[ -r .ruby-version ]]; then
+    version=$(< .ruby-version)
+    watch_file .ruby-version
+  fi
+
+  if [[ -z $version ]]; then
+    log_error 'A Ruby version must be given to `use ruby`, or a .ruby-version file must exist'
+    return 1
+  fi
+
+  local engine_re='([^-]*)-(.*)'
+  local engine=""
+
+  # Extract interpreter engine and version number from e.g. rbx-4.5
+  # Default to a simple x.x.x version meaning MRI
+  if [[ $version =~ $engine_re ]]; then
+    engine=${BASH_REMATCH[1]}
+    version=${BASH_REMATCH[2]}
+  else
+    engine="ruby"
+  fi
+
+  if [[ -d $rubies/$engine-$version ]]; then
+    ruby_prefix=$rubies/$engine-$version
+  else
+    log_error "$engine-$version is not installed in $rubies"
+    return 1
+  fi
+
+  load_prefix $ruby_prefix
+
+  export GEM_HOME="$HOME/.gem/ruby/$version"
+  PATH_add "$GEM_HOME/bin"
+  path_add GEM_PATH $GEM_HOME
+
+  # As set by chruby & RVM, useful e.g. for prompt
+  export RUBY_ENGINE="$engine"
+  export RUBY_ROOT="$ruby_prefix"
+  export RUBY_VERSION="$version"
+
+  log_status "loaded Ruby version $engine-$version successfully"
 }
 
 # Usage: layout gb

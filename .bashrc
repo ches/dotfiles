@@ -90,7 +90,6 @@ installed pyenv-virtualenv-init && eval "$(pyenv virtualenv-init -)"
 # Well put: http://pbrisbin.com/posts/chruby
 if [ -x /usr/local/opt/chruby ]; then
     source /usr/local/opt/chruby/share/chruby/chruby.sh
-    source /usr/local/opt/chruby/share/chruby/auto.sh
 fi
 
 #-------------------------------------------------------------------------------
