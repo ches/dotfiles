@@ -26,6 +26,7 @@ RIPGREP_CONFIG_PATH="$HOME/.config/rg/rc"
 # 'less' is more. lesspipe is loaded per shell/platform.
 PAGER='/usr/bin/less'
 LESS='-Ri'
+MANPAGER="$PAGER -M +Gg"  # Show progress percentage
 
 # macOS's PATH/MANPATH management with /etc/{man,}paths.d directories, which are
 # often augmented by Homebrew Cask packages that include CLI tools. The default
