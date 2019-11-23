@@ -18,7 +18,7 @@ function git_prompt_info {
     local git_status="$(git status 2> /dev/null)"
     if [[ -z ${git_status} ]]; then exit; fi
 
-    local state stash remote branch
+    local state stash remote branch sep
 
     local git_stash="$(git stash list 2> /dev/null)"
     local branch_pattern="^On branch ([^${IFS}]*)"
@@ -40,9 +40,12 @@ function git_prompt_info {
     if [[ ${git_status} =~ ${diverge_pattern} ]]; then
         remote="${YELLOW}↕"
     fi
+    if [[ $state || $stash || $remote ]]; then
+        sep=" "
+    fi
     if [[ ${git_status} =~ ${branch_pattern} ]]; then
         branch=${BASH_REMATCH[1]}
-        echo " ${GREEN}(${WHITE}± ${branch} ${stash}${state}${remote}${GREEN})${COLOR_NONE}"
+        echo " ${GREEN}(${WHITE}± ${branch}${sep}${stash}${state}${remote}${GREEN})${COLOR_NONE}"
     fi
 }
 
