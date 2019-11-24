@@ -601,6 +601,10 @@ if has("autocmd")
     autocmd FileType text,gitcommit,vimwiki setlocal spell
     autocmd FileType godoc,qf nnoremap <silent><buffer> q :q<CR>
     autocmd FileType man setlocal nocursorline nomodifiable
+
+    " Quickly get back to the last header or source.
+    autocmd BufLeave *.{c,cpp,erl,ml} mark C
+    autocmd BufLeave *.{h,hrl,mli}    mark H
   augroup END "}}}
 
   " Fun with some goodies hidden in vim-git ftplugins. {{{
