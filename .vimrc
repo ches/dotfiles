@@ -599,7 +599,7 @@ if has("autocmd")
     autocmd FileType vimwiki map <buffer> <Leader>w/ :VimwikiSearch<space>/
 
     autocmd FileType text,gitcommit,vimwiki setlocal spell
-    autocmd FileType godoc,man,qf nnoremap <silent><buffer> q :q<CR>
+    autocmd FileType godoc,qf nnoremap <silent><buffer> q :q<CR>
     autocmd FileType man setlocal nocursorline nomodifiable
   augroup END "}}}
 
@@ -768,7 +768,36 @@ if has("autocmd")
   " Not cool when end-of-line comments break when uncommenting /* */ blocks:
   let NERDRemoveAltComs       = 0
 
-  " TagmaTasks
+  " QFEnter - open quickfix items where you want them {{{
+  " Change mappings to mimic CtrlP
+  " TODO: ought to contribute <Plug> mapping support to this plugin
+  " https://github.com/romainl/vim-qf is cool, the ack.vim mappings also
+  " aren't <Plug> mappings -- contribute that
+  let g:qfenter_keymap = {}
+  let g:qfenter_keymap.vopen = ['<C-v>']
+  let g:qfenter_keymap.hopen = ['<C-CR>', '<C-s>', '<C-x>']
+  let g:qfenter_keymap.topen = ['<C-t>']
+
+  " ack.vim-like, unfortunately no way to open in tab in background I don't think
+  let g:qfenter_keymap.open_keep  = ['go']
+  let g:qfenter_keymap.hopen_keep = ['H']
+  let g:qfenter_keymap.topen_keep = ['T']
+  let g:qfenter_keymap.vopen_keep = ['gv']
+
+  " Autopreview
+  let g:qfenter_keymap.cnext_keep = ['<C-n>']
+  let g:qfenter_keymap.cprev_keep = ['<C-p>']
+
+  " Don't open the quickfix window in each newly-opened tab
+  let g:qfenter_enable_autoquickfix = 0
+
+  " Preview support, I think this was my own WIP implementation
+  let g:qfenter_popen_map = ['p']
+  " let g:qfenter_pcnext_map = ['<C-n>']
+  " let g:qfenter_pcprev_map = ['<C-p>']
+  " }}}
+
+  " TagmaTasks {{{
   let g:TagmaTasksHeight   = 8
   let g:TagmaTasksTokens   = ['FIXME', 'TODO', 'NOTE', 'XXX', 'OPTIMIZE', 'PONY']
   let g:TagmaTasksJumpTask = 0
@@ -783,7 +812,7 @@ if has("autocmd")
     let g:TagmaTasksPrefix = '<M-t>'
   else
     let g:TagmaTasksPrefix = '<Esc>t'
-  endif
+  endif " }}}
 
   " Open the YankRing window
   if has('mac') && has('gui_running')
@@ -935,6 +964,13 @@ map <Leader>l  :LAck! '' %<Left><Left><Left>
 map <Leader>n  :AckFromSearch!<CR>
 " Mnemonic: helpgrep, but consider making this a prefix for Lawrencium...
 map <Leader>hg :AckHelp! ''<Left>
+
+" Use QFEnter
+let g:ack_apply_qmappings = 0
+let g:ack_apply_lmappings = 0
+
+" Location list should be window-scoped, act that way.
+let g:ack_lhandler = 'lopen'
 
 let g:ackhighlight = 1
 

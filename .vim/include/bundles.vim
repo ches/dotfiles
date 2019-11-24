@@ -94,7 +94,7 @@ NeoBundle 'xolox/vim-session', {
 \ 'depends' : 'xolox/vim-misc',
 \ 'augroup' : 'PluginSession'
 \ }
-
+NeoBundle 'yssl/QFEnter'
 
 " On-demand {{{2
 " --------------
@@ -311,7 +311,6 @@ NeoBundle 'YankRing.vim', { 'augroup' : 'YankRing' }
 NeoBundle 'git://repo.or.cz/vcscommand'
 
 " Color schemes {{{2
-" Slightly nuts to manage with Vundle I guess, but easy updates.
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'chriskempson/base16-vim'
 NeoBundle 'godlygeek/csapprox', { 'terminal' : 1 }
