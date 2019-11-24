@@ -289,6 +289,9 @@ NeoBundleLazy 'rust-lang/rust.vim', {
 NeoBundleLazy 'racer-rust/vim-racer', {
 \ 'autoload' : { 'filetypes' : 'rust', 'filename_patterns' : '\.rs$' }
 \ }
+NeoBundleLazy 'satabin/hocon-vim', {
+\ 'autoload' : { 'filename_patterns' : '\.conf$' }
+\ }
 NeoBundleLazy 'cespare/vim-toml', {
 \ 'autoload' : { 'filename_patterns' : ['\.toml$', 'Cargo.lock'] }
 \ }
@@ -308,7 +311,7 @@ NeoBundle 'word_complete.vim'
 NeoBundle 'YankRing.vim', { 'augroup' : 'YankRing' }
 
 " Custom git repo locations
-NeoBundle 'git://repo.or.cz/vcscommand'
+NeoBundle 'https://repo.or.cz/vcscommand.git'
 
 " Color schemes {{{2
 NeoBundle 'altercation/vim-colors-solarized'
