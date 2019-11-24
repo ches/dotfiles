@@ -801,6 +801,37 @@ if has("autocmd")
   " let g:qfenter_pcprev_map = ['<C-p>']
   " }}}
 
+  " Syntastic - Syntax and Lint/Style Checking {{{
+  nnoremap <F5>         :SyntasticCheck<CR> :Errors<CR>
+  nnoremap <Leader><F5> :SyntasticToggleMode<CR>
+
+  let g:syntastic_aggregate_errors = 1
+  let g:syntastic_always_populate_loc_list = 1
+
+  let g:syntastic_error_symbol   = '✗'  " ✖, ✘, ☝, ✋
+  let g:syntastic_warning_symbol = '⚠'
+  let g:syntastic_style_error_symbol   = '❗'  " 🌶, 💦, 🖉, 🙈
+  let g:syntastic_style_warning_symbol = '❕'
+
+  " TODO: SBT ignored or passive?
+  let g:syntastic_ignore_files = ['\m\c\.h$', '\m\.sbt$']
+
+  " Tuning for stuff that is slow or obnoxious
+  let g:syntastic_mode_map = {
+        \ 'mode': 'active',
+        \ 'passive_filetypes': ['scala', 'sbt', 'java'] }
+
+  let g:syntastic_direnv_checkers = ['sh', 'shellcheck', 'shfmt']
+  let g:syntastic_go_checkers = ['go', 'golint', 'govet']
+  let g:syntastic_help_checkers = ['proselint']
+  let g:syntastic_markdown_checkers = ['proselint']
+
+  " Scala has fsc and scalac checkers--running both is pretty redundant and
+  " slow. An explicit `:SyntasticCheck scalac` can always run the other.
+  let g:syntastic_scala_checkers = ['fsc']
+  let g:syntastic_text_checkers = ['proselint']
+  " }}}
+
   " TagmaTasks {{{
   let g:TagmaTasksHeight   = 8
   let g:TagmaTasksTokens   = ['FIXME', 'TODO', 'NOTE', 'XXX', 'OPTIMIZE', 'PONY']
