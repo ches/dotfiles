@@ -327,6 +327,11 @@ nnoremap <leader>eN :vsplit ~/.vim/doc/my-notes.txt<CR>
 nnoremap <leader>ef :exec 'split '  . join([$MYVIMRUNTIME, 'after', 'ftplugin', &ft . '.vim'], '/')<CR>
 nnoremap <leader>eF :exec 'vsplit ' . join([$MYVIMRUNTIME, 'after', 'ftplugin', &ft . '.vim'], '/')<CR>
 
+" TODO: Should really factor out a function with error handling for the after/ftplugin
+nnoremap <leader>sv :source $MYVIMRC<CR>
+nnoremap <leader>sf :exec 'source ' . join([$MYVIMRUNTIME, 'after', 'ftplugin', &ft . '.vim'], '/')<Bar>
+      \ echo 'Sourced ' . &ft . ' customizations.'<CR>
+
 " Search runtime files (plugins) -- warning: slow!
 nnoremap <leader>eP :CtrlPRTS<CR>
 
@@ -526,8 +531,9 @@ if has("autocmd")
     autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
-    " Hide completion doc hints automatically after no longer needed
-    autocmd InsertLeave *.py pclose
+    " Hide completion doc hints automatically after no longer needed.
+    " CompleteDone event also possible but InsertLeave is less herky jerky.
+    autocmd InsertLeave *.py,*.scala silent! pclose
   augroup END "}}}
 
   " TODO: might soon want to start organizing this ballooning group of stuff
@@ -574,7 +580,7 @@ if has("autocmd")
       autocmd User Rails.javascript* :DashKeywords jj js jquery
       autocmd User Rails.javascript.coffee* :DashKeywords cjj coffee js jquery
 
-      autocmd FileType scala :DashKeywords scala akka play
+      autocmd FileType scala :DashKeywords scala akka play scaladoc
     else
       autocmd FileType ruby noremap <buffer> <leader>rb :OpenURL http://apidock.com/ruby/<cword><CR>
       autocmd FileType ruby noremap <buffer> <leader>rr :OpenURL http://apidock.com/rails/<cword><CR>
@@ -851,7 +857,8 @@ if has("autocmd")
     \ 'js=javascript',
     \ 'python',
     \ 'ruby', 'erb=eruby',
-    \ 'scala'
+    \ 'scala',
+    \ 'vim'
   \ ]
 
   " Vimwiki {{{
@@ -892,7 +899,7 @@ if has("autocmd")
     endif
   endif
 
-  " Merlin - Semantic completion for OCaml
+  " Merlin - Semantic completion for OCaml {{{
   "
   " Installed along with its server runtime through OPAM, so the Vim plugin is
   " loaded by giving NeoBundle a local path -- see:
@@ -908,7 +915,7 @@ if has("autocmd")
 
     " See the above TODO for java patterns
     " let g:neocomplete#force_omni_input_patterns.ocaml = '[^. *\t]\.\w*\|\h\w*|#'
-  endif
+  endif " }}}
 endif " has("autocmd")
 
 " Plugin Mappings {{{2
@@ -996,11 +1003,12 @@ let g:localvimrc_persistence_file = $MYVIMRUNTIME . '/localvimrc_persistent'
 " Set up neocomplete/neocomplcache, instead of YouCompleteMe.
 " runtime include/neocompl.vim
 
-if has('python')
+if has('python') || has('python3')
   " UltiSnips
   let g:UltiSnipsExpandTrigger       = "<tab>"
   let g:UltiSnipsJumpForwardTrigger  = "<tab>"
   let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+  let g:UltiSnipsListSnippets        = "<F8>"
   let g:UltiSnipsEditSplit           = "horizontal"
 
   " YouCompleteMe {{{
@@ -1030,6 +1038,9 @@ if has('python')
   " Gundo
   nnoremap <F7> :GundoToggle<CR>
   let g:gundo_preview_bottom = 1     " force wide window across bottom
+  if has('python3')
+    let g:gundo_prefer_python3 = 1
+  endif
 
   " Emmet, formerly Zen Coding
   "
@@ -1094,10 +1105,11 @@ noremap <Leader>gV :Gitv!<CR>
 " Signify - VCS changes in the gutter with signs
 let g:signify_vcs_list = ['git', 'hg', 'bzr']
 
-" Sessions
+" Sessions {{{3
 
 " Commands namespaced under Session for more consistent recall/completion
 let g:session_command_aliases = 1
+let g:session_autosave_periodic = 9  " minutes
 
 " Specky - RSpec plugin {{{3
 
