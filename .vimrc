@@ -1068,42 +1068,27 @@ map <Leader>vR :VCSReview<CR>
 map <Leader>vs :VCSStatus<CR>
 
 " Fugitive {{{
-noremap <C-g>s :Gstatus<CR>
-noremap <C-g>c :Gcommit<CR>
-noremap <C-g>d :Gdiff<CR>
-noremap <C-g>D :Gvdiff<CR>
-noremap <C-g>l :Glog<CR>
-noremap <C-g>w :Gwrite<CR>
-noremap <C-g>b :Gblame<CR>
+noremap <Leader>gs :Gstatus<CR>
+noremap <Leader>gc :Gcommit<CR>
+noremap <Leader>gd :Gdiff<CR>
+noremap <Leader>gD :Gvdiff<CR>
+noremap <Leader>gl :Glog<CR>
+noremap <Leader>gw :Gwrite<CR>
+noremap <Leader>gb :Gblame<CR>
 
-noremap <C-g>ap :GstageFile<CR>
+" `git add --patch`
+noremap <Leader>gap :GstageFile<CR>
 
 " Run any git command with output going to a git-smart temp buffer.
 " Good for `diff` just to see unified instead of vimdiff, `show`, stash, etc.
-noremap <C-g>gs :Gsplit!<Space>
-noremap <C-g>gv :Gvsplit!<Space>
+noremap <Leader>ggs :Gsplit!<Space>
+noremap <Leader>ggv :Gvsplit!<Space>
 
 " Selectively restored in ~/.vim/after/ftplugin/gitv.vim
 let g:Gitv_DoNotMapCtrlKey = 1
 
-noremap <C-g>v :Gitv<CR>
-noremap <C-g>V :Gitv!<CR>
-
-" Open a new tab for current file in :Gdiff mode -- `dp` puts hunks to the
-" index, i.e. it's basically `git add --patch`.
-"
-" Original buffer is left in leftmost window, so move there and remove it,
-" leaving only the side-by-side diff.
-"
-" Originally snagged this from Gary Bernhardt, I think, with tweaks.
-"
-" TODO: take a file as optional argument, support file of current line in
-" :Gstatus buffer
-command! -bar GstageFile tabedit % | vsplit | Gvdiff | wincmd t | wincmd q
-
-" Simple variation with status window at bottom, so you can easily `dv`
-" other files from there to diff and stage them.
-command! -bar Gstage GstageFile | Gstatus | wincmd J
+noremap <Leader>gv :Gitv<CR>
+noremap <Leader>gV :Gitv!<CR>
 " }}}
 
 " Signify - VCS changes in the gutter with signs
@@ -1249,6 +1234,22 @@ if has("eval")
   command! -bar -nargs=? -complete=help Vhelp vertical help <args>
   cabbrev vhelp Vhelp
   cabbrev vh Vhelp
+
+  " Open a new tab for current file in :Gdiff mode -- `dp` puts hunks to the
+  " index, i.e. it's basically `git add --patch`.
+  "
+  " Original buffer is left in leftmost window, so move there and remove it,
+  " leaving only the side-by-side diff.
+  "
+  " Originally snagged this from Gary Bernhardt, I think, with tweaks.
+  "
+  " TODO: take a file as optional argument, support file of current line in
+  " :Gstatus buffer
+  command! -bar GstageFile tabedit % | vsplit | Gvdiff | wincmd t | wincmd q
+
+  " Simple variation with status window at bottom, so you can easily `dv`
+  " other files from there to diff and stage them.
+  command! -bar Gstage GstageFile | Gstatus | wincmd J
 endif "}}}
 
 " vim:sw=2 foldmethod=marker foldlevel=0 foldclose=all commentstring="%s
