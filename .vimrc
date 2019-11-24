@@ -195,7 +195,10 @@ set foldopen-=block     " drives me nuts that moving with ] opens folds
 set grepprg=grep\ -rnH\ --exclude='.*.swp'\ --exclude='*~'\ --exclude=tags
 
 " Enhance :grep
-if executable('ag')
+if executable('rg')
+  set grepprg=rg\ --vimgrep\ $*
+  set grepformat=%f:%l:%c:%m
+elseif executable('ag')
   set grepprg=ag\ --vimgrep\ $*
   set grepformat=%f:%l:%c:%m
 elseif executable('ack')
@@ -260,7 +263,7 @@ if has("autocmd")
           \ endif
     "}}}
     " Automatically make scripts their own :Make/:Start runner for Dispatch
-	autocmd BufReadPost *
+    autocmd BufReadPost *
           \ if getline(1) =~# '^#!' |
           \   let b:dispatch = getline(1)[2:-1] . ' %' | let b:start = b:dispatch |
           \ endif
@@ -295,8 +298,6 @@ nnoremap <Down>  <C-d>
 
 " New trial for NERDtree and Tagbar: <Leader>[ and <Leader>]; or :pop and
 " :tag for these? Or <C-i>/<C-o> opening up Tab for LocalLeader...
-" nnoremap <Leader>, :NERDTreeToggle<CR>
-" nnoremap <Leader>. :TagbarToggle<CR>
 nnoremap <Leader>[ :NERDTreeToggle<CR>
 nnoremap <Leader>] :TagbarToggle<CR>
 
@@ -368,9 +369,11 @@ nnoremap <LocalLeader><F3> :Start<CR>
 nnoremap <silent> <F9> :if &previewwindow<Bar>pclose<Bar>elseif exists(':Gstatus')<Bar>exe 'Gstatus'<Bar>else<Bar>ls<Bar>endif<CR>
 
 " Easy paste mode toggling
+" TODO: free this up for something better, with unimpaired's yo I never use it anymore.
 set pastetoggle=<F6>
 
 " Toggle search hilighting
+" TODO: Practical Vim has the nice idea of overloading <C-l> to do redraw + hlsearch
 map <silent> <F11> :set invhlsearch<CR>
 imap <silent> <F11> <C-o>:set invhlsearch<CR>
 vmap <silent> <F11> :<C-u>set invhlsearch<CR>gv
@@ -785,6 +788,7 @@ if has("autocmd")
   endif
 
   let g:yankring_history_dir = s:my_backups_rootdir
+  let g:yankring_window_height = 12
 
   " Make sure YankRing plays nice with custom remapping.
   " See `:h yankring-custom-maps`
@@ -909,25 +913,41 @@ endif " has("autocmd")
 
 " Plugin Mappings {{{2
 
-" Ack Search
+" Note: I prefer to keep ftplugin-specific mappings in ~/.vim/after/ftplugin
+" as a matter of organization. Jump here with gf and use unimpaired's ]f & [f:
+"
+"    ~/.vim/after/ftplugin/haskell.vim
+"
+
+" Ack Search {{{
+" TODO: something to quickly search cword, e.g.
+" https://robots.thoughtbot.com/faster-grepping-in-vim
 map <Leader>a  :Ack! ''<Left>
 map <Leader>A  :AckWindow! ''<Left>
+map <Leader>l  :LAck! '' %<Left><Left><Left>
 map <Leader>n  :AckFromSearch!<CR>
 " Mnemonic: helpgrep, but consider making this a prefix for Lawrencium...
 map <Leader>hg :AckHelp! ''<Left>
 
 let g:ackhighlight = 1
 
-" If The Silver Searcher is available, use it.
-if executable('ag')
+" If a faster grep alternative is available, use it.
+if executable('rg')
+  let g:ackprg = 'rg --vimgrep'
+elseif executable('ag')
   let g:ackprg = 'ag --vimgrep'
+endif
 
-  " ag is fast enough to just eschew caching altogether. Hot damn.
+" ripgrep unfortunately doesn't have an ideal filename search mode for CtrlP
+if executable('fd')
+  let g:ctrlp_user_command = 'fd --type=file --full-path %s'
+  let g:ctrlp_use_caching = 0
+elseif executable('ag')
   let g:ctrlp_user_command = 'ag --nocolor -g "" %s'
   let g:ctrlp_use_caching = 0
 elseif executable('ack')
   let g:ctrlp_user_command = 'ack -k --nocolor -g "" %s'
-endif
+endif " }}}
 
 " Airline status bar {{{
 " TODO: detect availability
@@ -1231,4 +1251,4 @@ if has("eval")
   cabbrev vh Vhelp
 endif "}}}
 
-" vim:foldmethod=marker foldlevel=0 foldclose=all commentstring="%s
+" vim:sw=2 foldmethod=marker foldlevel=0 foldclose=all commentstring="%s
