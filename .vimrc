@@ -964,7 +964,9 @@ if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 let g:airline_symbols.maxlinenr = ''  " Default hamburger is clutter.
+let g:airline_symbols.linenr    = '⭡'
 
+let g:airline#extensions#fugitiveline#enabled = 1
 let g:airline#extensions#hunks#enabled = 0
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 0
@@ -974,7 +976,7 @@ let g:airline#extensions#tabline#tab_min_count = 2
 let g:airline#extensions#tabline#ignore_bufadd_pat = '\c\vgundo|tagbar|nerd_tree'
 
 " Trailing whitespace bugs me alright, but not this much.
-let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#whitespace#checks = [ 'indent', 'mixed-indent-file', 'conflicts' ]
 
 " let g:airline#extensions#tmuxline#enabled = 1
 " let g:airline#extensions#tmuxline#snapshot_file = "~/.tmux/airline-colors.conf"
