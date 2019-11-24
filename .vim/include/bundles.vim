@@ -77,7 +77,7 @@ NeoBundle 'tpope/vim-projectionist'
 NeoBundle 'tpope/vim-ragtag' " html, xml, haml, erb, php, jinja, django, ?
 NeoBundle 'tpope/vim-repeat'
 NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-unimpaired'
+NeoBundle 'tpope/vim-unimpaired', { 'frozen' : 1 }
 
 " All the huge third-party submodule deps are annoying, but I've tried
 " neocomplete and it's just unusably slow without tons of tuning :-/
