@@ -74,6 +74,7 @@ nmap <Space>v :action Vcs.QuickListPopupAction<CR>
 
 " More like quick definition -- shows source in pop-up
 nnoremap gD :action QuickImplementations<CR>
+nnoremap gr :action Refactorings.QuickListPopupAction<CR>
 
 " unimpaired.vim mappings
 " TODO: something for toggling IntelliJ's breadcrumbs
