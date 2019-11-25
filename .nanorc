@@ -20,4 +20,4 @@ set smarthome
 set smooth
 
 ## External syntax definitions:
-include "~/.nano_syntax"
+include "~/.config/nano/syntax.nanorc"
